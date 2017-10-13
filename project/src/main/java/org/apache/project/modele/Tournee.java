@@ -1,5 +1,7 @@
 package org.apache.project.modele;
 
-public class Tournee {
+import java.util.Observable;
+
+public class Tournee extends Observable {
 
 }

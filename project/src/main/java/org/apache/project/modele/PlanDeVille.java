@@ -1,5 +1,7 @@
 package org.apache.project.modele;
 
-public class PlanDeVille {
+import java.util.Observable;
 
+public class PlanDeVille extends Observable {
+	
 }
