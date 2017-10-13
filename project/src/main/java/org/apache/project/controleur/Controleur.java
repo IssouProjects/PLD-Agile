@@ -20,4 +20,12 @@ public class Controleur {
 		etatCourant = etatInit;
 		//fenetrePrincipale = new FenetrePrincipale(plan, this);
 	}
+	
+	/**
+	 * Change l'etat courant du controleur
+	 * @param etat le nouvel etat courant
+	 */
+	protected void setEtatCourant(Etat etat){
+		etatCourant = etat;
+	}
 }
