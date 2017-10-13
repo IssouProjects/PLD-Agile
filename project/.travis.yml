@@ -3,6 +3,9 @@ language: java
 jdk:
   - oraclejdk8
 
+before_install: 
+ - cd project
+
 script:
   - mvn clean package
   - bash <(curl -s https://codecov.io/bash)
