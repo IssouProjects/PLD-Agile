@@ -4,7 +4,10 @@ target
 .DS_Store
 src/.DS_Store
 
+#
 # Eclipse model
+#
+
 .metadata
 bin/
 tmp/
