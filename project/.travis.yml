@@ -4,6 +4,5 @@ jdk:
   - oraclejdk8
 
 script:
-  - cd project
   - mvn clean package
   - bash <(curl -s https://codecov.io/bash)
