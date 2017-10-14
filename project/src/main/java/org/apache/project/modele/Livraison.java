@@ -36,4 +36,12 @@ public class Livraison {
 		this.duree = duree;
 	}
 
+	public PlageHoraire getPlageHoraire() {
+		return plageHoraire;
+	}
+
+	public void setPlageHoraire(PlageHoraire plageHoraire) {
+		this.plageHoraire = plageHoraire;
+	}
+
 }
