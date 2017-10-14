@@ -7,11 +7,11 @@ public class Troncon {
 	private int idIntersectionDepart;
 	private int idIntersectionArrivee;
 	
-	public Troncon(int longueur, int idInterDepart, int idInterArrivee, String rue) {
-		this.setLongueur(longueur);
-		this.setNomRue(rue);
-		this.setIdIntersectionDepart(idInterDepart);
-		this.setIdIntersectionArrivee(idInterArrivee);
+	public Troncon(int longueur, int idInterDepart, int idInterArrivee, String nomRue) {
+		this.longueur=longueur;
+		this.nomRue =  nomRue;
+		this.idIntersectionDepart = idInterDepart;
+		this.idIntersectionArrivee = idInterArrivee;
 	}
 
 	public int getLongueur() {
