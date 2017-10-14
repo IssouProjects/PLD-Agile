@@ -4,14 +4,14 @@ public class Troncon {
 	
 	private int longueur;
 	private String nomRue;
-	private int idIntersectionDepart;
-	private int idIntersectionArrivee;
+	private Intersection IntersectionDepart;
+	private Intersection IntersectionArrivee;
 	
-	public Troncon(int longueur, int idInterDepart, int idInterArrivee, String nomRue) {
+	public Troncon(int longueur, Intersection InterDepart, Intersection InterArrivee, String nomRue) {
 		this.longueur=longueur;
 		this.nomRue =  nomRue;
-		this.idIntersectionDepart = idInterDepart;
-		this.idIntersectionArrivee = idInterArrivee;
+		this.IntersectionDepart = InterDepart;
+		this.IntersectionArrivee = InterArrivee;
 	}
 
 	public int getLongueur() {
@@ -30,19 +30,19 @@ public class Troncon {
 		this.nomRue = nomRue;
 	}
 
-	public int getIdIntersectionDepart() {
-		return idIntersectionDepart;
+	public Intersection getIdIntersectionDepart() {
+		return IntersectionDepart;
 	}
 
-	public void setIdIntersectionDepart(int idIntersectionDepart) {
-		this.idIntersectionDepart = idIntersectionDepart;
+	public void setIntersectionDepart(Intersection IntersectionDepart) {
+		this.IntersectionDepart = IntersectionDepart;
 	}
 
-	public int getIdIntersectionArrivee() {
-		return idIntersectionArrivee;
+	public Intersection getIntersectionArrivee() {
+		return IntersectionArrivee;
 	}
 
-	public void setIdIntersectionArrivee(int idIntersectionArrivee) {
-		this.idIntersectionArrivee = idIntersectionArrivee;
+	public void setIntersectionArrivee(Intersection IntersectionArrivee) {
+		this.IntersectionArrivee = IntersectionArrivee;
 	}
 }

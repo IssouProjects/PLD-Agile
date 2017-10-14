@@ -1,6 +1,5 @@
 package org.apache.project.modele;
 
-import java.sql.Time;
 
 public class Livraison {
 	
