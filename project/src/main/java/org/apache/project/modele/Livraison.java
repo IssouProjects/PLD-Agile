@@ -6,21 +6,18 @@ public class Livraison {
 	
 	private Intersection lieuDeLivraison;
 	private int duree;
-	private Time debutPlageHoraire;
-	private Time finPlageHoraire;
+	private PlageHoraire plageHoraire;
 	
-	public Livraison(Intersection lieuDeLivraison,int dureeLivraison, Time debutPlageHoraire, Time finPlageHoraire) {
+	public Livraison(Intersection lieuDeLivraison,int dureeLivraison, PlageHoraire plageHoraire) {
 		this.lieuDeLivraison=lieuDeLivraison;
 		this.duree=dureeLivraison;
-		this.debutPlageHoraire=debutPlageHoraire;
-		this.finPlageHoraire=finPlageHoraire;
+		this.plageHoraire=plageHoraire;
 	}
 	
 	public Livraison(Intersection lieuDeLivraison,int dureeLivraison) {
 		this.lieuDeLivraison=lieuDeLivraison;
 		this.duree=dureeLivraison;
-		this.debutPlageHoraire=null;
-		this.finPlageHoraire=null;
+		this.plageHoraire=null;
 	}
 	
 	public Intersection getLieuDeLivraison() {
@@ -37,22 +34,6 @@ public class Livraison {
 	
 	public void setDuree(int duree) {
 		this.duree = duree;
-	}
-	
-	public Time getDebutPlageHoraire() {
-		return debutPlageHoraire;
-	}
-	
-	public void setDebutPlageHoraire(Time debutPlageHoraire) {
-		this.debutPlageHoraire = debutPlageHoraire;
-	}
-	
-	public Time getFinPlageHoraire() {
-		return finPlageHoraire;
-	}
-	
-	public void setFinPlageHoraire(Time finPlageHoraire) {
-		this.finPlageHoraire = finPlageHoraire;
 	}
 
 }
