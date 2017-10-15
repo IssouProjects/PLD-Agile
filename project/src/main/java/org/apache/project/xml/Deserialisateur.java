@@ -83,7 +83,7 @@ public class Deserialisateur {
     	Long destination = Long.parseLong(element.getAttribute("destination"));
     	double longueur = Double.parseDouble(element.getAttribute("longueur"));
     	String nomRue = element.getAttribute("nomRue");
-    	Long origine = Long.parseLong("origine");
+    	Long origine = Long.parseLong(element.getAttribute("origine"));
     	plan.ajouterTroncon(longueur, origine, destination, nomRue);
     }
     
