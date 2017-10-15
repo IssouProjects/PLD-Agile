@@ -91,10 +91,6 @@ public class FenetrePrincipale extends Application{
         
         stage.setScene(scene);
         stage.show();
-
-        PlanDeVille pdv = new PlanDeVille();
-        
-        afficherPlanDeVille(pdv);
     }
     
     public void afficherPlanDeVille(PlanDeVille plan){
