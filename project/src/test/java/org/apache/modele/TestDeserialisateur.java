@@ -23,7 +23,7 @@ public class TestDeserialisateur extends TestCase {
 	}
 	
 	public void testChargerPlanDeVille() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
-		File xml = new File("src\\test\\java\\org\\apache\\modele\\planLyonPetit.xml");
+		File xml = new File("src/test/java/org/apache/modele/planLyonPetit.xml");
 		PlanDeVille plan = new PlanDeVille();
 		Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
 	}
