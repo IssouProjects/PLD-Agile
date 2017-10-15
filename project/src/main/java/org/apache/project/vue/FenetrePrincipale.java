@@ -1,7 +1,6 @@
 package org.apache.project.vue;
 
 import org.apache.project.modele.PlanDeVille;
-import org.apache.project.xml.Deserialisateur;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
