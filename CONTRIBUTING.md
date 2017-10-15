@@ -47,6 +47,9 @@ Une pull request permet la discussion sur les modifications, elle ne sert pas _j
 ## FAQ
 
 ### J'ai créé ma branche, mais depuis de nouveaux commits sont sur `master`, comment je fais pour les récupérer dans ma branche ?
+
+Faire un push de la branche à mettre à jour avant (au cas-où ça se passe mal)
+
 ``` bash
 # On met à jour master avec les derniers commits
 # IMPORTANT
