@@ -2,19 +2,19 @@ package org.apache.project.modele;
 
 public class Troncon {
 	
-	private Long longueur;
+	private double longueur;
 	private String nomRue;
 	private Intersection IntersectionDepart;
 	private Intersection IntersectionArrivee;
 	
-	public Troncon(Long longueur, Intersection InterDepart, Intersection InterArrivee, String nomRue) {
+	public Troncon(double longueur, Intersection InterDepart, Intersection InterArrivee, String nomRue) {
 		this.longueur=longueur;
 		this.nomRue =  nomRue;
 		this.IntersectionDepart = InterDepart;
 		this.IntersectionArrivee = InterArrivee;
 	}
 
-	public Long getLongueur() {
+	public double getLongueur() {
 		return longueur;
 	}
 
@@ -30,7 +30,7 @@ public class Troncon {
 		this.nomRue = nomRue;
 	}
 
-	public Intersection getIdIntersectionDepart() {
+	public Intersection getIntersectionDepart() {
 		return IntersectionDepart;
 	}
 
