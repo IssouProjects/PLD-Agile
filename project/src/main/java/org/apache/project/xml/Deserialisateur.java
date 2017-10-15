@@ -80,11 +80,11 @@ public class Deserialisateur {
     // TODO : Implémenter le constructeur Intersection
     // TODO : Gérer les erreurs
     private static void construireTroncon(Element element, PlanDeVille plan) {
-    	Long dest = Long.parseLong(element.getAttribute("dest"));
+    	Long destination = Long.parseLong(element.getAttribute("destination"));
     	double longueur = Double.parseDouble(element.getAttribute("longueur"));
     	String nomRue = element.getAttribute("nomRue");
     	Long origine = Long.parseLong("origine");
-    	plan.ajouterTroncon(longueur, origine, dest, nomRue);
+    	plan.ajouterTroncon(longueur, origine, destination, nomRue);
     }
     
     // TODO : Implémenter le constructeur Livraison (celui ci-dessous, sans les init des attributs qui manquent)
