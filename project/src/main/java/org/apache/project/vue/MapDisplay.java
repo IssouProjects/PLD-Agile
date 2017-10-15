@@ -87,8 +87,8 @@ public class MapDisplay extends Pane{
     	for(Troncon t : troncons){
     		Line line = new Line();
     		
-    		line.setStartX(t.getIdIntersectionDepart().getCoordX()-minimalX);
-    		line.setStartY(t.getIdIntersectionDepart().getCoordY()-minimalY);
+    		line.setStartX(t.getIntersectionDepart().getCoordX()-minimalX);
+    		line.setStartY(t.getIntersectionDepart().getCoordY()-minimalY);
     		
     		line.setEndX(t.getIntersectionArrivee().getCoordX()-minimalX);
     		line.setEndY(t.getIntersectionArrivee().getCoordY()-minimalY);
