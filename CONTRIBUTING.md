@@ -59,7 +59,7 @@ git pull
 
 ## On récupère les commits de master dans la branche
 git checkout branche_a_mettre_a_jour
-git rebase master
+git merge master
 ```
 
 _En savoir plus ici : https://guides.github.com/introduction/flow/_
