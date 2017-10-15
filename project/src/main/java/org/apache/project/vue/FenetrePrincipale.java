@@ -1,7 +1,7 @@
 package org.apache.project.vue;
 
 import org.apache.project.modele.PlanDeVille;
-import org.apache.project.xml.Deserialiseur;
+import org.apache.project.xml.Deserialisateur;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -95,11 +95,6 @@ public class FenetrePrincipale extends Application{
 
         PlanDeVille pdv = new PlanDeVille();
         
-        try{
-        	Deserialiseur.chargerPlanVille(pdv);
-        } catch (Exception e){
-        	System.out.println(e.getMessage());
-        }
         afficherPlanDeVille(pdv);
     }
     
