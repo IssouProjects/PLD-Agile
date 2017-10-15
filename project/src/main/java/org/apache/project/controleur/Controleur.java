@@ -28,4 +28,11 @@ public class Controleur {
 	protected void setEtatCourant(Etat etat){
 		etatCourant = etat;
 	}
+	
+	/**
+	 * Methode appelee par fenetre apres un clic sur le bouton "Ouvrir un plan de ville"
+	 */
+	public void ouvrirPlanDeVille() {
+		etatCourant.ouvrirPlanDeVille(planDeVille, fenetrePrincipale);
+	}
 }
