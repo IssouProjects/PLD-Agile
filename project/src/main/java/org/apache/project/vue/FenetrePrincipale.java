@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 public class FenetrePrincipale extends Application{
 	
-	MapContainer map;
+	MapContainer mapContainer;
 	
 	public static void main(String[] args) {
         launch(args);
@@ -51,8 +51,8 @@ public class FenetrePrincipale extends Application{
     	mapButtonsLayout.getChildren().add(resetPosButton);
     	mapButtonsLayout.getChildren().add(resetScaleButton);
         
-        map = new MapContainer(600,600, scene);
-        mapLayout.getChildren().add(map);
+        mapContainer = new MapContainer(600,600, scene);
+        mapLayout.getChildren().add(mapContainer);
         mapLayout.getChildren().add(mapButtonsLayout);
         mapLayout.setSpacing(10d);
     	
@@ -79,12 +79,12 @@ public class FenetrePrincipale extends Application{
         
         resetPosButton.setOnAction(new EventHandler<ActionEvent>() {
     	    @Override public void handle(ActionEvent e) {
-    	        map.resetMapPosition();
+    	        mapContainer.resetMapPosition();
     	    }
     	});
         resetScaleButton.setOnAction(new EventHandler<ActionEvent>() {
     	    @Override public void handle(ActionEvent e) {
-    	        map.resetMapZoom();
+    	        mapContainer.resetMapZoom();
     	    }
     	});
         
@@ -98,7 +98,7 @@ public class FenetrePrincipale extends Application{
     }
     
     public void afficherPlanDeVille(PlanDeVille plan){
-    	map.getMapDisplay().afficherPlanDeVille(plan);
+    	mapContainer.getMapDisplay().afficherPlanDeVille(plan);
     }
 }
 

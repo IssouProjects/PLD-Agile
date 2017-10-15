@@ -11,7 +11,7 @@ import javafx.scene.shape.StrokeLineCap;
 
 public class MapContainer extends Pane{
 	
-	private MapDisplay map;
+	private MapDisplay mapDisplay;
 	
 	Rectangle clipRectangle;
 	
@@ -26,12 +26,12 @@ public class MapContainer extends Pane{
 		clipRectangle.heightProperty().bind(heightProperty());
 		this.setClip(clipRectangle);
 		
-		map = new MapDisplay(height,width);
+		mapDisplay = new MapDisplay(height,width);
         
-        getChildren().add(map);
+        getChildren().add(mapDisplay);
         
         // we add user controls for the map: zoom in with the scrollwheel, pan with the mouse
-        MapGestures mapGestures = new MapGestures(map);
+        MapGestures mapGestures = new MapGestures(mapDisplay);
         scene.addEventFilter( MouseEvent.MOUSE_PRESSED, mapGestures.getOnMousePressedEventHandler());
         scene.addEventFilter( MouseEvent.MOUSE_DRAGGED, mapGestures.getOnMouseDraggedEventHandler());
         scene.addEventFilter( ScrollEvent.ANY, mapGestures.getOnScrollEventHandler());
@@ -39,16 +39,16 @@ public class MapContainer extends Pane{
 	}
 	
 	public void resetMapZoom() {
-		map.setScale(1.0d);
-		map.setScale(1.0d);
+		mapDisplay.setScale(1.0d);
+		mapDisplay.setScale(1.0d);
 	}
 
 	public MapDisplay getMapDisplay() {
-		return map;
+		return mapDisplay;
 	}
 	
 	public void resetMapPosition(){
-		map.setTranslateX(0d);
-		map.setTranslateY(0d);
+		mapDisplay.setTranslateX(0d);
+		mapDisplay.setTranslateY(0d);
 	}
 }
