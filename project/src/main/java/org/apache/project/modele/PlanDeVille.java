@@ -8,23 +8,23 @@ import java.util.Observable;
 
 public class PlanDeVille extends Observable {
 	
-	private Map<Integer,Intersection> intersections;
+	private Map<Long,Intersection> intersections;
 	private List<Troncon> troncons;
 	
 	public PlanDeVille() {
-		intersections = new HashMap<Integer, Intersection>();
+		intersections = new HashMap<Long, Intersection>();
 		troncons = new ArrayList<Troncon>();
 	}
 	
-	public void ajouterIntersection(int id, int coordX, int coordY) {
+	public void ajouterIntersection(Long id, Long coordX, Long coordY) {
 		intersections.put(id, new Intersection(id,coordX,coordY));
 	}
 	
-	public void ajouterTroncon(int numDepart, int numArrivee, String nomRue, int distance) {
+	public void ajouterTroncon(Long numDepart, Long numArrivee, String nomRue, Long distance) {
 		troncons.add(new Troncon(distance,intersections.get(numDepart),intersections.get(numArrivee),nomRue));
 	}
 	
-	public Map<Integer,Intersection> getAllIntersections(){
+	public Map<Long,Intersection> getAllIntersections(){
 		return intersections;
 	}
 	
