@@ -80,10 +80,10 @@ public class Deserialiseur {
     // TODO : Implémenter le constructeur Intersection
     // TODO : Gérer les erreurs
     private static void construireTroncon(Element element, PlanDeVille plan) {
-    	int dest = Integer.parseInt(element.getAttribute("dest"));
+    	Long dest = Long.parseLong(element.getAttribute("dest"));
     	double longueur = Double.parseDouble(element.getAttribute("longueur"));
     	String nomRue = element.getAttribute("nomRue");
-    	int origine = Integer.parseInt("origine");
+    	Long origine = Long.parseLong("origine");
     	plan.ajouterTroncon(longueur, origine, dest, nomRue);
     }
     
