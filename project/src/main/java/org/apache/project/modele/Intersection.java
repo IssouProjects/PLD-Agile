@@ -5,39 +5,39 @@ import java.util.List;
 
 public class Intersection {
 	
-	private int idNoeud;
-	private int coordX;
-	private int coordY;
+	private Long idNoeud;
+	private Long coordX;
+	private Long coordY;
 	private List<Troncon> tronconsPartants;
 	
-	public Intersection(int id, int x, int y) {
+	public Intersection(Long id, Long x, Long y) {
 		this.setIdNoeud(id);
 		this.setCoordX(x);
 		this.setCoordY(y);
 		this.tronconsPartants=new ArrayList<Troncon>();
 	}
 
-	public int getIdNoeud() {
+	public Long getIdNoeud() {
 		return idNoeud;
 	}
 
-	public void setIdNoeud(int idNoeud) {
+	public void setIdNoeud(Long idNoeud) {
 		this.idNoeud = idNoeud;
 	}
 
-	public int getCoordX() {
+	public Long getCoordX() {
 		return coordX;
 	}
 
-	public void setCoordX(int coordX) {
+	public void setCoordX(Long coordX) {
 		this.coordX = coordX;
 	}
 
-	public int getCoordY() {
+	public Long getCoordY() {
 		return coordY;
 	}
 
-	public void setCoordY(int coordY) {
+	public void setCoordY(Long coordY) {
 		this.coordY = coordY;
 	}
 	
