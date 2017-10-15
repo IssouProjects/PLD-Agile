@@ -24,11 +24,11 @@ public class PlanDeVille extends Observable {
 		troncons.add(new Troncon(distance,intersections.get(numDepart),intersections.get(numArrivee),nomRue));
 	}
 	
-	public Map<Integer,Intersection> getAllIntersection(){
+	public Map<Integer,Intersection> getAllIntersections(){
 		return intersections;
 	}
 	
-	public List<Troncon> getAllTroncon(){
+	public List<Troncon> getAllTroncons(){
 		return troncons;
 	}
 }
