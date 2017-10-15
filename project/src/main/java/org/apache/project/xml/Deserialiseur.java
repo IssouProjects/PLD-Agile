@@ -48,13 +48,11 @@ public class Deserialiseur {
     private static void construirePlanVille(Element noeudDOMRacine, PlanDeVille plan) throws ExceptionXML, NumberFormatException{
     	NodeList listeIntersections = noeudDOMRacine.getElementsByTagName("noeud");
     	for(int i = 0; i < listeIntersections.getLength(); i++) {
-    		Intersection nouvIntersection = construireIntersection((Element)listeIntersections.item(i));
-    		plan.ajouterIntersection(nouvIntersection);
+    		construireIntersection((Element)listeIntersections.item(i), plan);
     	}
     	NodeList listeTroncons = noeudDOMRacine.getElementsByTagName("troncon");
     	for(int i = 0; i < listeTroncons.getLength(); i++) {
-    		Troncon nouvTroncon = construireTroncon((Element)listeTroncons.item(i));
-    		plan.ajouterTroncon(nouvTroncon);
+    		construireTroncon((Element)listeTroncons.item(i), plan);
     	}
     }
     
@@ -66,35 +64,36 @@ public class Deserialiseur {
     	String heureDepart = entrepot.getAttribute("heureDepart");
     	NodeList listeLivraisons = noeudDOMRacine.getElementsByTagName("livraison");
     	for(int i = 0; i<listeLivraisons.getLength(); i++) {
-    		Livraison nouvLivraison = construireLivraison((Element)listeLivraisons.item(i));
-    		demande.ajouterLivraison(nouvLivraison);
+    		construireLivraison((Element)listeLivraisons.item(i), demande);
     	}
     }
     
     // TODO : Implémenter le constructeur Intersection
     // TODO : Gérer les erreurs
-    private static Intersection construireIntersection(Element element) {
+    private static void construireIntersection(Element element, PlanDeVille plan) {
     	int id = Integer.parseInt(element.getAttribute("id"));
     	int x = Integer.parseInt(element.getAttribute("x"));
     	int y = Integer.parseInt(element.getAttribute("y"));
-    	return new Intersection(id, x, y);
+    	plan.ajouterIntersection(id, x, y);
     }
     
     // TODO : Implémenter le constructeur Intersection
     // TODO : Gérer les erreurs
-    private static Troncon construireTroncon(Element element) {
+    private static void construireTroncon(Element element, PlanDeVille plan) {
     	int dest = Integer.parseInt(element.getAttribute("dest"));
     	double longueur = Double.parseDouble(element.getAttribute("longueur"));
     	String nomRue = element.getAttribute("nomRue");
     	int origine = Integer.parseInt("origine");
-    	return new Troncon(origine, dest, nomRue, longueur);
+    	plan.ajouterTroncon(longueur, origine, dest, nomRue);
     }
     
     // TODO : Implémenter le constructeur Livraison (celui ci-dessous, sans les init des attributs qui manquent)
     // TODO : Gérer les erreurs
-    private static Livraison construireLivraison(Element element) {
+    // TODO : COMMENT FAIRE LE LIEN
+    private static void construireLivraison(Element element, DemandeDeLivraison demande) {
     	int adresse = Integer.parseInt(element.getAttribute("adresse"));
     	int duree = Integer.parseInt(element.getAttribute("duree"));
-    	return new Livraison(adresse, duree);
+    	//demande.setAdresseEntrepot(adresse);
+    	//demande.setDuree(duree);
     }
 }
