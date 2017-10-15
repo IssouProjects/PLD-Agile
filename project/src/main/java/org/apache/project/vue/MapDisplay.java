@@ -26,10 +26,10 @@ public class MapDisplay extends Pane{
 	final int defaultTronconWidth = 80;
 	final Color defaultTronconColor = Color.WHITE;
 	
-	Integer minimalX = Integer.MAX_VALUE;
-	Integer maximalX = 0;
-	Integer minimalY = Integer.MAX_VALUE;
-	Integer maximalY = 0;
+	Long minimalX = Long.MAX_VALUE;
+	Long maximalX = 0l;
+	Long minimalY = Long.MAX_VALUE;
+	Long maximalY = 0l;
 	
 
     public MapDisplay(int height, int width) {
@@ -62,12 +62,15 @@ public class MapDisplay extends Pane{
     	
     	Map<Long, Intersection> intersections = plan.getAllIntersections();
     	
+    	if(intersections.isEmpty())
+    		return;
+    	
     	// first we must find the minimum and the maximum coordinate to
     	// find if the coordinate system must be changed
-    	minimalX = Integer.MAX_VALUE;
-    	maximalX = 0;
-    	minimalY = Integer.MAX_VALUE;
-    	maximalY = 0;
+    	minimalX = Long.MAX_VALUE;
+    	maximalX = 0l;
+    	minimalY = Long.MAX_VALUE;
+    	maximalY = 0l;
     	for (Map.Entry<Long, Intersection> entry : intersections.entrySet()){
     		Intersection i = entry.getValue();
     		if(i.getCoordX() < minimalX) minimalX = i.getCoordX();
@@ -85,8 +88,8 @@ public class MapDisplay extends Pane{
     	for(Troncon t : troncons){
     		Line line = new Line();
     		
-    		line.setStartX(t.getIntersectionDepart().getCoordX()-minimalX);
-    		line.setStartY(t.getIntersectionDepart().getCoordY()-minimalY);
+    		line.setStartX(t.getIdIntersectionDepart().getCoordX()-minimalX);
+    		line.setStartY(t.getIdIntersectionDepart().getCoordY()-minimalY);
     		
     		line.setEndX(t.getIntersectionArrivee().getCoordX()-minimalX);
     		line.setEndY(t.getIntersectionArrivee().getCoordY()-minimalY);
