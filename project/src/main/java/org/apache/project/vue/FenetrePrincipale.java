@@ -57,7 +57,7 @@ public class FenetrePrincipale extends Application{
     	mapButtonsLayout.getChildren().add(resetPosButton);
     	mapButtonsLayout.getChildren().add(resetScaleButton);
         
-        MapContainer map = new MapContainer(600,600, scene);
+        final MapContainer map = new MapContainer(600,600, scene);
         mapLayout.getChildren().add(map);
         mapLayout.getChildren().add(mapButtonsLayout);
         mapLayout.setSpacing(10d);
