@@ -17,7 +17,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class Deserialiseur {
+public class Deserialisateur {
 	
 	public static void chargerPlanVille(PlanDeVille plan) throws ParserConfigurationException, SAXException, IOException, ExceptionXML{
 		File xml = OuvreurXML.getInstance().ouvreFichier(true);
