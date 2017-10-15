@@ -27,5 +27,16 @@ public class TestDeserialisateur extends TestCase {
 		PlanDeVille plan = new PlanDeVille();
 		Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
 	}
+	
+	public void testChargerPlanDeVilleIncorrect() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+		try {
+			File xml = new File("src/test/java/org/apache/modele/planLyonPetitIncorrect.xml");
+			PlanDeVille plan = new PlanDeVille();
+			Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
+	        fail("Une exception devrait etre renvoyee car ce fichier a un noeud invalide");
+	    } catch (Exception e) {
+	        assertEquals(e.getMessage(), "Document non conforme");
+	    }
+	}
 
 }
