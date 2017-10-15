@@ -23,4 +23,12 @@ public class PlanDeVille extends Observable {
 	public void ajouterTroncon(int numDepart, int numArrivee, String nomRue, int distance) {
 		troncons.add(new Troncon(distance,intersections.get(numDepart),intersections.get(numArrivee),nomRue));
 	}
+	
+	public Map<Integer,Intersection> getAllIntersection(){
+		return intersections;
+	}
+	
+	public List<Troncon> getAllTroncon(){
+		return troncons;
+	}
 }
