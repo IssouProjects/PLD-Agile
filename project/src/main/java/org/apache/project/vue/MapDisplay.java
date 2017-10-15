@@ -20,10 +20,10 @@ public class MapDisplay extends Pane{
 	DoubleProperty myScale = new SimpleDoubleProperty(1.0);
 	
 	// Map elements display
-	final int defaultIntersectionRadius = 3;
+	final int defaultIntersectionRadius = 100;
 	final Color defaultIntersectionColor = Color.WHITE;
 	
-	final int defaultTronconWidth = 3;
+	final int defaultTronconWidth = 80;
 	final Color defaultTronconColor = Color.WHITE;
 	
 	Integer minimalX = Integer.MAX_VALUE;
@@ -60,7 +60,7 @@ public class MapDisplay extends Pane{
     	this.getChildren().clear();
     	
     	
-    	Map<Integer, Intersection> intersections = plan.getAllIntersections();
+    	Map<Long, Intersection> intersections = plan.getAllIntersections();
     	
     	// first we must find the minimum and the maximum coordinate to
     	// find if the coordinate system must be changed
@@ -68,27 +68,16 @@ public class MapDisplay extends Pane{
     	maximalX = 0;
     	minimalY = Integer.MAX_VALUE;
     	maximalY = 0;
-    	for (Map.Entry<Integer, Intersection> entry : intersections.entrySet()){
+    	for (Map.Entry<Long, Intersection> entry : intersections.entrySet()){
     		Intersection i = entry.getValue();
     		if(i.getCoordX() < minimalX) minimalX = i.getCoordX();
     		if(i.getCoordX() > maximalX) maximalX = i.getCoordX();
-    		if(i.getCoordX() < minimalY) minimalY = i.getCoordY();
-    		if(i.getCoordX() > maximalY) maximalY = i.getCoordY();
+    		if(i.getCoordY() < minimalY) minimalY = i.getCoordY();
+    		if(i.getCoordY() > maximalY) maximalY = i.getCoordY();
     	}
     	
-    	// adding all intersections
-    	for (Map.Entry<Integer, Intersection> entry : intersections.entrySet()){
-    		
-            Circle circle = new Circle();
-            
-            circle.setCenterX(entry.getValue().getCoordX()-minimalX);
-            circle.setCenterY(entry.getValue().getCoordY()-minimalY);
-            
-            circle.setStroke(defaultIntersectionColor);
-            circle.setRadius(defaultIntersectionRadius);
-            
-            getChildren().add(circle);
-    	}
+    	this.setPrefWidth(maximalX-minimalX);
+    	this.setPrefHeight(maximalY-minimalY);
     	
     	//adding all troncons
     	List<Troncon> troncons = plan.getAllTroncons();
@@ -96,11 +85,33 @@ public class MapDisplay extends Pane{
     	for(Troncon t : troncons){
     		Line line = new Line();
     		
-    		line.setStartX(t.getIdIntersectionDepart().getCoordX()-minimalX);
-    		line.setStartY(t.getIdIntersectionDepart().getCoordY()-minimalY);
+    		line.setStartX(t.getIntersectionDepart().getCoordX()-minimalX);
+    		line.setStartY(t.getIntersectionDepart().getCoordY()-minimalY);
     		
-    		line.setEndX(t.getIdIntersectionDepart().getCoordX()-minimalX);
-    		line.setEndY(t.getIdIntersectionDepart().getCoordY()-minimalX);
+    		line.setEndX(t.getIntersectionArrivee().getCoordX()-minimalX);
+    		line.setEndY(t.getIntersectionArrivee().getCoordY()-minimalY);
+    		
+    		line.setStroke(defaultTronconColor);
+    		line.setStrokeWidth(defaultTronconWidth);
+    		
+    		getChildren().add(line);
     	}
+    	
+    	// adding all intersections
+    	for (Map.Entry<Long, Intersection> entry : intersections.entrySet()){
+    		
+            Circle circle = new Circle();
+            
+            circle.setCenterX(entry.getValue().getCoordX()-minimalX);
+            circle.setCenterY(entry.getValue().getCoordY()-minimalY);
+            
+            circle.setFill(defaultIntersectionColor);
+            circle.setStroke(defaultIntersectionColor);
+            circle.setRadius(defaultIntersectionRadius);
+            
+            getChildren().add(circle);
+    	}
+    	
+    	
     }
 }

@@ -6,7 +6,7 @@ import javafx.scene.input.ScrollEvent;
 
 public class MapGestures {
 	private static final double MAX_SCALE = 10.0d;
-    private static final double MIN_SCALE = .1d;
+    private static final double MIN_SCALE = .001d;
 
     private DragContext sceneDragContext = new DragContext();
 
