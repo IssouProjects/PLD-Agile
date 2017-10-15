@@ -44,4 +44,9 @@ public class Intersection {
 	public void ajouterTronconPartant(Troncon unTroncon) {
 		this.tronconsPartants.add(unTroncon);
 	}
+
+	public List<Troncon> getTronconsPartants() {
+		return tronconsPartants;
+	}
+	
 }
