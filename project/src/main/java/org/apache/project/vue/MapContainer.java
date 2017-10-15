@@ -27,13 +27,6 @@ public class MapContainer extends Pane{
 		this.setClip(clipRectangle);
 		
 		map = new MapDisplay(height,width);
-		
-		// example of a street
-        Line line = new Line(10,200,100,10);
-        line.setStrokeWidth(3);
-        line.setStroke(Color.WHITE);
-        line.setStrokeLineCap(StrokeLineCap.ROUND);
-        map.getChildren().add(line);
         
         getChildren().add(map);
         
@@ -50,7 +43,7 @@ public class MapContainer extends Pane{
 		map.setScale(1.0d);
 	}
 
-	public MapDisplay getMap() {
+	public MapDisplay getMapDisplay() {
 		return map;
 	}
 	

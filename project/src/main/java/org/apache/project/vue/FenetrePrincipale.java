@@ -1,5 +1,7 @@
 package org.apache.project.vue;
 
+import org.apache.project.modele.PlanDeVille;
+
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -24,6 +26,9 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.Stage;
 
 public class FenetrePrincipale extends Application{
+	
+	MapContainer map;
+	
 	public static void main(String[] args) {
         launch(args);
     }
@@ -98,6 +103,10 @@ public class FenetrePrincipale extends Application{
         stage.setScene(scene);
         stage.show();
 
+    }
+    
+    public void afficherPlanDeVille(PlanDeVille plan){
+    	map.getMapDisplay().afficherPlanDeVille(plan);
     }
 }
 
