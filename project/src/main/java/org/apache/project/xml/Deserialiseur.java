@@ -71,9 +71,9 @@ public class Deserialiseur {
     // TODO : Implémenter le constructeur Intersection
     // TODO : Gérer les erreurs
     private static void construireIntersection(Element element, PlanDeVille plan) {
-    	int id = Integer.parseInt(element.getAttribute("id"));
-    	int x = Integer.parseInt(element.getAttribute("x"));
-    	int y = Integer.parseInt(element.getAttribute("y"));
+    	Long id = Long.parseLong(element.getAttribute("id"));
+    	Long x = Long.parseLong(element.getAttribute("x"));
+    	Long y = Long.parseLong(element.getAttribute("y"));
     	plan.ajouterIntersection(id, x, y);
     }
     
