@@ -3,8 +3,8 @@ import java.util.*;
 
 public class Astar {
 	
-	Map <Long, noeud> listeOuverte = new HashMap<>();
-	Map <Long, noeud> listeFermee = new HashMap<>();
+	Map <Long, noeud> listeOuverte = new HashMap<Long, noeud>();
+	Map <Long, noeud> listeFermee = new HashMap<Long, noeud>();
 	
 	class noeud {
 		public double coutOrigine;

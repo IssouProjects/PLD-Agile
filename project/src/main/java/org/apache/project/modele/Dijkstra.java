@@ -10,9 +10,6 @@ import org.apache.project.modele.Astar.noeud;
 
 public class Dijkstra {
 	
-	Map <Long, noeud> listeOuverte = new HashMap<>();
-	Map <Long, noeud> listeFermee = new HashMap<>();
-	
 	class noeud {
 		public double coutOrigine;
 		public Long idAncetre;
@@ -27,6 +24,11 @@ public class Dijkstra {
 		}
 	
 	}
+	
+	Map <Long, noeud> listeOuverte = new HashMap<Long, noeud>();
+	Map <Long, noeud> listeFermee = new HashMap<Long, noeud>();
+	
+	
 	
 	public List<Chemin> PrincipalDijkstra(List<Intersection> plan_inter, List<Intersection> livraison_inter)
 	{
