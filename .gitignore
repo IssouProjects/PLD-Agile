@@ -3,6 +3,8 @@ target
 .settings
 .DS_Store
 src/.DS_Store
+.project
+
 #Annoying file
 sh.exe.stackdump
 
