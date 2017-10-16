@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.xml.Deserialisateur;
 import org.apache.project.xml.ExceptionXML;
@@ -26,6 +27,15 @@ public class TestDeserialisateur extends TestCase {
 		File xml = new File("src/test/java/org/apache/modele/planLyonPetit.xml");
 		PlanDeVille plan = new PlanDeVille();
 		Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
+	}
+	
+	public void testChargerDemandeDeLivraison() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+		File xml =new File("src/test/java/org/apache/modele/DLmoyen5TW1.xml");
+		File planxml = new File("src/test/java/org/apache/modele/planLyonPetit.xml");
+		PlanDeVille plan = new PlanDeVille();
+		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+		DemandeDeLivraison demande =new DemandeDeLivraison();
+		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
 	}
 	
 	public void testChargerPlanDeVilleIncorrect() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {

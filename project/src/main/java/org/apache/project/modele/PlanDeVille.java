@@ -33,6 +33,6 @@ public class PlanDeVille extends Observable {
 	}
 	
 	public Intersection getIntersectionById(int id) {
-		return intersections.get(id);
+		return intersections.get((long)id);
 	}
 }
