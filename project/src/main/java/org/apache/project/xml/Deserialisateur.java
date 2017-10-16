@@ -2,6 +2,9 @@ package org.apache.project.xml;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -10,6 +13,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
+import org.apache.project.modele.PlageHoraire;
 import org.apache.project.modele.PlanDeVille;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -60,10 +64,10 @@ public class Deserialisateur {
     
     // TODO : Gérer les erreurs
     private static void construireDemandeLivraison(Element noeudDOMRacine, DemandeDeLivraison demande,PlanDeVille plan) throws ExceptionXML, NumberFormatException{
+    	
     	Element entrepot = (Element)noeudDOMRacine.getElementsByTagName("entrepot").item(0);
-    	// TODO : Formater l'heure convenablement
     	String heureDepart = entrepot.getAttribute("heureDepart");
-    	//demande.setHeureDepart(heureDepart);
+    	demande.setHeureDepart(getTimeFromString(heureDepart));
     	Intersection adresseEntrepot = plan.getIntersectionById(Integer.parseInt(entrepot.getAttribute("adresse")));
     	demande.setAdresseEntrepot(adresseEntrepot);
     	
@@ -92,14 +96,29 @@ public class Deserialisateur {
     }
     
     // TODO : Gérer les erreurs
-    // TODO : COMMENT FAIRE LE LIEN
+    // TODO : Gerer cas erreur y a un debut mais pas de fin de plage horaire
     private static void construireLivraison(Element element, DemandeDeLivraison demande, PlanDeVille plan) {
     	int adresse = Integer.parseInt(element.getAttribute("adresse"));
     	int duree = Integer.parseInt(element.getAttribute("duree"));
-    	/*if() {
-    		TODO Faire cas o� il y a des plages horaires
-    	}*/
-    	Livraison uneLivraison= new Livraison(plan.getIntersectionById(adresse), duree);
+    	Livraison uneLivraison = new Livraison(plan.getIntersectionById(adresse), duree);;
+    	if(element.getAttribute("debutPlage")!=null) {
+    		Time debut = getTimeFromString(element.getAttribute("debutPlage"));
+    		Time fin = getTimeFromString(element.getAttribute("finPlage"));
+    		PlageHoraire ph = new PlageHoraire(debut, fin);
+    		uneLivraison.setPlageHoraire(ph);
+    	}
     	demande.ajouterLivraison(uneLivraison);    	
+    }
+    
+    /** Transforme une heure au format "hour:min:sec" en un objet Time
+     * @param time
+     * @return
+     */
+    private static Time getTimeFromString(String time) {
+    	List<String> hmsListStr = Arrays.asList(time.split(":"));
+    	int hours = Integer.parseInt(hmsListStr.get(0));
+    	int minutes = Integer.parseInt(hmsListStr.get(1));
+    	int seconds = Integer.parseInt(hmsListStr.get(2));
+    	return new Time(hours, minutes, seconds);
     }
 }
