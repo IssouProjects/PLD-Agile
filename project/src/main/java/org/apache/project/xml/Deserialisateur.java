@@ -21,7 +21,11 @@ public class Deserialisateur {
 	
 	public static void chargerPlanVille(PlanDeVille plan) throws ParserConfigurationException, SAXException, IOException, ExceptionXML{
 		File xml = OuvreurXML.getInstance().ouvreFichier(true);
-        DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
+		chargerPlanDeVilleFichier(plan, xml);
+	}
+	
+	public static void chargerPlanDeVilleFichier(PlanDeVille plan, File xml) throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+		DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();	
         Document document = docBuilder.parse(xml);
         Element racine = document.getDocumentElement();
         if (racine.getNodeName().equals("reseau")) {
