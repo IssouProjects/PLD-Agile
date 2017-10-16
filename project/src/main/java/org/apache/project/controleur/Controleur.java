@@ -1,6 +1,8 @@
 package org.apache.project.controleur;
 
 import org.apache.project.modele.PlanDeVille;
+import org.apache.project.modele.DemandeDeLivraison;
+import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
 
 public class Controleur {
@@ -10,15 +12,21 @@ public class Controleur {
 	private Etat etatCourant;
 	// Instances associees a chaque etat possible du controleur
 	protected final EtatInit etatInit = new EtatInit();
+	protected final EtatPlanCharge etatPlanCharge = new EtatPlanCharge();
+	protected final EtatDemandeLivraisonCharge etatDemandeLivraisonCharge = new EtatDemandeLivraisonCharge();
+	protected final EtatTourneeCalculee etatTourneeCalculee = new EtatTourneeCalculee();
 	
+	private static Controleur instance = null;
 	/**
 	 * Cree le controleur de l'application
-	 * @param planDeVille le plan de la ville 
 	 */
-	public Controleur(PlanDeVille planDeVille) {
-		this.planDeVille = planDeVille;
+	private Controleur(){
+		PlanDeVille planDeVille = new PlanDeVille();
 		etatCourant = etatInit;
-		//fenetrePrincipale = new FenetrePrincipale(plan, this);
+	}
+	public static Controleur getInstance(){
+		if (instance == null) instance = new Controleur();
+		return instance;
 	}
 	
 	/**
@@ -33,6 +41,6 @@ public class Controleur {
 	 * Methode appelee par fenetre apres un clic sur le bouton "Ouvrir un plan de ville"
 	 */
 	public void ouvrirPlanDeVille() {
-		etatCourant.ouvrirPlanDeVille(planDeVille, fenetrePrincipale);
+		etatCourant.ouvrirPlanDeVille(this, planDeVille, fenetrePrincipale);
 	}
 }
