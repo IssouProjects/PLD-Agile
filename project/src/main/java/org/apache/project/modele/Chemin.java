@@ -22,7 +22,7 @@ public class Chemin {
         this.fin=fin;
         this.duree=duree;
         this.listeTroncons= listeTroncons;
-    }
+  }
 
 	public int getDuree() {
 		return duree;
