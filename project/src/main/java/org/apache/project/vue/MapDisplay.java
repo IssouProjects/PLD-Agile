@@ -167,7 +167,7 @@ public class MapDisplay extends Pane{
     	}
     	
     	// we show the Livraisons
-    	final List<Livraison> livraisons = tournee.getLivraison();
+    	final List<Livraison> livraisons = tournee.getLivraisonsOrdonnees();
     	
     	for(Livraison l : livraisons) {
     		Circle circle = creerVueIntersection(l.getLieuDeLivraison(), defaultTourneeLivraisonColor);
