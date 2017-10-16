@@ -1,10 +1,13 @@
 package org.apache.project.vue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.project.modele.Chemin;
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
+import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
 import org.apache.project.modele.Troncon;
@@ -20,12 +23,23 @@ public class MapDisplay extends Pane{
 	
 	DoubleProperty myScale = new SimpleDoubleProperty(1.0);
 	
+	List<Circle> demandeDeLivraisonInter;
+	List<Circle> tourneeInter;
+	List<Circle> tourneeTroncons;
+	
 	// Map elements display
 	final int defaultIntersectionRadius = 100;
 	final Color defaultIntersectionColor = Color.WHITE;
 	
 	final int defaultTronconWidth = 80;
 	final Color defaultTronconColor = Color.WHITE;
+	
+	final Color defaultLivraisonColor = Color.RED;
+	
+	final Color defaultTourneeTronconColor = Color.GREEN;
+	final Color defaultTourneeIntersectionColor = Color.GREEN;
+	final Color defaultTourneeLivraisonColor = Color.RED;
+	
 	
 	Long minimalX = Long.MAX_VALUE;
 	Long maximalX = 0l;
@@ -40,6 +54,10 @@ public class MapDisplay extends Pane{
         // add scale transform
         scaleXProperty().bind(myScale);
         scaleYProperty().bind(myScale);
+        
+        demandeDeLivraisonInter = new ArrayList();
+        tourneeInter = new ArrayList();
+        tourneeTroncons = new ArrayList();
     }
     
     public double getScale() {
@@ -59,7 +77,6 @@ public class MapDisplay extends Pane{
     	
     	// deleting the previous plan
     	this.getChildren().clear();
-    	
     	
     	Map<Long, Intersection> intersections = plan.getAllIntersections();
     	
@@ -119,11 +136,47 @@ public class MapDisplay extends Pane{
     	
     }
     
-    public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
+    public void afficherDemandeDeLivraison(DemandeDeLivraison demandeDelivraison) {
+    	
+    	if(!demandeDeLivraisonInter.isEmpty()) {
+    		// we remove the previous livraison
+    		getChildren().removeAll(demandeDeLivraisonInter);
+    		demandeDeLivraisonInter.clear();
+    	}
+    	
+    	List<Livraison> livraisons = demandeDelivraison.getListeLivraison();
+    	
+    	for(Livraison l : livraisons) {
+    		Circle circle = new Circle();
+            
+            circle.setCenterX(l.getLieuDeLivraison().getCoordX()-minimalX);
+            circle.setCenterY(l.getLieuDeLivraison().getCoordY()-minimalY);
+            
+            circle.setFill(defaultLivraisonColor);
+            circle.setStroke(defaultLivraisonColor);
+            circle.setRadius(defaultIntersectionRadius);
+            
+            getChildren().add(circle);
+    	}
     	
     }
     
     public void afficherTournee(Tournee tournee) {
+    	
+    	if(!tourneeInter.isEmpty()) {
+    		// we remove the previous Tournee
+    		getChildren().removeAll(tourneeInter);
+    		tourneeInter.clear();
+    		
+    		getChildren().removeAll(tourneeTroncons);
+    		tourneeTroncons.clear();
+    	}
+    	
+    	List<Chemin> chemins = tournee.getChemins();
+    	
+    	for(Chemin c : chemins) {
+    		
+    	}
     	
     }
 }
