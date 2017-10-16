@@ -1,5 +1,6 @@
 package org.apache.project.vue;
 
+import org.apache.project.controleur.Controleur;
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
@@ -19,9 +20,13 @@ import javafx.stage.Stage;
 public class FenetrePrincipale extends Application{
 	
 	MapContainer mapContainer;
+	Controleur controleur;
 	
-	public static void main(String[] args) {
-        launch(args);
+	// String appearing in the user interface
+	public static final String LOAD_MAP = "Load map";
+	
+	public static void launchApp(String[] args) {
+        Application.launch(FenetrePrincipale.class, args);
     }
 	
     @Override
@@ -46,12 +51,14 @@ public class FenetrePrincipale extends Application{
     	
     	Button resetPosButton = new Button("Reset map position");
     	Button resetScaleButton = new Button("Reset map zoom");
+    	Button loadMapButton = new Button(LOAD_MAP);
     	
     	mapButtonsLayout.setAlignment(Pos.CENTER);
     	mapButtonsLayout.setSpacing(10);
     	
     	mapButtonsLayout.getChildren().add(resetPosButton);
     	mapButtonsLayout.getChildren().add(resetScaleButton);
+    	mapButtonsLayout.getChildren().add(loadMapButton);
         
         mapContainer = new MapContainer(600,600, scene);
         mapLayout.getChildren().add(mapContainer);
@@ -79,6 +86,8 @@ public class FenetrePrincipale extends Application{
 		///// 			MAPPING BUTTONS  	    /////
 		/////////////////////////////////////////////
         
+        EcouteurDeBouton edb = new EcouteurDeBouton(controleur);
+        
         resetPosButton.setOnAction(new EventHandler<ActionEvent>() {
     	    @Override public void handle(ActionEvent e) {
     	        mapContainer.resetMapPosition();
@@ -90,7 +99,7 @@ public class FenetrePrincipale extends Application{
     	    }
     	});
         
-        
+        loadMapButton.setOnAction(edb);        
         stage.setScene(scene);
         stage.show();
     }
