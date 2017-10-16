@@ -43,4 +43,8 @@ public class Tournee extends Observable {
 	public List<Chemin> getChemins(){
 		return chemins;
 	}
+	
+	public List<Livraison> getLivraison(){
+		return livraisons;
+	}
 }
