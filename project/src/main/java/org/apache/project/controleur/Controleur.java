@@ -11,6 +11,7 @@ public class Controleur {
 	// Instances associees a chaque etat possible du controleur
 	protected final EtatInit etatInit = new EtatInit();
 	protected final EtatPlanCharge etatPlanCharge = new EtatPlanCharge();
+	protected final EtatDemandeLivraisonCharge etatDemandeLivraisonCharge = new EtatDemandeLivraisonCharge();
 	
 	/**
 	 * Cree le controleur de l'application
