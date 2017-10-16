@@ -32,7 +32,7 @@ public class Dijkstra {
 	
 	public List<Chemin> PrincipalDijkstra(List<Intersection> plan_inter, List<Intersection> livraison_inter)
 	{
-		List<Chemin> ensembleChemins = new ArrayList<>();
+		List<Chemin> ensembleChemins = new ArrayList<Chemin>();
 		int nombreLivraison = livraison_inter.size();
 		for(int i = 0; i < nombreLivraison; i++)
 		{
@@ -66,8 +66,8 @@ public class Dijkstra {
 	public void ajouteChemin(Intersection intersectionOrigine,List<Chemin> ensembleChemins,List<Intersection> LivraisonInter)
 	{
 		int nombreDestination = LivraisonInter.size();
-		List<Troncon> listTronconInverse = new ArrayList<>();
-		List<Troncon> listTroncon = new ArrayList<>();
+		List<Troncon> listTronconInverse = new ArrayList<Troncon>();
+		List<Troncon> listTroncon = new ArrayList<Troncon>();
 		
 		for(int i = 0; i < nombreDestination; i++)
 		{

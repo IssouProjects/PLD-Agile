@@ -28,7 +28,7 @@ public class Astar {
 	
 	public List<Chemin> PrincipalAstar(List<Intersection> plan_inter, List<Intersection> livraison_inter)
 	{
-		List<Chemin> ensembleChemins = new ArrayList<>();
+		List<Chemin> ensembleChemins = new ArrayList<Chemin>();
 		int nombreLivraison = livraison_inter.size();
 		for(int i = 0; i < nombreLivraison; i++)
 		{
@@ -62,9 +62,7 @@ public class Astar {
 				}
 			}
 		}
-		
-		
-		
+				
 		return ensembleChemins;
 	}
 	
@@ -72,7 +70,7 @@ public class Astar {
 	public Chemin renvoieChemin(Intersection fin, Intersection debut)
 	{
 		Intersection intersectionCourante = fin;
-		List<Troncon> listTroncon = new ArrayList<>();
+		List<Troncon> listTroncon = new ArrayList<Troncon>();
 		while(intersectionCourante != debut)
 		{
 			Iterator <HashMap.Entry<Long, noeud>> it = listeFermee.entrySet().iterator();
