@@ -16,6 +16,13 @@ public class Chemin {
 		this.duree=duree;
 		listeTroncons=new ArrayList<Troncon>();
 	}
+	
+	public Chemin(Intersection debut, Intersection fin, int duree, List<Troncon> listeTroncons) {
+		this.debut=debut;
+		this.fin=fin;
+		this.duree=duree;
+		this.listeTroncons= listeTroncons;
+	}
 
 	public int getDuree() {
 		return duree;

@@ -49,4 +49,17 @@ public class Intersection {
 		return tronconsPartants;
 	}
 	
+	public Troncon getTronconParDestination(Long idIntersectionDestination)
+	{
+		int nombreTroncon = tronconsPartants.size();
+		for(int i = 0; i < nombreTroncon; i++)
+		{
+			if(tronconsPartants.get(i).getIntersectionArrivee().getIdNoeud() == idIntersectionDestination)
+			{
+				return tronconsPartants.get(i);
+			}
+		}
+		return null;
+	}
+	
 }
