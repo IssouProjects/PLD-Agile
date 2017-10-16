@@ -10,5 +10,5 @@ public interface Etat {
 	 * @param planDeVille
 	 * @param fenetrePrincipale
 	 */
-	public void ouvrirPlanDeVille(PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale);
+	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale);
 }

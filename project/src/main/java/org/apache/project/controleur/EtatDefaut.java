@@ -5,5 +5,5 @@ import org.apache.project.vue.FenetrePrincipale;
 
 public abstract class EtatDefaut implements Etat {
 
-	public void ouvrirPlanDeVille(PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale){}
+	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale){}
 }

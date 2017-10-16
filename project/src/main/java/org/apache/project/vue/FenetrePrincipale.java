@@ -80,12 +80,12 @@ public class FenetrePrincipale extends Application{
 		/////////////////////////////////////////////
         
         resetPosButton.setOnAction(new EventHandler<ActionEvent>() {
-    	    @Override public void handle(ActionEvent e) {
+    	    public void handle(ActionEvent e) {
     	        mapContainer.resetMapPosition();
     	    }
     	});
         resetScaleButton.setOnAction(new EventHandler<ActionEvent>() {
-    	    @Override public void handle(ActionEvent e) {
+    	    public void handle(ActionEvent e) {
     	        mapContainer.resetMapZoom();
     	    }
     	});

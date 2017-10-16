@@ -10,6 +10,7 @@ public class Controleur {
 	private Etat etatCourant;
 	// Instances associees a chaque etat possible du controleur
 	protected final EtatInit etatInit = new EtatInit();
+	protected final EtatPlanCharge etatPlanCharge = new EtatPlanCharge();
 	
 	/**
 	 * Cree le controleur de l'application
@@ -33,6 +34,6 @@ public class Controleur {
 	 * Methode appelee par fenetre apres un clic sur le bouton "Ouvrir un plan de ville"
 	 */
 	public void ouvrirPlanDeVille() {
-		etatCourant.ouvrirPlanDeVille(planDeVille, fenetrePrincipale);
+		etatCourant.ouvrirPlanDeVille(this, planDeVille, fenetrePrincipale);
 	}
 }
