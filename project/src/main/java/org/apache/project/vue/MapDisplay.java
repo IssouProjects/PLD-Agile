@@ -25,7 +25,7 @@ public class MapDisplay extends Pane{
 	
 	List<Circle> demandeDeLivraisonInter;
 	List<Circle> tourneeInter;
-	List<Circle> tourneeTroncons;
+	List<Line> tourneeTroncons;
 	
 	// Map elements display
 	final int defaultIntersectionRadius = 100;
@@ -78,7 +78,7 @@ public class MapDisplay extends Pane{
     	// deleting the previous plan
     	this.getChildren().clear();
     	
-    	Map<Long, Intersection> intersections = plan.getAllIntersections();
+    	final Map<Long, Intersection> intersections = plan.getAllIntersections();
     	
     	if(intersections.isEmpty())
     		return;
@@ -101,35 +101,16 @@ public class MapDisplay extends Pane{
     	this.setPrefHeight(maximalY-minimalY);
     	
     	//adding all troncons
-    	List<Troncon> troncons = plan.getAllTroncons();
+    	final List<Troncon> troncons = plan.getAllTroncons();
     	
     	for(Troncon t : troncons){
-    		Line line = new Line();
-    		
-    		line.setStartX(t.getIntersectionDepart().getCoordX()-minimalX);
-    		line.setStartY(t.getIntersectionDepart().getCoordY()-minimalY);
-    		
-    		line.setEndX(t.getIntersectionArrivee().getCoordX()-minimalX);
-    		line.setEndY(t.getIntersectionArrivee().getCoordY()-minimalY);
-    		
-    		line.setStroke(defaultTronconColor);
-    		line.setStrokeWidth(defaultTronconWidth);
-    		
+    		Line line = this.creerVueTroncon(t, defaultTronconColor);
     		getChildren().add(line);
     	}
     	
     	// adding all intersections
     	for (Map.Entry<Long, Intersection> entry : intersections.entrySet()){
-    		
-            Circle circle = new Circle();
-            
-            circle.setCenterX(entry.getValue().getCoordX()-minimalX);
-            circle.setCenterY(entry.getValue().getCoordY()-minimalY);
-            
-            circle.setFill(defaultIntersectionColor);
-            circle.setStroke(defaultIntersectionColor);
-            circle.setRadius(defaultIntersectionRadius);
-            
+            Circle circle = this.creerVueIntersection(entry.getValue(), defaultIntersectionColor);
             getChildren().add(circle);
     	}
     	
@@ -144,18 +125,11 @@ public class MapDisplay extends Pane{
     		demandeDeLivraisonInter.clear();
     	}
     	
-    	List<Livraison> livraisons = demandeDelivraison.getListeLivraison();
+    	final List<Livraison> livraisons = demandeDelivraison.getListeLivraison();
     	
     	for(Livraison l : livraisons) {
-    		Circle circle = new Circle();
-            
-            circle.setCenterX(l.getLieuDeLivraison().getCoordX()-minimalX);
-            circle.setCenterY(l.getLieuDeLivraison().getCoordY()-minimalY);
-            
-            circle.setFill(defaultLivraisonColor);
-            circle.setStroke(defaultLivraisonColor);
-            circle.setRadius(defaultIntersectionRadius);
-            
+    		Circle circle = creerVueIntersection(l.getLieuDeLivraison(), defaultLivraisonColor);
+    		demandeDeLivraisonInter.add(circle);
             getChildren().add(circle);
     	}
     	
@@ -170,13 +144,64 @@ public class MapDisplay extends Pane{
     		
     		getChildren().removeAll(tourneeTroncons);
     		tourneeTroncons.clear();
+    		
+    		getChildren().removeAll(demandeDeLivraisonInter);
     	}
     	
-    	List<Chemin> chemins = tournee.getChemins();
+    	final List<Chemin> chemins = tournee.getChemins();
     	
+    	// we show the Tournee
     	for(Chemin c : chemins) {
     		
+    		final List<Troncon> troncons = c.getTroncons();
+    		
+    		for(Troncon t : troncons){
+    			Circle circle = this.creerVueIntersection(t.getIntersectionArrivee(), defaultTourneeIntersectionColor);
+                tourneeInter.add(circle);
+                getChildren().add(circle);
+                
+                Line line = this.creerVueTroncon(t, defaultTourneeTronconColor);
+                tourneeTroncons.add(line);
+                getChildren().add(line);
+    		}
     	}
     	
+    	// we show the Livraisons
+    	final List<Livraison> livraisons = tournee.getLivraison();
+    	
+    	for(Livraison l : livraisons) {
+    		Circle circle = creerVueIntersection(l.getLieuDeLivraison(), defaultTourneeLivraisonColor);
+    		demandeDeLivraisonInter.add(circle);
+            getChildren().add(circle);
+    	}
+    	
+    }
+    
+    public Circle creerVueIntersection(Intersection inter, Color color) {
+    	Circle circle = new Circle();
+    	
+    	circle.setCenterX(inter.getCoordX()-minimalX);
+    	circle.setCenterY(inter.getCoordY()-minimalY);
+    	
+    	circle.setFill(color);
+        circle.setStroke(color);
+        circle.setRadius(defaultIntersectionRadius);
+        
+        return circle;
+    }
+    
+    public Line creerVueTroncon(Troncon tronc, Color color) {
+    	Line line = new Line();
+		
+		line.setStartX(tronc.getIntersectionDepart().getCoordX()-minimalX);
+		line.setStartY(tronc.getIntersectionDepart().getCoordY()-minimalY);
+		
+		line.setEndX(tronc.getIntersectionArrivee().getCoordX()-minimalX);
+		line.setEndY(tronc.getIntersectionArrivee().getCoordY()-minimalY);
+		
+		line.setStroke(color);
+		line.setStrokeWidth(defaultTronconWidth);
+		
+		return line;
     }
 }
