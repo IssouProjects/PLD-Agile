@@ -21,7 +21,7 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 		
 		switch(sender.getText()) {
 		case FenetrePrincipale.LOAD_MAP:
-			// todo: appel au controleur
+			controleur.ouvrirPlanDeVille();
 			break;
 		default:
 			System.out.println("Unmapped Button");

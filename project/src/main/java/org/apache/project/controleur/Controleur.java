@@ -21,12 +21,19 @@ public class Controleur {
 	 * Cree le controleur de l'application
 	 */
 	private Controleur(){
-		PlanDeVille planDeVille = new PlanDeVille();
-		etatCourant = etatInit;
+		instance = this;
+		planDeVille = new PlanDeVille();
+		etatCourant = etatInit;		
 	}
 	public static Controleur getInstance(){
-		if (instance == null) instance = new Controleur();
+		if (instance == null){
+			instance = new Controleur();
+		}
 		return instance;
+	}
+	
+	public void setFenetre(FenetrePrincipale fenetre) {
+		fenetrePrincipale = fenetre;
 	}
 	
 	/**

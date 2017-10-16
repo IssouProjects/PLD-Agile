@@ -32,6 +32,9 @@ public class FenetrePrincipale extends Application{
     @Override
     public void start(Stage stage) {
     	
+    	controleur = controleur.getInstance();
+    	controleur.setFenetre(this);
+    	
     	stage.setTitle("Issou delivery optimiser 2000");
         
     	// layout for the full window
