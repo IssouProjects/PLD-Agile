@@ -55,9 +55,9 @@ public class MapDisplay extends Pane{
         scaleXProperty().bind(myScale);
         scaleYProperty().bind(myScale);
         
-        demandeDeLivraisonInter = new ArrayList();
-        tourneeInter = new ArrayList();
-        tourneeTroncons = new ArrayList();
+        demandeDeLivraisonInter = new ArrayList<Circle>();
+        tourneeInter = new ArrayList<Circle>();
+        tourneeTroncons = new ArrayList<Line>();
     }
     
     public double getScale() {
