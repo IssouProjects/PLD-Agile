@@ -34,4 +34,8 @@ public class DemandeDeLivraison {
 		livraisons.add(uneLivraison);
 	}
 	
+	public List<Livraison> getListeLivraison(){
+		return livraisons;
+	}
+	
 }

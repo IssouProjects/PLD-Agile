@@ -18,11 +18,11 @@ public class Chemin {
 	}
 	
 	public Chemin(Intersection debut, Intersection fin, int duree, List<Troncon> listeTroncons) {
-		this.debut=debut;
-		this.fin=fin;
-		this.duree=duree;
-		this.listeTroncons= listeTroncons;
-	}
+        this.debut=debut;
+        this.fin=fin;
+        this.duree=duree;
+        this.listeTroncons= listeTroncons;
+  }
 
 	public int getDuree() {
 		return duree;
@@ -50,6 +50,10 @@ public class Chemin {
 
 	public void ajouterTroncon(Troncon unTroncon) {
 		this.listeTroncons.add(unTroncon);
+	}
+	
+	public List<Troncon> getTroncons(){
+		return listeTroncons;
 	}
 
 }

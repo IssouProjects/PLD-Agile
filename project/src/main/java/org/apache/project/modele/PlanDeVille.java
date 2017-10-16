@@ -20,7 +20,7 @@ public class PlanDeVille extends Observable {
 		intersections.put(id, new Intersection(id,coordX,coordY));
 	}
 	
-	public void ajouterTroncon(Long numDepart, Long numArrivee, String nomRue, Long distance) {
+	public void ajouterTroncon(double distance, Long numDepart, Long numArrivee, String nomRue) {
 		troncons.add(new Troncon(distance,intersections.get(numDepart),intersections.get(numArrivee),nomRue));
 	}
 	
