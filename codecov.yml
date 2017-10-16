@@ -8,5 +8,5 @@ coverage:
       patch: no
 
 comment:
-  layout: "diff, falgs, files"
+  layout: "diff, flags, files"
   require_changes: true
