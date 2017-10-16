@@ -1,6 +1,8 @@
 package org.apache.project.vue;
 
+import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.PlanDeVille;
+import org.apache.project.modele.Tournee;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -95,6 +97,14 @@ public class FenetrePrincipale extends Application{
     
     public void afficherPlanDeVille(PlanDeVille plan){
     	mapContainer.getMapDisplay().afficherPlanDeVille(plan);
+    }
+    
+    public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
+    	mapContainer.getMapDisplay().afficherDemandeDeLivraison(livraison);
+    }
+    
+    public void afficherTournee(Tournee tournee) {
+    	mapContainer.getMapDisplay().afficherTournee(tournee);
     }
 }
 

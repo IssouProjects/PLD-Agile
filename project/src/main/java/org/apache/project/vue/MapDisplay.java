@@ -3,8 +3,10 @@ package org.apache.project.vue;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
 import org.apache.project.modele.PlanDeVille;
+import org.apache.project.modele.Tournee;
 import org.apache.project.modele.Troncon;
 
 import javafx.beans.property.DoubleProperty;
@@ -114,6 +116,14 @@ public class MapDisplay extends Pane{
             getChildren().add(circle);
     	}
     	
+    	
+    }
+    
+    public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
+    	
+    }
+    
+    public void afficherTournee(Tournee tournee) {
     	
     }
 }
