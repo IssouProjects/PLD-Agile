@@ -51,5 +51,9 @@ public class Chemin {
 	public void ajouterTroncon(Troncon unTroncon) {
 		this.listeTroncons.add(unTroncon);
 	}
+	
+	public List<Troncon> getTroncons(){
+		return listeTroncons;
+	}
 
 }
