@@ -9,6 +9,7 @@ public class Tournee extends Observable {
 	private Intersection adresseEntrepot;
 	private Time heureDepart;
 	private List<Livraison> livraisons;
+	private List<Chemin> chemins;
 
 	public Tournee(Intersection adresseEntrepot, Time heureDepart) {
 		this.adresseEntrepot=adresseEntrepot;
@@ -35,4 +36,11 @@ public class Tournee extends Observable {
 		livraisons.add(uneLivraison);
 	}
 	
+	public void ajouterChemin(Chemin chemin) {
+		chemins.add(chemin);
+	}
+	
+	public List<Chemin> getChemins(){
+		return chemins;
+	}
 }
