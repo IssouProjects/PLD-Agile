@@ -8,7 +8,7 @@ public class Tournee extends Observable {
 	
 	private Intersection adresseEntrepot;
 	private Time heureDepart;
-	private List<Livraison> livraisonsOrdonnees;
+	private List<Livraison> livraisons;
 
 	public Tournee(Intersection adresseEntrepot, Time heureDepart) {
 		this.adresseEntrepot=adresseEntrepot;
@@ -32,7 +32,7 @@ public class Tournee extends Observable {
 	}
 	
 	public void ajouterLivraison(Livraison uneLivraison) {
-		livraisonsOrdonnees.add(uneLivraison);
+		livraisons.add(uneLivraison);
 	}
 	
 }
