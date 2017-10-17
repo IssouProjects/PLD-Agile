@@ -49,7 +49,7 @@ public class MapDisplay extends Pane{
 
     public MapDisplay(int height, int width) {
         setPrefSize(height, width);
-        setStyle("-fx-background-color: #dfdfdf;");
+        setStyle("-fx-background-color: #b2b2b2;");
 
         // add scale transform
         scaleXProperty().bind(myScale);
@@ -97,8 +97,8 @@ public class MapDisplay extends Pane{
     		if(i.getCoordY() > maximalY) maximalY = i.getCoordY();
     	}
     	
-    	this.setPrefWidth(maximalX-minimalX);
-    	this.setPrefHeight(maximalY-minimalY);
+    	this.setPrefHeight(maximalX-minimalX);
+    	this.setPrefWidth(maximalY-minimalY);
     	
     	//adding all troncons
     	final List<Troncon> troncons = plan.getAllTroncons();
@@ -180,8 +180,8 @@ public class MapDisplay extends Pane{
     public Circle creerVueIntersection(Intersection inter, Color color) {
     	Circle circle = new Circle();
     	
-    	circle.setCenterX(inter.getCoordX()-minimalX);
-    	circle.setCenterY(inter.getCoordY()-minimalY);
+    	circle.setCenterX(inter.getCoordY()-minimalY);
+    	circle.setCenterY(getPrefHeight()-(inter.getCoordX()-minimalX));
     	
     	circle.setFill(color);
         circle.setStroke(color);
@@ -193,11 +193,11 @@ public class MapDisplay extends Pane{
     public Line creerVueTroncon(Troncon tronc, Color color) {
     	Line line = new Line();
 		
-		line.setStartX(tronc.getIntersectionDepart().getCoordX()-minimalX);
-		line.setStartY(tronc.getIntersectionDepart().getCoordY()-minimalY);
+		line.setStartX(tronc.getIntersectionDepart().getCoordY()-minimalY);
+		line.setStartY(getPrefHeight()-(tronc.getIntersectionDepart().getCoordX()-minimalX));
 		
-		line.setEndX(tronc.getIntersectionArrivee().getCoordX()-minimalX);
-		line.setEndY(tronc.getIntersectionArrivee().getCoordY()-minimalY);
+		line.setEndX(tronc.getIntersectionArrivee().getCoordY()-minimalY);
+		line.setEndY(getPrefHeight()-(tronc.getIntersectionArrivee().getCoordX()-minimalX));
 		
 		line.setStroke(color);
 		line.setStrokeWidth(defaultTronconWidth);

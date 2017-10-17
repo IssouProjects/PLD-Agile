@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.transform.Rotate;
 
 public class MapContainer extends Pane{
 	
@@ -17,7 +18,7 @@ public class MapContainer extends Pane{
 	
 	public MapContainer(int height, int width, Scene scene){
 		setPrefSize(height, width);
-		setStyle("-fx-background-color: #dfdfdf;");
+		setStyle("-fx-background-color: #b2b2b2;");
 		
 		// used to define the area in which the map is Displayed
 		clipRectangle = new Rectangle(200, 200);
@@ -29,6 +30,7 @@ public class MapContainer extends Pane{
 		mapDisplay = new MapDisplay(height,width);
         
         getChildren().add(mapDisplay);
+        fitMapInView();
         
         // we add user controls for the map: zoom in with the scrollwheel, pan with the mouse
         MapGestures mapGestures = new MapGestures(mapDisplay);
@@ -37,18 +39,32 @@ public class MapContainer extends Pane{
         scene.addEventFilter( ScrollEvent.ANY, mapGestures.getOnScrollEventHandler());
 
 	}
-	
-	public void resetMapZoom() {
-		mapDisplay.setScale(1.0d);
-		mapDisplay.setScale(1.0d);
-	}
 
 	public MapDisplay getMapDisplay() {
 		return mapDisplay;
 	}
 	
-	public void resetMapPosition(){
-		mapDisplay.setTranslateX(0d);
-		mapDisplay.setTranslateY(0d);
+	public void fitMapInView(){
+		
+		// find new scale
+		
+		double deltaX = 0.0d;
+		double deltaY = 0.0d;
+		
+		if(getHeight()<getWidth()){
+			mapDisplay.setScale(getHeight() / mapDisplay.getPrefHeight());
+			deltaX = (getWidth() - mapDisplay.getWidth() * mapDisplay.getScale())/2;
+		}
+		else {
+			mapDisplay.setScale(getWidth() / mapDisplay.getPrefWidth());
+			deltaY = (getHeight() - mapDisplay.getHeight() * mapDisplay.getScale())/2;
+		}
+		
+		// resetting its coordinates
+		mapDisplay.setTranslateX(0.0);
+		mapDisplay.setTranslateY(0.0);
+		
+		mapDisplay.setTranslateX(-mapDisplay.getBoundsInParent().getMinX() + deltaX);
+		mapDisplay.setTranslateY(-mapDisplay.getBoundsInParent().getMinY() + deltaY);
 	}
 }

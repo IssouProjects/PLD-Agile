@@ -12,6 +12,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -38,8 +40,8 @@ public class FenetrePrincipale extends Application{
     	stage.setTitle("Issou delivery optimiser 2000");
         
     	// layout for the full window
-    	HBox layout = new HBox();
-    	layout.setStyle("-fx-padding: 10; -fx-spacing: 10;");
+    	GridPane layout = new GridPane();
+    	layout.setStyle("-fx-padding: 10;");
     	
     	Scene scene = new Scene(layout, 1024, 500);
     	
@@ -52,23 +54,21 @@ public class FenetrePrincipale extends Application{
     	
     	HBox mapButtonsLayout = new HBox();
     	
-    	Button resetPosButton = new Button("Reset map position");
-    	Button resetScaleButton = new Button("Reset map zoom");
+    	Button fitMapButton = new Button("Fit map in view");
     	Button loadMapButton = new Button(LOAD_MAP);
     	
     	mapButtonsLayout.setAlignment(Pos.CENTER);
     	mapButtonsLayout.setSpacing(10);
     	
-    	mapButtonsLayout.getChildren().add(resetPosButton);
-    	mapButtonsLayout.getChildren().add(resetScaleButton);
+    	mapButtonsLayout.getChildren().add(fitMapButton);
     	mapButtonsLayout.getChildren().add(loadMapButton);
         
-        mapContainer = new MapContainer(600,600, scene);
+        mapContainer = new MapContainer(2000,2000, scene);
         mapLayout.getChildren().add(mapContainer);
         mapLayout.getChildren().add(mapButtonsLayout);
         mapLayout.setSpacing(10d);
     	
-        layout.getChildren().add(mapLayout);
+        layout.add(mapLayout, 0, 0);
         
 		/////////////////////////////////////////////
 		///// 	CREATING THE DELIVERY LIST	    /////
@@ -80,7 +80,7 @@ public class FenetrePrincipale extends Application{
         liste.getItems().add("Livraison 3");
         liste.getItems().add("Livraison 4");
         
-        layout.getChildren().add(liste);
+        layout.add(liste, 1, 0);
         layout.setHgrow(liste, Priority.ALWAYS);
         liste.setMaxWidth(Double.MAX_VALUE);
         
@@ -91,24 +91,35 @@ public class FenetrePrincipale extends Application{
         
         EcouteurDeBouton edb = new EcouteurDeBouton(controleur);
         
-        resetPosButton.setOnAction(new EventHandler<ActionEvent>() {
+        fitMapButton.setOnAction(new EventHandler<ActionEvent>() {
     	    public void handle(ActionEvent e) {
-    	        mapContainer.resetMapPosition();
-    	    }
-    	});
-        resetScaleButton.setOnAction(new EventHandler<ActionEvent>() {
-    	    public void handle(ActionEvent e) {
-    	        mapContainer.resetMapZoom();
+    	        mapContainer.fitMapInView();
     	    }
     	});
         
-        loadMapButton.setOnAction(edb);        
+        loadMapButton.setOnAction(edb);
+        
+        // layout style
+        
+        ColumnConstraints MapCC = new ColumnConstraints();
+        MapCC.setPercentWidth(67.0);
+        MapCC.setHgrow(Priority.ALWAYS);
+        layout.getColumnConstraints().add(MapCC);
+        
+        ColumnConstraints ListCC = new ColumnConstraints();
+        ListCC.setPercentWidth(33.0);
+        ListCC.setHgrow(Priority.ALWAYS);
+        layout.getColumnConstraints().add(ListCC);
+        
+        
+        // we can now show the window
         stage.setScene(scene);
         stage.show();
     }
     
     public void afficherPlanDeVille(PlanDeVille plan){
     	mapContainer.getMapDisplay().afficherPlanDeVille(plan);
+    	mapContainer.fitMapInView();
     }
     
     public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
