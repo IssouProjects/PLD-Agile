@@ -52,7 +52,7 @@ public class TestDijkstra extends TestCase {
 		livraison_inter.add(C);
 		livraison_inter.add(E);
 		
-		List<Chemin> res = Dijkstra.PrincipalDijkstra(plan_inter, livraison_inter);
+		List<Chemin> res = Dijkstra.calculDijkstra(plan_inter, livraison_inter);
 
 				
 		
