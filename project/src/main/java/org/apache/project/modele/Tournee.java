@@ -9,7 +9,7 @@ public class Tournee extends Observable {
 	
 	private Intersection adresseEntrepot;
 	private Time heureDepart;
-	private List<Livraison> livraisons;
+	private List<Livraison> livraisonsOrdonnees;
 	private List<Chemin> chemins;
 
 	public Tournee(Intersection adresseEntrepot, Time heureDepart) {
@@ -34,7 +34,7 @@ public class Tournee extends Observable {
 	}
 	
 	public void ajouterLivraison(Livraison uneLivraison) {
-		livraisons.add(uneLivraison);
+		livraisonsOrdonnees.add(uneLivraison);
 	}
 	
 	public void ajouterChemin(Chemin chemin) {
@@ -45,8 +45,8 @@ public class Tournee extends Observable {
 		return chemins;
 	}
 	
-	public List<Livraison> getLivraison(){
-		return livraisons;
+	public List<Livraison> getLivraisonsOrdonnees(){
+		return livraisonsOrdonnees;
 	}
 	
 	public void calculerTournee(PlanDeVille plan, DemandeDeLivraison demande) {
