@@ -24,7 +24,7 @@ public class Controleur {
 	private Controleur(){
 		instance = this;
 		planDeVille = new PlanDeVille();
-		//demandeDeLivraison = new DemandeDeLivraison();
+		demandeDeLivraison = new DemandeDeLivraison();
 		etatCourant = etatInit;		
 	}
 	
@@ -55,6 +55,10 @@ public class Controleur {
 	}
 	
 	public void ouvrirDemandeDeLivraison() {
-		//etatCourant.ouvrirDemandeDeLivraison(this, planDeVille, demandeDelivraison, fenetrePrincipale);
+		etatCourant.ouvrirDemandeDeLivraison(this, planDeVille, demandeDeLivraison, fenetrePrincipale);
+	}
+	
+	public void calculerTournee() {
+		
 	}
 }

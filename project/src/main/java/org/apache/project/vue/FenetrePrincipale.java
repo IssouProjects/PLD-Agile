@@ -66,7 +66,8 @@ public class FenetrePrincipale extends Application{
     	fitMapButton = new Button("Fit map in view");
     	fitMapButton.setDisable(true);
     	loadMapButton = new Button(LOAD_MAP);
-    	loadLivraisonButton = new Button(LOAD_LIVRAISON);    	
+    	loadLivraisonButton = new Button(LOAD_LIVRAISON);    
+    	loadLivraisonButton.setDisable(true);
     	
     	mapButtonsLayout.setAlignment(Pos.CENTER);
     	mapButtonsLayout.setSpacing(10);
@@ -140,6 +141,7 @@ public class FenetrePrincipale extends Application{
     	mapContainer.fitMapInView();
     	loadMapButton.setDisable(true);
     	fitMapButton.setDisable(false);
+    	loadLivraisonButton.setDisable(false);
     }
     
     public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
