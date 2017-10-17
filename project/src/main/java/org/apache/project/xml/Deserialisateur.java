@@ -44,8 +44,9 @@ public class Deserialisateur {
 		File xml = OuvreurXML.getInstance().ouvreFichier(true);
 		chargerDemandeLivraisonFichier(demande, plan, xml);
 	}
-	
-	public static void chargerDemandeLivraisonFichier(DemandeDeLivraison demande, PlanDeVille plan, File xml) throws ParserConfigurationException, SAXException, IOException, NumberFormatException, ExceptionXML {
+
+	public static void chargerDemandeLivraisonFichier(DemandeDeLivraison demande, PlanDeVille plan, File xml)
+			throws ParserConfigurationException, SAXException, IOException, NumberFormatException, ExceptionXML {
 		DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		Document document = docBuilder.parse(xml);
 		Element racine = document.getDocumentElement();
@@ -124,6 +125,7 @@ public class Deserialisateur {
 	 * @param time
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	private static Time getTimeFromString(String time) {
 		List<String> hmsListStr = Arrays.asList(time.split(":"));
 		int hours = Integer.parseInt(hmsListStr.get(0));
