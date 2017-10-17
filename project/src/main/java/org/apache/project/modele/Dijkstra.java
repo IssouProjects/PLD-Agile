@@ -28,9 +28,26 @@ public class Dijkstra {
 	Map <Long, noeud> listeOuverte = new HashMap<Long, noeud>();
 	Map <Long, noeud> listeFermee = new HashMap<Long, noeud>();
 	
+	public static List<Chemin> principalDijkstra(PlanDeVille plan, DemandeDeLivraison demande) {
+		//Liste des intersections correspondants aux lieux a livrer
+		List<Intersection> interLivraisons = new ArrayList<Intersection>();
+		List<Livraison> demandesLivraisons = demande.getListeLivraison();
+		for(Livraison livraison : demandesLivraisons) {
+			interLivraisons.add(livraison.getLieuDeLivraison());
+		}
+		
+		//Liste de toutes les intersections de la ville
+		List<Intersection> interPlan = new ArrayList<Intersection>();
+		for (Map.Entry<Long, Intersection> entry : plan.getAllIntersections().entrySet()) {
+			interPlan.add(entry.getValue());
+		}
+		
+		Dijkstra dijkstra = new Dijkstra();
+		
+		return dijkstra.calculDijkstra(interPlan, interLivraisons);
+	}
 	
-	
-	public List<Chemin> PrincipalDijkstra(List<Intersection> plan_inter, List<Intersection> livraison_inter)
+	public List<Chemin> calculDijkstra(List<Intersection> plan_inter, List<Intersection> livraison_inter)
 	{
 		List<Chemin> ensembleChemins = new ArrayList<Chemin>();
 		int nombreLivraison = livraison_inter.size();

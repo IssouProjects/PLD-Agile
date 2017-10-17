@@ -1,6 +1,7 @@
 package org.apache.project.modele;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
@@ -46,5 +47,9 @@ public class Tournee extends Observable {
 	
 	public List<Livraison> getLivraison(){
 		return livraisons;
+	}
+	
+	public void calculerTournee(PlanDeVille plan, DemandeDeLivraison demande) {
+		List<Chemin> graphe = Dijkstra.principalDijkstra(plan, demande);
 	}
 }
