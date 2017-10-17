@@ -32,22 +32,17 @@ public class Dijkstra {
 
 	public static List<Chemin> PrincipalDijkstra(List<Intersection> plan_inter, List<Intersection> livraison_inter) throws Exception
 	{
-		System.out.println(livraison_inter.get(0).getTronconParDestination((long)3));
 		List<Chemin> ensembleChemins = new ArrayList<Chemin>();
+		List<Chemin> resCheminIntermediaire = new ArrayList<Chemin>();
 		int nombreLivraison = livraison_inter.size();
 		for(int i = 0; i < nombreLivraison; i++)
 		{
-			System.out.println("iteration" + i);
 			listeOuverte.clear();
 			listeFermee.clear();
+			resCheminIntermediaire.clear();
 			listeOuverte = new HashMap<Long, noeud>();
 			listeFermee = new HashMap<Long, noeud>();
-
-
-
 			Intersection origine = livraison_inter.get(i);
-			System.out.println(origine.getIdNoeud());
-
 			noeud noeudCourant = new noeud((double)0, (long) -1, origine);
 			listeOuverte.put(noeudCourant.intersectionActuel.getIdNoeud(), noeudCourant);
 			ajouterListeFermee(noeudCourant);
@@ -62,32 +57,37 @@ public class Dijkstra {
 				ajouterNoeudAdjacent(noeudCourant);
 			}
 
-			ajouteChemin(origine, ensembleChemins, livraison_inter);
+			resCheminIntermediaire = ajouteChemin(origine, livraison_inter);
+			
+			for(int k = 0; k < resCheminIntermediaire.size(); k++)
+			{
+				ensembleChemins.add(resCheminIntermediaire.get(k));
+			}
 			
 
 		}
-		System.out.println("Main Dijkstra :" + ensembleChemins.get(1).getTroncons());
-
 		return ensembleChemins;
 	}
 
 	//Deroule les chemins a partir de la liste fermée
-	public static void ajouteChemin(Intersection intersectionOrigine,List<Chemin> ensembleChemins,List<Intersection> LivraisonInter) throws Exception
+	public static List<Chemin> ajouteChemin(Intersection intersectionOrigine,List<Intersection> LivraisonInter) //throws Exception
 	{
 		//try{
 			int nombreDestination = LivraisonInter.size();
 			List<Troncon> listTronconInverse = new ArrayList<Troncon>();
 			List<Troncon> listTroncon = new ArrayList<Troncon>();
+			List<Chemin> resChemin = new ArrayList<Chemin>();
 			double distanceLivraison = 0;
 			int tailleListe = 0;
 			int dureeLivraison = 0;
+			
 
 			for(int i = 0; i < nombreDestination; i++)
 			{
 				Intersection intersectionCourante = LivraisonInter.get(i);
 				Intersection intersectionDestination = intersectionCourante;
-				listTronconInverse.clear();
-				listTroncon.clear();
+				listTronconInverse = new ArrayList<Troncon>();
+				listTroncon = new ArrayList<Troncon>();
 
 				long id_suivant = 0;
 				
@@ -100,17 +100,12 @@ public class Dijkstra {
 						while(it.hasNext())
 						{
 							
-							//System.out.println(t);
 							HashMap.Entry<Long, noeud> noeudCourant = it.next();
 							if(noeudCourant.getValue().intersectionActuel.getIdNoeud() == intersectionCourante.getIdNoeud())
 							{
-								System.out.println("yo");
-								System.out.println(intersectionCourante.getIdNoeud());
-								
+
 								id_suivant = intersectionCourante.getIdNoeud();
 								intersectionCourante = obtenirIntersection(noeudCourant.getValue().idAncetre);
-								System.out.println(intersectionCourante.getIdNoeud());
-								System.out.println(intersectionCourante.getTronconParDestination(id_suivant).getNomRue());
 								listTronconInverse.add(intersectionCourante.getTronconParDestination(id_suivant));
 								break;
 							}
@@ -119,12 +114,9 @@ public class Dijkstra {
 						}
 						
 					}
-					//System.out.println(listeFermee);
-					//System.out.println(listeOuverte);
 
 					tailleListe = listTronconInverse.size();
 					distanceLivraison = 0;
-					System.out.println(listTronconInverse);
 					//On inverse la liste des troncons, puisue l on est partie de la fin
 					for(int j = tailleListe - 1; j >= 0; j--)
 					{
@@ -137,19 +129,11 @@ public class Dijkstra {
 					}
 
 					dureeLivraison = (int) (distanceLivraison*36)/1500;
-					System.out.println("test 666 1");
-					System.out.println(listTronconInverse);
-					System.out.println("test 666 2");
-					System.out.println(listTroncon.size());
-					System.out.println(listTroncon.get(0).getNomRue());
-					System.out.println(intersectionOrigine.getIdNoeud());
-					System.out.println(intersectionDestination.getIdNoeud());
-					Chemin cheminement = new Chemin(intersectionOrigine, intersectionDestination, dureeLivraison, listTroncon);
-					ensembleChemins.add(cheminement);
-					System.out.println("duree" + dureeLivraison);
-					System.out.println(cheminement.getTroncons());
+					resChemin.add(new Chemin(intersectionOrigine, intersectionDestination, dureeLivraison, listTroncon));
 				}
 			}
+			
+			return resChemin;
 		//}catch(Exception e){
 
 		//}

@@ -30,6 +30,7 @@ public class TestDijkstra extends TestCase {
 		Troncon DE = new Troncon((double)70000,D,E,"T7");
 		Troncon EA = new Troncon((double)70000,E,A,"T8");
 		Troncon CA = new Troncon((double)70000,C,A,"T9");
+		Troncon EC = new Troncon((double)100000,E,C,"T10");
 		A.ajouterTronconPartant(AB);
 		A.ajouterTronconPartant(AC);
 		A.ajouterTronconPartant(AD);
@@ -38,6 +39,7 @@ public class TestDijkstra extends TestCase {
 		C.ajouterTronconPartant(CE);
 		D.ajouterTronconPartant(DE);
 		E.ajouterTronconPartant(EA);
+		E.ajouterTronconPartant(EC);
 		C.ajouterTronconPartant(CA);
 		ArrayList<Intersection> plan_inter = new ArrayList<Intersection>();
 		ArrayList<Intersection> livraison_inter = new ArrayList<Intersection>();
@@ -51,14 +53,7 @@ public class TestDijkstra extends TestCase {
 		livraison_inter.add(E);
 		
 		List<Chemin> res = Dijkstra.PrincipalDijkstra(plan_inter, livraison_inter);
-		System.out.println(res);
-		System.out.println("test 1");
-		System.out.println(res.get(0).getTroncons());
-		//System.out.println(res.get(0).getTroncons().get(0).getNomRue());
-		//System.out.println(res.get(0).getTroncons().get(1).getNomRue());
-		System.out.println("test 3");		
-		//System.out.println(res.get(1).getTroncons());
-		System.out.println("test 3");		
+
 				
 		
 
