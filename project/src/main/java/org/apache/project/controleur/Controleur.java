@@ -60,7 +60,7 @@ public class Controleur {
 	}
 	
 	public void calculerTournee() {
-		//tournee = new Tournee();
-		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee);
+		tournee = new Tournee(demandeDeLivraison.getAdresseEntrepot(), demandeDeLivraison.getHeureDepart());
+		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale);
 	}
 }
