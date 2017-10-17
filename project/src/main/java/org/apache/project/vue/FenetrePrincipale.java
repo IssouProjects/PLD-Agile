@@ -24,6 +24,9 @@ public class FenetrePrincipale extends Application{
 	MapContainer mapContainer;
 	Controleur controleur;
 	
+	Button loadMapButton;
+	Button fitMapButton;
+	
 	// String appearing in the user interface
 	public static final String LOAD_MAP = "Load map";
 	
@@ -54,14 +57,15 @@ public class FenetrePrincipale extends Application{
     	
     	HBox mapButtonsLayout = new HBox();
     	
-    	Button fitMapButton = new Button("Fit map in view");
-    	Button loadMapButton = new Button(LOAD_MAP);
+    	fitMapButton = new Button("Fit map in view");
+    	fitMapButton.setDisable(true);
+    	loadMapButton = new Button(LOAD_MAP);
     	
     	mapButtonsLayout.setAlignment(Pos.CENTER);
     	mapButtonsLayout.setSpacing(10);
     	
-    	mapButtonsLayout.getChildren().add(fitMapButton);
     	mapButtonsLayout.getChildren().add(loadMapButton);
+    	mapButtonsLayout.getChildren().add(fitMapButton);
         
         mapContainer = new MapContainer(2000,2000, scene);
         mapLayout.getChildren().add(mapContainer);
@@ -120,6 +124,9 @@ public class FenetrePrincipale extends Application{
     public void afficherPlanDeVille(PlanDeVille plan){
     	mapContainer.getMapDisplay().afficherPlanDeVille(plan);
     	mapContainer.fitMapInView();
+    	loadMapButton.setDisable(true);
+    	fitMapButton.setDisable(false);
+    	
     }
     
     public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
