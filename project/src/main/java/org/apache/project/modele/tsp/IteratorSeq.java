@@ -21,17 +21,14 @@ public class IteratorSeq implements Iterator<Integer> {
 		}
 	}
 	
-	@Override
 	public boolean hasNext() {
 		return nbCandidats > 0;
 	}
 
-	@Override
 	public Integer next() {
 		return candidats[--nbCandidats];
 	}
 
-	@Override
 	public void remove() {}
 
 }
