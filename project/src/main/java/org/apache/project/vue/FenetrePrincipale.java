@@ -5,6 +5,8 @@ import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
 
+import com.sun.javafx.collections.ListListenerHelper;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,8 +29,11 @@ public class FenetrePrincipale extends Application{
 	Button loadMapButton;
 	Button fitMapButton;
 	
+	Button loadLivraisonButton;
+	
 	// String appearing in the user interface
 	public static final String LOAD_MAP = "Load map";
+	public static final String LOAD_LIVRAISON = "Load Delivery";
 	
 	public static void launchApp(String[] args) {
         Application.launch(FenetrePrincipale.class, args);
@@ -45,6 +50,7 @@ public class FenetrePrincipale extends Application{
     	// layout for the full window
     	GridPane layout = new GridPane();
     	layout.setStyle("-fx-padding: 10;");
+    	layout.setHgap(10);
     	
     	Scene scene = new Scene(layout, 1024, 500);
     	
@@ -60,6 +66,7 @@ public class FenetrePrincipale extends Application{
     	fitMapButton = new Button("Fit map in view");
     	fitMapButton.setDisable(true);
     	loadMapButton = new Button(LOAD_MAP);
+    	loadLivraisonButton = new Button(LOAD_LIVRAISON);    	
     	
     	mapButtonsLayout.setAlignment(Pos.CENTER);
     	mapButtonsLayout.setSpacing(10);
@@ -78,15 +85,21 @@ public class FenetrePrincipale extends Application{
 		///// 	CREATING THE DELIVERY LIST	    /////
 		/////////////////////////////////////////////
         
+        VBox listLayout = new VBox();
+        
+        listLayout.setSpacing(10);
+        
         ListView liste = new ListView();
         liste.getItems().add("Livraison 1");
         liste.getItems().add("Livraison 2");
         liste.getItems().add("Livraison 3");
         liste.getItems().add("Livraison 4");
         
-        layout.add(liste, 1, 0);
-        layout.setHgrow(liste, Priority.ALWAYS);
-        liste.setMaxWidth(Double.MAX_VALUE);
+        listLayout.getChildren().add(liste);
+        listLayout.getChildren().add(loadLivraisonButton);
+        liste.setMaxHeight(Double.MAX_VALUE);
+        
+        layout.add(listLayout, 1, 0);
         
         
 		/////////////////////////////////////////////
@@ -102,6 +115,7 @@ public class FenetrePrincipale extends Application{
     	});
         
         loadMapButton.setOnAction(edb);
+        loadLivraisonButton.setOnAction(edb);
         
         // layout style
         
@@ -126,11 +140,11 @@ public class FenetrePrincipale extends Application{
     	mapContainer.fitMapInView();
     	loadMapButton.setDisable(true);
     	fitMapButton.setDisable(false);
-    	
     }
     
     public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
     	mapContainer.getMapDisplay().afficherDemandeDeLivraison(livraison);
+    	loadLivraisonButton.setDisable(true);
     }
     
     public void afficherTournee(Tournee tournee) {
