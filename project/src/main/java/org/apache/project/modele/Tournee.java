@@ -99,5 +99,28 @@ public class Tournee extends Observable {
 		}
 		TSP2 tspSolut = new TSP2();
 		tspSolut.chercheSolution(1000, nombreLivraison, cout, duree);
+		
+		//Definit les parametres entrepots et la liste des intersections ordonnées
+		long idIntersection = 0;
+		
+		adresseEntrepot = demande.getAdresseEntrepot();
+		
+		for(int i = 0; i < nombreChemin + 1; i++)
+		{
+			idIntersection = conversion[tspSolut.getMeilleureSolution(i)];
+			
+			for(int j = 1; j < nombreLivraison; j++)
+			{
+				if(idIntersection == demande.getListeLivraison().get(j).getLieuDeLivraison().getIdNoeud())
+				{
+					livraisonsOrdonnees.add(demande.getListeLivraison().get(j));
+				}
+			}
+		}
+		
+		//Mettre les chemins ordonnées
+		
+		
+		
 	}
 }
