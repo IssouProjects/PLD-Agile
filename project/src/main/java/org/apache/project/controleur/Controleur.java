@@ -8,7 +8,9 @@ import org.apache.project.vue.FenetrePrincipale;
 public class Controleur {
 	
 	private PlanDeVille planDeVille;
+	private DemandeDeLivraison demandeDeLivraison;
 	private FenetrePrincipale fenetrePrincipale;
+	private Tournee tournee;
 	private Etat etatCourant;
 	// Instances associees a chaque etat possible du controleur
 	protected final EtatInit etatInit = new EtatInit();
@@ -23,8 +25,10 @@ public class Controleur {
 	private Controleur(){
 		instance = this;
 		planDeVille = new PlanDeVille();
+		demandeDeLivraison = new DemandeDeLivraison();
 		etatCourant = etatInit;		
 	}
+	
 	public static Controleur getInstance(){
 		if (instance == null){
 			instance = new Controleur();
@@ -49,5 +53,14 @@ public class Controleur {
 	 */
 	public void ouvrirPlanDeVille() {
 		etatCourant.ouvrirPlanDeVille(this, planDeVille, fenetrePrincipale);
+	}
+	
+	public void ouvrirDemandeDeLivraison() {
+		etatCourant.ouvrirDemandeDeLivraison(this, planDeVille, demandeDeLivraison, fenetrePrincipale);
+	}
+	
+	public void calculerTournee() {
+		//tournee = new Tournee();
+		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee);
 	}
 }
