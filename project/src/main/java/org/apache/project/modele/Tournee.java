@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import org.apache.project.modele.tsp.TemplateTSP;
+import org.apache.project.modele.tsp.TSP2;
 
 public class Tournee extends Observable {
 	
@@ -97,6 +97,7 @@ public class Tournee extends Observable {
 			}
 			cout[convertOrigine][convertDestination] = graphe.get(i).getDuree();
 		}
-		TemplateTSP.chercheSolution(1000, nombreLivraison, cout, duree);
+		TSP2 tspSolut = new TSP2();
+		tspSolut.chercheSolution(1000, nombreLivraison, cout, duree);
 	}
 }
