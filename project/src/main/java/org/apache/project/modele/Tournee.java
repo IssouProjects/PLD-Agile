@@ -110,16 +110,29 @@ public class Tournee extends Observable {
 		{
 			idIntersection = conversion[tspSolut.getMeilleureSolution(i)];
 			
+			//Mettre les intersections ordonnees (une a une)
 			for(int j = 1; j < nombreLivraison; j++)
 			{
 				if(idIntersection == demande.getListeLivraison().get(j).getLieuDeLivraison().getIdNoeud())
 				{
 					livraisonsOrdonnees.add(demande.getListeLivraison().get(j));
+					break;
+				}
+			}
+			//Mettre les chemins ordonnees (une a une)
+			if(i != nombreChemin + 1)
+			{
+				for(int j = 1; j < nombreChemin; j++)
+				{
+					if(graphe.get(j).getDebut().getIdNoeud() == idIntersection)
+					{
+						chemins.add(graphe.get(j));
+					}
 				}
 			}
 		}
 		
-		//Mettre les chemins ordonnées
+
 		
 	}
 	public int getDureeTourneeSecondes()
