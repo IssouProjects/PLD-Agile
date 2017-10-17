@@ -52,10 +52,14 @@ public class Intersection {
 	public Troncon getTronconParDestination(Long idIntersectionDestination)
 	{
 		int nombreTroncon = tronconsPartants.size();
+		System.out.println("caca="+idIntersectionDestination);
 		for(int i = 0; i < nombreTroncon; i++)
 		{
-			if(tronconsPartants.get(i).getIntersectionArrivee().getIdNoeud() == idIntersectionDestination)
+			System.out.println(idIntersectionDestination + "==" + tronconsPartants.get(i).getIntersectionArrivee().getIdNoeud() + "?" );
+			System.out.println(tronconsPartants.get(i).getIntersectionArrivee().getIdNoeud().longValue() == idIntersectionDestination.longValue());
+			if(tronconsPartants.get(i).getIntersectionArrivee().getIdNoeud().longValue() == idIntersectionDestination.longValue())
 			{
+				System.out.println("caca");
 				return tronconsPartants.get(i);
 			}
 		}

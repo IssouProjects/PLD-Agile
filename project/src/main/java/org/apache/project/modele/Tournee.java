@@ -18,6 +18,8 @@ public class Tournee extends Observable {
 	public Tournee(Intersection adresseEntrepot, Time heureDepart) {
 		this.adresseEntrepot=adresseEntrepot;
 		this.heureDepart=heureDepart;
+		chemins = new ArrayList<Chemin>();
+		livraisonsOrdonnees = new ArrayList<Livraison>();
 	}
 	
 	public Intersection getAdresseEntrepot() {
@@ -66,10 +68,10 @@ public class Tournee extends Observable {
 		duree[0] = 0;
 		
 		//Ajout des intersections de livraisons
-		for(int i = 1; i < nombreLivraison; i++)
+		for(int i = 0; i < nombreLivraison - 1; i++)
 		{
-			conversion[i] = demande.getListeLivraison().get(i).getLieuDeLivraison().getIdNoeud();
-			duree[i] = demande.getListeLivraison().get(i).getDuree();
+			conversion[i+1] = demande.getListeLivraison().get(i).getLieuDeLivraison().getIdNoeud();
+			duree[i+1] = demande.getListeLivraison().get(i).getDuree();
 		}
 		
 		int[][] cout = new int [nombreLivraison][nombreLivraison];
@@ -79,6 +81,8 @@ public class Tournee extends Observable {
 		long idOrigine = 0;
 		int convertDestination = 0;
 		int convertOrigine = 0;
+		
+		//Mise en place de la table de conversion et cout
 		
 		for(int i = 0; i < nombreChemin; i++)
 		{
@@ -103,31 +107,46 @@ public class Tournee extends Observable {
 		
 		//Definit les parametres entrepots et la liste des intersections ordonnées
 		long idIntersection = 0;
+		long idIntersectionSuivante = 0;
 		
 		adresseEntrepot = demande.getAdresseEntrepot();
 		
-		for(int i = 0; i < nombreChemin + 1; i++)
+		System.out.println("ultcaca" + nombreChemin);
+		
+		for(int i = 0; i < nombreLivraison; i++)
 		{
+			System.out.println(i);
+			System.out.println("test:" + tspSolut.getMeilleureSolution(i));
+			System.out.println("test2:" + conversion[tspSolut.getMeilleureSolution(i)]);
 			idIntersection = conversion[tspSolut.getMeilleureSolution(i)];
-			
-			//Mettre les intersections ordonnees (une a une)
-			for(int j = 1; j < nombreLivraison; j++)
+			if(i != nombreLivraison - 1)
 			{
-				if(idIntersection == demande.getListeLivraison().get(j).getLieuDeLivraison().getIdNoeud())
+				idIntersectionSuivante = conversion[tspSolut.getMeilleureSolution(i+1)];
+			} else {
+				idIntersectionSuivante = conversion[0];
+			}
+			//Mettre les intersections ordonnees (une a une)
+			//On n ajoute pas a la liste des intersections pour l entrepot
+			if(i > 0)
+			{
+				for(int j = 0; j < nombreLivraison; j++)
 				{
-					livraisonsOrdonnees.add(demande.getListeLivraison().get(j));
-					break;
+					if(idIntersection == demande.getListeLivraison().get(j).getLieuDeLivraison().getIdNoeud())
+					{
+						livraisonsOrdonnees.add(demande.getListeLivraison().get(j));
+						break;
+					}
 				}
 			}
+
 			//Mettre les chemins ordonnees (une a une)
-			if(i != nombreChemin + 1)
+			for(int j = 0; j < nombreChemin; j++)
 			{
-				for(int j = 1; j < nombreChemin; j++)
+				if(graphe.get(j).getDebut().getIdNoeud() == idIntersection && graphe.get(j).getFin().getIdNoeud() == idIntersectionSuivante)
 				{
-					if(graphe.get(j).getDebut().getIdNoeud() == idIntersection)
-					{
-						chemins.add(graphe.get(j));
-					}
+					System.out.println("caca" + graphe.get(j).getDebut().getIdNoeud());
+					System.out.println(graphe.get(j));
+					chemins.add(graphe.get(j));
 				}
 			}
 		}

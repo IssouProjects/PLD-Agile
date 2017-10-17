@@ -124,7 +124,13 @@ public class Dijkstra {
 							{
 
 								id_suivant = intersectionCourante.getIdNoeud();
+								System.out.println(id_suivant);
+								System.out.println(noeudCourant.getValue().idAncetre);
 								intersectionCourante = obtenirIntersection(noeudCourant.getValue().idAncetre);
+								System.out.println(intersectionCourante.getIdNoeud());
+								System.out.println(intersectionCourante.getTronconsPartants());
+								
+								System.out.println(intersectionCourante.getTronconParDestination(id_suivant));
 								listTronconInverse.add(intersectionCourante.getTronconParDestination(id_suivant));
 								break;
 							}
@@ -161,16 +167,17 @@ public class Dijkstra {
 	//Renvoie une intersection de la liste fermee a partir de son id
 	public static Intersection obtenirIntersection(Long idIntersection)
 	{
-		Iterator <HashMap.Entry<Long, noeud>> it = listeFermee.entrySet().iterator();
-		while(it.hasNext())
+		//Iterator <HashMap.Entry<Long, noeud>> it = listeFermee.entrySet().iterator();
+		return listeFermee.get(idIntersection).intersectionActuel;
+		/*while(it.hasNext())
 		{
 			HashMap.Entry<Long, noeud> noeudCourant = it.next();
 			if(noeudCourant.getValue().intersectionActuel.getIdNoeud() == idIntersection)
 			{
 				return noeudCourant.getValue().intersectionActuel;
 			}
-		}
-		return null;
+		}*/
+		//return null;
 	}
 
 

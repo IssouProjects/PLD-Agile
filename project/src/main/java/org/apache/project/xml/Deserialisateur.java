@@ -75,7 +75,7 @@ public class Deserialisateur {
 		Element entrepot = (Element) noeudDOMRacine.getElementsByTagName("entrepot").item(0);
 		String heureDepart = entrepot.getAttribute("heureDepart");
 		demande.setHeureDepart(getTimeFromString(heureDepart));
-		Intersection adresseEntrepot = plan.getIntersectionById(Integer.parseInt(entrepot.getAttribute("adresse")));
+		Intersection adresseEntrepot = plan.getIntersectionById(Long.parseLong(entrepot.getAttribute("adresse")));
 		demande.setAdresseEntrepot(adresseEntrepot);
 
 		NodeList listeLivraisons = noeudDOMRacine.getElementsByTagName("livraison");
@@ -105,7 +105,7 @@ public class Deserialisateur {
 	// TODO : Gérer les erreurs
 	// TODO : Gerer cas erreur y a un debut mais pas de fin de plage horaire
 	private static void construireLivraison(Element element, DemandeDeLivraison demande, PlanDeVille plan) {
-		int adresse = Integer.parseInt(element.getAttribute("adresse"));
+		Long adresse = Long.parseLong(element.getAttribute("adresse"));
 		int duree = Integer.parseInt(element.getAttribute("duree"));
 		Livraison uneLivraison = new Livraison(plan.getIntersectionById(adresse), duree);
 		String debutPlage = element.getAttribute("debutPlage");
