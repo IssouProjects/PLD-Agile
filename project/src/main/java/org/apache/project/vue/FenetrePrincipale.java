@@ -123,6 +123,7 @@ public class FenetrePrincipale extends Application{
         
         loadMapButton.setOnAction(edb);
         loadLivraisonButton.setOnAction(edb);
+        calculerTourneeButton.setOnAction(edb);
         
         // layout style
         

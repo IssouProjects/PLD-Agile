@@ -3,10 +3,12 @@ package org.apache.project.controleur;
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
+import org.apache.project.vue.FenetrePrincipale;
 
 public class EtatDemandeLivraisonCharge extends EtatDefaut {
 	@Override
- 	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee) {
-		
+ 	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale) {
+		tournee.calculerTournee(planDeVille, demandeDeLivraison);
+		fenetrePrincipale.afficherTournee(tournee);		
 	}
 }

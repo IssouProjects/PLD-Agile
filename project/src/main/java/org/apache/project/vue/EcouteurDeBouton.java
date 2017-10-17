@@ -26,6 +26,9 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 		case FenetrePrincipale.LOAD_LIVRAISON:
 			controleur.ouvrirDemandeDeLivraison();
 			break;
+		case FenetrePrincipale.CALCULATE_TOURNEE:
+			controleur.calculerTournee();
+			break;
 		default:
 			System.out.println("Unmapped Button");
 		}
