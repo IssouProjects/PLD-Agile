@@ -1,6 +1,7 @@
 package org.apache.project.modele;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DemandeDeLivraison {
@@ -12,6 +13,13 @@ public class DemandeDeLivraison {
 	public DemandeDeLivraison(Intersection entrepot, Time heureDepart) {
 		this.adresseEntrepot=entrepot;
 		this.heureDepart=heureDepart;
+		this.livraisons=new ArrayList<Livraison>();
+	}
+	
+	public DemandeDeLivraison() {
+		this.adresseEntrepot=null;
+		this.heureDepart=null;
+		this.livraisons=new ArrayList<Livraison>();
 	}
 	
 	public Intersection getAdresseEntrepot() {

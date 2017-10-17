@@ -15,7 +15,7 @@ public class EtatPlanCharge extends EtatDefaut {
 
 	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale){
 		try {
-			Deserialisateur.chargerDemandeLivraison(demandeDeLivraison);
+			Deserialisateur.chargerDemandeLivraison(demandeDeLivraison, planDeVille);
 			controleur.setEtatCourant(controleur.etatDemandeLivraisonCharge);
 			fenetrePrincipale.afficherDemandeDeLivraison(demandeDeLivraison);
 		} catch (ParserConfigurationException e) {
