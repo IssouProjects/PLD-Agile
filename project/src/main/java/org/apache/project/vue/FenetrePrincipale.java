@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.ColumnConstraints;
@@ -35,6 +36,8 @@ public class FenetrePrincipale extends Application{
 	Button loadLivraisonButton;
 	
 	ListView listeLivraisons;
+	
+	Label mainLabel;
 	
 	// String appearing in the user interface
 	public static final String LOAD_MAP = "Charger plan";
@@ -88,11 +91,17 @@ public class FenetrePrincipale extends Application{
         mapLayout.getChildren().add(mapButtonsLayout);
         mapLayout.setSpacing(10d);
     	
-        layout.add(mapLayout, 0, 0);
+        layout.add(mapLayout, 0, 1);
+        
+        mainLabel = new Label("Livraisons: ");
+        
+        layout.add(mainLabel, 1, 0);
         
 		/////////////////////////////////////////////
 		///// 	CREATING THE DELIVERY LIST	    /////
 		/////////////////////////////////////////////
+        
+        
         
         VBox listLayout = new VBox();
         
@@ -111,7 +120,8 @@ public class FenetrePrincipale extends Application{
         listLayout.getChildren().add(listeButtonsLayout);
         //liste.setMaxHeight(Double.MAX_VALUE);
         
-        layout.add(listLayout, 1, 0);
+        layout.add(listLayout, 1, 1);
+        
         
         
 		/////////////////////////////////////////////
@@ -167,6 +177,8 @@ public class FenetrePrincipale extends Application{
     	mapContainer.getMapDisplay().afficherTournee(tournee);
     	calculerTourneeButton.setDisable(true);
     	afficherTexteLivraisonsOrdonnees(tournee);
+    	double duree_min = tournee.getDureeTourneeSecondes()/60;
+    	mainLabel.setText("Duree de la tournee " + (int)Math.ceil(duree_min)+ " minutes." );
     }
     
     private void afficherTexteLivraisons(DemandeDeLivraison demandeLivraison){
