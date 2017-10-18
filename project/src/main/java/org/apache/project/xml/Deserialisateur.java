@@ -44,8 +44,9 @@ public class Deserialisateur {
 		File xml = OuvreurXML.getInstance().ouvreFichier(true);
 		chargerDemandeLivraisonFichier(demande, plan, xml);
 	}
-	
-	public static void chargerDemandeLivraisonFichier(DemandeDeLivraison demande, PlanDeVille plan, File xml) throws ParserConfigurationException, SAXException, IOException, NumberFormatException, ExceptionXML {
+
+	public static void chargerDemandeLivraisonFichier(DemandeDeLivraison demande, PlanDeVille plan, File xml)
+			throws ParserConfigurationException, SAXException, IOException, NumberFormatException, ExceptionXML {
 		DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		Document document = docBuilder.parse(xml);
 		Element racine = document.getDocumentElement();
@@ -75,7 +76,7 @@ public class Deserialisateur {
 		Element entrepot = (Element) noeudDOMRacine.getElementsByTagName("entrepot").item(0);
 		String heureDepart = entrepot.getAttribute("heureDepart");
 		demande.setHeureDepart(getTimeFromString(heureDepart));
-		Intersection adresseEntrepot = plan.getIntersectionById(Integer.parseInt(entrepot.getAttribute("adresse")));
+		Intersection adresseEntrepot = plan.getIntersectionById(Long.parseLong(entrepot.getAttribute("adresse")));
 		demande.setAdresseEntrepot(adresseEntrepot);
 
 		NodeList listeLivraisons = noeudDOMRacine.getElementsByTagName("livraison");
@@ -105,7 +106,7 @@ public class Deserialisateur {
 	// TODO : Gérer les erreurs
 	// TODO : Gerer cas erreur y a un debut mais pas de fin de plage horaire
 	private static void construireLivraison(Element element, DemandeDeLivraison demande, PlanDeVille plan) {
-		int adresse = Integer.parseInt(element.getAttribute("adresse"));
+		Long adresse = Long.parseLong(element.getAttribute("adresse"));
 		int duree = Integer.parseInt(element.getAttribute("duree"));
 		Livraison uneLivraison = new Livraison(plan.getIntersectionById(adresse), duree);
 		String debutPlage = element.getAttribute("debutPlage");
@@ -124,6 +125,7 @@ public class Deserialisateur {
 	 * @param time
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	private static Time getTimeFromString(String time) {
 		List<String> hmsListStr = Arrays.asList(time.split(":"));
 		int hours = Integer.parseInt(hmsListStr.get(0));
