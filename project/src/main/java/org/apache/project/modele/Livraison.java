@@ -42,5 +42,20 @@ public class Livraison {
 	public void setPlageHoraire(PlageHoraire plageHoraire) {
 		this.plageHoraire = plageHoraire;
 	}
+	
+	@Override
+	public String toString() {
+		String livraison_s = "X: " + lieuDeLivraison.getCoordX() + "  Y: " + lieuDeLivraison.getCoordY();
+		livraison_s += "\n";
+		if(plageHoraire != null) {
+			livraison_s += "Plage horaire: " + plageHoraire.getDebut().toString() + " - " + plageHoraire.getFin().toString();
+		}else {
+			livraison_s += "Pas de plage horaire";
+		}
+		livraison_s += "\n";
+		double duree_min = duree/60;
+		livraison_s += "Durée sur place: " + (int)Math.ceil(duree_min) + " minutes";			
+		return livraison_s;
+	}
 
 }

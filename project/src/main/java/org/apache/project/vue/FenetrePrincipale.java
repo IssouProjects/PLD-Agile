@@ -1,9 +1,13 @@
 package org.apache.project.vue;
 
+import java.util.List;
+
 import org.apache.project.controleur.Controleur;
 import org.apache.project.modele.DemandeDeLivraison;
+import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
+
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -29,6 +33,8 @@ public class FenetrePrincipale extends Application{
 	Button calculerTourneeButton;
 	Button loadLivraisonButton;
 	
+	ListView listeLivraisons;
+	
 	// String appearing in the user interface
 	public static final String LOAD_MAP = "Charger plan";
 	public static final String LOAD_LIVRAISON = "Charger livraisons";
@@ -44,7 +50,7 @@ public class FenetrePrincipale extends Application{
     	controleur = controleur.getInstance();
     	controleur.setFenetre(this);
     	
-    	stage.setTitle("Issou delivery optimiser 2000");
+    	stage.setTitle("SALTY DELIVERY");
         
     	// layout for the full window
     	GridPane layout = new GridPane();
@@ -91,20 +97,18 @@ public class FenetrePrincipale extends Application{
         
         HBox listeButtonsLayout = new HBox();
         listeButtonsLayout.setSpacing(10);
+        listeButtonsLayout.getChildren().add(calculerTourneeButton);
         
         listLayout.setSpacing(10);
         
-        ListView liste = new ListView();
-        liste.getItems().add("Livraison 1");
-        liste.getItems().add("Livraison 2");
-        liste.getItems().add("Livraison 3");
-        liste.getItems().add("Livraison 4");
+        listeLivraisons = new ListView();
         
-        listLayout.getChildren().add(liste);
+        listeLivraisons.getStylesheets().add(getClass().getResource("list.css").toExternalForm());
+        listLayout.getChildren().add(listeLivraisons);
         listeButtonsLayout.getChildren().add(loadLivraisonButton);
-        listeButtonsLayout.getChildren().add(calculerTourneeButton);
+        
         listLayout.getChildren().add(listeButtonsLayout);
-        liste.setMaxHeight(Double.MAX_VALUE);
+        //liste.setMaxHeight(Double.MAX_VALUE);
         
         layout.add(listLayout, 1, 0);
         
@@ -155,11 +159,30 @@ public class FenetrePrincipale extends Application{
     	mapContainer.getMapDisplay().afficherDemandeDeLivraison(livraison);
     	loadLivraisonButton.setDisable(true);
     	calculerTourneeButton.setDisable(false);
+    	afficherTexteLivraisons(livraison);
     }
     
     public void afficherTournee(Tournee tournee) {
     	mapContainer.getMapDisplay().afficherTournee(tournee);
     	calculerTourneeButton.setDisable(true);
+    	afficherTexteLivraisonsOrdonnees(tournee);
+    }
+    
+    private void afficherTexteLivraisons(DemandeDeLivraison demandeLivraison){
+    	List<Livraison> livraisons = demandeLivraison.getListeLivraison();
+    	for(Livraison livraison : livraisons ) {
+    		listeLivraisons.getItems().add("Livraison: " + "\n" + livraison.toString());
+    	}
+    }
+    
+    private void afficherTexteLivraisonsOrdonnees(Tournee tournee) {
+    	listeLivraisons.getItems().clear();
+    	List<Livraison> livraisons = tournee.getLivraisonsOrdonnees();
+    	int i = 1;
+    	for(Livraison livraison : livraisons ) {
+    		listeLivraisons.getItems().add("Livraison " + i + ":\n" + livraison.toString());
+    		++i;
+    	}
     }
 }
 
