@@ -109,13 +109,7 @@ public class Dijkstra {
 								.getIdNoeud()) {
 
 							id_suivant = intersectionCourante.getIdNoeud();
-							System.out.println(id_suivant);
-							System.out.println(noeudCourant.getValue().idAncetre);
 							intersectionCourante = obtenirIntersection(noeudCourant.getValue().idAncetre);
-							System.out.println(intersectionCourante.getIdNoeud());
-							System.out.println(intersectionCourante.getTronconsPartants());
-
-							System.out.println(intersectionCourante.getTronconParDestination(id_suivant));
 							listTronconInverse.add(intersectionCourante.getTronconParDestination(id_suivant));
 							break;
 						}

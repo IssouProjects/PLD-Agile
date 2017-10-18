@@ -106,7 +106,6 @@ public class Tournee extends Observable {
 
 		adresseEntrepot = demande.getAdresseEntrepot();
 
-		System.out.println("ultcaca" + nombreChemin);
 
 		for (int i = 0; i < nombreLivraison; i++) {
 			idIntersection = conversion[tspSolut.getMeilleureSolution(i)];
