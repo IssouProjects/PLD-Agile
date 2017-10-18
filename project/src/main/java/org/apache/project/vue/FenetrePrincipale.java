@@ -27,6 +27,7 @@ public class FenetrePrincipale extends Application{
 	
 	MapContainer mapContainer;
 	Controleur controleur;
+	EcouteurDeBouton edb;
 	
 	Button loadMapButton;
 	Button fitMapButton;
@@ -82,7 +83,7 @@ public class FenetrePrincipale extends Application{
     	mapButtonsLayout.getChildren().add(loadMapButton);
     	mapButtonsLayout.getChildren().add(fitMapButton);
         
-        mapContainer = new MapContainer(2000,2000, scene);
+        mapContainer = new MapContainer(2000,2000);
         mapLayout.getChildren().add(mapContainer);
         mapLayout.getChildren().add(mapButtonsLayout);
         mapLayout.setSpacing(10d);
@@ -117,7 +118,7 @@ public class FenetrePrincipale extends Application{
 		///// 			MAPPING BUTTONS  	    /////
 		/////////////////////////////////////////////
         
-        EcouteurDeBouton edb = new EcouteurDeBouton(controleur);
+        edb = new EcouteurDeBouton(controleur);
         
         fitMapButton.setOnAction(new EventHandler<ActionEvent>() {
     	    public void handle(ActionEvent e) {
