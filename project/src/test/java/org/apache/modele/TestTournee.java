@@ -48,6 +48,9 @@ public class TestTournee extends TestCase {
 		assertEquals((long)tournee.getLivraisonsOrdonnees().get(1).getLieuDeLivraison().getIdNoeud(), 25303807);
 		assertEquals((long)tournee.getLivraisonsOrdonnees().get(2).getLieuDeLivraison().getIdNoeud(), 26155540);
 		assertEquals((long)tournee.getLivraisonsOrdonnees().get(3).getLieuDeLivraison().getIdNoeud(), 29003879);
+		
+		//Test duree tournee
+		assertEquals(tournee.getDureeTourneeSecondes(), 3198);
 	}
 
 }
