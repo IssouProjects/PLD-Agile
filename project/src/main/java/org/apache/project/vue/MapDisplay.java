@@ -14,10 +14,13 @@ import org.apache.project.modele.Troncon;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class MapDisplay extends Pane{
 	
@@ -26,11 +29,15 @@ public class MapDisplay extends Pane{
 	List<Circle> demandeDeLivraisonInter;
 	List<Circle> tourneeInter;
 	List<Line> tourneeTroncons;
-	Circle entrepotInter;
+	Circle entrepotInter = null;
+	
+	List<Label> numerosLivraisons;
 	
 	// Map elements display
 	
 	// default map display
+	final int defaultFontSize = 1000;
+	
 	final int defaultIntersectionRadius = 50;
 	final Color defaultIntersectionColor = Color.WHITE;
 	
@@ -67,6 +74,7 @@ public class MapDisplay extends Pane{
         demandeDeLivraisonInter = new ArrayList<Circle>();
         tourneeInter = new ArrayList<Circle>();
         tourneeTroncons = new ArrayList<Line>();
+        numerosLivraisons = new ArrayList<Label>();
     }
     
     public double getScale() {
@@ -135,15 +143,29 @@ public class MapDisplay extends Pane{
     		getChildren().removeAll(demandeDeLivraisonInter);
     		demandeDeLivraisonInter.clear();
     		getChildren().remove(entrepotInter);
+    		getChildren().removeAll(numerosLivraisons);
+    		numerosLivraisons.clear();
+    	}
+    	
+    	if(!numerosLivraisons.isEmpty()) {
+    		getChildren().removeAll(numerosLivraisons);
+    		numerosLivraisons.clear();
     	}
     	    	
     	// showing all the Livraison
     	final List<Livraison> livraisons = demandeDeLivraison.getListeLivraison();
     	
+    	int i = 0;
+    	
     	for(Livraison l : livraisons) {
+    		i++;
     		Circle circle = creerVueIntersection(l.getLieuDeLivraison(), defaultLivraisonColor, livraisonIntersectionRadius);
     		demandeDeLivraisonInter.add(circle);
             getChildren().add(circle);
+            
+            Label label = creerNumeroLivraison(l.getLieuDeLivraison(), Integer.toString(i) , defaultTourneeLivraisonColor, defaultFontSize);
+            numerosLivraisons.add(label);
+            getChildren().add(label);
     	}
     	
     	// showing the entrepot
@@ -167,6 +189,16 @@ public class MapDisplay extends Pane{
     		getChildren().remove(entrepotInter);
     	}
     	
+    	if(!demandeDeLivraisonInter.isEmpty()) {
+    		getChildren().removeAll(demandeDeLivraisonInter);
+    		demandeDeLivraisonInter.clear();
+    	}
+    	
+    	if(!numerosLivraisons.isEmpty()) {
+    		getChildren().removeAll(numerosLivraisons);
+    		numerosLivraisons.clear();
+    	}
+    	
     	final List<Chemin> chemins = tournee.getChemins();
     	
     	// we show the Tournee
@@ -188,10 +220,17 @@ public class MapDisplay extends Pane{
     	// we show the Livraisons
     	final List<Livraison> livraisons = tournee.getLivraisonsOrdonnees();
     	
+    	int i=0;
+    	
     	for(Livraison l : livraisons) {
+    		i++;
     		Circle circle = creerVueIntersection(l.getLieuDeLivraison(), defaultTourneeLivraisonColor, livraisonIntersectionRadius);
     		demandeDeLivraisonInter.add(circle);
             getChildren().add(circle);
+            
+            Label label = creerNumeroLivraison(l.getLieuDeLivraison(), Integer.toString(i) , defaultTourneeLivraisonColor, defaultFontSize);
+            numerosLivraisons.add(label);
+            getChildren().add(label);
     	}
     	
     	// we show the entrepot
@@ -200,7 +239,21 @@ public class MapDisplay extends Pane{
     	
     }
     
-    public Circle creerVueIntersection(Intersection inter, Color color) {
+    public Label creerNumeroLivraison(Intersection inter, String numero, Color color, int taille) {
+    	Label label = new Label(numero);
+    	
+    	label.setTranslateX(getTransformedX(inter.getCoordY()) + livraisonIntersectionRadius*2);
+    	label.setTranslateY(getTransformedY(inter.getCoordX()) - livraisonIntersectionRadius*2);
+    	
+    	label.setFont(Font.font("Helvetica", FontWeight.BOLD, taille));
+    	label.setTextFill(defaultLivraisonColor);
+    	
+    	label.setText(numero);
+        
+        return label;
+    }
+    
+    public Circle creerVueIntersection(Intersection inter,  Color color) {
     	Circle circle = new Circle();
     	
     	circle.setCenterX(getTransformedX(inter.getCoordY()));

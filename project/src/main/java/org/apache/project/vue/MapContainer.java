@@ -9,7 +9,8 @@ import javafx.scene.shape.Rectangle;
 public class MapContainer extends Pane {
 
 	private MapDisplay mapDisplay;
-
+	
+	MapGestures mapGestures;
 	Rectangle clipRectangle;
 
 	public MapContainer(int height, int width) {
@@ -30,7 +31,7 @@ public class MapContainer extends Pane {
 
 		// we add user controls for the map: zoom in with the scrollwheel, pan with the
 		// mouse
-		MapGestures mapGestures = new MapGestures(mapDisplay);
+		mapGestures = new MapGestures(mapDisplay);
 		this.addEventFilter(MouseEvent.MOUSE_PRESSED, mapGestures.getOnMousePressedEventHandler());
 		this.addEventFilter(MouseEvent.MOUSE_DRAGGED, mapGestures.getOnMouseDraggedEventHandler());
 		this.addEventFilter(ScrollEvent.ANY, mapGestures.getOnScrollEventHandler());
