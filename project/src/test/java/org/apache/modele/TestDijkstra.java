@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.project.modele.*;
+import org.junit.Test;
 
 import junit.framework.TestCase;
 
@@ -18,6 +19,7 @@ public class TestDijkstra extends TestCase {
 		super.tearDown();
 	}
 
+	@Test(timeout=1000)
 	public void testAlgoDijkstra() throws Exception {
 		Intersection A = new Intersection((long) 1, (long) 3, (long) 3);
 		Intersection B = new Intersection((long) 2, (long) 1, (long) 2);
