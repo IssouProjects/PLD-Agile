@@ -155,17 +155,10 @@ public class MapDisplay extends Pane{
     	// showing all the Livraison
     	final List<Livraison> livraisons = demandeDeLivraison.getListeLivraison();
     	
-    	int i = 0;
-    	
     	for(Livraison l : livraisons) {
-    		i++;
     		Circle circle = creerVueIntersection(l.getLieuDeLivraison(), defaultLivraisonColor, livraisonIntersectionRadius);
     		demandeDeLivraisonInter.add(circle);
             getChildren().add(circle);
-            
-            Label label = creerNumeroLivraison(l.getLieuDeLivraison(), Integer.toString(i) , defaultTourneeLivraisonColor, defaultFontSize);
-            numerosLivraisons.add(label);
-            getChildren().add(label);
     	}
     	
     	// showing the entrepot
@@ -246,7 +239,7 @@ public class MapDisplay extends Pane{
     	label.setTranslateY(getTransformedY(inter.getCoordX()) - livraisonIntersectionRadius*2);
     	
     	label.setFont(Font.font("Helvetica", FontWeight.BOLD, taille));
-    	label.setTextFill(defaultLivraisonColor);
+    	label.setTextFill(color);
     	
     	label.setText(numero);
         

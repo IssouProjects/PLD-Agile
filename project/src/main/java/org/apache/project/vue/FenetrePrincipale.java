@@ -36,8 +36,6 @@ public class FenetrePrincipale extends Application {
 
 	ListView<Object> listeLivraisons;
 	
-	ListView listeLivraisons;
-	
 	Label mainLabel;
 	
 	// String appearing in the user interface
@@ -154,45 +152,6 @@ public class FenetrePrincipale extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
-
-	public void afficherPlanDeVille(PlanDeVille plan) {
-		mapContainer.getMapDisplay().afficherPlanDeVille(plan);
-		mapContainer.fitMapInView();
-		loadMapButton.setDisable(true);
-		fitMapButton.setDisable(false);
-		loadLivraisonButton.setDisable(false);
-	}
-
-	public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
-		mapContainer.getMapDisplay().afficherDemandeDeLivraison(livraison);
-		loadLivraisonButton.setDisable(true);
-		calculerTourneeButton.setDisable(false);
-		afficherTexteLivraisons(livraison);
-	}
-
-	public void afficherTournee(Tournee tournee) {
-		mapContainer.getMapDisplay().afficherTournee(tournee);
-		calculerTourneeButton.setDisable(true);
-		afficherTexteLivraisonsOrdonnees(tournee);
-	}
-
-	private void afficherTexteLivraisons(DemandeDeLivraison demandeLivraison) {
-		List<Livraison> livraisons = demandeLivraison.getListeLivraison();
-		for (Livraison livraison : livraisons) {
-			listeLivraisons.getItems().add("Livraison: " + "\n" + livraison.toString());
-		}
-	}
-
-	private void afficherTexteLivraisonsOrdonnees(Tournee tournee) {
-		listeLivraisons.getItems().clear();
-		List<Livraison> livraisons = tournee.getLivraisonsOrdonnees();
-		int i = 1;
-		for (Livraison livraison : livraisons) {
-			listeLivraisons.getItems().add("Livraison " + i + ":\n" + livraison.toString());
-			++i;
-		}
-	}
-
     
     public void afficherPlanDeVille(PlanDeVille plan){
     	mapContainer.getMapDisplay().afficherPlanDeVille(plan);
