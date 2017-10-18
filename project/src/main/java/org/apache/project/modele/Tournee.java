@@ -98,7 +98,7 @@ public class Tournee extends Observable {
 			cout[convertOrigine][convertDestination] = graphe.get(i).getDuree();
 		}
 		TSP2 tspSolut = new TSP2();
-		tspSolut.chercheSolution(1000, nombreLivraison, cout, duree);
+		tspSolut.chercheSolution(10000, nombreLivraison, cout, duree);
 
 		// Definit les parametres entrepots et la liste des intersections ordonnées
 		long idIntersection = 0;

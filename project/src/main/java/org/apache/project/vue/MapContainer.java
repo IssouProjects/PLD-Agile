@@ -1,6 +1,5 @@
 package org.apache.project.vue;
 
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
@@ -9,7 +8,8 @@ import javafx.scene.shape.Rectangle;
 public class MapContainer extends Pane {
 
 	private MapDisplay mapDisplay;
-
+	
+	MapGestures mapGestures;
 	Rectangle clipRectangle;
 
 	public MapContainer(int height, int width) {
@@ -30,7 +30,7 @@ public class MapContainer extends Pane {
 
 		// we add user controls for the map: zoom in with the scrollwheel, pan with the
 		// mouse
-		MapGestures mapGestures = new MapGestures(mapDisplay);
+		mapGestures = new MapGestures(mapDisplay);
 		this.addEventFilter(MouseEvent.MOUSE_PRESSED, mapGestures.getOnMousePressedEventHandler());
 		this.addEventFilter(MouseEvent.MOUSE_DRAGGED, mapGestures.getOnMouseDraggedEventHandler());
 		this.addEventFilter(ScrollEvent.ANY, mapGestures.getOnScrollEventHandler());
@@ -50,11 +50,10 @@ public class MapContainer extends Pane {
 
 		if (getHeight() < getWidth()) {
 			mapDisplay.setScale(getHeight() / mapDisplay.getPrefHeight());
-			deltaX = (getWidth() - mapDisplay.getPrefWidth() * mapDisplay.getScale())/2.0d;
-		}
-		else {
+			deltaX = (getWidth() - mapDisplay.getPrefWidth() * mapDisplay.getScale()) / 2.0d;
+		} else {
 			mapDisplay.setScale(getWidth() / mapDisplay.getPrefWidth());
-			deltaY = (getHeight() - mapDisplay.getPrefHeight() * mapDisplay.getScale())/2.0d;
+			deltaY = (getHeight() - mapDisplay.getPrefHeight() * mapDisplay.getScale()) / 2.0d;
 		}
 
 		// resetting its coordinates
