@@ -58,7 +58,7 @@ public class MapDisplay extends Pane{
 
     public MapDisplay(int height, int width) {
         setPrefSize(height, width);
-        setStyle("-fx-background-color: #b2b2b2;");
+        setStyle("-fx-background-color: #b2b2b2;");        
 
         // add scale transform
         scaleXProperty().bind(myScale);
@@ -122,6 +122,9 @@ public class MapDisplay extends Pane{
             Circle circle = this.creerVueIntersection(entry.getValue(), defaultIntersectionColor);
             getChildren().add(circle);
     	}
+    	
+    	this.setPrefHeight(maximalX-minimalX);
+    	this.setPrefWidth(maximalX-minimalX);
     	
     }
     
@@ -224,7 +227,7 @@ public class MapDisplay extends Pane{
 		line.setStartY(getTransformedY(tronc.getIntersectionDepart().getCoordX()));
 		
 		line.setEndX(getTransformedX(tronc.getIntersectionArrivee().getCoordY()));
-		line.setEndY(getTransformedY(tronc.getIntersectionDepart().getCoordX()));
+		line.setEndY(getTransformedY(tronc.getIntersectionArrivee().getCoordX()));
 		
 		line.setStroke(color);
 		line.setStrokeWidth(defaultTronconWidth);
@@ -240,7 +243,7 @@ public class MapDisplay extends Pane{
     }
     
     public double getTransformedX(double coordY) {
-    	return (coordY-minimalY)*getPrefHeight()/getPrefWidth();
+    	return (coordY-minimalY)*(maximalX-minimalX)/(maximalY-minimalY);
     }
     
     public double getTransformedY(double coordX) {
