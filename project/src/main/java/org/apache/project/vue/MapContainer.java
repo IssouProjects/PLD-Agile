@@ -1,6 +1,5 @@
 package org.apache.project.vue;
 
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
@@ -51,11 +50,10 @@ public class MapContainer extends Pane {
 
 		if (getHeight() < getWidth()) {
 			mapDisplay.setScale(getHeight() / mapDisplay.getPrefHeight());
-			deltaX = (getWidth() - mapDisplay.getPrefWidth() * mapDisplay.getScale())/2.0d;
-		}
-		else {
+			deltaX = (getWidth() - mapDisplay.getPrefWidth() * mapDisplay.getScale()) / 2.0d;
+		} else {
 			mapDisplay.setScale(getWidth() / mapDisplay.getPrefWidth());
-			deltaY = (getHeight() - mapDisplay.getPrefHeight() * mapDisplay.getScale())/2.0d;
+			deltaY = (getHeight() - mapDisplay.getPrefHeight() * mapDisplay.getScale()) / 2.0d;
 		}
 
 		// resetting its coordinates
