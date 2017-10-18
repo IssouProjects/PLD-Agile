@@ -29,7 +29,7 @@ public class TestTournee extends TestCase {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
+	@Test(timeout=1000)
 	public void testCalculerTournee() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		//Creation des objets plan et demande
 		File xml = new File("src/test/java/org/apache/modele/DLpetit5.xml");
