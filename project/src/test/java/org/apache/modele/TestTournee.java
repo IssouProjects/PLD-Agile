@@ -42,12 +42,14 @@ public class TestTournee extends TestCase {
 		// Calcul tournee
 		Tournee tournee = new Tournee(demande.getAdresseEntrepot(), demande.getHeureDepart());
 		tournee.calculerTournee(plan, demande);
-
-		// Verification de l'ordre et des intersection a livrer
-		assertEquals((long) tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud(), 1860559399);
-		assertEquals((long) tournee.getLivraisonsOrdonnees().get(1).getLieuDeLivraison().getIdNoeud(), 25303807);
-		assertEquals((long) tournee.getLivraisonsOrdonnees().get(2).getLieuDeLivraison().getIdNoeud(), 26155540);
-		assertEquals((long) tournee.getLivraisonsOrdonnees().get(3).getLieuDeLivraison().getIdNoeud(), 29003879);
+		
+		//Verification de l'ordre et des intersection a livrer
+		assertEquals((long)tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud(), 1860559399);
+		assertEquals((long)tournee.getLivraisonsOrdonnees().get(1).getLieuDeLivraison().getIdNoeud(), 25303807);
+		assertEquals((long)tournee.getLivraisonsOrdonnees().get(2).getLieuDeLivraison().getIdNoeud(), 26155540);
+		assertEquals((long)tournee.getLivraisonsOrdonnees().get(3).getLieuDeLivraison().getIdNoeud(), 29003879);
+		
+		//Test duree tournee
+		assertEquals(tournee.getDureeTourneeSecondes(), 3198);
 	}
-
 }

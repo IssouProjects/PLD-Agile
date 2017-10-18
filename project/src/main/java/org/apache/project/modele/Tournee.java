@@ -120,6 +120,7 @@ public class Tournee extends Observable {
 				for (int j = 0; j < nombreLivraison; j++) {
 					if (idIntersection == demande.getListeLivraison().get(j).getLieuDeLivraison().getIdNoeud()) {
 						livraisonsOrdonnees.add(demande.getListeLivraison().get(j));
+						dureeTourneeSecondes += demande.getListeLivraison().get(j).getDuree();
 						break;
 					}
 				}
@@ -130,6 +131,7 @@ public class Tournee extends Observable {
 				if (graphe.get(j).getDebut().getIdNoeud() == idIntersection
 						&& graphe.get(j).getFin().getIdNoeud() == idIntersectionSuivante) {
 					chemins.add(graphe.get(j));
+					dureeTourneeSecondes += graphe.get(j).getDuree();
 				}
 			}
 		}

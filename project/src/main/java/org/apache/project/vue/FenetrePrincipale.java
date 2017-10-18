@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.ColumnConstraints;
@@ -34,7 +35,11 @@ public class FenetrePrincipale extends Application {
 	Button loadLivraisonButton;
 
 	ListView<Object> listeLivraisons;
-
+	
+	ListView listeLivraisons;
+	
+	Label mainLabel;
+	
 	// String appearing in the user interface
 	public static final String LOAD_MAP = "Charger plan";
 	public static final String LOAD_LIVRAISON = "Charger livraisons";
@@ -43,22 +48,22 @@ public class FenetrePrincipale extends Application {
 	public static void launchApp(String[] args) {
 		Application.launch(FenetrePrincipale.class, args);
 	}
+  
+  @Override
+  public void start(Stage stage) {
 
-	@Override
-	public void start(Stage stage) {
+    controleur = controleur.getInstance();
+    controleur.setFenetre(this);
 
-		controleur = Controleur.getInstance();
-		controleur.setFenetre(this);
+    stage.setTitle("SALTY DELIVERY");
 
-		stage.setTitle("SALTY DELIVERY");
+    // layout for the full window
+    GridPane layout = new GridPane();
+    layout.setStyle("-fx-padding: 10;");
+    layout.setHgap(10);
 
-		// layout for the full window
-		GridPane layout = new GridPane();
-		layout.setStyle("-fx-padding: 10;");
-		layout.setHgap(10);
-
-		Scene scene = new Scene(layout, 1024, 500);
-
+    Scene scene = new Scene(layout, 1024, 500);
+    
 		/////////////////////////////////////////////
 		///// CREATING THE MAP AND ITS CONTROLS /////
 		/////////////////////////////////////////////
@@ -87,30 +92,34 @@ public class FenetrePrincipale extends Application {
 		mapLayout.getChildren().add(mapButtonsLayout);
 		mapLayout.setSpacing(10d);
 
-		layout.add(mapLayout, 0, 0);
-
-		/////////////////////////////////////////////
+		layout.add(mapLayout, 0, 1);
+    
+    /////////////////////////////////////////////
 		///// CREATING THE DELIVERY LIST /////
 		/////////////////////////////////////////////
 
-		VBox listLayout = new VBox();
+    mainLabel = new Label("Livraisons: ");
 
-		HBox listeButtonsLayout = new HBox();
-		listeButtonsLayout.setSpacing(10);
-		listeButtonsLayout.getChildren().add(calculerTourneeButton);
+    layout.add(mainLabel, 1, 0);
+        
+    VBox listLayout = new VBox();
 
-		listLayout.setSpacing(10);
+    HBox listeButtonsLayout = new HBox();
+    listeButtonsLayout.setSpacing(10);
+    listeButtonsLayout.getChildren().add(calculerTourneeButton);
 
-		listeLivraisons = new ListView<Object>();
+    listLayout.setSpacing(10);
 
-		listeLivraisons.getStylesheets().add(getClass().getResource("list.css").toExternalForm());
-		listLayout.getChildren().add(listeLivraisons);
-		listeButtonsLayout.getChildren().add(loadLivraisonButton);
+    listeLivraisons = new ListView();
 
-		listLayout.getChildren().add(listeButtonsLayout);
-		// liste.setMaxHeight(Double.MAX_VALUE);
+    listeLivraisons.getStylesheets().add(getClass().getResource("list.css").toExternalForm());
+    listLayout.getChildren().add(listeLivraisons);
+    listeButtonsLayout.getChildren().add(loadLivraisonButton);
 
-		layout.add(listLayout, 1, 0);
+    listLayout.getChildren().add(listeButtonsLayout);
+    //liste.setMaxHeight(Double.MAX_VALUE);
+
+    layout.add(listLayout, 1, 1);
 
 		/////////////////////////////////////////////
 		///// MAPPING BUTTONS /////
@@ -183,4 +192,45 @@ public class FenetrePrincipale extends Application {
 			++i;
 		}
 	}
+
+    
+    public void afficherPlanDeVille(PlanDeVille plan){
+    	mapContainer.getMapDisplay().afficherPlanDeVille(plan);
+    	mapContainer.fitMapInView();
+    	loadMapButton.setDisable(true);
+    	fitMapButton.setDisable(false);
+    	loadLivraisonButton.setDisable(false);
+    }
+    
+    public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
+    	mapContainer.getMapDisplay().afficherDemandeDeLivraison(livraison);
+    	loadLivraisonButton.setDisable(true);
+    	calculerTourneeButton.setDisable(false);
+    	afficherTexteLivraisons(livraison);
+    }
+    
+    public void afficherTournee(Tournee tournee) {
+    	mapContainer.getMapDisplay().afficherTournee(tournee);
+    	calculerTourneeButton.setDisable(true);
+    	afficherTexteLivraisonsOrdonnees(tournee);
+    	double duree_min = tournee.getDureeTourneeSecondes()/60;
+    	mainLabel.setText("Duree de la tournee " + (int)Math.ceil(duree_min)+ " minutes." );
+    }
+    
+    private void afficherTexteLivraisons(DemandeDeLivraison demandeLivraison){
+    	List<Livraison> livraisons = demandeLivraison.getListeLivraison();
+    	for(Livraison livraison : livraisons ) {
+    		listeLivraisons.getItems().add("Livraison: " + "\n" + livraison.toString());
+    	}
+    }
+    
+    private void afficherTexteLivraisonsOrdonnees(Tournee tournee) {
+    	listeLivraisons.getItems().clear();
+    	List<Livraison> livraisons = tournee.getLivraisonsOrdonnees();
+    	int i = 1;
+    	for(Livraison livraison : livraisons ) {
+    		listeLivraisons.getItems().add("Livraison " + i + ":\n" + livraison.toString());
+    		++i;
+    	}
+    }
 }
