@@ -200,8 +200,8 @@ public class MapDisplay extends Pane{
     public Circle creerVueIntersection(Intersection inter, Color color) {
     	Circle circle = new Circle();
     	
-    	circle.setCenterX(inter.getCoordY()-minimalY);
-    	circle.setCenterY(getPrefHeight()-(inter.getCoordX()-minimalX));
+    	circle.setCenterX(getTransformedX(inter.getCoordY()));
+    	circle.setCenterY(getTransformedY(inter.getCoordX()));
     	
     	circle.setFill(color);
         circle.setStroke(color);
@@ -211,13 +211,7 @@ public class MapDisplay extends Pane{
     }
     
     public Circle creerVueIntersection(Intersection inter, Color color, int radius) {
-    	Circle circle = new Circle();
-    	
-    	circle.setCenterX(inter.getCoordY()-minimalY);
-    	circle.setCenterY(getPrefHeight()-(inter.getCoordX()-minimalX));
-    	
-    	circle.setFill(color);
-        circle.setStroke(color);
+    	Circle circle = creerVueIntersection(inter, color);
         circle.setRadius(radius);
         
         return circle;
@@ -226,11 +220,11 @@ public class MapDisplay extends Pane{
     public Line creerVueTroncon(Troncon tronc, Color color) {
     	Line line = new Line();
 		
-		line.setStartX(tronc.getIntersectionDepart().getCoordY()-minimalY);
-		line.setStartY(getPrefHeight()-(tronc.getIntersectionDepart().getCoordX()-minimalX));
+    	line.setStartX(getTransformedX(tronc.getIntersectionDepart().getCoordY()));
+		line.setStartY(getTransformedY(tronc.getIntersectionDepart().getCoordX()));
 		
-		line.setEndX(tronc.getIntersectionArrivee().getCoordY()-minimalY);
-		line.setEndY(getPrefHeight()-(tronc.getIntersectionArrivee().getCoordX()-minimalX));
+		line.setEndX(getTransformedX(tronc.getIntersectionArrivee().getCoordY()));
+		line.setEndY(getTransformedY(tronc.getIntersectionDepart().getCoordX()));
 		
 		line.setStroke(color);
 		line.setStrokeWidth(defaultTronconWidth);
@@ -239,17 +233,17 @@ public class MapDisplay extends Pane{
     }
     
     public Line creerVueTroncon(Troncon tronc, Color color, int width) {
-    	Line line = new Line();
-		
-		line.setStartX(tronc.getIntersectionDepart().getCoordY()-minimalY);
-		line.setStartY(getPrefHeight()-(tronc.getIntersectionDepart().getCoordX()-minimalX));
-		
-		line.setEndX(tronc.getIntersectionArrivee().getCoordY()-minimalY);
-		line.setEndY(getPrefHeight()-(tronc.getIntersectionArrivee().getCoordX()-minimalX));
-		
-		line.setStroke(color);
+    	Line line = creerVueTroncon(tronc, color);
 		line.setStrokeWidth(width);
 		
 		return line;
+    }
+    
+    public double getTransformedX(double coordY) {
+    	return (coordY-minimalY)*getPrefHeight()/getPrefWidth();
+    }
+    
+    public double getTransformedY(double coordX) {
+    	return getPrefHeight()-(coordX-minimalX);
     }
 }
