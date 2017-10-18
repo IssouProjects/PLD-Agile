@@ -73,6 +73,14 @@ public class MapDisplay extends Pane{
         setTranslateY(getTranslateY()-y);
     }
     
+    public Double getTheoricWidth() {
+    	return (maximalY-minimalY);
+    }
+    
+    public Double getTheoricHeight() {
+    	
+    }
+    
     public void afficherPlanDeVille(PlanDeVille plan){
     	
     	// deleting the previous plan

@@ -53,11 +53,11 @@ public class MapContainer extends Pane{
 		
 		if(getHeight()<getWidth()){
 			mapDisplay.setScale(getHeight() / mapDisplay.getPrefHeight());
-			deltaX = (getWidth() - mapDisplay.getWidth() * mapDisplay.getScale())/2.0d;
+			deltaX = (getWidth() - mapDisplay.getPrefWidth() * mapDisplay.getScale())/2.0d;
 		}
 		else {
 			mapDisplay.setScale(getWidth() / mapDisplay.getPrefWidth());
-			deltaY = (getHeight() - mapDisplay.getHeight() * mapDisplay.getScale())/2.0d;
+			deltaY = (getHeight() - mapDisplay.getPrefHeight() * mapDisplay.getScale())/2.0d;
 		}
 		
 		// resetting its coordinates
