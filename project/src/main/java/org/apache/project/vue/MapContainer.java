@@ -12,7 +12,7 @@ public class MapContainer extends Pane {
 
 	Rectangle clipRectangle;
 
-	public MapContainer(int height, int width, Scene scene) {
+	public MapContainer(int height, int width) {
 		setPrefSize(height, width);
 		setStyle("-fx-background-color: #b2b2b2;");
 
@@ -31,9 +31,9 @@ public class MapContainer extends Pane {
 		// we add user controls for the map: zoom in with the scrollwheel, pan with the
 		// mouse
 		MapGestures mapGestures = new MapGestures(mapDisplay);
-		scene.addEventFilter(MouseEvent.MOUSE_PRESSED, mapGestures.getOnMousePressedEventHandler());
-		scene.addEventFilter(MouseEvent.MOUSE_DRAGGED, mapGestures.getOnMouseDraggedEventHandler());
-		scene.addEventFilter(ScrollEvent.ANY, mapGestures.getOnScrollEventHandler());
+		this.addEventFilter(MouseEvent.MOUSE_PRESSED, mapGestures.getOnMousePressedEventHandler());
+		this.addEventFilter(MouseEvent.MOUSE_DRAGGED, mapGestures.getOnMouseDraggedEventHandler());
+		this.addEventFilter(ScrollEvent.ANY, mapGestures.getOnScrollEventHandler());
 
 	}
 
