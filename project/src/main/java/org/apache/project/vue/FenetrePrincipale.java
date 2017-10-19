@@ -177,6 +177,20 @@ public class FenetrePrincipale extends Application {
     	mainLabel.setText("Duree de la tournee " + (int)Math.ceil(duree_min)+ " minutes." );
     }
     
+    public void clearPlanDeVille() {
+    	clearLivraison();
+    	clearTournee();
+    	mapContainer.getMapDisplay().clearPlanDeVille();
+    }
+    
+    public void clearLivraison() {
+    	mapContainer.getMapDisplay().clearDemandeDeLivraison();
+    }
+    
+    public void clearTournee() {
+    	mapContainer.getMapDisplay().clearTournee();
+    }
+    
     private void afficherTexteLivraisons(DemandeDeLivraison demandeLivraison){
     	List<Livraison> livraisons = demandeLivraison.getListeLivraison();
     	Time heureDepart = 	demandeLivraison.getHeureDepart();
