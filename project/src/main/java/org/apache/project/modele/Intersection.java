@@ -60,6 +60,5 @@ public class Intersection {
 			}
 		}
 		return null;
-	}
-	
+	}	
 }

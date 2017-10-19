@@ -44,8 +44,7 @@ public class Livraison {
 
 	@Override
 	public String toString() {
-		String livraison_s = "X: " + lieuDeLivraison.getCoordX() + "  Y: " + lieuDeLivraison.getCoordY();
-		livraison_s += "\n";
+		String livraison_s = "";
 		if (plageHoraire != null) {
 			livraison_s += "Plage horaire: " + plageHoraire.getDebut().toString() + " - "
 					+ plageHoraire.getFin().toString();

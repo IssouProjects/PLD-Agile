@@ -1,5 +1,6 @@
 package org.apache.project.vue;
 
+import java.sql.Time;
 import java.util.List;
 
 import org.apache.project.controleur.Controleur;
@@ -178,6 +179,8 @@ public class FenetrePrincipale extends Application {
     
     private void afficherTexteLivraisons(DemandeDeLivraison demandeLivraison){
     	List<Livraison> livraisons = demandeLivraison.getListeLivraison();
+    	Time heureDepart = 	demandeLivraison.getHeureDepart();
+    	listeLivraisons.getItems().add("Entrepôt - départ à " + heureDepart);
     	for(Livraison livraison : livraisons ) {
     		listeLivraisons.getItems().add("Livraison: " + "\n" + livraison.toString());
     	}
@@ -186,6 +189,8 @@ public class FenetrePrincipale extends Application {
     private void afficherTexteLivraisonsOrdonnees(Tournee tournee) {
     	listeLivraisons.getItems().clear();
     	List<Livraison> livraisons = tournee.getLivraisonsOrdonnees();
+    	Time heureDepart = 	tournee.getHeureDepart();
+    	listeLivraisons.getItems().add("Entrepôt - départ à " + heureDepart);
     	int i = 1;
     	for(Livraison livraison : livraisons ) {
     		listeLivraisons.getItems().add("Livraison " + i + ":\n" + livraison.toString());
