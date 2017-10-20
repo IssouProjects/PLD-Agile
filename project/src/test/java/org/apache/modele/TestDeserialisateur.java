@@ -11,26 +11,19 @@ import org.apache.project.xml.Deserialisateur;
 import org.apache.project.xml.ExceptionXML;
 import org.xml.sax.SAXException;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
-public class TestDeserialisateur extends TestCase {
+public class TestDeserialisateur {
 
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-	}
-
-	@Override
-	protected void tearDown() throws Exception {
-		super.tearDown();
-	}
-
+	@Test
 	public void testChargerPlanDeVille() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		File xml = new File("src/test/java/org/apache/modele/planLyonPetit.xml");
 		PlanDeVille plan = new PlanDeVille();
 		Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
 	}
-
+	
+	@Test
 	public void testChargerDemandeDeLivraison()
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		File xml = new File("src/test/java/org/apache/modele/DLmoyen5TW1.xml");
@@ -41,31 +34,23 @@ public class TestDeserialisateur extends TestCase {
 		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
 	}
 
+	@Test(expected=ExceptionXML.class)
 	public void testChargerPlanDeVilleIncorrect()
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
-		try {
 			File xml = new File("src/test/java/org/apache/modele/planLyonPetitIncorrect.xml");
 			PlanDeVille plan = new PlanDeVille();
 			Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
-			fail("Une exception devrait etre renvoyee car ce fichier a un noeud invalide");
-		} catch (Exception e) {
-			assertEquals(e.getMessage(), "Document non conforme");
-		}
 	}
 
+	@Test(expected=ExceptionXML.class)
 	public void testChargerDemandeDeLivraisonIncorrecte()
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
-		try {
 			File xml = new File("src/test/java/org/apache/modele/DLmoyen5TW2.xml");
 			File planxml = new File("src/test/java/org/apache/modele/planLyonPetit.xml");
 			PlanDeVille plan = new PlanDeVille();
 			Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
 			DemandeDeLivraison demande = new DemandeDeLivraison();
 			Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
-			fail("Une exception devrait etre renvoyee car ce fichier a un noeud invalide");
-		} catch (Exception e) {
-			assertEquals(e.getMessage(), "Document non conforme");
-		}
 	}
 
 }
