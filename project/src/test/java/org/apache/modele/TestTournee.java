@@ -52,4 +52,30 @@ public class TestTournee extends TestCase {
 		//Test duree tournee
 		assertEquals(tournee.getDureeTourneeSecondes(), 3198);
 	}
+	
+	@Test(timeout=30000)
+	public void testCalculerTourneeEchelle() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+		// Creation des objets plan et demande
+		File xml = new File("src/test/java/org/apache/modele/DLgrand20.xml");
+		File planxml = new File("src/test/java/org/apache/modele/planLyonGrand.xml");
+		PlanDeVille plan = new PlanDeVille();
+		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+		DemandeDeLivraison demande = new DemandeDeLivraison();
+		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+
+		// Calcul tournee
+		Tournee tournee = new Tournee(demande.getAdresseEntrepot(), demande.getHeureDepart());
+		tournee.calculerTournee(plan, demande);
+		
+		//Verification de l'ordre et des intersection a livrer
+		/*
+		assertEquals((long)tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud(), 1860559399);
+		assertEquals((long)tournee.getLivraisonsOrdonnees().get(1).getLieuDeLivraison().getIdNoeud(), 25303807);
+		assertEquals((long)tournee.getLivraisonsOrdonnees().get(2).getLieuDeLivraison().getIdNoeud(), 26155540);
+		assertEquals((long)tournee.getLivraisonsOrdonnees().get(3).getLieuDeLivraison().getIdNoeud(), 29003879);
+		*/
+		
+		//Test duree tournee
+		//assertEquals(tournee.getDureeTourneeSecondes(), 3198);
+	}
 }
