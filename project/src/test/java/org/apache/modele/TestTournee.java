@@ -42,7 +42,7 @@ public class TestTournee {
 	}
 	
 	@Test(timeout=30000)
-	public void testCalculerTourneeEchelle() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+	public void testCalculerGrandeTournee() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		// Creation des objets plan et demande
 		File xml = new File("src/test/java/org/apache/modele/DLgrand20.xml");
 		File planxml = new File("src/test/java/org/apache/modele/planLyonGrand.xml");
