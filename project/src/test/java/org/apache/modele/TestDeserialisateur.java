@@ -16,11 +16,20 @@ import static org.junit.Assert.assertEquals;
 
 public class TestDeserialisateur {
 
-	@Test(timeout=1000)
+	@Test(timeout=100)
 	public void testChargerPlanDeVille() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		File xml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
 		PlanDeVille plan = new PlanDeVille();
 		Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
+		
+		assertEquals((long)plan.getAllIntersections().get(Long.valueOf(365117235)).getCoordX(), 14237);
+		assertEquals((long)plan.getAllIntersections().get(Long.valueOf(365117235)).getCoordY(), 36361);
+		
+		assertEquals((long)plan.getAllIntersections().get(Long.valueOf(325772328)).getCoordX(), 19639);
+		assertEquals((long)plan.getAllIntersections().get(Long.valueOf(325772328)).getCoordY(), 37972);
+		
+		//Verification quelques troncons
+		assertEquals(plan.getAllTroncons().get(105).getNomRue(), "Rue Montvert");
 	}
 	
 	@Test(timeout=5000)
