@@ -64,5 +64,8 @@ public class TestTournee {
 		assertEquals((Long)tournee.getLivraisonsOrdonnees().get(16).getLieuDeLivraison().getIdNoeud(), Long.valueOf("3840413118"));
 		assertEquals((Long)tournee.getLivraisonsOrdonnees().get(17).getLieuDeLivraison().getIdNoeud(), Long.valueOf("2203886701"));
 		assertEquals((Long)tournee.getLivraisonsOrdonnees().get(18).getLieuDeLivraison().getIdNoeud(), Long.valueOf("1941822283"));
+		
+		//Duree de la tournee ok
+		assertEquals(tournee.getDureeTourneeSecondes(), 36691);
 	}
 }
