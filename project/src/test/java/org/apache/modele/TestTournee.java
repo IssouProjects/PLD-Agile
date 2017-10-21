@@ -20,8 +20,8 @@ public class TestTournee {
 	@Test(timeout = 1000)
 	public void testCalculerTournee() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		// Creation des objets plan et demande
-		File xml = new File("src/test/java/org/apache/modele/DLpetit5.xml");
-		File planxml = new File("src/test/java/org/apache/modele/planLyonPetit.xml");
+		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
 		PlanDeVille plan = new PlanDeVille();
 		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
 		DemandeDeLivraison demande = new DemandeDeLivraison();
@@ -44,8 +44,8 @@ public class TestTournee {
 	@Test(timeout=30000)
 	public void testCalculerGrandeTournee() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		// Creation des objets plan et demande
-		File xml = new File("src/test/java/org/apache/modele/DLgrand20.xml");
-		File planxml = new File("src/test/java/org/apache/modele/planLyonGrand.xml");
+		File xml = new File("src/test/java/org/apache/modele/fichiers/DLgrand20.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonGrand.xml");
 		PlanDeVille plan = new PlanDeVille();
 		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
 		DemandeDeLivraison demande = new DemandeDeLivraison();

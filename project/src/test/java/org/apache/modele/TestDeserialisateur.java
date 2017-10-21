@@ -18,7 +18,7 @@ public class TestDeserialisateur {
 
 	@Test
 	public void testChargerPlanDeVille() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
-		File xml = new File("src/test/java/org/apache/modele/planLyonPetit.xml");
+		File xml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
 		PlanDeVille plan = new PlanDeVille();
 		Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
 	}
@@ -26,8 +26,8 @@ public class TestDeserialisateur {
 	@Test
 	public void testChargerDemandeDeLivraison()
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
-		File xml = new File("src/test/java/org/apache/modele/DLmoyen5TW1.xml");
-		File planxml = new File("src/test/java/org/apache/modele/planLyonPetit.xml");
+		File xml = new File("src/test/java/org/apache/modele/fichiers/DLmoyen5TW1.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
 		PlanDeVille plan = new PlanDeVille();
 		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
 		DemandeDeLivraison demande = new DemandeDeLivraison();
@@ -37,7 +37,7 @@ public class TestDeserialisateur {
 	@Test(expected=ExceptionXML.class)
 	public void testChargerPlanDeVilleIncorrect()
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
-			File xml = new File("src/test/java/org/apache/modele/planLyonPetitIncorrect.xml");
+			File xml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetitIncorrect.xml");
 			PlanDeVille plan = new PlanDeVille();
 			Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
 	}
@@ -45,8 +45,8 @@ public class TestDeserialisateur {
 	@Test(expected=ExceptionXML.class)
 	public void testChargerDemandeDeLivraisonIncorrecte()
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
-			File xml = new File("src/test/java/org/apache/modele/DLmoyen5TW2.xml");
-			File planxml = new File("src/test/java/org/apache/modele/planLyonPetit.xml");
+			File xml = new File("src/test/java/org/apache/modele/fichiers/DLmoyen5TW2.xml");
+			File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
 			PlanDeVille plan = new PlanDeVille();
 			Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
 			DemandeDeLivraison demande = new DemandeDeLivraison();
