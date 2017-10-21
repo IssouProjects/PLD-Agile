@@ -40,6 +40,22 @@ public class TestDeserialisateur {
 		DemandeDeLivraison demande = new DemandeDeLivraison();
 		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
 	}
+	
+	public void testChargerGrandeDemandeDeLivraison() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+		File xml = new File("src/test/java/org/apache/modele/fichiers/DLmoyen5TW1.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
+		PlanDeVille plan = new PlanDeVille();
+		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+		DemandeDeLivraison demande = new DemandeDeLivraison();
+		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+		
+		//L'adresse de l'entrepot est bien la bonne
+		assertEquals((long)demande.getAdresseEntrepot().getIdNoeud(), 433243258);
+		
+		//Heure de depart ok
+		assertEquals(demande.getHeureDepart().toString(), "08:00:00");
+	}
+	
 
 	@Test(expected=ExceptionXML.class)
 	public void testChargerPlanDeVilleIncorrect()
