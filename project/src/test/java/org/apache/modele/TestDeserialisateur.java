@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TestDeserialisateur {
 
-	@Test
+	@Test(timeout=1000)
 	public void testChargerPlanDeVille() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		File xml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
 		PlanDeVille plan = new PlanDeVille();
@@ -30,7 +30,7 @@ public class TestDeserialisateur {
 		Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
 	}
 	
-	@Test
+	@Test(timeout=1000)
 	public void testChargerDemandeDeLivraison()
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		File xml = new File("src/test/java/org/apache/modele/fichiers/DLmoyen5TW1.xml");
