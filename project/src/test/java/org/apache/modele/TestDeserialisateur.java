@@ -23,6 +23,13 @@ public class TestDeserialisateur {
 		Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
 	}
 	
+	@Test(timeout=5000)
+	public void testChargerGrandPlanDeVille() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+		File xml = new File("src/test/java/org/apache/modele/fichiers/planLyonGrand.xml");
+		PlanDeVille plan = new PlanDeVille();
+		Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
+	}
+	
 	@Test
 	public void testChargerDemandeDeLivraison()
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
