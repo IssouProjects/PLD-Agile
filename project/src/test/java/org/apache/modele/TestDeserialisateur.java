@@ -22,14 +22,14 @@ public class TestDeserialisateur {
 		PlanDeVille plan = new PlanDeVille();
 		Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
 		
-		assertEquals((long)plan.getAllIntersections().get(Long.valueOf(365117235)).getCoordX(), 14237);
-		assertEquals((long)plan.getAllIntersections().get(Long.valueOf(365117235)).getCoordY(), 36361);
+		assertEquals(14237, (long)plan.getAllIntersections().get(Long.valueOf(365117235)).getCoordX());
+		assertEquals(36361, (long)plan.getAllIntersections().get(Long.valueOf(365117235)).getCoordY());
 		
-		assertEquals((long)plan.getAllIntersections().get(Long.valueOf(325772328)).getCoordX(), 19639);
-		assertEquals((long)plan.getAllIntersections().get(Long.valueOf(325772328)).getCoordY(), 37972);
+		assertEquals(19639, (long)plan.getAllIntersections().get(Long.valueOf(325772328)).getCoordX());
+		assertEquals(37972, (long)plan.getAllIntersections().get(Long.valueOf(325772328)).getCoordY());
 		
 		//Verification quelques troncons
-		assertEquals(plan.getAllTroncons().get(105).getNomRue(), "Rue Montvert");
+		assertEquals("Rue Montvert", plan.getAllTroncons().get(105).getNomRue());
 	}
 	
 	@Test(timeout=5000)
@@ -60,14 +60,14 @@ public class TestDeserialisateur {
 		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
 		
 		//L'adresse de l'entrepot est bien la bonne
-		assertEquals((long)demande.getAdresseEntrepot().getIdNoeud(), 1682387619);
+		assertEquals(1682387619, (long)demande.getAdresseEntrepot().getIdNoeud());
 		
 		//Heure de depart ok
-		assertEquals(demande.getHeureDepart().toString(), "08:00:00");
+		assertEquals("08:00:00", demande.getHeureDepart().toString());
 		
 		//Verification des livraisons
-		assertEquals(demande.getListeLivraison().get(1).getDuree(), 600);
-		assertEquals((long)demande.getListeLivraison().get(1).getLieuDeLivraison().getIdNoeud(), 2129259180);
+		assertEquals(600, demande.getListeLivraison().get(1).getDuree());
+		assertEquals(2129259180, (long)demande.getListeLivraison().get(1).getLieuDeLivraison().getIdNoeud());
 		assertNull(demande.getListeLivraison().get(1).getPlageHoraire());
 	}
 	
