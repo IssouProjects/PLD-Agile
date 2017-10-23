@@ -92,8 +92,7 @@ public class MapDisplay extends Pane{
     
     public void afficherPlanDeVille(PlanDeVille plan){
     	
-    	// deleting the previous plan
-    	this.getChildren().clear();
+    	clearPlanDeVille();
     	
     	final Map<Long, Intersection> intersections = plan.getAllIntersections();
     	
@@ -136,21 +135,13 @@ public class MapDisplay extends Pane{
     	
     }
     
+    public void clearPlanDeVille() {
+    	this.getChildren().clear();
+    }
+    
     public void afficherDemandeDeLivraison(DemandeDeLivraison demandeDeLivraison) {
     	
-    	if(!demandeDeLivraisonInter.isEmpty()) {
-    		// we remove the previous livraison
-    		getChildren().removeAll(demandeDeLivraisonInter);
-    		demandeDeLivraisonInter.clear();
-    		getChildren().remove(entrepotInter);
-    		getChildren().removeAll(numerosLivraisons);
-    		numerosLivraisons.clear();
-    	}
-    	
-    	if(!numerosLivraisons.isEmpty()) {
-    		getChildren().removeAll(numerosLivraisons);
-    		numerosLivraisons.clear();
-    	}
+    	clearDemandeDeLivraison();
     	    	
     	// showing all the Livraison
     	final List<Livraison> livraisons = demandeDeLivraison.getListeLivraison();
@@ -167,30 +158,25 @@ public class MapDisplay extends Pane{
     	
     }
     
-    public void afficherTournee(Tournee tournee) {
-    	
-    	if(!tourneeInter.isEmpty()) {
-    		// we remove the previous Tournee
-    		getChildren().removeAll(tourneeInter);
-    		tourneeInter.clear();
-    		
-    		getChildren().removeAll(tourneeTroncons);
-    		tourneeTroncons.clear();
-    		
-    		getChildren().removeAll(demandeDeLivraisonInter);
-    		
-    		getChildren().remove(entrepotInter);
-    	}
-    	
+    public void clearDemandeDeLivraison() {
     	if(!demandeDeLivraisonInter.isEmpty()) {
+    		// we remove the previous livraison
     		getChildren().removeAll(demandeDeLivraisonInter);
     		demandeDeLivraisonInter.clear();
+    		getChildren().remove(entrepotInter);
+    		getChildren().removeAll(numerosLivraisons);
+    		numerosLivraisons.clear();
     	}
     	
     	if(!numerosLivraisons.isEmpty()) {
     		getChildren().removeAll(numerosLivraisons);
     		numerosLivraisons.clear();
     	}
+    }
+    
+    public void afficherTournee(Tournee tournee) {
+    	
+    	clearTournee();
     	
     	final List<Chemin> chemins = tournee.getChemins();
     	
@@ -230,6 +216,30 @@ public class MapDisplay extends Pane{
     	entrepotInter = creerVueIntersection(tournee.getAdresseEntrepot(), defaultEntrepotColor, livraisonIntersectionRadius);
     	getChildren().add(entrepotInter);
     	
+    }
+    
+    public void clearTournee() {
+    	if(!tourneeInter.isEmpty()) {
+    		getChildren().removeAll(tourneeInter);
+    		tourneeInter.clear();
+    		
+    		getChildren().removeAll(tourneeTroncons);
+    		tourneeTroncons.clear();
+    		
+    		getChildren().removeAll(demandeDeLivraisonInter);
+    		
+    		getChildren().remove(entrepotInter);
+    	}
+    	
+    	if(!demandeDeLivraisonInter.isEmpty()) {
+    		getChildren().removeAll(demandeDeLivraisonInter);
+    		demandeDeLivraisonInter.clear();
+    	}
+    	
+    	if(!numerosLivraisons.isEmpty()) {
+    		getChildren().removeAll(numerosLivraisons);
+    		numerosLivraisons.clear();
+    	}
     }
     
     public Label creerNumeroLivraison(Intersection inter, String numero, Color color, int taille) {

@@ -169,7 +169,20 @@ public class FenetrePrincipale extends Application {
     	listeLivraisons.afficherTexteLivraisonsOrdonnees(tournee);
     	double duree_min = tournee.getDureeTourneeSecondes()/60;
     	mainLabel.setText("Duree de la tournee " + (int)Math.ceil(duree_min)+ " minutes." );
-    	
     	calculerTourneeButton.setDisable(true);
+    }
+    
+    public void clearPlanDeVille() {
+    	clearLivraison();
+    	clearTournee();
+    	mapContainer.getMapDisplay().clearPlanDeVille();
+    }
+    
+    public void clearLivraison() {
+    	mapContainer.getMapDisplay().clearDemandeDeLivraison();
+    }
+    
+    public void clearTournee() {
+    	mapContainer.getMapDisplay().clearTournee();
     }
 }

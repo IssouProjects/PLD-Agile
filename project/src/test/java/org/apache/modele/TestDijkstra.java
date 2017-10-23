@@ -1,23 +1,14 @@
 package org.apache.modele;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.project.modele.*;
 import org.junit.Test;
 
-import junit.framework.TestCase;
-
-public class TestDijkstra extends TestCase {
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-	}
-
-	@Override
-	protected void tearDown() throws Exception {
-		super.tearDown();
-	}
+public class TestDijkstra {
 
 	@Test(timeout=1000)
 	public void testAlgoDijkstra() throws Exception {
@@ -63,14 +54,14 @@ public class TestDijkstra extends TestCase {
 		assertEquals(output.size(), 6);
 		
 		//Verification chemins
-		assertEquals(output.get(0).getTroncons().size(), 1);
-		assertEquals(output.get(0).getTroncons().get(0).getNomRue(), "T2");
-		assertEquals(output.get(1).getTroncons().get(0).getNomRue(), "T2");
-		assertEquals(output.get(1).getTroncons().get(1).getNomRue(), "T5");
-		assertEquals(output.get(2).getTroncons().get(0).getNomRue(), "T9");
-		assertEquals(output.get(3).getTroncons().get(0).getNomRue(), "T5");
-		assertEquals(output.get(4).getTroncons().get(0).getNomRue(), "T8");
-		assertEquals(output.get(5).getTroncons().get(0).getNomRue(), "T10");
+		assertEquals(1, output.get(0).getTroncons().size());
+		assertEquals("T2", output.get(0).getTroncons().get(0).getNomRue());
+		assertEquals("T2", output.get(1).getTroncons().get(0).getNomRue());
+		assertEquals("T5", output.get(1).getTroncons().get(1).getNomRue());
+		assertEquals("T9", output.get(2).getTroncons().get(0).getNomRue());
+		assertEquals("T5", output.get(3).getTroncons().get(0).getNomRue());
+		assertEquals("T8", output.get(4).getTroncons().get(0).getNomRue());
+		assertEquals("T10", output.get(5).getTroncons().get(0).getNomRue());
 		
 	}
 }
