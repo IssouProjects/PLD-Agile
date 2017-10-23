@@ -62,8 +62,9 @@ public class Deserialisateur {
 		Element racine = document.getDocumentElement();
 		if (racine.getNodeName().equals("demandeDeLivraisons")) {
 			construireDemandeLivraison(racine, demande, plan);
-		} else
+		} else {
 			throw new ExceptionXML("Document non conforme");
+		}
 	}
 
 	// TODO : Gérer les erreurs
