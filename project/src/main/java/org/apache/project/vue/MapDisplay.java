@@ -45,16 +45,16 @@ public class MapDisplay extends Pane{
 	final Color defaultTronconColor = Color.WHITE;
 
 	// default livraison display
-	final int livraisonIntersectionRadius = 400;
-	final Color defaultLivraisonColor = Color.BLUE;
+	final int livraisonIntersectionRadius = 200;
+	final Color defaultLivraisonColor = Color.web("#ff0000");
 	final Color defaultEntrepotColor = Color.BLACK;
 	
 	// default tournee display
-	final int tourneeIntersectionRadius = 200;
+	final int tourneeIntersectionRadius = 50;
 	final int tourneeTronconWidth = 150;
-	final Color defaultTourneeTronconColor = Color.RED;
-	final Color defaultTourneeIntersectionColor = Color.RED;
-	final Color defaultTourneeLivraisonColor = Color.BLUE;
+	final Color defaultTourneeTronconColor = Color.web("#3399ff");
+	final Color defaultTourneeIntersectionColor = Color.web("#3399ff");
+	final Color defaultTourneeLivraisonColor = Color.web("#ff0000");
 	
 	
 	Long minimalX = Long.MAX_VALUE;
