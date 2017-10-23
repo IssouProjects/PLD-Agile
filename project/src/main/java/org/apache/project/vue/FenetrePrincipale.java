@@ -160,7 +160,7 @@ public class FenetrePrincipale extends Application {
     	mapContainer.getMapDisplay().afficherDemandeDeLivraison(livraison);
     	listeLivraisons.afficherTexteLivraisons(livraison);
     	
-    	loadLivraisonButton.setDisable(true);
+    	loadLivraisonButton.setDisable(false);
     	calculerTourneeButton.setDisable(false);
     }
     

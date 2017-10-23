@@ -63,4 +63,12 @@ public class Controleur {
 		tournee = new Tournee(demandeDeLivraison.getAdresseEntrepot(), demandeDeLivraison.getHeureDepart());
 		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale);
 	}
+	
+	public void clearPlanDeVille() {
+		planDeVille.clear();
+	}
+	
+	public void clearDemandeDeLivraison() {
+		demandeDeLivraison.clear();
+	}
 }
