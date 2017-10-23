@@ -19,6 +19,7 @@ public class Controleur {
 	protected final EtatTourneeCalculee etatTourneeCalculee = new EtatTourneeCalculee();
 	
 	private static Controleur instance = null;
+	
 	/**
 	 * Cree le controleur de l'application
 	 */
