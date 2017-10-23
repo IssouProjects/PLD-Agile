@@ -15,9 +15,9 @@ public class Tournee extends Observable {
 	private List<Chemin> chemins;
 	private int dureeTourneeSecondes;
 
-	public Tournee(Intersection adresseEntrepot, Time heureDepart) {
-		this.adresseEntrepot = adresseEntrepot;
-		this.heureDepart = heureDepart;
+	public Tournee() {
+		this.adresseEntrepot = null;
+		this.heureDepart = null;
 		chemins = new ArrayList<Chemin>();
 		livraisonsOrdonnees = new ArrayList<Livraison>();
 	}
@@ -140,5 +140,12 @@ public class Tournee extends Observable {
 
 	public int getDureeTourneeSecondes() {
 		return dureeTourneeSecondes;
+	}
+	
+	public void clear() {
+		this.adresseEntrepot = null;
+		this.heureDepart = null;
+		chemins.clear();
+		livraisonsOrdonnees.clear();
 	}
 }

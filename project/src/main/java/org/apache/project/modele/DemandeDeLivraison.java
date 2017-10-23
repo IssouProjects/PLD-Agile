@@ -46,4 +46,9 @@ public class DemandeDeLivraison {
 		return livraisons;
 	}
 	
+	public void clear() {
+		this.adresseEntrepot=null;
+		this.heureDepart=null;
+		this.livraisons.clear();
+	}
 }
