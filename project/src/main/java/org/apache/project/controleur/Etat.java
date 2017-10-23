@@ -1,6 +1,7 @@
 package org.apache.project.controleur;
 
 import org.apache.project.modele.DemandeDeLivraison;
+import org.apache.project.modele.Intersection;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
@@ -42,4 +43,15 @@ public interface Etat {
 	 * @param fenetrePrincipale
 	 */
 	public void ajouterLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale);
+	
+	/**
+	 * Methode appelee après un clic gauche
+	 * @param controleur
+	 * @param planDeVille
+	 * @param demandeDeLivraison
+	 * @param tournee
+	 * @param fenetrePrincipale
+	 * @param intersection
+	 */
+	public void clicGauche(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Intersection intersection);
 }
