@@ -86,7 +86,7 @@ public class Deserialisateur {
 
 		Element entrepot = (Element) noeudDOMRacine.getElementsByTagName("entrepot").item(0);
 		
-		if(entrepot.getAttribute("heureDepart") == "" || entrepot.getAttribute("adresse") == "") {
+		if(entrepot.getAttribute("heureDepart") == "" || !entrepot.getAttribute("heureDepart").matches("^(?:(?:([01]?\\d|2[0-3]):)?([0-5]?\\d):)?([0-5]?\\d)$") || entrepot.getAttribute("adresse") == "") {
 			throw new ExceptionXML("Document mal forme");
 		}
 		
@@ -103,7 +103,7 @@ public class Deserialisateur {
 
 	// TODO : Gérer les erreurs
 	private static void construireIntersection(Element element, PlanDeVille plan) throws ExceptionXML {
-		if(element.getAttribute("id") == "" || element.getAttribute("x") == "" || element.getAttribute("y") == "") {
+		if(element.getAttribute("id") == "" || element.getAttribute("x") == "" || element.getAttribute("y") == "" || !element.getAttribute("id").matches("[0-9]+") || !element.getAttribute("x").matches("[0-9]+") || !element.getAttribute("y").matches("[0-9]+")) {
 			throw new ExceptionXML("Document mal forme");
 		}
 		
@@ -117,7 +117,7 @@ public class Deserialisateur {
 	// TODO : les troncons doubles n'existent pas
 	private static void construireTroncon(Element element, PlanDeVille plan) throws ExceptionXML {
 		
-		if(element.getAttribute("destination") == "" || element.getAttribute("longueur") == "" || element.getAttribute("origine") == "") {
+		if(element.getAttribute("destination") == "" || element.getAttribute("longueur") == "" || element.getAttribute("origine") == "" || !element.getAttribute("destination").matches("^[0-9]+$") || !element.getAttribute("origine").matches("^[0-9]+$") || !element.getAttribute("longueur").matches("^[+-]?([0-9]*[.])?[0-9]+$")) {
 			throw new ExceptionXML("Document mal forme");
 		}
 		
@@ -132,7 +132,7 @@ public class Deserialisateur {
 	// TODO : Gerer cas erreur y a un debut mais pas de fin de plage horaire
 	private static void construireLivraison(Element element, DemandeDeLivraison demande, PlanDeVille plan) throws ExceptionXML {
 		
-		if(element.getAttribute("adresse") == "" || element.getAttribute("duree") == "") {
+		if(element.getAttribute("adresse") == "" || element.getAttribute("duree") == "" || !element.getAttribute("duree").matches("[0-9]+")) {
 			throw new ExceptionXML("Document mal forme");
 		}
 		
@@ -140,7 +140,13 @@ public class Deserialisateur {
 		int duree = Integer.parseInt(element.getAttribute("duree"));
 		Livraison uneLivraison = new Livraison(plan.getIntersectionById(adresse), duree);
 		String debutPlage = element.getAttribute("debutPlage");
+		
 		if (debutPlage != null && !debutPlage.isEmpty()) {
+			
+			if(element.getAttribute("debutPlage") == "" || element.getAttribute("finPlage") == "" || !element.getAttribute("debutPlage").matches("^(?:(?:([01]?\\d|2[0-3]):)?([0-5]?\\d):)?([0-5]?\\d)$") || !element.getAttribute("finPlage").matches("^(?:(?:([01]?\\d|2[0-3]):)?([0-5]?\\d):)?([0-5]?\\d)$")) {
+				throw new ExceptionXML("Document mal forme");
+			}
+			
 			Time debut = getTimeFromString(element.getAttribute("debutPlage"));
 			Time fin = getTimeFromString(element.getAttribute("finPlage"));
 			PlageHoraire ph = new PlageHoraire(debut, fin);
