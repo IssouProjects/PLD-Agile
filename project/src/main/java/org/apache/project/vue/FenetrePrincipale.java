@@ -8,6 +8,7 @@ import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
+import org.apache.project.modele.PlageHoraire;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -194,7 +195,7 @@ public class FenetrePrincipale extends Application {
 	private void afficherTexteLivraisons(DemandeDeLivraison demandeLivraison) {
 		List<Livraison> livraisons = demandeLivraison.getListeLivraison();
 		Time heureDepart = demandeLivraison.getHeureDepart();
-		listeLivraisons.getItems().add("Entrepôt - départ à " + formatTime(heureDepart));
+		listeLivraisons.getItems().add("Entrepôt - départ à " + PlageHoraire.formatTime(heureDepart));
 		for (Livraison livraison : livraisons) {
 			listeLivraisons.getItems().add("Livraison: " + "\n" + livraison.toString());
 		}
@@ -204,16 +205,11 @@ public class FenetrePrincipale extends Application {
 		listeLivraisons.getItems().clear();
 		List<Livraison> livraisons = tournee.getLivraisonsOrdonnees();
 		Time heureDepart = tournee.getHeureDepart();
-		listeLivraisons.getItems().add("Entrepôt - départ à " + formatTime(heureDepart));
+		listeLivraisons.getItems().add("Entrepôt - départ à " + PlageHoraire.formatTime(heureDepart));
 		int i = 1;
 		for (Livraison livraison : livraisons) {
 			listeLivraisons.getItems().add("Livraison " + i + ":\n" + livraison.toString());
 			++i;
 		}
-	}
-
-	private String formatTime(Time time) {
-		String result = time.toString();
-		return result.substring(0, 5);
 	}
 }

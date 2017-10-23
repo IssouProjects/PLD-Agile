@@ -1,21 +1,26 @@
 package org.apache.project.modele;
 
+import java.sql.Time;
+
 public class Livraison {
 
 	private Intersection lieuDeLivraison;
 	private int duree;
 	private PlageHoraire plageHoraire;
+	private Time heureArrivee;
 
 	public Livraison(Intersection lieuDeLivraison, int dureeLivraison, PlageHoraire plageHoraire) {
 		this.lieuDeLivraison = lieuDeLivraison;
 		this.duree = dureeLivraison;
 		this.plageHoraire = plageHoraire;
+		this.heureArrivee = null;
 	}
 
 	public Livraison(Intersection lieuDeLivraison, int dureeLivraison) {
 		this.lieuDeLivraison = lieuDeLivraison;
 		this.duree = dureeLivraison;
 		this.plageHoraire = null;
+		this.heureArrivee = null;
 	}
 
 	public Intersection getLieuDeLivraison() {
@@ -42,12 +47,27 @@ public class Livraison {
 		this.plageHoraire = plageHoraire;
 	}
 
+	public Time getHeureArrivee() {
+		return heureArrivee;
+	}
+
+	public void setHeureArrivee(Time heureArrivee) {
+		this.heureArrivee = heureArrivee;
+	}
+
 	@Override
 	public String toString() {
 		String livraison_s = "";
+		if (heureArrivee != null) {
+			livraison_s += "Heure d'arrivée: " + PlageHoraire.formatTime(heureArrivee);
+			long avance = plageHoraire.getDebut().getTime() - heureArrivee.getTime();
+			if (avance > 0) {
+				livraison_s += "\n" + "Avance: " + (int) avance * 1000 / 60 + "\n";
+			}
+		}
 		if (plageHoraire != null) {
-			livraison_s += "Plage horaire: " + plageHoraire.getDebut().toString() + " - "
-					+ plageHoraire.getFin().toString();
+			livraison_s += "Plage horaire: " + PlageHoraire.formatTime(plageHoraire.getDebut()) + " - "
+					+ PlageHoraire.formatTime(plageHoraire.getFin());
 		} else {
 			livraison_s += "Pas de plage horaire";
 		}
