@@ -67,6 +67,14 @@ public class Tournee extends Observable {
 	public List<Chemin> getChemins() {
 		return chemins;
 	}
+	
+	public Chemin getChemin(int index) {
+		return chemins.get(index);
+	}
+	
+	public Livraison getLivraison(int index) {
+		return livraisonsOrdonnees.get(index);
+	}
 
 	public List<Livraison> getLivraisonsOrdonnees() {
 		return livraisonsOrdonnees;
