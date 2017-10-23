@@ -28,4 +28,10 @@ public class EtatPlanCharge extends EtatDefaut {
 			e.printStackTrace();
 		}
 	}
+	
+	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale){
+		controleur.setEtatCourant(controleur.etatInit);
+		fenetrePrincipale.clearPlanDeVille();
+		controleur.ouvrirPlanDeVille();
+	}
 }

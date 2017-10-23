@@ -151,7 +151,7 @@ public class FenetrePrincipale extends Application {
     	mapContainer.getMapDisplay().afficherPlanDeVille(plan);
     	mapContainer.fitMapInView();
     	
-    	loadMapButton.setDisable(true);
+    	loadMapButton.setDisable(false);
     	fitMapButton.setDisable(false);
     	loadLivraisonButton.setDisable(false);
     }
