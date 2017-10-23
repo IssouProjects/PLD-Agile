@@ -84,6 +84,11 @@ public class Deserialisateur {
 			throws ExceptionXML, NumberFormatException {
 
 		Element entrepot = (Element) noeudDOMRacine.getElementsByTagName("entrepot").item(0);
+		
+		if(entrepot.getAttribute("heureDepart") == "" || entrepot.getAttribute("adresse") == "") {
+			throw new ExceptionXML("Document mal forme");
+		}
+		
 		String heureDepart = entrepot.getAttribute("heureDepart");
 		demande.setHeureDepart(getTimeFromString(heureDepart));
 		Intersection adresseEntrepot = plan.getIntersectionById(Long.parseLong(entrepot.getAttribute("adresse")));
@@ -124,7 +129,12 @@ public class Deserialisateur {
 
 	// TODO : Gérer les erreurs
 	// TODO : Gerer cas erreur y a un debut mais pas de fin de plage horaire
-	private static void construireLivraison(Element element, DemandeDeLivraison demande, PlanDeVille plan) {
+	private static void construireLivraison(Element element, DemandeDeLivraison demande, PlanDeVille plan) throws ExceptionXML {
+		
+		if(element.getAttribute("adresse") == "" || element.getAttribute("duree") == "") {
+			throw new ExceptionXML("Document mal forme");
+		}
+		
 		Long adresse = Long.parseLong(element.getAttribute("adresse"));
 		int duree = Integer.parseInt(element.getAttribute("duree"));
 		Livraison uneLivraison = new Livraison(plan.getIntersectionById(adresse), duree);
