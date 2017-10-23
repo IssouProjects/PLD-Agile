@@ -16,6 +16,10 @@ import static org.junit.Assert.*;
 
 public class TestDeserialisateur {
 
+	/*
+	 * CAS NORMAUX
+	 */
+	
 	@Test(timeout=100)
 	public void testChargerPlanDeVille() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		File xml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
@@ -75,6 +79,12 @@ public class TestDeserialisateur {
 		assertEquals(2129259180, (long)demande.getListeLivraison().get(1).getLieuDeLivraison().getIdNoeud());
 		assertNull(demande.getListeLivraison().get(1).getPlageHoraire());
 	}
+	
+	/*
+	 * GESTION DES CAS D'ERREURS
+	 */
+	
+	// PLANS DE VILLE
 
 	@Test(expected=ExceptionXML.class)
 	public void testChargerPlanDeVilleIncorrect()
@@ -100,6 +110,8 @@ public class TestDeserialisateur {
 			Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
 	}
 
+	// DEMANDES DE LIVRAISON
+	
 	@Test(expected=ExceptionXML.class)
 	public void testChargerDemandeDeLivraisonIncorrecte()
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
