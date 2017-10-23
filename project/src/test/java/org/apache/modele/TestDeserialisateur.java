@@ -16,6 +16,10 @@ import static org.junit.Assert.*;
 
 public class TestDeserialisateur {
 
+	/*
+	 * CAS NORMAUX
+	 */
+	
 	@Test(timeout=100)
 	public void testChargerPlanDeVille() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		File xml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
@@ -76,6 +80,11 @@ public class TestDeserialisateur {
 		assertNull(demande.getListeLivraison().get(1).getPlageHoraire());
 	}
 	
+	/*
+	 * GESTION DES CAS D'ERREURS
+	 */
+	
+	// PLANS DE VILLE
 
 	@Test(expected=ExceptionXML.class)
 	public void testChargerPlanDeVilleIncorrect()
@@ -84,11 +93,29 @@ public class TestDeserialisateur {
 			PlanDeVille plan = new PlanDeVille();
 			Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
 	}
+	
+	@Test(expected=ExceptionXML.class)
+	public void testChargerPlanDeVilleNonXML()
+			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+			File xml = new File("src/test/java/org/apache/modele/fichiers/image.jpg");
+			PlanDeVille plan = new PlanDeVille();
+			Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
+	}
+	
+	@Test(expected=ExceptionXML.class)
+	public void testChargerPlanDeVilleMalForme()
+			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+			File xml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetitMalForme.xml");
+			PlanDeVille plan = new PlanDeVille();
+			Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
+	}
 
+	// DEMANDES DE LIVRAISON
+	
 	@Test(expected=ExceptionXML.class)
 	public void testChargerDemandeDeLivraisonIncorrecte()
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
-			File xml = new File("src/test/java/org/apache/modele/fichiers/DLmoyen5TW2.xml");
+			File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5Incorrect.xml");
 			File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
 			PlanDeVille plan = new PlanDeVille();
 			Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
@@ -96,4 +123,26 @@ public class TestDeserialisateur {
 			Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
 	}
 
+	@Test(expected=ExceptionXML.class)
+	public void testChargerDemandeDeLivraisonNonXML()
+			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+			File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5MalForme.xml");
+			File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
+			PlanDeVille plan = new PlanDeVille();
+			Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+			DemandeDeLivraison demande = new DemandeDeLivraison();
+			Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+	}
+	
+	@Test(expected=ExceptionXML.class)
+	public void testChargerDemandeDeLivraisonMalForme()
+			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+			File xml = new File("src/test/java/org/apache/modele/fichiers/DLPetit5MalForme.jpg");
+			File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
+			PlanDeVille plan = new PlanDeVille();
+			Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+			DemandeDeLivraison demande = new DemandeDeLivraison();
+			Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+	}
+	
 }
