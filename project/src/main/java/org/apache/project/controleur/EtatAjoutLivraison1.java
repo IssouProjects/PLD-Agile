@@ -9,6 +9,6 @@ public class EtatAjoutLivraison1 extends EtatDefaut{
 	
 	@Override
 	public void ajouterLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale) {
-		
+		controleur.setEtatCourant(controleur.etatAjoutLivraison2);
 	}
 }
