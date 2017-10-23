@@ -115,7 +115,7 @@ public class TestDeserialisateur {
 	@Test(expected=ExceptionXML.class)
 	public void testChargerDemandeDeLivraisonIncorrecte()
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
-			File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5incorrect.xml");
+			File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5Incorrect.xml");
 			File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
 			PlanDeVille plan = new PlanDeVille();
 			Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
