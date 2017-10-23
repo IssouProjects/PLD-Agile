@@ -26,6 +26,7 @@ public class EtatInit extends EtatDefaut {
 			e.printStackTrace();
 		} catch (ExceptionXML e) {
 			e.printStackTrace();
+			fenetrePrincipale.afficherPopup(e.getMessage());
 		}
 	}
 }

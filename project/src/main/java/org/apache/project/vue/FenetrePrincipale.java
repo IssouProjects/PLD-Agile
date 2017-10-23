@@ -18,6 +18,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.ChoiceDialog;
+
 
 public class FenetrePrincipale extends Application {
 
@@ -48,13 +54,15 @@ public class FenetrePrincipale extends Application {
 	
 	    controleur = controleur.getInstance();
 	    controleur.setFenetre(this);
-	
+	    
 	    stage.setTitle("SALTY DELIVERY");
 	
 	    // layout for the full window
 	    GridPane layout = new GridPane();
 	    layout.setStyle("-fx-padding: 10;");
 	    layout.setHgap(10);
+	    
+	    
 	
 	    Scene scene = new Scene(layout, 1024, 500);
 	    
@@ -145,6 +153,15 @@ public class FenetrePrincipale extends Application {
 		// we can now show the window
 		stage.setScene(scene);
 		stage.show();
+	}
+	  
+	public void afficherPopup(String message) {
+		Alert alert = new Alert(AlertType.ERROR);
+	    alert.setTitle("Erreur");
+	    alert.setHeaderText("Une erreur a eu lieu");
+	    alert.setContentText(message);
+
+	    alert.showAndWait();
 	}
     
     public void afficherPlanDeVille(PlanDeVille plan){
