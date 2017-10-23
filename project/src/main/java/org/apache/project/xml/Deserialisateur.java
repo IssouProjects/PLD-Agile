@@ -96,7 +96,11 @@ public class Deserialisateur {
 	}
 
 	// TODO : Gérer les erreurs
-	private static void construireIntersection(Element element, PlanDeVille plan) {
+	private static void construireIntersection(Element element, PlanDeVille plan) throws ExceptionXML {
+		if(element.getAttribute("id") == "" || element.getAttribute("x") == "" || element.getAttribute("y") == "") {
+			throw new ExceptionXML("Document mal forme");
+		}
+		
 		Long id = Long.parseLong(element.getAttribute("id"));
 		Long x = Long.parseLong(element.getAttribute("x"));
 		Long y = Long.parseLong(element.getAttribute("y"));

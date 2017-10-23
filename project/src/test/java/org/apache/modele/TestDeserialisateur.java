@@ -91,6 +91,14 @@ public class TestDeserialisateur {
 			PlanDeVille plan = new PlanDeVille();
 			Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
 	}
+	
+	@Test(expected=ExceptionXML.class)
+	public void testChargerPlanDeVilleMalForme()
+			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+			File xml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetitMalForme.xml");
+			PlanDeVille plan = new PlanDeVille();
+			Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
+	}
 
 	@Test(expected=ExceptionXML.class)
 	public void testChargerDemandeDeLivraisonIncorrecte()
