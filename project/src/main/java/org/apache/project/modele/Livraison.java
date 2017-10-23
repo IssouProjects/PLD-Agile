@@ -5,17 +5,20 @@ public class Livraison {
 	private Intersection lieuDeLivraison;
 	private int duree;
 	private PlageHoraire plageHoraire;
+	private Boolean estSelectionnee;
 
 	public Livraison(Intersection lieuDeLivraison, int dureeLivraison, PlageHoraire plageHoraire) {
 		this.lieuDeLivraison = lieuDeLivraison;
 		this.duree = dureeLivraison;
 		this.plageHoraire = plageHoraire;
+		this.setEstSelectionnee(false);
 	}
 
 	public Livraison(Intersection lieuDeLivraison, int dureeLivraison) {
 		this.lieuDeLivraison = lieuDeLivraison;
 		this.duree = dureeLivraison;
 		this.plageHoraire = null;
+		this.setEstSelectionnee(false);
 	}
 
 	public Intersection getLieuDeLivraison() {
@@ -40,6 +43,14 @@ public class Livraison {
 
 	public void setPlageHoraire(PlageHoraire plageHoraire) {
 		this.plageHoraire = plageHoraire;
+	}
+
+	public Boolean getEstSelectionnee() {
+		return estSelectionnee;
+	}
+
+	public void setEstSelectionnee(Boolean estSelectionnee) {
+		this.estSelectionnee = estSelectionnee;
 	}
 
 	@Override
