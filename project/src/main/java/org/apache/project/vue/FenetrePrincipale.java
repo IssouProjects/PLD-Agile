@@ -29,6 +29,7 @@ public class FenetrePrincipale extends Application {
 	Button fitMapButton;
 	Button calculerTourneeButton;
 	Button loadLivraisonButton;
+	Button ajouterLivraison;
 
 	ListDisplay listeLivraisons;
 	
@@ -37,7 +38,8 @@ public class FenetrePrincipale extends Application {
 	// String appearing in the user interface
 	public static final String LOAD_MAP = "Charger plan";
 	public static final String LOAD_LIVRAISON = "Charger livraisons";
-	public static final String CALCULATE_TOURNEE = "Calculer tournee";
+	public static final String CALCULATE_TOURNEE = "Calculer tournée";
+	public static final String ADD_LIVRAISON = "Ajouter livraison";
 
 	public static void launchApp(String[] args) {
 		Application.launch(FenetrePrincipale.class, args);
@@ -100,7 +102,9 @@ public class FenetrePrincipale extends Application {
 	
 	    HBox listeButtonsLayout = new HBox();
 	    listeButtonsLayout.setSpacing(10);
-	    listeButtonsLayout.getChildren().add(calculerTourneeButton);
+	    
+	    ajouterLivraison = new Button(ADD_LIVRAISON);
+	    ajouterLivraison.setDisable(true);
 	
 	    listLayout.setSpacing(10);
 	
@@ -108,6 +112,8 @@ public class FenetrePrincipale extends Application {
 	
 	    listLayout.getChildren().add(listeLivraisons);
 	    listeButtonsLayout.getChildren().add(loadLivraisonButton);
+	    listeButtonsLayout.getChildren().add(calculerTourneeButton);
+	    listeButtonsLayout.getChildren().add(ajouterLivraison);
 	
 	    listLayout.getChildren().add(listeButtonsLayout);
 	
@@ -131,7 +137,6 @@ public class FenetrePrincipale extends Application {
 		calculerTourneeButton.setOnAction(edb);
 
 		// layout style
-
 		ColumnConstraints MapCC = new ColumnConstraints();
 		MapCC.setPercentWidth(67.0);
 		MapCC.setHgrow(Priority.ALWAYS);
@@ -170,6 +175,7 @@ public class FenetrePrincipale extends Application {
     	double duree_min = tournee.getDureeTourneeSecondes()/60;
     	mainLabel.setText("Duree de la tournee " + (int)Math.ceil(duree_min)+ " minutes." );
     	calculerTourneeButton.setDisable(true);
+    	ajouterLivraison.setDisable(false);
     }
     
     public void clearPlanDeVille() {

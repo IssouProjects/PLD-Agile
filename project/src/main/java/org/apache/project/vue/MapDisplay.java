@@ -3,6 +3,8 @@ package org.apache.project.vue;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import org.apache.project.modele.Chemin;
 import org.apache.project.modele.DemandeDeLivraison;
@@ -22,7 +24,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class MapDisplay extends Pane{
+public class MapDisplay extends Pane implements Observer{
 	
 	DoubleProperty myScale = new SimpleDoubleProperty(1.0);
 	
@@ -88,6 +90,16 @@ public class MapDisplay extends Pane{
     public void setPivot( double x, double y) {
         setTranslateX(getTranslateX()-x);
         setTranslateY(getTranslateY()-y);
+    }
+    
+    public void update(Observable o, Object arg) {
+    	if(o instanceof PlanDeVille) {
+    		afficherPlanDeVille((PlanDeVille)o);
+    	} else if( o instanceof Tournee) {
+    		afficherTournee((Tournee)o);
+    	} else if( o instanceof DemandeDeLivraison) {
+    		afficherDemandeDeLivraison((DemandeDeLivraison)o);
+    	}
     }
     
     public void afficherPlanDeVille(PlanDeVille plan){
