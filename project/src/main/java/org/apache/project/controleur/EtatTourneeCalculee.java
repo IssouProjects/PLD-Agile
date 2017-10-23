@@ -12,6 +12,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		fenetrePrincipale.clearPlanDeVille();
 		fenetrePrincipale.clearTournee();
 		controleur.clearPlanDeVille();
+		controleur.clearTournee();
 		controleur.clearDemandeDeLivraison();
 		controleur.ouvrirPlanDeVille();
 	}
@@ -19,9 +20,10 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	@Override
 	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale){
 		controleur.setEtatCourant(controleur.etatPlanCharge);
-		fenetrePrincipale.clearLivraison();;
+		fenetrePrincipale.clearLivraison();
 		fenetrePrincipale.clearTournee();
 		controleur.clearDemandeDeLivraison();
+		controleur.clearTournee();
 		controleur.ouvrirDemandeDeLivraison();
 	}
 

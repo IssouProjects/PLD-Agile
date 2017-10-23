@@ -12,7 +12,8 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		tournee.setAdresseEntrepot(demandeDeLivraison.getAdresseEntrepot());
 		tournee.setHeureDepart(demandeDeLivraison.getHeureDepart());
 		tournee.calculerTournee(planDeVille, demandeDeLivraison);
-		fenetrePrincipale.afficherTournee(tournee);		
+		fenetrePrincipale.afficherTournee(tournee);
+		controleur.setEtatCourant(controleur.etatTourneeCalculee);
 	}
 	
 	@Override
