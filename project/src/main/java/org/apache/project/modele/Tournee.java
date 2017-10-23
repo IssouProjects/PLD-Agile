@@ -106,7 +106,6 @@ public class Tournee extends Observable {
 
 		adresseEntrepot = demande.getAdresseEntrepot();
 
-
 		for (int i = 0; i < nombreLivraison; i++) {
 			idIntersection = conversion[tspSolut.getMeilleureSolution(i)];
 			if (i != nombreLivraison - 1) {
@@ -118,9 +117,12 @@ public class Tournee extends Observable {
 			// On n ajoute pas a la liste des intersections pour l entrepot
 			if (i > 0) {
 				for (int j = 0; j < nombreLivraison; j++) {
-					if (idIntersection == demande.getListeLivraison().get(j).getLieuDeLivraison().getIdNoeud()) {
-						livraisonsOrdonnees.add(demande.getListeLivraison().get(j));
-						dureeTourneeSecondes += demande.getListeLivraison().get(j).getDuree();
+					Livraison livraisonActuelle = demande.getListeLivraison().get(j);
+					if (idIntersection == livraisonActuelle.getLieuDeLivraison().getIdNoeud()) {
+						livraisonActuelle.setHeureArrivee(
+								PlageHoraire.calculerHeureArrivee(demande.getHeureDepart(), dureeTourneeSecondes));
+						livraisonsOrdonnees.add(livraisonActuelle);
+						dureeTourneeSecondes += livraisonActuelle.getDuree();
 						break;
 					}
 				}

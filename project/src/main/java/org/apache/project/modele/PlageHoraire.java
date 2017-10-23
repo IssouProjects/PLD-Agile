@@ -28,8 +28,30 @@ public class PlageHoraire {
 		this.fin = fin;
 	}
 
+	/* TODO Put what is below in a Util.java class ? */
 	public static String formatTime(Time time) {
 		String result = time.toString();
 		return result.substring(0, 5);
+	}
+
+	@SuppressWarnings("deprecation")
+	public static Time calculerHeureArrivee(Time heureDepart, int duree) {
+		int min = duree / 60;
+		int heures = (min / 60) + heureDepart.getHours();
+		int minutes = (min % 60) + heureDepart.getMinutes();
+		int secondes = (duree % 60) + heureDepart.getSeconds();
+		if (secondes > 59) {
+			minutes++;
+			secondes = secondes % 60;
+		}
+		if (minutes > 59) {
+			heures++;
+			minutes = minutes % 60;
+		}
+		if (heures > 23) {
+			heures = heures % 23;
+		}
+		return new Time(heures, minutes, secondes);
+
 	}
 }
