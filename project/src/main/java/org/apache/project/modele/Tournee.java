@@ -38,12 +38,30 @@ public class Tournee extends Observable {
 		this.heureDepart = heureDepart;
 	}
 
-	public void ajouterLivraison(Livraison uneLivraison) {
-		livraisonsOrdonnees.add(uneLivraison);
+	public void ajouterLivraison(Livraison livraison) {
+		livraisonsOrdonnees.add(livraison);
+	}
+	
+	/**
+	 * ajoute une livraison 
+	 * @param uneLivraison la livraison à ajouter
+	 * @param place l'index dans la liste ordonnée
+	 */
+	public void ajouterLivraison(Livraison livraison, int index) {
+		livraisonsOrdonnees.add(index, livraison);
 	}
 
 	public void ajouterChemin(Chemin chemin) {
 		chemins.add(chemin);
+	}
+	
+	/**
+	 * ajoute un chemin
+	 * @param chemin le chemin à ajouter
+	 * @param index l'index dans la liste ordonnée
+	 */
+	public void ajouterChemin(Chemin chemin, int index) {
+		chemins.add(index, chemin);
 	}
 
 	public List<Chemin> getChemins() {
@@ -135,7 +153,6 @@ public class Tournee extends Observable {
 				}
 			}
 		}
-
 	}
 
 	public int getDureeTourneeSecondes() {
