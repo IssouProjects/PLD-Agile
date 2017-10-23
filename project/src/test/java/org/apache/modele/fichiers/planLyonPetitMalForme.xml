@@ -461,10 +461,10 @@
 <troncon destination="26155540" longueur="54.832844" nomRue="Avenue Lacassagne" origine="325213179"/>
 <troncon destination="26155541" longueur="50.938293" nomRue="Rue Constant" origine="26155528"/>
 <troncon destination="26286689" longueur="152.73093" nomRue="Rue Julien" origine="26286695"/>
-<troncon destination="26286689" longueur="89.673805" nomRue="Rue Bonnand" origine="26286690"/>
+<troncon longueur="89.673805" nomRue="Rue Bonnand" origine="26286690"/>
 <troncon destination="26286690" longueur="134.41188" nomRue="Rue Bonnand" origine="1383027258"/>
 <troncon destination="26286694" longueur="101.80858" nomRue="Rue Antoinette" origine="26286690"/>
-<troncon destination="26286694" longueur="125.06325" nomRue="Rue Antoinette" origine="251069553"/>
+<troncon destination="26286694" nomRue="Rue Antoinette" origine="251069553"/>
 <troncon destination="26286694" longueur="75.4294" nomRue="Rue Charles Richard" origine="26286695"/>
 <troncon destination="26286695" longueur="124.67456" nomRue="Rue Julien" origine="26286696"/>
 <troncon destination="26286695" longueur="51.757576" nomRue="Rue Charles Richard" origine="26155377"/>
@@ -472,10 +472,10 @@
 <troncon destination="26286762" longueur="99.3758" nomRue="Rue Charles Richard" origine="26286694"/>
 <troncon destination="26317212" longueur="38.124634" nomRue="Rue du Dauphiné" origine="26317248"/>
 <troncon destination="26317246" longueur="80.7477" nomRue="Rue Villebois-Mareuil" origine="459797864"/>
-<troncon destination="26317246" longueur="87.1567" nomRue="Impasse de la Ruche" origine="1682387619"/>
+<troncon destination="26317246" longueur="87.1567" origine="1682387619"/>
 <troncon destination="26317248" longueur="215.509" nomRue="Rue de la Ruche" origine="26317246"/>
 <troncon destination="26317248" longueur="32.646736" nomRue="Rue du Dauphiné" origine="565375197"/>
-<troncon destination="26317248" longueur="38.124634" nomRue="Rue du Dauphiné" origine="26317212"/>
+<troncon destination="26317248" longueur="38.124634" nomRue="Rue du Dauphiné"/>
 <troncon destination="26317293" longueur="111.942184" nomRue="Rue Feuillat" origine="25303841"/>
 <troncon destination="26317293" longueur="78.770195" nomRue="Rue Félix" origine="26317294"/>
 <troncon destination="26317311" longueur="70.25573" nomRue="Impasse Morel" origine="26317313"/>

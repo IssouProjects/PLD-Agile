@@ -109,7 +109,12 @@ public class Deserialisateur {
 
 	// TODO : Gérer les erreurs
 	// TODO : les troncons doubles n'existent pas
-	private static void construireTroncon(Element element, PlanDeVille plan) {
+	private static void construireTroncon(Element element, PlanDeVille plan) throws ExceptionXML {
+		
+		if(element.getAttribute("destination") == "" || element.getAttribute("longueur") == "" || element.getAttribute("origine") == "") {
+			throw new ExceptionXML("Document mal forme");
+		}
+		
 		Long destination = Long.parseLong(element.getAttribute("destination"));
 		double longueur = Double.parseDouble(element.getAttribute("longueur"));
 		String nomRue = element.getAttribute("nomRue");
