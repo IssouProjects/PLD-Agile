@@ -1,6 +1,11 @@
 package org.apache.project.vue;
 
+import org.apache.project.modele.Intersection;
+import org.apache.project.modele.Livraison;
+import org.apache.project.modele.Troncon;
+
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
@@ -35,13 +40,25 @@ public class MapGestures {
             // right mouse button => panning
             if( !event.isPrimaryButtonDown())
                 return;
+            
+            // CLICK TARGET HANDLING
+            Node target = (Node)event.getTarget();
+            Object obj = target.getUserData();
+            if(obj instanceof Livraison) {
+            	//TODO
+            } else if (obj instanceof Intersection) {
+            	//TODO
+            } else if(obj instanceof Troncon) {
+            	//TODO
+            }
+            
 
+            // DRAGGING HANDLING
             sceneDragContext.mouseAnchorX = event.getSceneX();
             sceneDragContext.mouseAnchorY = event.getSceneY();
 
             sceneDragContext.translateAnchorX = map.getTranslateX();
             sceneDragContext.translateAnchorY = map.getTranslateY();
-
         }
 
     };

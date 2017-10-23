@@ -3,8 +3,6 @@ package org.apache.project.vue;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 
 import org.apache.project.modele.Chemin;
 import org.apache.project.modele.DemandeDeLivraison;
@@ -24,7 +22,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class MapDisplay extends Pane implements Observer{
+public class MapDisplay extends Pane{
 	
 	DoubleProperty myScale = new SimpleDoubleProperty(1.0);
 	
@@ -92,16 +90,6 @@ public class MapDisplay extends Pane implements Observer{
         setTranslateY(getTranslateY()-y);
     }
     
-    public void update(Observable o, Object arg) {
-    	if(o instanceof PlanDeVille) {
-    		afficherPlanDeVille((PlanDeVille)o);
-    	} else if( o instanceof Tournee) {
-    		afficherTournee((Tournee)o);
-    	} else if( o instanceof DemandeDeLivraison) {
-    		afficherDemandeDeLivraison((DemandeDeLivraison)o);
-    	}
-    }
-    
     public void afficherPlanDeVille(PlanDeVille plan){
     	
     	clearPlanDeVille();
@@ -159,7 +147,7 @@ public class MapDisplay extends Pane implements Observer{
     	final List<Livraison> livraisons = demandeDeLivraison.getListeLivraison();
     	
     	for(Livraison l : livraisons) {
-    		Circle circle = creerVueIntersection(l.getLieuDeLivraison(), defaultLivraisonColor, livraisonIntersectionRadius);
+    		Circle circle = creerVueLivraison(l, defaultLivraisonColor, livraisonIntersectionRadius);
     		demandeDeLivraisonInter.add(circle);
             getChildren().add(circle);
     	}
@@ -215,7 +203,7 @@ public class MapDisplay extends Pane implements Observer{
     	
     	for(Livraison l : livraisons) {
     		i++;
-    		Circle circle = creerVueIntersection(l.getLieuDeLivraison(), defaultTourneeLivraisonColor, livraisonIntersectionRadius);
+    		Circle circle = creerVueLivraison(l, defaultTourneeLivraisonColor, livraisonIntersectionRadius);
     		demandeDeLivraisonInter.add(circle);
             getChildren().add(circle);
             
@@ -271,6 +259,8 @@ public class MapDisplay extends Pane implements Observer{
     public Circle creerVueIntersection(Intersection inter,  Color color) {
     	Circle circle = new Circle();
     	
+    	circle.setUserData(inter);
+    	
     	circle.setCenterX(getTransformedX(inter.getCoordY()));
     	circle.setCenterY(getTransformedY(inter.getCoordX()));
     	
@@ -290,6 +280,8 @@ public class MapDisplay extends Pane implements Observer{
     
     public Line creerVueTroncon(Troncon tronc, Color color) {
     	Line line = new Line();
+    	
+    	line.setUserData(tronc);
 		
     	line.setStartX(getTransformedX(tronc.getIntersectionDepart().getCoordY()));
 		line.setStartY(getTransformedY(tronc.getIntersectionDepart().getCoordX()));
@@ -308,6 +300,13 @@ public class MapDisplay extends Pane implements Observer{
 		line.setStrokeWidth(width);
 		
 		return line;
+    }
+    
+    public Circle creerVueLivraison(Livraison livraison, Color color, int width) {
+    	Circle circle = creerVueIntersection(livraison.getLieuDeLivraison(), defaultTourneeLivraisonColor, livraisonIntersectionRadius);
+    	circle.setUserData(livraison);
+    	
+    	return circle;    	
     }
     
     public double getTransformedX(double coordY) {
