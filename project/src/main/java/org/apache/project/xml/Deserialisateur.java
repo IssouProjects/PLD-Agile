@@ -67,7 +67,6 @@ public class Deserialisateur {
 		}
 	}
 
-	// TODO : Gérer les erreurs
 	private static void construirePlanVille(Element noeudDOMRacine, PlanDeVille plan)
 			throws ExceptionXML, NumberFormatException {
 		NodeList listeIntersections = noeudDOMRacine.getElementsByTagName("noeud");
@@ -80,7 +79,6 @@ public class Deserialisateur {
 		}
 	}
 
-	// TODO : Gérer les erreurs
 	private static void construireDemandeLivraison(Element noeudDOMRacine, DemandeDeLivraison demande, PlanDeVille plan)
 			throws ExceptionXML, NumberFormatException {
 
@@ -101,7 +99,6 @@ public class Deserialisateur {
 		}
 	}
 
-	// TODO : Gérer les erreurs
 	private static void construireIntersection(Element element, PlanDeVille plan) throws ExceptionXML {
 		if(element.getAttribute("id") == "" || element.getAttribute("x") == "" || element.getAttribute("y") == "" || !element.getAttribute("id").matches("[0-9]+") || !element.getAttribute("x").matches("[0-9]+") || !element.getAttribute("y").matches("[0-9]+")) {
 			throw new ExceptionXML("Document mal forme");
@@ -113,7 +110,6 @@ public class Deserialisateur {
 		plan.ajouterIntersection(id, x, y);
 	}
 
-	// TODO : Gérer les erreurs
 	// TODO : les troncons doubles n'existent pas
 	private static void construireTroncon(Element element, PlanDeVille plan) throws ExceptionXML {
 		
@@ -128,8 +124,6 @@ public class Deserialisateur {
 		plan.ajouterTroncon(longueur, origine, destination, nomRue);
 	}
 
-	// TODO : Gérer les erreurs
-	// TODO : Gerer cas erreur y a un debut mais pas de fin de plage horaire
 	private static void construireLivraison(Element element, DemandeDeLivraison demande, PlanDeVille plan) throws ExceptionXML {
 		
 		if(element.getAttribute("adresse") == "" || element.getAttribute("duree") == "" || !element.getAttribute("duree").matches("[0-9]+")) {
