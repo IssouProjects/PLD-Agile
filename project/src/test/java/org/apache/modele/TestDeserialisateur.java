@@ -75,7 +75,6 @@ public class TestDeserialisateur {
 		assertEquals(2129259180, (long)demande.getListeLivraison().get(1).getLieuDeLivraison().getIdNoeud());
 		assertNull(demande.getListeLivraison().get(1).getPlageHoraire());
 	}
-	
 
 	@Test(expected=ExceptionXML.class)
 	public void testChargerPlanDeVilleIncorrect()
@@ -84,11 +83,19 @@ public class TestDeserialisateur {
 			PlanDeVille plan = new PlanDeVille();
 			Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
 	}
+	
+	@Test(expected=ExceptionXML.class)
+	public void testChargerPlanDeVilleNonXML()
+			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+			File xml = new File("src/test/java/org/apache/modele/fichiers/image.jpg");
+			PlanDeVille plan = new PlanDeVille();
+			Deserialisateur.chargerPlanDeVilleFichier(plan, xml);
+	}
 
 	@Test(expected=ExceptionXML.class)
 	public void testChargerDemandeDeLivraisonIncorrecte()
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
-			File xml = new File("src/test/java/org/apache/modele/fichiers/DLmoyen5TW2.xml");
+			File xml = new File("src/test/java/org/apache/modele/fichiers/DLMoyen5TW2.xml");
 			File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
 			PlanDeVille plan = new PlanDeVille();
 			Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
@@ -96,4 +103,15 @@ public class TestDeserialisateur {
 			Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
 	}
 
+	@Test(expected=ExceptionXML.class)
+	public void testChargerDemandeDeLivraisonNonXML()
+			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+			File xml = new File("src/test/java/org/apache/modele/fichiers/image.jpg");
+			File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
+			PlanDeVille plan = new PlanDeVille();
+			Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+			DemandeDeLivraison demande = new DemandeDeLivraison();
+			Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+	}
+	
 }

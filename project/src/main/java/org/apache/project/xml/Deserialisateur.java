@@ -30,6 +30,11 @@ public class Deserialisateur {
 
 	public static void chargerPlanDeVilleFichier(PlanDeVille plan, File xml)
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+			
+		if(!estUnFichierXML(xml)) {
+			throw new ExceptionXML("Document non xml");
+		}
+		
 		DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		Document document = docBuilder.parse(xml);
 		Element racine = document.getDocumentElement();
@@ -47,6 +52,11 @@ public class Deserialisateur {
 
 	public static void chargerDemandeLivraisonFichier(DemandeDeLivraison demande, PlanDeVille plan, File xml)
 			throws ParserConfigurationException, SAXException, IOException, NumberFormatException, ExceptionXML {
+		
+		if(!estUnFichierXML(xml)) {
+			throw new ExceptionXML("Document non xml");
+		}
+		
 		DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		Document document = docBuilder.parse(xml);
 		Element racine = document.getDocumentElement();
@@ -117,6 +127,20 @@ public class Deserialisateur {
 			uneLivraison.setPlageHoraire(ph);
 		}
 		demande.ajouterLivraison(uneLivraison);
+	}
+	
+	private static boolean estUnFichierXML(File xml) {
+		String fileName = xml.getName();
+		String extension = "";
+		
+		int i = fileName.lastIndexOf('.');
+		int p = Math.max(fileName.lastIndexOf('/'), fileName.lastIndexOf('\\'));
+
+		if (i > p) {
+		    extension = fileName.substring(i+1);
+		}
+
+		return "xml".equals(extension);
 	}
 
 	/**
