@@ -14,12 +14,11 @@ public class EtatInit extends EtatDefaut {
 
 	@Override
 	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale){
-		//try {
-			//fenetrePrincipale.showPopup();
-			//Deserialisateur.chargerPlanVille(planDeVille);
-			//controleur.setEtatCourant(controleur.etatPlanCharge);
-			//fenetrePrincipale.afficherPlanDeVille(planDeVille);
-		/*} catch (ParserConfigurationException e) {
+		try {
+			Deserialisateur.chargerPlanVille(planDeVille);
+			controleur.setEtatCourant(controleur.etatPlanCharge);
+			fenetrePrincipale.afficherPlanDeVille(planDeVille);
+		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (SAXException e) {
 			e.printStackTrace();
@@ -27,7 +26,7 @@ public class EtatInit extends EtatDefaut {
 			e.printStackTrace();
 		} catch (ExceptionXML e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
-		}*/
+			fenetrePrincipale.afficherPopup(e.getMessage());
+		}
 	}
 }

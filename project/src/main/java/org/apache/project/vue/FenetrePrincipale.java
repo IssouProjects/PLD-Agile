@@ -55,13 +55,6 @@ public class FenetrePrincipale extends Application {
 	    controleur = controleur.getInstance();
 	    controleur.setFenetre(this);
 	    
-	    Alert alert = new Alert(AlertType.INFORMATION);
-	    alert.setTitle("Information Dialog");
-	    alert.setHeaderText("Look, an Information Dialog");
-	    alert.setContentText("I have a great message for you!");
-
-	    alert.showAndWait();
-	
 	    stage.setTitle("SALTY DELIVERY");
 	
 	    // layout for the full window
@@ -160,6 +153,15 @@ public class FenetrePrincipale extends Application {
 		// we can now show the window
 		stage.setScene(scene);
 		stage.show();
+	}
+	  
+	public void afficherPopup(String message) {
+		Alert alert = new Alert(AlertType.ERROR);
+	    alert.setTitle("Erreur");
+	    alert.setHeaderText("Une erreur a eu lieu");
+	    alert.setContentText(message);
+
+	    alert.showAndWait();
 	}
     
     public void afficherPlanDeVille(PlanDeVille plan){
