@@ -16,8 +16,9 @@ public class MapGestures {
     private DragContext sceneDragContext = new DragContext();
 
     MapDisplay map;
+    EcouteurDeMap edm = null;
 
-    public MapGestures( MapDisplay canvas) {
+    public MapGestures(MapDisplay canvas) {
         this.map = canvas;
     }
 
@@ -42,16 +43,17 @@ public class MapGestures {
                 return;
             
             // CLICK TARGET HANDLING
-            Node target = (Node)event.getTarget();
-            Object obj = target.getUserData();
-            if(obj instanceof Livraison) {
-            	//TODO
-            } else if (obj instanceof Intersection) {
-            	//TODO
-            } else if(obj instanceof Troncon) {
-            	//TODO
-            }
-            
+            if(event.getTarget() instanceof Node && edm != null) {
+	            Node target = (Node)event.getTarget();
+	            Object obj = target.getUserData();
+	            if(obj instanceof Livraison) {
+	            	edm.onLivraisonClicked((Livraison)obj);
+	            } else if (obj instanceof Intersection) {
+	            	edm.onIntersectionClicked((Intersection)obj);
+	            } else if(obj instanceof Troncon) {
+	            	edm.onTronconClicked((Troncon)obj);
+	            }
+        	}
 
             // DRAGGING HANDLING
             sceneDragContext.mouseAnchorX = event.getSceneX();
@@ -123,6 +125,10 @@ public class MapGestures {
 
         return value;
     }
+    
+    public void setEcouteurDeMap(EcouteurDeMap edm) {
+		this.edm = edm;
+	}
 }
 
 class DragContext {
