@@ -10,7 +10,13 @@ public class EtatAjoutLivraison1 extends EtatDefaut{
 	
 	@Override
 	public void intersectionClicked (Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Intersection intersection) {
-		controleur.setEtatCourant(controleur.etatAjoutLivraison3);
-	
+		
+		if(intersection != null) {
+			controleur.setEtatCourant(controleur.etatAjoutLivraison3);
+			controleur.etatAjoutLivraison2.actionEntree(intersection);
+			fenetrePrincipale.afficherPopupInfo("Veuilliez cliquer sur une livraison");
+		}else {
+			fenetrePrincipale.afficherPopupError("Veuilliez cliquer sur une intersection valide");
+		}
 	}
 }
