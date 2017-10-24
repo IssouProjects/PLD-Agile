@@ -35,6 +35,7 @@ public class FenetrePrincipale extends Application {
 	Button fitMapButton;
 	Button calculerTourneeButton;
 	Button loadLivraisonButton;
+	Button ajouterLivraison;
 
 	ListDisplay listeLivraisons;
 	

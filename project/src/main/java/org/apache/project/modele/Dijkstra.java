@@ -43,7 +43,7 @@ public class Dijkstra {
 		return Dijkstra.calculDijkstra(interPlan, interLivraisons);
 	}
 	
-	public static List<Chemin> principalDijkstra(PlanDeVille plan, Livraison depart, Livraison arrivee) {
+	public static Chemin principalDijkstra(PlanDeVille plan, Livraison depart, Livraison arrivee) {
 		// Liste des intersections correspondants aux lieux a livrer
 		List<Intersection> interLivraisons = new ArrayList<Intersection>();
 		interLivraisons.add(depart.getLieuDeLivraison());
@@ -56,8 +56,10 @@ public class Dijkstra {
 		for (Map.Entry<Long, Intersection> entry : plan.getAllIntersections().entrySet()) {
 			interPlan.add(entry.getValue());
 		}
-
-		return Dijkstra.calculDijkstra(interPlan, interLivraisons);
+		
+		List<Chemin> chemins = new ArrayList<Chemin>();
+		chemins = Dijkstra.calculDijkstra(interPlan, interLivraisons);
+		return chemins.get(0);
 	}
 	
 
