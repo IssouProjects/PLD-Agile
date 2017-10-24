@@ -54,7 +54,7 @@ public class Controleur {
 	}
 	
 	/**
-	 * Methode appelee par fenetre apres un clic sur le bouton "Ouvrir un plan de ville"
+	 * Methode appelee par fenetre apres un clic sur le bouton "Ouvrir plan"
 	 */
 	public void ouvrirPlanDeVille() {
 		etatCourant.ouvrirPlanDeVille(this, planDeVille, fenetrePrincipale);
