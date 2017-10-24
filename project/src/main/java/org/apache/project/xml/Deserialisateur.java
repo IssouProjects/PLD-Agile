@@ -130,6 +130,10 @@ public class Deserialisateur {
 			throw new ExceptionXML("Document mal forme");
 		}
 		
+		if(plan.getIntersectionById(Long.valueOf(element.getAttribute("adresse"))) == null) {
+			throw new ExceptionXML("Le plan et la demande de livraison ne correspondent pas");
+		}
+		
 		Long adresse = Long.parseLong(element.getAttribute("adresse"));
 		int duree = Integer.parseInt(element.getAttribute("duree"));
 		Livraison uneLivraison = new Livraison(plan.getIntersectionById(adresse), duree);
