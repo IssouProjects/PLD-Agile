@@ -2,6 +2,8 @@ package org.apache.project.vue;
 
 import java.sql.Time;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Livraison;
@@ -9,7 +11,7 @@ import org.apache.project.modele.Tournee;
 
 import javafx.scene.control.ListView;
 
-public class ListDisplay extends ListView<String>{
+public class ListDisplay extends ListView<String> implements Observer{
 	
 	public ListDisplay() {
 		getStylesheets().add(getClass().getResource("list.css").toExternalForm());
@@ -33,6 +35,14 @@ public class ListDisplay extends ListView<String>{
     	for(Livraison livraison : livraisons ) {
     		getItems().add("Livraison " + i + ":\n" + livraison.toString());
     		++i;
+    	}
+    }
+    
+    public void update(Observable o, Object arg) {
+    	if(o instanceof DemandeDeLivraison) {
+    		afficherTexteLivraisons((DemandeDeLivraison)o);
+    	} else if( o instanceof Tournee) {
+    		afficherTexteLivraisonsOrdonnees((Tournee)o);
     	}
     }
 }

@@ -147,7 +147,7 @@ public class MapDisplay extends Pane{
     	final List<Livraison> livraisons = demandeDeLivraison.getListeLivraison();
     	
     	for(Livraison l : livraisons) {
-    		Circle circle = creerVueIntersection(l.getLieuDeLivraison(), defaultLivraisonColor, livraisonIntersectionRadius);
+    		Circle circle = creerVueLivraison(l, defaultLivraisonColor, livraisonIntersectionRadius);
     		demandeDeLivraisonInter.add(circle);
             getChildren().add(circle);
     	}
@@ -203,7 +203,7 @@ public class MapDisplay extends Pane{
     	
     	for(Livraison l : livraisons) {
     		i++;
-    		Circle circle = creerVueIntersection(l.getLieuDeLivraison(), defaultTourneeLivraisonColor, livraisonIntersectionRadius);
+    		Circle circle = creerVueLivraison(l, defaultTourneeLivraisonColor, livraisonIntersectionRadius);
     		demandeDeLivraisonInter.add(circle);
             getChildren().add(circle);
             
@@ -259,6 +259,8 @@ public class MapDisplay extends Pane{
     public Circle creerVueIntersection(Intersection inter,  Color color) {
     	Circle circle = new Circle();
     	
+    	circle.setUserData(inter);
+    	
     	circle.setCenterX(getTransformedX(inter.getCoordY()));
     	circle.setCenterY(getTransformedY(inter.getCoordX()));
     	
@@ -278,6 +280,8 @@ public class MapDisplay extends Pane{
     
     public Line creerVueTroncon(Troncon tronc, Color color) {
     	Line line = new Line();
+    	
+    	line.setUserData(tronc);
 		
     	line.setStartX(getTransformedX(tronc.getIntersectionDepart().getCoordY()));
 		line.setStartY(getTransformedY(tronc.getIntersectionDepart().getCoordX()));
@@ -296,6 +300,13 @@ public class MapDisplay extends Pane{
 		line.setStrokeWidth(width);
 		
 		return line;
+    }
+    
+    public Circle creerVueLivraison(Livraison livraison, Color color, int width) {
+    	Circle circle = creerVueIntersection(livraison.getLieuDeLivraison(), defaultTourneeLivraisonColor, livraisonIntersectionRadius);
+    	circle.setUserData(livraison);
+    	
+    	return circle;    	
     }
     
     public double getTransformedX(double coordY) {

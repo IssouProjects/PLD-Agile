@@ -30,11 +30,13 @@ public class FenetrePrincipale extends Application {
 	MapContainer mapContainer;
 	Controleur controleur;
 	EcouteurDeBouton edb;
+	EcouteurDeMap edm;
 
 	Button loadMapButton;
 	Button fitMapButton;
 	Button calculerTourneeButton;
 	Button loadLivraisonButton;
+	Button ajouterLivraison;
 
 	ListDisplay listeLivraisons;
 	
@@ -43,7 +45,8 @@ public class FenetrePrincipale extends Application {
 	// String appearing in the user interface
 	public static final String LOAD_MAP = "Charger plan";
 	public static final String LOAD_LIVRAISON = "Charger livraisons";
-	public static final String CALCULATE_TOURNEE = "Calculer tournee";
+	public static final String CALCULATE_TOURNEE = "Calculer tournée";
+	public static final String ADD_LIVRAISON = "Ajouter livraison";
 
 	public static void launchApp(String[] args) {
 		Application.launch(FenetrePrincipale.class, args);
@@ -67,7 +70,7 @@ public class FenetrePrincipale extends Application {
 	    Scene scene = new Scene(layout, 1024, 500);
 	    
 		/////////////////////////////////////////////
-		///// CREATING THE MAP AND ITS CONTROLS /////
+		///// CREATING THE MAP AND ITS BUTTONS  /////
 		/////////////////////////////////////////////
 	
 		// layout for the map and its controls buttons
@@ -75,19 +78,18 @@ public class FenetrePrincipale extends Application {
 	
 		HBox mapButtonsLayout = new HBox();
 	
+		// buttons
 		fitMapButton = new Button("Recentrer plan");
 		fitMapButton.setDisable(true);
 		loadMapButton = new Button(LOAD_MAP);
-		loadLivraisonButton = new Button(LOAD_LIVRAISON);
-		loadLivraisonButton.setDisable(true);
-		calculerTourneeButton = new Button(CALCULATE_TOURNEE);
-		calculerTourneeButton.setDisable(true);
 	
 		mapButtonsLayout.setAlignment(Pos.CENTER);
 		mapButtonsLayout.setSpacing(10);
 	
 		mapButtonsLayout.getChildren().add(loadMapButton);
 		mapButtonsLayout.getChildren().add(fitMapButton);
+		
+		// map
 	
 		mapContainer = new MapContainer(2000, 2000);
 		mapLayout.getChildren().add(mapContainer);
@@ -108,23 +110,51 @@ public class FenetrePrincipale extends Application {
 	
 	    HBox listeButtonsLayout = new HBox();
 	    listeButtonsLayout.setSpacing(10);
-	    listeButtonsLayout.getChildren().add(calculerTourneeButton);
+	    
+	    // buttons
+	    loadLivraisonButton = new Button(LOAD_LIVRAISON);
+		loadLivraisonButton.setDisable(true);
+		calculerTourneeButton = new Button(CALCULATE_TOURNEE);
+		calculerTourneeButton.setDisable(true);
+	    ajouterLivraison = new Button(ADD_LIVRAISON);
+	    ajouterLivraison.setDisable(true);
 	
 	    listLayout.setSpacing(10);
-	
+	    
+	    // list
 	    listeLivraisons = new ListDisplay();
-	
+
 	    listLayout.getChildren().add(listeLivraisons);
 	    listeButtonsLayout.getChildren().add(loadLivraisonButton);
+	    listeButtonsLayout.getChildren().add(calculerTourneeButton);
+	    listeButtonsLayout.getChildren().add(ajouterLivraison);
 	
 	    listLayout.getChildren().add(listeButtonsLayout);
 	
 	    layout.add(listLayout, 1, 1);
-
+	    
+	    
 		///////////////////////////
-		///// MAPPING BUTTONS /////
+		/////  LAYOUT STYLE  //////
 		///////////////////////////
+	    
+	    
+ 		ColumnConstraints MapCC = new ColumnConstraints();
+ 		MapCC.setPercentWidth(67.0);
+ 		MapCC.setHgrow(Priority.ALWAYS);
+ 		layout.getColumnConstraints().add(MapCC);
 
+ 		ColumnConstraints ListCC = new ColumnConstraints();
+ 		ListCC.setPercentWidth(33.0);
+ 		ListCC.setHgrow(Priority.ALWAYS);
+ 		layout.getColumnConstraints().add(ListCC);
+
+		//////////////////////////////////////////
+		///// MAPPING CONTROLS AND LISTENERS /////
+		//////////////////////////////////////////
+
+ 		// button listener
+ 		
 		edb = new EcouteurDeBouton(controleur);
 
 		fitMapButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -137,18 +167,11 @@ public class FenetrePrincipale extends Application {
 		loadMapButton.setOnAction(edb);
 		loadLivraisonButton.setOnAction(edb);
 		calculerTourneeButton.setOnAction(edb);
-
-		// layout style
-
-		ColumnConstraints MapCC = new ColumnConstraints();
-		MapCC.setPercentWidth(67.0);
-		MapCC.setHgrow(Priority.ALWAYS);
-		layout.getColumnConstraints().add(MapCC);
-
-		ColumnConstraints ListCC = new ColumnConstraints();
-		ListCC.setPercentWidth(33.0);
-		ListCC.setHgrow(Priority.ALWAYS);
-		layout.getColumnConstraints().add(ListCC);
+		
+		// map listener
+		
+		edm = new EcouteurDeMap(controleur);
+		mapContainer.setEcouteurDeMap(edm);
 
 		// we can now show the window
 		stage.setScene(scene);
@@ -187,6 +210,7 @@ public class FenetrePrincipale extends Application {
     	double duree_min = tournee.getDureeTourneeSecondes()/60;
     	mainLabel.setText("Duree de la tournee " + (int)Math.ceil(duree_min)+ " minutes." );
     	calculerTourneeButton.setDisable(true);
+    	ajouterLivraison.setDisable(false);
     }
     
     public void clearPlanDeVille() {
