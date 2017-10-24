@@ -145,4 +145,15 @@ public class TestDeserialisateur {
 			Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
 	}
 	
+	@Test(expected=ExceptionXML.class)
+	public void testChargerDemandeDeLivraisonNonCorrespondantAuPlan()
+			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+			File xml = new File("src/test/java/org/apache/modele/fichiers/DLGrand20.xml");
+			File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
+			PlanDeVille plan = new PlanDeVille();
+			Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+			DemandeDeLivraison demande = new DemandeDeLivraison();
+			Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+	}
+	
 }
