@@ -26,6 +26,7 @@ public class Controleur {
 		instance = this;
 		planDeVille = new PlanDeVille();
 		demandeDeLivraison = new DemandeDeLivraison();
+		tournee = new Tournee();
 		etatCourant = etatInit;		
 	}
 	
@@ -60,7 +61,18 @@ public class Controleur {
 	}
 	
 	public void calculerTournee() {
-		tournee = new Tournee(demandeDeLivraison.getAdresseEntrepot(), demandeDeLivraison.getHeureDepart());
 		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale);
+	}
+	
+	public void clearPlanDeVille() {
+		planDeVille.clear();
+	}
+	
+	public void clearDemandeDeLivraison() {
+		demandeDeLivraison.clear();
+	}
+	
+	public void clearTournee() {
+		tournee.clear();
 	}
 }

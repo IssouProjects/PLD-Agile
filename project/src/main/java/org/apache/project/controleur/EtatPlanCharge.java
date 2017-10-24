@@ -13,6 +13,7 @@ import org.xml.sax.SAXException;
 
 public class EtatPlanCharge extends EtatDefaut {
 
+	@Override
 	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale){
 		try {
 			Deserialisateur.chargerDemandeLivraison(demandeDeLivraison, planDeVille);
@@ -26,6 +27,15 @@ public class EtatPlanCharge extends EtatDefaut {
 			e.printStackTrace();
 		} catch (ExceptionXML e) {
 			e.printStackTrace();
+			fenetrePrincipale.afficherPopup(e.getMessage());
 		}
+	}
+	
+	@Override
+	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale){
+		controleur.setEtatCourant(controleur.etatInit);
+		fenetrePrincipale.clearPlanDeVille();
+		controleur.clearPlanDeVille();
+		controleur.ouvrirPlanDeVille();
 	}
 }

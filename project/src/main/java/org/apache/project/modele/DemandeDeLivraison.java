@@ -47,4 +47,9 @@ public class DemandeDeLivraison extends Observable {
 		return livraisons;
 	}
 	
+	public void clear() {
+		this.adresseEntrepot=null;
+		this.heureDepart=null;
+		this.livraisons.clear();
+	}
 }

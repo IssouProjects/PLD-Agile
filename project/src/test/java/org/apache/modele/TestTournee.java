@@ -28,7 +28,9 @@ public class TestTournee {
 		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
 
 		// Calcul tournee
-		Tournee tournee = new Tournee(demande.getAdresseEntrepot(), demande.getHeureDepart());
+		Tournee tournee = new Tournee();
+		tournee.setAdresseEntrepot(demande.getAdresseEntrepot());
+		tournee.setHeureDepart(demande.getHeureDepart());
 		tournee.calculerTournee(plan, demande);
 		
 		//Verification de l'ordre et des intersection a livrer
@@ -52,7 +54,9 @@ public class TestTournee {
 		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
 
 		// Calcul tournee
-		Tournee tournee = new Tournee(demande.getAdresseEntrepot(), demande.getHeureDepart());
+		Tournee tournee = new Tournee();
+		tournee.setAdresseEntrepot(demande.getAdresseEntrepot());
+		tournee.setHeureDepart(demande.getHeureDepart());
 		tournee.calculerTournee(plan, demande);
 		/*
 		assertEquals(517370427, (long)tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud());
