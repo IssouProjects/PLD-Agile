@@ -67,6 +67,10 @@ public class Controleur {
 		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale);
 	}
 	
+	public void ajouterLivraison() {
+		etatCourant.ajouterLivraison(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale);
+	}
+	
 	public void intersectionClicked(Intersection intersection) {
 		etatCourant.intersectionClicked(this,  planDeVille,  demandeDeLivraison,  tournee,  fenetrePrincipale,  intersection);
 	}

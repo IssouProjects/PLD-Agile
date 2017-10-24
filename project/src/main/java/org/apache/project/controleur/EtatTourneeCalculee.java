@@ -2,6 +2,7 @@ package org.apache.project.controleur;
 
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.PlanDeVille;
+import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
 
 public class EtatTourneeCalculee extends EtatDefaut{
@@ -25,6 +26,12 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		controleur.clearDemandeDeLivraison();
 		controleur.clearTournee();
 		controleur.ouvrirDemandeDeLivraison();
+	}
+	
+	@Override
+	public void ajouterLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale) {
+		controleur.setEtatCourant(controleur.etatAjoutLivraison1);
+		fenetrePrincipale.afficherPopupInfo("Veuilliez cliquer sur une intersection de la carte");
 	}
 
 }
