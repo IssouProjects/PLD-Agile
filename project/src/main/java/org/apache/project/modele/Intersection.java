@@ -9,11 +9,13 @@ public class Intersection {
 	private Long coordX;
 	private Long coordY;
 	private List<Troncon> tronconsPartants;
+	private Boolean estSelectionnee;
 	
 	public Intersection(Long id, Long x, Long y) {
 		this.setIdNoeud(id);
 		this.setCoordX(x);
 		this.setCoordY(y);
+		this.estSelectionnee = false;
 		this.tronconsPartants=new ArrayList<Troncon>();
 	}
 
@@ -41,6 +43,14 @@ public class Intersection {
 		this.coordY = coordY;
 	}
 	
+	public Boolean getEstSelectionnee() {
+		return estSelectionnee;
+	}
+
+	public void setEstSelectionnee(Boolean estSelectionnee) {
+		this.estSelectionnee = estSelectionnee;
+	}
+
 	public void ajouterTronconPartant(Troncon unTroncon) {
 		this.tronconsPartants.add(unTroncon);
 	}
