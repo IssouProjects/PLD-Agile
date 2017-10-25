@@ -200,11 +200,6 @@ public class Tournee extends Observable {
 		nouveauxChemins.add(chemin2);
 		
 		return nouveauxChemins;
-		/*this.supprimerChemin(indexPre+1);
-		this.ajouterLivraison(nouvelleLivraison, indexPre+1);
-		this.ajouterChemin(chemin1, indexPre);
-		this.ajouterChemin(chemin2, indexPre +1);*/
-		
 	}
 
 	public int getDureeTourneeSecondes() {

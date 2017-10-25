@@ -52,7 +52,7 @@ public class EtatAjoutLivraison3 extends EtatDefaut{
 		
 		
 		
-		
+		tournee.miseAJourHeureDuree();
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
 		fenetrePrincipale.afficherInfo("Vous êtes libre");
