@@ -121,6 +121,13 @@ public class Tournee extends Observable {
 					if (idIntersection == livraisonActuelle.getLieuDeLivraison().getIdNoeud()) {
 						livraisonActuelle.setHeureArrivee(
 								PlageHoraire.calculerHeureArrivee(demande.getHeureDepart(), dureeTourneeSecondes));
+
+						//Ajout dans le temps de livraison le temps d attente
+						long avance = livraisonActuelle.getPlageHoraire().getDebut().getTime() - livraisonActuelle.getHeureArrivee().getTime();
+						if (avance > 0) {
+							dureeTourneeSecondes += (int) Math.ceil(avance / 60000);
+						}
+						
 						livraisonsOrdonnees.add(livraisonActuelle);
 						dureeTourneeSecondes += livraisonActuelle.getDuree();
 						break;
