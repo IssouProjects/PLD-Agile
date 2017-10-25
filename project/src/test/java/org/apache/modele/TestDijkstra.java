@@ -91,7 +91,7 @@ public class TestDijkstra {
 		Livraison depart = tournee.getLivraisonsOrdonnees().get(2);
 		Livraison arrivee = tournee.getLivraisonsOrdonnees().get(3);
 		
-		List<Troncon> calculDijkstra = Dijkstra.principalDijkstra(plan, depart, arrivee).getTroncons();
+		List<Troncon> calculDijkstra = Dijkstra.principalDijkstra(plan, depart.getLieuDeLivraison(), arrivee.getLieuDeLivraison()).getTroncons();
 		
 		List<Troncon> calculTournee = tournee.getChemins().get(3).getTroncons();
 		

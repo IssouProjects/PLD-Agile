@@ -33,6 +33,8 @@ public class MapDisplay extends Pane{
 	
 	List<Label> numerosLivraisons;
 	
+	Intersection entrepot = null; //shame, shame, shame
+	
 	// Map elements display
 	
 	// default map display
@@ -153,7 +155,8 @@ public class MapDisplay extends Pane{
     	}
     	
     	// showing the entrepot
-    	entrepotInter = creerVueIntersection(demandeDeLivraison.getAdresseEntrepot(), defaultEntrepotColor, livraisonIntersectionRadius); 
+    	entrepotInter = creerVueIntersection(demandeDeLivraison.getAdresseEntrepot(), defaultEntrepotColor, livraisonIntersectionRadius);
+    	entrepot = demandeDeLivraison.getAdresseEntrepot();
     	getChildren().add(entrepotInter);    	
     	
     }
@@ -164,6 +167,7 @@ public class MapDisplay extends Pane{
     		getChildren().removeAll(demandeDeLivraisonInter);
     		demandeDeLivraisonInter.clear();
     		getChildren().remove(entrepotInter);
+    		entrepot = null;
     		getChildren().removeAll(numerosLivraisons);
     		numerosLivraisons.clear();
     	}
@@ -214,6 +218,7 @@ public class MapDisplay extends Pane{
     	
     	// we show the entrepot
     	entrepotInter = creerVueIntersection(tournee.getAdresseEntrepot(), defaultEntrepotColor, livraisonIntersectionRadius);
+    	entrepot = tournee.getAdresseEntrepot();
     	getChildren().add(entrepotInter);
     	
     }
@@ -229,6 +234,7 @@ public class MapDisplay extends Pane{
     		getChildren().removeAll(demandeDeLivraisonInter);
     		
     		getChildren().remove(entrepotInter);
+    		entrepot = null;
     	}
     	
     	if(!demandeDeLivraisonInter.isEmpty()) {
@@ -315,5 +321,9 @@ public class MapDisplay extends Pane{
     
     public double getTransformedY(double coordX) {
     	return getPrefHeight()-(coordX-minimalX);
+    }
+    
+    public Intersection getEntrepot() {
+    	return entrepot;
     }
 }

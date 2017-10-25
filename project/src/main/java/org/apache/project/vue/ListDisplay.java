@@ -38,6 +38,10 @@ public class ListDisplay extends ListView<String> implements Observer {
 			++i;
 		}
 	}
+	
+	public void clearList() {
+		getItems().clear();
+	}
 
 	@Override
 	public void update(Observable o, Object arg) {

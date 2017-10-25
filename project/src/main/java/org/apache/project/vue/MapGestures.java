@@ -49,7 +49,12 @@ public class MapGestures {
 	            if(obj instanceof Livraison) {
 	            	edm.onLivraisonClicked((Livraison)obj);
 	            } else if (obj instanceof Intersection) {
-	            	edm.onIntersectionClicked((Intersection)obj);
+	            	if((Intersection)obj == map.getEntrepot()){
+	            		edm.onEntrepotClicked((Intersection)obj);
+	            	}
+	            	else {
+	            		edm.onIntersectionClicked((Intersection)obj);
+	            	}
 	            } else if(obj instanceof Troncon) {
 	            	edm.onTronconClicked((Troncon)obj);
 	            }

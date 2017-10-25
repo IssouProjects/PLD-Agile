@@ -189,9 +189,9 @@ public class Tournee extends Observable {
 	
 	public void calculerNouveauxChemins(PlanDeVille plan, Livraison livraisonPre, Livraison nouvelleLivraison) {
 		int indexPre = this.getLivraisonIndex(livraisonPre);
-		Chemin chemin1 = Dijkstra.principalDijkstra(plan, livraisonPre, nouvelleLivraison);
+		Chemin chemin1 = Dijkstra.principalDijkstra(plan, livraisonPre.getLieuDeLivraison(), nouvelleLivraison.getLieuDeLivraison());
 		Livraison livraisonSuivante = this.getLivraison(indexPre+1);
-		Chemin chemin2 = Dijkstra.principalDijkstra(plan, nouvelleLivraison, livraisonSuivante);
+		Chemin chemin2 = Dijkstra.principalDijkstra(plan, nouvelleLivraison.getLieuDeLivraison(), livraisonSuivante.getLieuDeLivraison());
 		
 		this.supprimerChemin(indexPre+1);
 		this.ajouterLivraison(nouvelleLivraison, indexPre+1);
@@ -210,4 +210,43 @@ public class Tournee extends Observable {
 		chemins.clear();
 		livraisonsOrdonnees.clear();
 	}
+	
+	public void miseAJourHeureDuree()
+	{
+		
+		//Met a jour les temps avec les nouveaux chemins et points de livraisons
+		
+		dureeTourneeSecondes = 0;
+		
+		int nombreChemins = chemins.size();
+		
+		for (int i = 0; i < nombreChemins; i++) {
+			
+			//Mettre a jour les heures pour chaque chemin
+			
+			dureeTourneeSecondes += chemins.get(i).getDuree();
+			
+			
+			// Mettre les intersections ordonnees (une a une)
+			// On n ajoute pas a la liste des intersections pour l entrepot
+			if (i + 1 < nombreChemins) {
+					Livraison livraisonActuelle = livraisonsOrdonnees.get(i);
+
+					livraisonActuelle.setHeureArrivee(
+							PlageHoraire.calculerHeureArrivee(heureDepart, dureeTourneeSecondes));
+
+					if(livraisonActuelle.getPlageHoraire() != null)
+					{
+						//Ajout dans le temps de livraison le temps d attente
+						long avance = livraisonActuelle.getPlageHoraire().getDebut().getTime() - livraisonActuelle.getHeureArrivee().getTime();
+						if (avance > 0) {
+							dureeTourneeSecondes += (int) Math.ceil(avance / 1000);
+						}
+					}
+					
+					dureeTourneeSecondes += livraisonActuelle.getDuree();
+			}
+		}
+	}
+	
 }

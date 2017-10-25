@@ -69,5 +69,7 @@ public interface Etat {
 	 * @param fenetrePrincipale
 	 * @param intersection
 	 */
-	public void livraisonClicked(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente);
+	public void livraisonClicked(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente);
+	
+	public void entrepotClicked(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale, Intersection entrepot);
 }
