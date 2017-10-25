@@ -174,8 +174,9 @@ public class FenetrePrincipale extends Application {
 		mapContainer.getMapDisplay().afficherTournee(tournee);
 		calculerTourneeButton.setDisable(true);
 		afficherTexteLivraisonsOrdonnees(tournee);
-		double duree_min = tournee.getDureeTourneeSecondes() / 60;
-		mainLabel.setText("Durée de la tournée " + (int) Math.ceil(duree_min) + " minutes");
+		double duree_min = tournee.getDureeTourneeSecondes();
+		mainLabel.setText(
+				"Durée de la tournée " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(duree_min * 1000));
 	}
 
 	public void clearPlanDeVille() {

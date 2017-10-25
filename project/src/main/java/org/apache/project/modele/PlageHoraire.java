@@ -52,6 +52,17 @@ public class PlageHoraire {
 			heures = heures % 23;
 		}
 		return new Time(heures, minutes, secondes);
+	}
 
+	public static String afficherMillisecondesEnHeuresEtMinutes(double duree) {
+		int secondes = (int) (duree / 1000);
+		int heures = secondes / 3600;
+		int minutes = (secondes % 3600) / 60;
+		String result = "";
+		if (heures > 0) {
+			result += heures + "h ";
+		}
+		result += minutes + "min";
+		return result;
 	}
 }

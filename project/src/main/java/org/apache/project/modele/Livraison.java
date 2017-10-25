@@ -67,15 +67,14 @@ public class Livraison {
 			if (heureArrivee != null) {
 				long avance = plageHoraire.getDebut().getTime() - heureArrivee.getTime();
 				if (avance > 0) {
-					livraison_s += "\n" + "Avance: " + (int) Math.ceil(avance / 60000) + " min";
+					livraison_s += "\n" + "Avance: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(avance);
 				}
 			}
 		} else {
 			livraison_s += "Pas de plage horaire";
 		}
 		livraison_s += "\n";
-		double duree_min = duree / 60;
-		livraison_s += "Duree sur place: " + (int) Math.ceil(duree_min) + " minutes";
+		livraison_s += "Duree sur place: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(duree * 1000);
 		return livraison_s;
 	}
 
