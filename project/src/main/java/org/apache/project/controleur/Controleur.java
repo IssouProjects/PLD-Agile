@@ -79,6 +79,10 @@ public class Controleur {
 		etatCourant.livraisonClicked(this,  planDeVille,  demandeDeLivraison,  tournee,  fenetrePrincipale,  livraison);
 	}
 	
+	public void calculerChemins(Livraison livraison) {
+		
+	}
+	
 	public void clearPlanDeVille() {
 		planDeVille.clear();
 	}
