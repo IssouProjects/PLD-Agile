@@ -15,6 +15,8 @@ private Livraison livraisonPrecedente;
 	
 	public void livraisonClicked(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {
 		this.livraisonPrecedente = livraisonPrecedente;
+		Livraison l = new Livraison(intersectionLivraison, 0);
+		fenetrePrincipale.afficherFenetreAjouterLivraison(l);
 		controleur.setEtatCourant(controleur.etatAjoutLivraison3);
 	}
 
