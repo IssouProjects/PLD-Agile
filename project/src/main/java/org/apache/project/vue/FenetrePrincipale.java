@@ -183,8 +183,6 @@ public class FenetrePrincipale extends Application {
 		// we can now show the window
 		stage.setScene(scene);
 		stage.show();
-		
-		afficherFenetreAjouterLivraison(null);
 	}
 	  
 	public void afficherPopupError(String message) {
