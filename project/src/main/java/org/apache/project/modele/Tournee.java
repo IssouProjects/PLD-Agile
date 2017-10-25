@@ -80,7 +80,7 @@ public class Tournee extends Observable {
 		return livraisonsOrdonnees.get(index);
 	}
 	
-	private int getLivraisonIndex(Livraison livraison) {
+	public int getLivraisonIndex(Livraison livraison) {
 		for(int i = 0; i<livraisonsOrdonnees.size(); i++) {
 			if(livraisonsOrdonnees.get(i)==livraison)
 				return i;
@@ -90,6 +90,10 @@ public class Tournee extends Observable {
 
 	public List<Livraison> getLivraisonsOrdonnees() {
 		return livraisonsOrdonnees;
+	}
+	
+	public int getLivraisonsSize() {
+		return livraisonsOrdonnees.size();
 	}
 
 	public void calculerTournee(PlanDeVille plan, DemandeDeLivraison demande) {
@@ -187,16 +191,19 @@ public class Tournee extends Observable {
 		}
 	}
 	
-	public void calculerNouveauxChemins(PlanDeVille plan, Livraison livraisonPre, Livraison nouvelleLivraison) {
-		int indexPre = this.getLivraisonIndex(livraisonPre);
-		Chemin chemin1 = Dijkstra.principalDijkstra(plan, livraisonPre.getLieuDeLivraison(), nouvelleLivraison.getLieuDeLivraison());
-		Livraison livraisonSuivante = this.getLivraison(indexPre+1);
-		Chemin chemin2 = Dijkstra.principalDijkstra(plan, nouvelleLivraison.getLieuDeLivraison(), livraisonSuivante.getLieuDeLivraison());
+	public List<Chemin> calculerNouveauxChemins(PlanDeVille plan, Intersection intersectionPre, Intersection newIntersection, Intersection intersectionSuiv) {
+		Chemin chemin1 = Dijkstra.principalDijkstra(plan, intersectionPre, newIntersection);
+		Chemin chemin2 = Dijkstra.principalDijkstra(plan, newIntersection, intersectionSuiv);
 		
-		this.supprimerChemin(indexPre+1);
+		List<Chemin> nouveauxChemins =  new ArrayList <Chemin>();
+		nouveauxChemins.add(chemin1);
+		nouveauxChemins.add(chemin2);
+		
+		return nouveauxChemins;
+		/*this.supprimerChemin(indexPre+1);
 		this.ajouterLivraison(nouvelleLivraison, indexPre+1);
 		this.ajouterChemin(chemin1, indexPre);
-		this.ajouterChemin(chemin2, indexPre +1);
+		this.ajouterChemin(chemin2, indexPre +1);*/
 		
 	}
 
