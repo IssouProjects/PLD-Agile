@@ -24,4 +24,8 @@ public class EcouteurDeMap {
 		controleur.livraisonClicked(livraison);
 	}
 	
+	public void onEntrepotClicked(Intersection intersection) {
+		//TODO
+	}
+	
 }
