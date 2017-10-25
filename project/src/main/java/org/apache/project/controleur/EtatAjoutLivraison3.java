@@ -22,6 +22,8 @@ public class EtatAjoutLivraison3 extends EtatDefaut{
 		tournee.calculerNouveauxChemins(planDeVille, livraisonPrecedente, nouvelleLivraison);
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
+		fenetrePrincipale.afficherInfo("Vous êtes libre");
+		controleur.setEtatCourant(controleur.etatTourneeCalculee);
 	}
 	
 	protected void actionEntreeEtatAjoutLivraison3(Livraison livraisonPrecedente, Livraison nouvelleLivraison) {
