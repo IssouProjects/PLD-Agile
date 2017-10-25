@@ -179,7 +179,7 @@ public class MapDisplay extends Pane{
     }
     
     public void afficherTournee(Tournee tournee) {
-    	
+    	clearDemandeDeLivraison();
     	clearTournee();
     	
     	final List<Chemin> chemins = tournee.getChemins();
