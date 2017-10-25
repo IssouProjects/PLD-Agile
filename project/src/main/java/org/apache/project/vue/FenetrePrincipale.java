@@ -49,7 +49,9 @@ public class FenetrePrincipale extends Application {
 	
 	StackPane stack;
 
-	Label mainLabel;
+	Label listLabel;
+	Label mapLabel;
+	
 
 	// String appearing in the user interface
 	public static final String LOAD_MAP = "Charger plan";
@@ -102,6 +104,9 @@ public class FenetrePrincipale extends Application {
 		mapButtonsLayout.getChildren().add(fitMapButton);
 
 		// map
+		mapLabel =  new Label("Action à realiser: Charger un plan");
+		layout.add(mapLabel, 0, 0);
+
 		mapContainer = new MapContainer(2000, 2000);
 		mapLayout.getChildren().add(mapContainer);
 		mapLayout.getChildren().add(mapButtonsLayout);
@@ -113,9 +118,9 @@ public class FenetrePrincipale extends Application {
 		///// CREATING THE DELIVERY LIST /////
 		//////////////////////////////////////
 
-		mainLabel = new Label("Livraisons: ");
+		listLabel = new Label("Livraisons: ");
 
-		layout.add(mainLabel, 1, 0);
+		layout.add(listLabel, 1, 0);
 
 		VBox listLayout = new VBox();
 
@@ -199,13 +204,8 @@ public class FenetrePrincipale extends Application {
 		alert.showAndWait();
 	}
 
-	public void afficherPopupInfo(String message) {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Information");
-		alert.setHeaderText("Voici l'action à faire");
-		alert.setContentText(message);
-
-		alert.showAndWait();
+	public void afficherInfo(String message) {
+		mapLabel.setText("Action à réaliser: " + message);
 	}
 
 	public void afficherPlanDeVille(PlanDeVille plan) {
@@ -229,7 +229,7 @@ public class FenetrePrincipale extends Application {
 		mapContainer.getMapDisplay().afficherTournee(tournee);
 		listeLivraisons.afficherTexteLivraisonsOrdonnees(tournee);
 		double duree_min = tournee.getDureeTourneeSecondes();
-		mainLabel.setText(
+		listLabel.setText(
 				"Durée de la tournée " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(duree_min * 1000));
 		calculerTourneeButton.setDisable(true);
 		ajouterLivraisonButton.setDisable(false);
@@ -244,13 +244,13 @@ public class FenetrePrincipale extends Application {
 	public void clearLivraison() {
 		mapContainer.getMapDisplay().clearDemandeDeLivraison();
 		listeLivraisons.clearList();
-		mainLabel.setText("Livraisons:");
+		listLabel.setText("Livraisons:");
 	}
 
 	public void clearTournee() {
 		mapContainer.getMapDisplay().clearTournee();
 		listeLivraisons.clearList();
-		mainLabel.setText("Livraisons:");
+		listLabel.setText("Livraisons:");
 	}
  
     public void afficherFenetreAjouterLivraison(Livraison l) {	    
