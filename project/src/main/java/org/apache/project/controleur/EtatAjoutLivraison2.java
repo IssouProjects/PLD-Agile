@@ -17,15 +17,10 @@ private Livraison nouvelleLivraison;
 	@Override
 	public void livraisonClicked(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {
 		this.livraisonPrecedente = livraisonPrecedente;
-		//Pour le moment
-		controleur.setEtatCourant(controleur.etatTourneeCalculee);
+		controleur.setEtatCourant(controleur.etatAjoutLivraison3);
 		nouvelleLivraison = new Livraison(intersectionLivraison);
-		//Todo: Appelé fenetre popup 
-		nouvelleLivraison.setDuree(2100);
-		tournee.calculerNouveauxChemins(planDeVille, livraisonPrecedente, nouvelleLivraison);
-		fenetrePrincipale.clearTournee();
-		fenetrePrincipale.afficherTournee(tournee);
-		//controleur.etatAjoutLivraison3.actionEntreeEtatAjoutLivraison3(livraisonPrecedente, nouvelleLivraison);
+		fenetrePrincipale.afficherFenetreAjouterLivraison(nouvelleLivraison);
+		controleur.etatAjoutLivraison3.actionEntreeEtatAjoutLivraison3(livraisonPrecedente, nouvelleLivraison);
 	}
 	
 	@Override

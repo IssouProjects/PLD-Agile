@@ -1,5 +1,7 @@
 package org.apache.project.controleur;
 
+import java.sql.Time;
+
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
@@ -34,6 +36,8 @@ public interface Etat {
 	 * @param fenetrePrincipale
 	 */
 	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale);
+	
+	public void calculerChemins(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale, Integer duree, Time heureDeb, Time heureFin);
 	
 	/**
 	 * Methode appelee par controleur apres un clic sur le bouton "Ajouter livraison"
