@@ -82,6 +82,10 @@ public class Controleur {
 		etatCourant.livraisonClicked(this,  planDeVille,  tournee,  fenetrePrincipale,  livraison);
 	}
 	
+	public void entrepotClicked() {
+		etatCourant.entrepotClicked(this, planDeVille, tournee, fenetrePrincipale);
+	}
+	
 	public void calculerChemins(Integer duree, Time heureDeb, Time heureFin) {
 		etatCourant.calculerChemins(this, planDeVille, tournee, fenetrePrincipale, duree, heureDeb, heureFin);
 	}
