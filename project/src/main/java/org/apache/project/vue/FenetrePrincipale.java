@@ -225,9 +225,13 @@ public class FenetrePrincipale extends Application {
 
 	public void clearLivraison() {
 		mapContainer.getMapDisplay().clearDemandeDeLivraison();
+		listeLivraisons.clearList();
+		mainLabel.setText("Livraisons:");
 	}
 
 	public void clearTournee() {
 		mapContainer.getMapDisplay().clearTournee();
+		listeLivraisons.clearList();
+		mainLabel.setText("Livraisons:");
 	}
 }

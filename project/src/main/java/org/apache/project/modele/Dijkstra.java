@@ -43,11 +43,11 @@ public class Dijkstra {
 		return Dijkstra.calculDijkstra(interPlan, interLivraisons);
 	}
 	
-	public static Chemin principalDijkstra(PlanDeVille plan, Livraison depart, Livraison arrivee) {
+	public static Chemin principalDijkstra(PlanDeVille plan, Intersection depart, Intersection arrivee) {
 		// Liste des intersections correspondants aux lieux a livrer
 		List<Intersection> interLivraisons = new ArrayList<Intersection>();
-		interLivraisons.add(depart.getLieuDeLivraison());
-		interLivraisons.add(arrivee.getLieuDeLivraison());
+		interLivraisons.add(depart);
+		interLivraisons.add(arrivee);
 
 		
 

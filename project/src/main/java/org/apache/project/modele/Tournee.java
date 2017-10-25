@@ -72,8 +72,20 @@ public class Tournee extends Observable {
 		return chemins.get(index);
 	}
 	
+	public void supprimerChemin(int index) {
+		chemins.remove(index);
+	}
+	
 	public Livraison getLivraison(int index) {
 		return livraisonsOrdonnees.get(index);
+	}
+	
+	private int getLivraisonIndex(Livraison livraison) {
+		for(int i = 0; i<livraisonsOrdonnees.size(); i++) {
+			if(livraisonsOrdonnees.get(i)==livraison)
+				return i;
+		}
+		return 0;
 	}
 
 	public List<Livraison> getLivraisonsOrdonnees() {
@@ -173,6 +185,19 @@ public class Tournee extends Observable {
 				}
 			}
 		}
+	}
+	
+	public void calculerNouveauxChemins(PlanDeVille plan, Livraison livraisonPre, Livraison nouvelleLivraison) {
+		int indexPre = this.getLivraisonIndex(livraisonPre);
+		Chemin chemin1 = Dijkstra.principalDijkstra(plan, livraisonPre.getLieuDeLivraison(), nouvelleLivraison.getLieuDeLivraison());
+		Livraison livraisonSuivante = this.getLivraison(indexPre+1);
+		Chemin chemin2 = Dijkstra.principalDijkstra(plan, nouvelleLivraison.getLieuDeLivraison(), livraisonSuivante.getLieuDeLivraison());
+		
+		this.supprimerChemin(indexPre+1);
+		this.ajouterLivraison(nouvelleLivraison, indexPre+1);
+		this.ajouterChemin(chemin1, indexPre);
+		this.ajouterChemin(chemin2, indexPre +1);
+		
 	}
 
 	public int getDureeTourneeSecondes() {

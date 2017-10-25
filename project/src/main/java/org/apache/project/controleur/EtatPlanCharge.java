@@ -27,7 +27,7 @@ public class EtatPlanCharge extends EtatDefaut {
 			e.printStackTrace();
 		} catch (ExceptionXML e) {
 			e.printStackTrace();
-			fenetrePrincipale.afficherPopupError(e.getMessage());
+			fenetrePrincipale.afficherPopupError(e.getMessage()+ "\nChargement de demande de livraison annulée.");
 		}
 	}
 	

@@ -76,7 +76,7 @@ public class Controleur {
 	}
 	
 	public void livraisonClicked(Livraison livraison) {
-		etatCourant.livraisonClicked(this,  planDeVille,  demandeDeLivraison,  tournee,  fenetrePrincipale,  livraison);
+		etatCourant.livraisonClicked(this,  planDeVille,  tournee,  fenetrePrincipale,  livraison);
 	}
 	
 	public void calculerChemins(Livraison livraison) {
