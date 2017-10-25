@@ -12,8 +12,8 @@ public class EtatAjoutLivraison1 extends EtatDefaut{
 	public void intersectionClicked (Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Intersection intersection) {
 		
 		if(intersection != null) {
-			controleur.setEtatCourant(controleur.etatAjoutLivraison3);
-			controleur.etatAjoutLivraison2.actionEntree(intersection);
+			controleur.setEtatCourant(controleur.etatAjoutLivraison2);
+			controleur.etatAjoutLivraison2.actionEntreeEtatAjoutLivraison2(intersection);
 			fenetrePrincipale.afficherPopupInfo("Veuilliez cliquer sur une livraison");
 		}else {
 			fenetrePrincipale.afficherPopupError("Veuilliez cliquer sur une intersection valide");
