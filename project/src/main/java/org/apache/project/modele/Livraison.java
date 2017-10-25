@@ -7,7 +7,7 @@ public class Livraison {
 	private Intersection lieuDeLivraison;
 	private int duree;
 	private PlageHoraire plageHoraire;
-
+	private Time heureArrivee;
 	private Boolean estSelectionnee;
 
 	public Livraison(Intersection lieuDeLivraison, int dureeLivraison, PlageHoraire plageHoraire) {
@@ -57,8 +57,8 @@ public class Livraison {
 
 	public void setHeureArrivee(Time heureArrivee) {
 		this.heureArrivee = heureArrivee;
-  }
-  
+	}
+
 	public Boolean getEstSelectionnee() {
 		return estSelectionnee;
 	}
