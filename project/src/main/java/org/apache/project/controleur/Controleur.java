@@ -2,6 +2,8 @@ package org.apache.project.controleur;
 
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.DemandeDeLivraison;
+import org.apache.project.modele.Intersection;
+import org.apache.project.modele.Livraison;
 import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
 
@@ -17,8 +19,12 @@ public class Controleur {
 	protected final EtatPlanCharge etatPlanCharge = new EtatPlanCharge();
 	protected final EtatDemandeLivraisonCharge etatDemandeLivraisonCharge = new EtatDemandeLivraisonCharge();
 	protected final EtatTourneeCalculee etatTourneeCalculee = new EtatTourneeCalculee();
+	protected final EtatAjoutLivraison1 etatAjoutLivraison1 = new EtatAjoutLivraison1();
+	protected final EtatAjoutLivraison2 etatAjoutLivraison2 = new EtatAjoutLivraison2();
+	protected final EtatAjoutLivraison3 etatAjoutLivraison3 = new EtatAjoutLivraison3();
 	
 	private static Controleur instance = null;
+	
 	/**
 	 * Cree le controleur de l'application
 	 */
@@ -26,6 +32,7 @@ public class Controleur {
 		instance = this;
 		planDeVille = new PlanDeVille();
 		demandeDeLivraison = new DemandeDeLivraison();
+		tournee = new Tournee();
 		etatCourant = etatInit;		
 	}
 	
@@ -48,9 +55,6 @@ public class Controleur {
 		etatCourant = etat;
 	}
 	
-	/**
-	 * Methode appelee par fenetre apres un clic sur le bouton "Ouvrir un plan de ville"
-	 */
 	public void ouvrirPlanDeVille() {
 		etatCourant.ouvrirPlanDeVille(this, planDeVille, fenetrePrincipale);
 	}
@@ -60,7 +64,30 @@ public class Controleur {
 	}
 	
 	public void calculerTournee() {
-		tournee = new Tournee(demandeDeLivraison.getAdresseEntrepot(), demandeDeLivraison.getHeureDepart());
 		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale);
+	}
+	
+	public void ajouterLivraison() {
+		etatCourant.ajouterLivraison(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale);
+	}
+	
+	public void intersectionClicked(Intersection intersection) {
+		etatCourant.intersectionClicked(this,  planDeVille,  demandeDeLivraison,  tournee,  fenetrePrincipale,  intersection);
+	}
+	
+	public void livraisonClicked(Livraison livraison) {
+		etatCourant.livraisonClicked(this,  planDeVille,  demandeDeLivraison,  tournee,  fenetrePrincipale,  livraison);
+	}
+	
+	public void clearPlanDeVille() {
+		planDeVille.clear();
+	}
+	
+	public void clearDemandeDeLivraison() {
+		demandeDeLivraison.clear();
+	}
+	
+	public void clearTournee() {
+		tournee.clear();
 	}
 }

@@ -21,7 +21,7 @@
 <noeud id="2026239409" x="25451" y="19149"/>
 <noeud id="2129259173" x="24171" y="21131"/>
 <noeud id="2129259176" x="24359" y="21348"/>
-<noeud id="2129259178" x="23054" y="23999"/>
+<noeud x="23054" y="23999"/>
 <noeud id="2129259180" x="22863" y="23822"/>
 <noeud id="21604592" x="15890" y="24600"/>
 <noeud id="21604593" x="15674" y="26409"/>
@@ -37,12 +37,12 @@
 <noeud id="21702424" x="14909" y="27109"/>
 <noeud id="21702430" x="13324" y="20605"/>
 <noeud id="21702431" x="14338" y="20826"/>
-<noeud id="21702435" x="15321" y="26377"/>
+<noeud id="21702435" y="26377"/>
 <noeud id="21702437" x="14692" y="26532"/>
 <noeud id="21702438" x="15478" y="27664"/>
 <noeud id="21704344" x="13514" y="28377"/>
 <noeud id="21704345" x="13881" y="29128"/>
-<noeud id="21704353" x="16136" y="22788"/>
+<noeud id="21704353" x="16136"/>
 <noeud id="21704354" x="14219" y="21670"/>
 <noeud id="21715353" x="15111" y="29551"/>
 <noeud id="21715425" x="13972" y="34720"/>
@@ -461,10 +461,10 @@
 <troncon destination="26155540" longueur="54.832844" nomRue="Avenue Lacassagne" origine="325213179"/>
 <troncon destination="26155541" longueur="50.938293" nomRue="Rue Constant" origine="26155528"/>
 <troncon destination="26286689" longueur="152.73093" nomRue="Rue Julien" origine="26286695"/>
-<troncon destination="26286689" longueur="89.673805" nomRue="Rue Bonnand" origine="26286690"/>
+<troncon longueur="89.673805" nomRue="Rue Bonnand" origine="26286690"/>
 <troncon destination="26286690" longueur="134.41188" nomRue="Rue Bonnand" origine="1383027258"/>
 <troncon destination="26286694" longueur="101.80858" nomRue="Rue Antoinette" origine="26286690"/>
-<troncon destination="26286694" longueur="125.06325" nomRue="Rue Antoinette" origine="251069553"/>
+<troncon destination="26286694" nomRue="Rue Antoinette" origine="251069553"/>
 <troncon destination="26286694" longueur="75.4294" nomRue="Rue Charles Richard" origine="26286695"/>
 <troncon destination="26286695" longueur="124.67456" nomRue="Rue Julien" origine="26286696"/>
 <troncon destination="26286695" longueur="51.757576" nomRue="Rue Charles Richard" origine="26155377"/>
@@ -472,10 +472,10 @@
 <troncon destination="26286762" longueur="99.3758" nomRue="Rue Charles Richard" origine="26286694"/>
 <troncon destination="26317212" longueur="38.124634" nomRue="Rue du Dauphiné" origine="26317248"/>
 <troncon destination="26317246" longueur="80.7477" nomRue="Rue Villebois-Mareuil" origine="459797864"/>
-<troncon destination="26317246" longueur="87.1567" nomRue="Impasse de la Ruche" origine="1682387619"/>
+<troncon destination="26317246" longueur="87.1567" origine="1682387619"/>
 <troncon destination="26317248" longueur="215.509" nomRue="Rue de la Ruche" origine="26317246"/>
 <troncon destination="26317248" longueur="32.646736" nomRue="Rue du Dauphiné" origine="565375197"/>
-<troncon destination="26317248" longueur="38.124634" nomRue="Rue du Dauphiné" origine="26317212"/>
+<troncon destination="26317248" longueur="38.124634" nomRue="Rue du Dauphiné"/>
 <troncon destination="26317293" longueur="111.942184" nomRue="Rue Feuillat" origine="25303841"/>
 <troncon destination="26317293" longueur="78.770195" nomRue="Rue Félix" origine="26317294"/>
 <troncon destination="26317311" longueur="70.25573" nomRue="Impasse Morel" origine="26317313"/>

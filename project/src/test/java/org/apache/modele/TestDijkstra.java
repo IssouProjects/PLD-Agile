@@ -2,11 +2,18 @@ package org.apache.modele;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.project.modele.*;
+import org.apache.project.xml.Deserialisateur;
+import org.apache.project.xml.ExceptionXML;
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
 public class TestDijkstra {
 
@@ -64,4 +71,31 @@ public class TestDijkstra {
 		assertEquals("T10", output.get(5).getTroncons().get(0).getNomRue());
 		
 	}
+	
+	@Test(timeout=1000)
+	public void TestPrincipalDijkstraDeuxLivraisons() throws NumberFormatException, ParserConfigurationException, SAXException, IOException, ExceptionXML {
+		// Calcul classique de la tournee
+		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
+		PlanDeVille plan = new PlanDeVille();
+		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+		DemandeDeLivraison demande = new DemandeDeLivraison();
+		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+		
+		Tournee tournee = new Tournee();
+		tournee.setAdresseEntrepot(demande.getAdresseEntrepot());
+		tournee.setHeureDepart(demande.getHeureDepart());
+		tournee.calculerTournee(plan, demande);
+		
+		//Comparaison avec le calcul par Dijkstra entre deux livraisons
+		Livraison depart = tournee.getLivraisonsOrdonnees().get(2);
+		Livraison arrivee = tournee.getLivraisonsOrdonnees().get(3);
+		
+		List<Troncon> calculDijkstra = Dijkstra.principalDijkstra(plan, depart, arrivee).getTroncons();
+		
+		List<Troncon> calculTournee = tournee.getChemins().get(3).getTroncons();
+		
+		assertEquals(calculDijkstra, calculTournee);
+	}
+	
 }

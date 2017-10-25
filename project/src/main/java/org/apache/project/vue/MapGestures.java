@@ -1,6 +1,11 @@
 package org.apache.project.vue;
 
+import org.apache.project.modele.Intersection;
+import org.apache.project.modele.Livraison;
+import org.apache.project.modele.Troncon;
+
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
@@ -11,8 +16,9 @@ public class MapGestures {
     private DragContext sceneDragContext = new DragContext();
 
     MapDisplay map;
+    EcouteurDeMap edm = null;
 
-    public MapGestures( MapDisplay canvas) {
+    public MapGestures(MapDisplay canvas) {
         this.map = canvas;
     }
 
@@ -35,13 +41,26 @@ public class MapGestures {
             // right mouse button => panning
             if( !event.isPrimaryButtonDown())
                 return;
+            
+            // CLICK TARGET HANDLING
+            if(event.getTarget() instanceof Node && edm != null) {
+	            Node target = (Node)event.getTarget();
+	            Object obj = target.getUserData();
+	            if(obj instanceof Livraison) {
+	            	edm.onLivraisonClicked((Livraison)obj);
+	            } else if (obj instanceof Intersection) {
+	            	edm.onIntersectionClicked((Intersection)obj);
+	            } else if(obj instanceof Troncon) {
+	            	edm.onTronconClicked((Troncon)obj);
+	            }
+        	}
 
+            // DRAGGING HANDLING
             sceneDragContext.mouseAnchorX = event.getSceneX();
             sceneDragContext.mouseAnchorY = event.getSceneY();
 
             sceneDragContext.translateAnchorX = map.getTranslateX();
             sceneDragContext.translateAnchorY = map.getTranslateY();
-
         }
 
     };
@@ -106,6 +125,10 @@ public class MapGestures {
 
         return value;
     }
+    
+    public void setEcouteurDeMap(EcouteurDeMap edm) {
+		this.edm = edm;
+	}
 }
 
 class DragContext {

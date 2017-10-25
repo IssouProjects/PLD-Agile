@@ -30,6 +30,11 @@ public class Deserialisateur {
 
 	public static void chargerPlanDeVilleFichier(PlanDeVille plan, File xml)
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+			
+		if(!estUnFichierXML(xml)) {
+			throw new ExceptionXML("Document non xml");
+		}
+		
 		DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		Document document = docBuilder.parse(xml);
 		Element racine = document.getDocumentElement();
@@ -47,16 +52,21 @@ public class Deserialisateur {
 
 	public static void chargerDemandeLivraisonFichier(DemandeDeLivraison demande, PlanDeVille plan, File xml)
 			throws ParserConfigurationException, SAXException, IOException, NumberFormatException, ExceptionXML {
+		
+		if(!estUnFichierXML(xml)) {
+			throw new ExceptionXML("Document non xml");
+		}
+		
 		DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		Document document = docBuilder.parse(xml);
 		Element racine = document.getDocumentElement();
 		if (racine.getNodeName().equals("demandeDeLivraisons")) {
 			construireDemandeLivraison(racine, demande, plan);
-		} else
+		} else {
 			throw new ExceptionXML("Document non conforme");
+		}
 	}
 
-	// TODO : Gérer les erreurs
 	private static void construirePlanVille(Element noeudDOMRacine, PlanDeVille plan)
 			throws ExceptionXML, NumberFormatException {
 		NodeList listeIntersections = noeudDOMRacine.getElementsByTagName("noeud");
@@ -69,11 +79,15 @@ public class Deserialisateur {
 		}
 	}
 
-	// TODO : Gérer les erreurs
 	private static void construireDemandeLivraison(Element noeudDOMRacine, DemandeDeLivraison demande, PlanDeVille plan)
 			throws ExceptionXML, NumberFormatException {
 
 		Element entrepot = (Element) noeudDOMRacine.getElementsByTagName("entrepot").item(0);
+		
+		if(entrepot.getAttribute("heureDepart") == "" || !entrepot.getAttribute("heureDepart").matches("^(?:(?:([01]?\\d|2[0-3]):)?([0-5]?\\d):)?([0-5]?\\d)$") || entrepot.getAttribute("adresse") == "") {
+			throw new ExceptionXML("Document mal forme");
+		}
+		
 		String heureDepart = entrepot.getAttribute("heureDepart");
 		demande.setHeureDepart(getTimeFromString(heureDepart));
 		Intersection adresseEntrepot = plan.getIntersectionById(Long.parseLong(entrepot.getAttribute("adresse")));
@@ -85,17 +99,24 @@ public class Deserialisateur {
 		}
 	}
 
-	// TODO : Gérer les erreurs
-	private static void construireIntersection(Element element, PlanDeVille plan) {
+	private static void construireIntersection(Element element, PlanDeVille plan) throws ExceptionXML {
+		if(element.getAttribute("id") == "" || element.getAttribute("x") == "" || element.getAttribute("y") == "" || !element.getAttribute("id").matches("[0-9]+") || !element.getAttribute("x").matches("[0-9]+") || !element.getAttribute("y").matches("[0-9]+")) {
+			throw new ExceptionXML("Document mal forme");
+		}
+		
 		Long id = Long.parseLong(element.getAttribute("id"));
 		Long x = Long.parseLong(element.getAttribute("x"));
 		Long y = Long.parseLong(element.getAttribute("y"));
 		plan.ajouterIntersection(id, x, y);
 	}
 
-	// TODO : Gérer les erreurs
 	// TODO : les troncons doubles n'existent pas
-	private static void construireTroncon(Element element, PlanDeVille plan) {
+	private static void construireTroncon(Element element, PlanDeVille plan) throws ExceptionXML {
+		
+		if(element.getAttribute("destination") == "" || element.getAttribute("longueur") == "" || element.getAttribute("origine") == "" || !element.getAttribute("destination").matches("^[0-9]+$") || !element.getAttribute("origine").matches("^[0-9]+$") || !element.getAttribute("longueur").matches("^[+-]?([0-9]*[.])?[0-9]+$")) {
+			throw new ExceptionXML("Document mal forme");
+		}
+		
 		Long destination = Long.parseLong(element.getAttribute("destination"));
 		double longueur = Double.parseDouble(element.getAttribute("longueur"));
 		String nomRue = element.getAttribute("nomRue");
@@ -103,20 +124,47 @@ public class Deserialisateur {
 		plan.ajouterTroncon(longueur, origine, destination, nomRue);
 	}
 
-	// TODO : Gérer les erreurs
-	// TODO : Gerer cas erreur y a un debut mais pas de fin de plage horaire
-	private static void construireLivraison(Element element, DemandeDeLivraison demande, PlanDeVille plan) {
+	private static void construireLivraison(Element element, DemandeDeLivraison demande, PlanDeVille plan) throws ExceptionXML {
+		
+		if(element.getAttribute("adresse") == "" || element.getAttribute("duree") == "" || !element.getAttribute("duree").matches("[0-9]+")) {
+			throw new ExceptionXML("Document mal forme");
+		}
+		
+		if(plan.getIntersectionById(Long.valueOf(element.getAttribute("adresse"))) == null) {
+			throw new ExceptionXML("Le plan et la demande de livraison ne correspondent pas");
+		}
+		
 		Long adresse = Long.parseLong(element.getAttribute("adresse"));
 		int duree = Integer.parseInt(element.getAttribute("duree"));
 		Livraison uneLivraison = new Livraison(plan.getIntersectionById(adresse), duree);
 		String debutPlage = element.getAttribute("debutPlage");
+		
 		if (debutPlage != null && !debutPlage.isEmpty()) {
+			
+			if(element.getAttribute("debutPlage") == "" || element.getAttribute("finPlage") == "" || !element.getAttribute("debutPlage").matches("^(?:(?:([01]?\\d|2[0-3]):)?([0-5]?\\d):)?([0-5]?\\d)$") || !element.getAttribute("finPlage").matches("^(?:(?:([01]?\\d|2[0-3]):)?([0-5]?\\d):)?([0-5]?\\d)$")) {
+				throw new ExceptionXML("Document mal forme");
+			}
+			
 			Time debut = getTimeFromString(element.getAttribute("debutPlage"));
 			Time fin = getTimeFromString(element.getAttribute("finPlage"));
 			PlageHoraire ph = new PlageHoraire(debut, fin);
 			uneLivraison.setPlageHoraire(ph);
 		}
 		demande.ajouterLivraison(uneLivraison);
+	}
+	
+	private static boolean estUnFichierXML(File xml) {
+		String fileName = xml.getName();
+		String extension = "";
+		
+		int i = fileName.lastIndexOf('.');
+		int p = Math.max(fileName.lastIndexOf('/'), fileName.lastIndexOf('\\'));
+
+		if (i > p) {
+		    extension = fileName.substring(i+1);
+		}
+
+		return "xml".equals(extension);
 	}
 
 	/**

@@ -3,8 +3,9 @@ package org.apache.project.modele;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
-public class DemandeDeLivraison {
+public class DemandeDeLivraison extends Observable {
 
 	private Intersection adresseEntrepot;
 	private Time heureDepart;
@@ -46,4 +47,9 @@ public class DemandeDeLivraison {
 		return livraisons;
 	}
 	
+	public void clear() {
+		this.adresseEntrepot=null;
+		this.heureDepart=null;
+		this.livraisons.clear();
+	}
 }

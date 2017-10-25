@@ -5,6 +5,9 @@ target
 src/.DS_Store
 .project
 
+# file causing warnings
+project/.classpath
+
 #Annoying file
 sh.exe.stackdump
 

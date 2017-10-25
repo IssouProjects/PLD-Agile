@@ -63,4 +63,8 @@ public class MapContainer extends Pane {
 		mapDisplay.setTranslateX(-mapDisplay.getBoundsInParent().getMinX() + deltaX);
 		mapDisplay.setTranslateY(-mapDisplay.getBoundsInParent().getMinY() + deltaY);
 	}
+	
+	public void setEcouteurDeMap(EcouteurDeMap edm) {
+		mapGestures.setEcouteurDeMap(edm);
+	}
 }
