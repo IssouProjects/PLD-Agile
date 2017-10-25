@@ -189,9 +189,9 @@ public class Tournee extends Observable {
 	
 	public void calculerNouveauxChemins(PlanDeVille plan, Livraison livraisonPre, Livraison nouvelleLivraison) {
 		int indexPre = this.getLivraisonIndex(livraisonPre);
-		Chemin chemin1 = Dijkstra.principalDijkstra(plan, livraisonPre, nouvelleLivraison);
+		Chemin chemin1 = Dijkstra.principalDijkstra(plan, livraisonPre.getLieuDeLivraison(), nouvelleLivraison.getLieuDeLivraison());
 		Livraison livraisonSuivante = this.getLivraison(indexPre+1);
-		Chemin chemin2 = Dijkstra.principalDijkstra(plan, nouvelleLivraison, livraisonSuivante);
+		Chemin chemin2 = Dijkstra.principalDijkstra(plan, nouvelleLivraison.getLieuDeLivraison(), livraisonSuivante.getLieuDeLivraison());
 		
 		this.supprimerChemin(indexPre+1);
 		this.ajouterLivraison(nouvelleLivraison, indexPre+1);

@@ -16,7 +16,8 @@ private Livraison nouvelleLivraison;
 	
 	public void livraisonClicked(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {
 		this.livraisonPrecedente = livraisonPrecedente;
-		controleur.setEtatCourant(controleur.etatAjoutLivraison3);
+		//Pour le moment
+		controleur.setEtatCourant(controleur.etatTourneeCalculee);
 		nouvelleLivraison = new Livraison(intersectionLivraison);
 		//Todo: Appelé fenetre popup 
 		nouvelleLivraison.setDuree(2100);

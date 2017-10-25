@@ -11,6 +11,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale){
 		controleur.setEtatCourant(controleur.etatInit);
 		fenetrePrincipale.clearPlanDeVille();
+		fenetrePrincipale.clearLivraison();
 		fenetrePrincipale.clearTournee();
 		controleur.clearPlanDeVille();
 		controleur.clearTournee();
@@ -31,7 +32,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	@Override
 	public void ajouterLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale) {
 		controleur.setEtatCourant(controleur.etatAjoutLivraison1);
-		fenetrePrincipale.afficherPopupInfo("Veuilliez cliquer sur une intersection de la carte");
+		fenetrePrincipale.afficherPopupInfo("Veuillez cliquer sur une intersection de la carte");
 	}
 
 }
