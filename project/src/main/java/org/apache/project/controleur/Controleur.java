@@ -2,6 +2,8 @@ package org.apache.project.controleur;
 
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.DemandeDeLivraison;
+import org.apache.project.modele.Intersection;
+import org.apache.project.modele.Livraison;
 import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
 
@@ -53,9 +55,6 @@ public class Controleur {
 		etatCourant = etat;
 	}
 	
-	/**
-	 * Methode appelee par fenetre apres un clic sur le bouton "Ouvrir plan"
-	 */
 	public void ouvrirPlanDeVille() {
 		etatCourant.ouvrirPlanDeVille(this, planDeVille, fenetrePrincipale);
 	}
@@ -66,6 +65,18 @@ public class Controleur {
 	
 	public void calculerTournee() {
 		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale);
+	}
+	
+	public void ajouterLivraison() {
+		etatCourant.ajouterLivraison(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale);
+	}
+	
+	public void intersectionClicked(Intersection intersection) {
+		etatCourant.intersectionClicked(this,  planDeVille,  demandeDeLivraison,  tournee,  fenetrePrincipale,  intersection);
+	}
+	
+	public void livraisonClicked(Livraison livraison) {
+		etatCourant.livraisonClicked(this,  planDeVille,  demandeDeLivraison,  tournee,  fenetrePrincipale,  livraison);
 	}
 	
 	public void clearPlanDeVille() {

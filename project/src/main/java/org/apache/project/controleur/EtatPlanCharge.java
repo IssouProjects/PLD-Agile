@@ -27,7 +27,7 @@ public class EtatPlanCharge extends EtatDefaut {
 			e.printStackTrace();
 		} catch (ExceptionXML e) {
 			e.printStackTrace();
-			fenetrePrincipale.afficherPopup(e.getMessage());
+			fenetrePrincipale.afficherPopupError(e.getMessage());
 		}
 	}
 	

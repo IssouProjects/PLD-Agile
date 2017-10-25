@@ -30,7 +30,7 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 			controleur.calculerTournee();
 			break;
 		case FenetrePrincipale.ADD_LIVRAISON:
-			//TODO
+			controleur.ajouterLivraison();
 			break;
 		default:
 			System.out.println("Unmapped Button");

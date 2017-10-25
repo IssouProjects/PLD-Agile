@@ -70,5 +70,11 @@ public class Intersection {
 			}
 		}
 		return null;
-	}	
+	}
+	
+	@Override
+	public String toString() {
+		String intersection_s = "X:" + coordX + " Y:" + coordY;
+		return intersection_s;
+	}
 }

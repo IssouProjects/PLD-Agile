@@ -13,7 +13,7 @@ public class EcouteurDeMap {
 	}
 	
 	public void onIntersectionClicked(Intersection intersection) {
-		//TODO
+		controleur.intersectionClicked(intersection);
 	}
 	
 	public void onTronconClicked(Troncon troncon) {
@@ -21,7 +21,7 @@ public class EcouteurDeMap {
 	}
 	
 	public void onLivraisonClicked(Livraison livraison) {
-		//TODO
+		controleur.livraisonClicked(livraison);
 	}
 	
 }

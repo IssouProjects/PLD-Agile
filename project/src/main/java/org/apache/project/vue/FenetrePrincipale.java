@@ -36,7 +36,7 @@ public class FenetrePrincipale extends Application {
 	Button fitMapButton;
 	Button calculerTourneeButton;
 	Button loadLivraisonButton;
-	Button ajouterLivraison;
+	Button ajouterLivraisonButton;
 
 	ListDisplay listeLivraisons;
 	
@@ -116,8 +116,8 @@ public class FenetrePrincipale extends Application {
 		loadLivraisonButton.setDisable(true);
 		calculerTourneeButton = new Button(CALCULATE_TOURNEE);
 		calculerTourneeButton.setDisable(true);
-	    ajouterLivraison = new Button(ADD_LIVRAISON);
-	    ajouterLivraison.setDisable(true);
+	    ajouterLivraisonButton = new Button(ADD_LIVRAISON);
+	    ajouterLivraisonButton.setDisable(true);
 	
 	    listLayout.setSpacing(10);
 	    
@@ -127,7 +127,7 @@ public class FenetrePrincipale extends Application {
 	    listLayout.getChildren().add(listeLivraisons);
 	    listeButtonsLayout.getChildren().add(loadLivraisonButton);
 	    listeButtonsLayout.getChildren().add(calculerTourneeButton);
-	    listeButtonsLayout.getChildren().add(ajouterLivraison);
+	    listeButtonsLayout.getChildren().add(ajouterLivraisonButton);
 	
 	    listLayout.getChildren().add(listeButtonsLayout);
 	
@@ -167,6 +167,7 @@ public class FenetrePrincipale extends Application {
 		loadMapButton.setOnAction(edb);
 		loadLivraisonButton.setOnAction(edb);
 		calculerTourneeButton.setOnAction(edb);
+		ajouterLivraisonButton.setOnAction(edb);
 		
 		// map listener
 		
@@ -178,10 +179,19 @@ public class FenetrePrincipale extends Application {
 		stage.show();
 	}
 	  
-	public void afficherPopup(String message) {
+	public void afficherPopupError(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 	    alert.setTitle("Erreur");
 	    alert.setHeaderText("Une erreur a eu lieu");
+	    alert.setContentText(message);
+
+	    alert.showAndWait();
+	}
+	
+	public void afficherPopupInfo(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+	    alert.setTitle("Information");
+	    alert.setHeaderText("Voici l'action à faire");
 	    alert.setContentText(message);
 
 	    alert.showAndWait();
@@ -210,7 +220,7 @@ public class FenetrePrincipale extends Application {
     	double duree_min = tournee.getDureeTourneeSecondes()/60;
     	mainLabel.setText("Duree de la tournee " + (int)Math.ceil(duree_min)+ " minutes." );
     	calculerTourneeButton.setDisable(true);
-    	ajouterLivraison.setDisable(false);
+    	ajouterLivraisonButton.setDisable(false);
     }
     
     public void clearPlanDeVille() {
