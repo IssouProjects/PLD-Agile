@@ -12,6 +12,9 @@ public class EtatAjoutLivraison3 extends EtatDefaut{
 	Livraison livraisonPrecedente;
 	
 	public void calculerChemins(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale) {
+		tournee.calculerNouveauxChemins(planDeVille, livraisonPrecedente, nouvelleLivraison);
+		fenetrePrincipale.clearTournee();
+		fenetrePrincipale.afficherTournee(tournee);
 	}
 	
 	protected void actionEntreeEtatAjoutLivraison3(Livraison livraisonPrecedente, Livraison nouvelleLivraison) {

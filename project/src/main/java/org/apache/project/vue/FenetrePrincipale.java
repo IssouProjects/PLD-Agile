@@ -247,7 +247,7 @@ public class FenetrePrincipale extends Application {
 	  	popupPane.setPrefSize(300, 300);
 	  	popupPane.setStyle("-fx-background-color: #FFFFFF;");
 	  	
-	  	SpinnerValueFactory dureeFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 3600, 100);
+	  	SpinnerValueFactory<Integer> dureeFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 3600, 100);
 	  	
 	  	StackPane.setMargin(popupPane, new Insets(100,100,100,100));
 	  	
@@ -264,8 +264,8 @@ public class FenetrePrincipale extends Application {
 	  	checkBox.setSelected(false);
 	  	checkBox.setAlignment(Pos.CENTER_LEFT);
 	  	
-	  	SpinnerValueFactory heureFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, 12);
-	  	SpinnerValueFactory heureFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, 12);
+	  	SpinnerValueFactory<Integer> heureFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, 12);
+	  	SpinnerValueFactory<Integer> heureFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, 12);
 	  	
 	  	HBox heureLayout = new HBox();
 	  	heureLayout.setAlignment(Pos.CENTER_LEFT);
@@ -313,11 +313,14 @@ public class FenetrePrincipale extends Application {
 				if(checkBox.isSelected()) {
 					@SuppressWarnings("deprecation")
 					Time timeDeb = new Time(heureDebSpinner.getValue(), 0, 0);
+					@SuppressWarnings("deprecation")
 					Time timeFin = new Time(heureFinSpinner.getValue(), 0, 0);
 					l.setPlageHoraire(new PlageHoraire(timeDeb, timeFin));
-					
-					controleur.calculerChemins(l);//TODO: transmettre au controleur
 				}
+				
+				controleur.calculerChemins(l);
+				stack.getChildren().remove(popupPane);
+				stack.getChildren().remove(opaqueLayer);
 			}
 		});
 	    

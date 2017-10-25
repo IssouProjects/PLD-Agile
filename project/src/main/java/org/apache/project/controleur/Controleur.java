@@ -80,7 +80,7 @@ public class Controleur {
 	}
 	
 	public void calculerChemins(Livraison livraison) {
-		
+		etatCourant.calculerChemins(this, planDeVille, tournee, fenetrePrincipale);
 	}
 	
 	public void clearPlanDeVille() {

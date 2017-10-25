@@ -35,6 +35,8 @@ public interface Etat {
 	 */
 	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale);
 	
+	public void calculerChemins(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale);
+	
 	/**
 	 * Methode appelee par controleur apres un clic sur le bouton "Ajouter livraison"
 	 * @param controleur
