@@ -153,7 +153,7 @@ public class Tournee extends Observable {
 							//Ajout dans le temps de livraison le temps d attente
 							long avance = livraisonActuelle.getPlageHoraire().getDebut().getTime() - livraisonActuelle.getHeureArrivee().getTime();
 							if (avance > 0) {
-								dureeTourneeSecondes += (int) Math.ceil(avance / 60000);
+								dureeTourneeSecondes += (int) Math.ceil(avance / 1000);
 							}
 						}
 						
