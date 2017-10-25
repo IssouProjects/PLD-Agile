@@ -25,26 +25,32 @@ public class LivraisonPopup extends VBox{
 	private Button boutonAnnuler;
 	private Button boutonValider;
 	
-	private Livraison modifiedLivraison;
+	private Region opaqueLayer;
 	private Pane parentPane;
-	private EcouteurDeBouton ecouteurDeBouton;
 	
 	private Spinner<Integer> dureeSpinner;
 	private Spinner<Integer> heureDebSpinner;
 	private Spinner<Integer> heureFinSpinner;
 	private CheckBox checkBox;
+	
+	private HBox heureLayout;
+	
+	public static final String VALIDATE = "Valider";
+	public static final String VALIDATE_ID = "validerAjoutLivraisonButton";
+	
+	public static final String CANCEL = "Annuler";
+	public static final String CANCEL_ID = "annulerAjoutLivraisonButton";
 
 	public LivraisonPopup(Livraison livraison, Pane parent, EcouteurDeBouton edb) {
-		ecouteurDeBouton = edb;
-		modifiedLivraison = livraison;
 		parentPane = parent;
+		edb.setPopup(this);
 		
 	  	setPrefSize(300, 300);
 	  	setStyle("-fx-background-color: #FFFFFF;");
 	  	
 	  	SpinnerValueFactory<Integer> dureeFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 3600, 100);
 	  	
-	  	//StackPane.setMargin(popupPane, new Insets(100,100,100,100));
+	  	StackPane.setMargin(this, new Insets(100,100,100,100));
 	  	
 	  	HBox dureeLayout = new HBox();
 	  	dureeLayout.setAlignment(Pos.CENTER_LEFT);
@@ -62,7 +68,7 @@ public class LivraisonPopup extends VBox{
 	  	SpinnerValueFactory<Integer> heureFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, 12);
 	  	SpinnerValueFactory<Integer> heureFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, 12);
 	  	
-	  	HBox heureLayout = new HBox();
+	  	heureLayout = new HBox();
 	  	heureLayout.setAlignment(Pos.CENTER_LEFT);
 	  	Label heureDebLabel = new Label("Heure de début:");
 	  	heureDebSpinner = new Spinner<Integer>();
@@ -78,8 +84,10 @@ public class LivraisonPopup extends VBox{
 	  	heureLayout.setDisable(true);
 	  	
 	  	HBox buttonLayout = new HBox();
-	  	boutonAnnuler = new Button("Annuler");
-	  	boutonValider = new Button("Valider");
+	  	boutonAnnuler = new Button(CANCEL);
+	  	boutonAnnuler.setUserData(CANCEL_ID);
+	  	boutonValider = new Button(VALIDATE);
+	  	boutonValider.setUserData(VALIDATE_ID);
 	  	buttonLayout.getChildren().add(boutonAnnuler);
 	  	buttonLayout.getChildren().add(boutonValider);
 	  	buttonLayout.setAlignment(Pos.CENTER_RIGHT);
@@ -91,7 +99,7 @@ public class LivraisonPopup extends VBox{
 	  	getChildren().add(buttonLayout);
 	  	setSpacing(10);
 	  	
-	  	Region opaqueLayer = new Region();
+	  	opaqueLayer = new Region();
 	    opaqueLayer.setStyle("-fx-background-color: #00000088;");
 	    opaqueLayer.setVisible(true);
 	    
@@ -100,24 +108,7 @@ public class LivraisonPopup extends VBox{
 	    
 	    setAlignment(Pos.CENTER);
 	    
-	    boutonValider.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				modifiedLivraison.setDuree(dureeSpinner.getValue());
-				
-				if(checkBox.isSelected()) {
-					@SuppressWarnings("deprecation")
-					Time timeDeb = new Time(heureDebSpinner.getValue(), 0, 0);
-					@SuppressWarnings("deprecation")
-					Time timeFin = new Time(heureFinSpinner.getValue(), 0, 0);
-					modifiedLivraison.setPlageHoraire(new PlageHoraire(timeDeb, timeFin));
-				}
-				
-				controleur.calculerChemins(l);
-				parentPane.getChildren().remove(this);
-				parentPane.getChildren().remove(opaqueLayer);
-			}
-		});
+	    boutonValider.setOnAction(edb);
 	    
 	    checkBox.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -125,8 +116,6 @@ public class LivraisonPopup extends VBox{
 				heureLayout.setDisable(!checkBox.isSelected());
 			}
 		});
-	    
-	    
 	}
 	
 	public Integer getNewDuree() {
@@ -145,6 +134,11 @@ public class LivraisonPopup extends VBox{
 			return new Time(heureFinSpinner.getValue(), 0, 0);
 		}
 		return null;
+	}
+	
+	public void selfDestruct() {
+		parentPane.getChildren().remove(this);
+		parentPane.getChildren().remove(opaqueLayer);
 	}
 	
 	

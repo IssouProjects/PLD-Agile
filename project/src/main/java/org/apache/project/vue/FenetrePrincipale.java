@@ -53,9 +53,13 @@ public class FenetrePrincipale extends Application {
 
 	// String appearing in the user interface
 	public static final String LOAD_MAP = "Charger plan";
+	public static final String LOAD_MAP_ID = "loadMapButton"; 
 	public static final String LOAD_LIVRAISON = "Charger livraisons";
+	public static final String LOAD_LIVRAISON_ID = "loadLivraisonButton";
 	public static final String CALCULATE_TOURNEE = "Calculer tournée";
+	public static final String CALCULATE_TOURNEE_ID = "calculateTourneeButton";
 	public static final String ADD_LIVRAISON = "Ajouter livraison";
+	public static final String ADD_LIVRAISON_ID = "addLivraisonButton";
 
 	public static void launchApp(String[] args) {
 		Application.launch(FenetrePrincipale.class, args);
@@ -89,6 +93,7 @@ public class FenetrePrincipale extends Application {
 		fitMapButton = new Button("Recentrer plan");
 		fitMapButton.setDisable(true);
 		loadMapButton = new Button(LOAD_MAP);
+		loadMapButton.setUserData(LOAD_MAP_ID);
 
 		mapButtonsLayout.setAlignment(Pos.CENTER);
 		mapButtonsLayout.setSpacing(10);
@@ -119,10 +124,13 @@ public class FenetrePrincipale extends Application {
 
 		// buttons
 		loadLivraisonButton = new Button(LOAD_LIVRAISON);
+		loadLivraisonButton.setUserData(LOAD_LIVRAISON_ID);
 		loadLivraisonButton.setDisable(true);
 		calculerTourneeButton = new Button(CALCULATE_TOURNEE);
+		calculerTourneeButton.setUserData(CALCULATE_TOURNEE_ID);
 		calculerTourneeButton.setDisable(true);
 		ajouterLivraisonButton = new Button(ADD_LIVRAISON);
+		ajouterLivraisonButton.setUserData(ADD_LIVRAISON_ID);
 		ajouterLivraisonButton.setDisable(true);
 
 		listLayout.setSpacing(10);
@@ -242,93 +250,7 @@ public class FenetrePrincipale extends Application {
 	}
  
     public void afficherFenetreAjouterLivraison(Livraison l) {	    
-    	
-	  	VBox popupPane = new VBox();
-	  	popupPane.setPrefSize(300, 300);
-	  	popupPane.setStyle("-fx-background-color: #FFFFFF;");
+    	LivraisonPopup popup = new LivraisonPopup(l, stack, edb);
 	  	
-	  	SpinnerValueFactory<Integer> dureeFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 3600, 100);
-	  	
-	  	StackPane.setMargin(popupPane, new Insets(100,100,100,100));
-	  	
-	  	HBox dureeLayout = new HBox();
-	  	dureeLayout.setAlignment(Pos.CENTER_LEFT);
-	  	Label dureeLabel = new Label("temps sur place");
-	  	Spinner<Integer> dureeSpinner = new Spinner<Integer>();
-	  	dureeSpinner.setValueFactory(dureeFactory);
-	  	dureeLayout.getChildren().add(dureeLabel);
-	  	dureeLayout.getChildren().add(dureeSpinner);
-	  	
-	  	CheckBox checkBox = new CheckBox();
-	  	checkBox.setText("Plage horaire");
-	  	checkBox.setSelected(false);
-	  	checkBox.setAlignment(Pos.CENTER_LEFT);
-	  	
-	  	SpinnerValueFactory<Integer> heureFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, 12);
-	  	SpinnerValueFactory<Integer> heureFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, 12);
-	  	
-	  	HBox heureLayout = new HBox();
-	  	heureLayout.setAlignment(Pos.CENTER_LEFT);
-	  	Label heureDebLabel = new Label("Heure de début:");
-	  	Spinner<Integer> heureDebSpinner = new Spinner<Integer>();
-	  	heureDebSpinner.setValueFactory(heureFactory);
-	  	Label heureFinLabel = new Label("Heure de fin:");
-	  	Spinner<Integer> heureFinSpinner = new Spinner<Integer>();
-	  	heureFinSpinner.setValueFactory(heureFactory2);
-	  	heureLayout.getChildren().add(heureDebLabel);
-	  	heureLayout.getChildren().add(heureDebSpinner);
-	  	heureLayout.getChildren().add(heureFinLabel);
-	  	heureLayout.getChildren().add(heureFinSpinner);
-	  	heureLayout.setSpacing(10);
-	  	heureLayout.setDisable(true);
-	  	
-	  	HBox buttonLayout = new HBox();
-	  	Button boutonAnnuler = new Button("Annuler");
-	  	Button boutonValider = new Button("Valider");
-	  	buttonLayout.getChildren().add(boutonAnnuler);
-	  	buttonLayout.getChildren().add(boutonValider);
-	  	buttonLayout.setAlignment(Pos.CENTER_RIGHT);
-	  	buttonLayout.setSpacing(10);
-	  	
-	  	popupPane.getChildren().add(dureeLayout);
-	  	popupPane.getChildren().add(checkBox);
-	  	popupPane.getChildren().add(heureLayout);
-	  	popupPane.getChildren().add(buttonLayout);
-	  	popupPane.setSpacing(10);
-	  	
-	  	Region opaqueLayer = new Region();
-	    opaqueLayer.setStyle("-fx-background-color: #00000088;");
-	    opaqueLayer.setVisible(true);
-	    
-	    stack.getChildren().add(opaqueLayer);
-	    stack.getChildren().add(popupPane);
-	    
-	    popupPane.setAlignment(Pos.CENTER);
-	    
-	    boutonValider.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				l.setDuree(dureeSpinner.getValue());
-				
-				if(checkBox.isSelected()) {
-					@SuppressWarnings("deprecation")
-					Time timeDeb = new Time(heureDebSpinner.getValue(), 0, 0);
-					@SuppressWarnings("deprecation")
-					Time timeFin = new Time(heureFinSpinner.getValue(), 0, 0);
-					l.setPlageHoraire(new PlageHoraire(timeDeb, timeFin));
-				}
-				
-				controleur.calculerChemins(l);
-				stack.getChildren().remove(popupPane);
-				stack.getChildren().remove(opaqueLayer);
-			}
-		});
-	    
-	    checkBox.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				heureLayout.setDisable(!checkBox.isSelected());
-			}
-		});
     }
 }
