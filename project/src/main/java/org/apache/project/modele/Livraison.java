@@ -26,6 +26,13 @@ public class Livraison {
 		this.heureArrivee = null;
 		this.setEstSelectionnee(false);
 	}
+	
+	public Livraison(Intersection lieuDeLivraison) {
+		this.lieuDeLivraison = lieuDeLivraison;
+		this.duree = 0;
+		this.plageHoraire = null;
+		this.setEstSelectionnee(false);
+	}
 
 	public Intersection getLieuDeLivraison() {
 		return lieuDeLivraison;
