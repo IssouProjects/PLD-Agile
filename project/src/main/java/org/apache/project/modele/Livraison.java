@@ -64,9 +64,11 @@ public class Livraison {
 		if (plageHoraire != null) {
 			livraison_s += "Plage horaire: " + PlageHoraire.formatTime(plageHoraire.getDebut()) + " - "
 					+ PlageHoraire.formatTime(plageHoraire.getFin());
-			long avance = plageHoraire.getDebut().getTime() - heureArrivee.getTime();
-			if (avance > 0) {
-				livraison_s += "\n" + "Avance: " + (int) avance * 1000 / 60;
+			if (heureArrivee != null) {
+				long avance = plageHoraire.getDebut().getTime() - heureArrivee.getTime();
+				if (avance > 0) {
+					livraison_s += "\n" + "Avance: " + (int) Math.ceil(avance / 60000) + " min";
+				}
 			}
 		} else {
 			livraison_s += "Pas de plage horaire";

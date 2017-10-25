@@ -175,7 +175,7 @@ public class FenetrePrincipale extends Application {
 		calculerTourneeButton.setDisable(true);
 		afficherTexteLivraisonsOrdonnees(tournee);
 		double duree_min = tournee.getDureeTourneeSecondes() / 60;
-		mainLabel.setText("Duree de la tournee " + (int) Math.ceil(duree_min) + " minutes.");
+		mainLabel.setText("Durée de la tournée " + (int) Math.ceil(duree_min) + " minutes");
 	}
 
 	public void clearPlanDeVille() {
