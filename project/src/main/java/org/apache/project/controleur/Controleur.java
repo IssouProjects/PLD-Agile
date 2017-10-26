@@ -74,6 +74,10 @@ public class Controleur {
 		etatCourant.ajouterLivraison(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale);
 	}
 	
+	public void annuler() {
+		etatCourant.annuler(this, fenetrePrincipale);
+	}
+	
 	public void intersectionClicked(Intersection intersection) {
 		etatCourant.intersectionClicked(this,  planDeVille,  demandeDeLivraison,  tournee,  fenetrePrincipale,  intersection);
 	}

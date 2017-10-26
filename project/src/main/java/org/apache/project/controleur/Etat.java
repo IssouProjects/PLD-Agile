@@ -37,6 +37,23 @@ public interface Etat {
 	 */
 	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale);
 	
+	/**
+	 * Methode appelee pour annuler une action
+	 * @param controleur
+	 * @param fenetrePrincipale
+	 */
+	public void annuler(Controleur controleur, FenetrePrincipale fenetrePrincipale);
+	
+	/**
+	 * Methode appelee après avoir cliquer sur le bouton "Valider" de la popup d'ajout de livraison
+	 * @param controleur
+	 * @param planDeVille
+	 * @param tournee
+	 * @param fenetrePrincipale
+	 * @param duree
+	 * @param heureDeb
+	 * @param heureFin
+	 */
 	public void calculerChemins(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale, Integer duree, Time heureDeb, Time heureFin);
 	
 	/**

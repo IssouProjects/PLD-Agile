@@ -44,6 +44,12 @@ private Livraison nouvelleLivraison;
 		}
 	}
 	
+	@Override
+	public void annuler(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
+		controleur.setEtatCourant(controleur.etatTourneeCalculee);
+		fenetrePrincipale.afficherInfo("Ajout annulé vous êtes libre");
+	}
+	
 	protected void actionEntreeEtatAjoutLivraison2(Intersection intersection) {
 		this.intersectionLivraison = intersection;
 	}

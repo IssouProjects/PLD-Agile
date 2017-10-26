@@ -50,8 +50,6 @@ public class EtatAjoutLivraison3 extends EtatDefaut{
 			tournee.ajouterChemin(nouveauxChemins.get(1), 1);
 		}
 		
-		
-		
 		tournee.miseAJourHeureDuree();
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
@@ -63,5 +61,11 @@ public class EtatAjoutLivraison3 extends EtatDefaut{
 		this.nouvelleLivraison = nouvelleLivraison;
 		this.livraisonPrecedente = livraisonPrecedente;
 		this.nouveauxChemins = new ArrayList<Chemin>();
+	}
+	
+	@Override
+	public void annuler(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
+		controleur.setEtatCourant(controleur.etatTourneeCalculee);
+		fenetrePrincipale.afficherInfo("Ajout annulé vous êtes libre");
 	}
 }

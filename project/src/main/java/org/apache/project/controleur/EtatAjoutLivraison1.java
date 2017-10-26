@@ -19,4 +19,10 @@ public class EtatAjoutLivraison1 extends EtatDefaut{
 			fenetrePrincipale.afficherPopupError("Veulliez cliquer sur une intersection valide");
 		}
 	}
+	
+	@Override
+	public void annuler(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
+		controleur.setEtatCourant(controleur.etatTourneeCalculee);
+		fenetrePrincipale.afficherInfo("Ajout annulé vous êtes libre");
+	}
 }
