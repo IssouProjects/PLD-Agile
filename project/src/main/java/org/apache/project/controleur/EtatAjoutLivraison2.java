@@ -1,5 +1,6 @@
 package org.apache.project.controleur;
 
+import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlanDeVille;
@@ -29,6 +30,18 @@ private Livraison nouvelleLivraison;
 		nouvelleLivraison = new Livraison(intersectionLivraison);
 		fenetrePrincipale.afficherFenetreAjouterLivraison(nouvelleLivraison);
 		controleur.etatAjoutLivraison3.actionEntreeEtatAjoutLivraison3(livraisonPrecedente, nouvelleLivraison);
+	}
+	
+	@Override 
+	public void intersectionClicked (Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Intersection intersection) {
+		
+		if(intersection != null) {
+			controleur.setEtatCourant(controleur.etatAjoutLivraison2);
+			controleur.etatAjoutLivraison2.actionEntreeEtatAjoutLivraison2(intersection);
+			fenetrePrincipale.afficherInfo("Veulliez cliquer sur une livraison ou choisir une autre intersection");
+		}else {
+			fenetrePrincipale.afficherPopupError("Veulliez cliquer sur une intersection valide");
+		}
 	}
 	
 	protected void actionEntreeEtatAjoutLivraison2(Intersection intersection) {
