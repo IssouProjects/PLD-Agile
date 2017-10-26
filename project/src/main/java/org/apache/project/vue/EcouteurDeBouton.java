@@ -42,7 +42,11 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 				}
 				break;
 			case LivraisonPopup.CANCEL_ID:
-				//TODO
+				if(popup != null) {
+					controleur.annuler();	
+					popup.selfDestruct();
+					popup = null;
+				}
 				break;
 			
 			default:

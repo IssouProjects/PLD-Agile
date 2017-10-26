@@ -109,6 +109,7 @@ public class LivraisonPopup extends VBox{
 	    setAlignment(Pos.CENTER);
 	    
 	    boutonValider.setOnAction(edb);
+	    boutonAnnuler.setOnAction(edb);
 	    
 	    checkBox.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
