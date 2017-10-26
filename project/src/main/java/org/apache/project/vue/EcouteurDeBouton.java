@@ -34,6 +34,9 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 			case FenetrePrincipale.ADD_LIVRAISON_ID:
 				controleur.ajouterLivraison();
 				break;
+			case FenetrePrincipale.ANNULER_ID:
+				controleur.annuler();
+				break;
 			case LivraisonPopup.VALIDATE_ID:
 				if(popup != null) {
 					controleur.calculerChemins(popup.getNewDuree(), popup.getNewHeureDeb(), popup.getNewHeureFin());	
@@ -48,6 +51,7 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 					popup = null;
 				}
 				break;
+		
 			
 			default:
 				System.out.println("Unmapped Button");
