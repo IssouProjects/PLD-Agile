@@ -44,6 +44,7 @@ public class FenetrePrincipale extends Application {
 	Button calculerTourneeButton;
 	Button loadLivraisonButton;
 	Button ajouterLivraisonButton;
+	Button annulerBouton;
 
 	ListDisplay listeLivraisons;
 	
@@ -62,6 +63,8 @@ public class FenetrePrincipale extends Application {
 	public static final String CALCULATE_TOURNEE_ID = "calculateTourneeButton";
 	public static final String ADD_LIVRAISON = "Ajouter livraison";
 	public static final String ADD_LIVRAISON_ID = "addLivraisonButton";
+	public static final String ANNULER = "Annuler";
+	public static final String ANNULER_ID = "AnnulerButton";
 
 	public static void launchApp(String[] args) {
 		Application.launch(FenetrePrincipale.class, args);
@@ -137,7 +140,11 @@ public class FenetrePrincipale extends Application {
 		ajouterLivraisonButton = new Button(ADD_LIVRAISON);
 		ajouterLivraisonButton.setUserData(ADD_LIVRAISON_ID);
 		ajouterLivraisonButton.setDisable(true);
-
+		annulerBouton = new Button (ANNULER);
+		annulerBouton.setUserData(ANNULER_ID);
+		annulerBouton.setDisable(true);
+		
+		
 		listLayout.setSpacing(10);
 
 		// list
@@ -147,6 +154,7 @@ public class FenetrePrincipale extends Application {
 		listeButtonsLayout.getChildren().add(loadLivraisonButton);
 		listeButtonsLayout.getChildren().add(calculerTourneeButton);
 		listeButtonsLayout.getChildren().add(ajouterLivraisonButton);
+		listeButtonsLayout.getChildren().add(annulerBouton);
 
 		listLayout.getChildren().add(listeButtonsLayout);
 
@@ -185,6 +193,7 @@ public class FenetrePrincipale extends Application {
 		loadLivraisonButton.setOnAction(edb);
 		calculerTourneeButton.setOnAction(edb);
 		ajouterLivraisonButton.setOnAction(edb);
+		annulerBouton.setOnAction(edb);
 
 		// map listener
 		edm = new EcouteurDeMap(controleur);
@@ -233,6 +242,7 @@ public class FenetrePrincipale extends Application {
 				"Durée de la tournée " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(duree_min * 1000));
 		calculerTourneeButton.setDisable(true);
 		ajouterLivraisonButton.setDisable(false);
+		annulerBouton.setDisable(false);
 	}
 
 	public void clearPlanDeVille() {
