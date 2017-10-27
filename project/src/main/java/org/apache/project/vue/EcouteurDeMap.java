@@ -25,7 +25,7 @@ public class EcouteurDeMap {
 	}
 	
 	public void onEntrepotClicked(Intersection intersection) {
-		//TODO
+		controleur.entrepotClicked();
 	}
 	
 }
