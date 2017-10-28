@@ -13,6 +13,7 @@ public class EcouteurDeMap {
 	}
 	
 	public void onIntersectionClicked(Intersection intersection) {
+		System.out.println(intersection);
 		controleur.intersectionClicked(intersection);
 	}
 	
