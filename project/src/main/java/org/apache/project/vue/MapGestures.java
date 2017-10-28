@@ -59,9 +59,10 @@ public class MapGestures {
             	handleClickedNode(exactTarget);
             }
             
+            // If it is not the case, we look at the nearest nodes
             
             if(!actionDone) {
-	            // then we look at the nearest nodes
+	            
 	            List<Node> targets = null;
 	        	targets = getNearestCircles(event);
 	        	targets.addAll(getNearestLines(event));
@@ -87,6 +88,7 @@ public class MapGestures {
 		            }
 	        	}
 	            
+	        	// we handle them in the correct order
 	        	if(livraison != null)
 	        		handleClickedNode(livraison);
 	        	else if (intersection != null)
@@ -171,8 +173,7 @@ public class MapGestures {
 		this.edm = edm;
 	}
     
-    public boolean handleClickedNode(Node target) {
-    	boolean actionDone = false;
+    private boolean handleClickedNode(Node target) {
     	Object obj = target.getUserData();
     	if(obj instanceof Livraison) {
         	edm.onLivraisonClicked((Livraison)obj);
