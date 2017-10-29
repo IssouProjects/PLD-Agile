@@ -17,7 +17,7 @@ public class Intersection {
 	private Boolean estSelectionnee;
 
 	/**
-	 * Créer une intersection aux coordonnées (<tt>x</tt>,<tt>y</tt>) avec une id
+	 * Crée une intersection aux coordonnées (<tt>x</tt>,<tt>y</tt>) avec une id
 	 * <tt>id</tt>
 	 * 
 	 * @param id
