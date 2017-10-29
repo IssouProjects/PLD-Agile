@@ -205,6 +205,7 @@ public class Tournee extends Observable {
 		this.heureDepart = null;
 		chemins.clear();
 		livraisonsOrdonnees.clear();
+		this.dureeTourneeSecondes = 0;
 	}
 	
 	public void miseAJourHeureDuree()
