@@ -35,7 +35,7 @@ public class ListDisplay extends ListView<String> implements Observer {
 		List<Livraison> livraisons = tournee.getLivraisonsOrdonnees();
 		Time heureDepart = tournee.getHeureDepart();
 		getItems().add("Entrepôt - départ à " + PlageHoraire.formatTime(heureDepart));
-		int i = 1;
+		int i = 0;
 		for (Livraison livraison : livraisons) {
 			if(i!=0)
 				getItems().add("Livraison " + i + ":\n" + livraison.toString());

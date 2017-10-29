@@ -225,13 +225,13 @@ public class MapDisplay extends Pane{
     		}else    {
     			circle = creerVueLivraison(l, defaultTourneeLivraisonColor, livraisonIntersectionRadius);
     		}
-    		i++;
     		demandeDeLivraisonInter.add(circle);
             getChildren().add(circle);
             
             Label label = creerNumeroLivraison(l.getLieuDeLivraison(), Integer.toString(i) , defaultTourneeLivraisonColor, defaultFontSize);
             numerosLivraisons.add(label);
             getChildren().add(label);
+            i++;
     	}
     	
     	/*
