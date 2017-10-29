@@ -74,7 +74,7 @@ public class Intersection {
 	
 	@Override
 	public String toString() {
-		String intersection_s = "X:" + coordX + " Y:" + coordY;
+		String intersection_s = "ID: "+ idNoeud + " X:" + coordX + " Y:" + coordY;
 		return intersection_s;
 	}
 }

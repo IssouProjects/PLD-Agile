@@ -30,6 +30,10 @@ public class PlanDeVille extends Observable {
 		return intersections;
 	}
 	
+	public Intersection getIntersection(Long id) {
+		return intersections.get(id);
+	}
+	
 	public List<Troncon> getAllTroncons(){
 		return troncons;
 	}
