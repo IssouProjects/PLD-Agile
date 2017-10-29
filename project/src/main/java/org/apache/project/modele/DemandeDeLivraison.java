@@ -5,28 +5,44 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+/**
+ * La classe <tt>DemandeDeLivraison</tt> représente la demande de livraison
+ * (obtenue après désérialisation du fichier xml la contenant).
+ */
 public class DemandeDeLivraison extends Observable {
 
 	private Intersection adresseEntrepot;
 	private Time heureDepart;
 	private List<Livraison> livraisons;
-	
+
+	/**
+	 * Crée une <tt>DemandeDeLivraison</tt> avec un entrepôt et une heure de départ
+	 * connus.
+	 * 
+	 * @param entrepot
+	 *            entrepôt de départ du livreur
+	 * @param heureDepart
+	 *            heure de départ prévue de la tournée de livraisons
+	 */
 	public DemandeDeLivraison(Intersection entrepot, Time heureDepart) {
-		this.adresseEntrepot=entrepot;
-		this.heureDepart=heureDepart;
-		this.livraisons=new ArrayList<Livraison>();
+		this.adresseEntrepot = entrepot;
+		this.heureDepart = heureDepart;
+		this.livraisons = new ArrayList<Livraison>();
 	}
-	
+
+	/**
+	 * Constructeur par défaut.
+	 */
 	public DemandeDeLivraison() {
-		this.adresseEntrepot=null;
-		this.heureDepart=null;
-		this.livraisons=new ArrayList<Livraison>();
+		this.adresseEntrepot = null;
+		this.heureDepart = null;
+		this.livraisons = new ArrayList<Livraison>();
 	}
-	
+
 	public Intersection getAdresseEntrepot() {
 		return adresseEntrepot;
 	}
-	
+
 	public void setAdresseEntrepot(Intersection adresseEntrepot) {
 		this.adresseEntrepot = adresseEntrepot;
 	}
@@ -38,18 +54,21 @@ public class DemandeDeLivraison extends Observable {
 	public void setHeureDepart(Time heureDepart) {
 		this.heureDepart = heureDepart;
 	}
-	
+
 	public void ajouterLivraison(Livraison uneLivraison) {
 		livraisons.add(uneLivraison);
 	}
-	
-	public List<Livraison> getListeLivraison(){
+
+	public List<Livraison> getListeLivraison() {
 		return livraisons;
 	}
-	
+
+	/**
+	 * Remet à zéro tous les attributs de la <tt>DemandeDeLivraison</tt>
+	 */
 	public void clear() {
-		this.adresseEntrepot=null;
-		this.heureDepart=null;
+		this.adresseEntrepot = null;
+		this.heureDepart = null;
 		this.livraisons.clear();
 	}
 }
