@@ -83,7 +83,7 @@ public class TestDijkstra {
 		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
 		
 		Tournee tournee = new Tournee();
-		tournee.setAdresseEntrepot(demande.getAdresseEntrepot());
+		tournee.setEntrepot(demande.getEntrepot());
 		tournee.setHeureDepart(demande.getHeureDepart());
 		tournee.calculerTournee(plan, demande);
 		
@@ -91,9 +91,9 @@ public class TestDijkstra {
 		Livraison depart = tournee.getLivraisonsOrdonnees().get(2);
 		Livraison arrivee = tournee.getLivraisonsOrdonnees().get(3);
 		
-		List<Troncon> calculDijkstra = Dijkstra.principalDijkstra(plan, depart, arrivee).getTroncons();
+		List<Troncon> calculDijkstra = Dijkstra.principalDijkstra(plan, depart.getLieuDeLivraison(), arrivee.getLieuDeLivraison()).getTroncons();
 		
-		List<Troncon> calculTournee = tournee.getChemins().get(3).getTroncons();
+		List<Troncon> calculTournee = tournee.getChemins().get(2).getTroncons();
 		
 		assertEquals(calculDijkstra, calculTournee);
 	}

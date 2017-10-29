@@ -9,25 +9,25 @@ import org.apache.project.modele.tsp.TSP2;
 
 public class Tournee extends Observable {
 
-	private Intersection adresseEntrepot;
+	private Livraison entrepot;
 	private Time heureDepart;
 	private List<Livraison> livraisonsOrdonnees;
 	private List<Chemin> chemins;
 	private int dureeTourneeSecondes;
 
 	public Tournee() {
-		this.adresseEntrepot = null;
+		this.entrepot = null;
 		this.heureDepart = null;
 		chemins = new ArrayList<Chemin>();
 		livraisonsOrdonnees = new ArrayList<Livraison>();
 	}
 
-	public Intersection getAdresseEntrepot() {
-		return adresseEntrepot;
+	public Livraison getEntrepot() {
+		return entrepot;
 	}
 
-	public void setAdresseEntrepot(Intersection adresseEntrepot) {
-		this.adresseEntrepot = adresseEntrepot;
+	public void setEntrepot(Livraison entrepot) {
+		this.entrepot = entrepot;
 	}
 
 	public Time getHeureDepart() {
@@ -72,31 +72,43 @@ public class Tournee extends Observable {
 		return chemins.get(index);
 	}
 	
+	public void supprimerChemin(int index) {
+		chemins.remove(index);
+	}
+	
 	public Livraison getLivraison(int index) {
 		return livraisonsOrdonnees.get(index);
+	}
+	
+	public int getLivraisonIndex(Livraison livraison) {
+		for(int i = 0; i<livraisonsOrdonnees.size(); i++) {
+			if(livraisonsOrdonnees.get(i)==livraison)
+				return i;
+		}
+		return 0;
 	}
 
 	public List<Livraison> getLivraisonsOrdonnees() {
 		return livraisonsOrdonnees;
+	}
+	
+	public int getLivraisonsSize() {
+		return livraisonsOrdonnees.size();
 	}
 
 	public void calculerTournee(PlanDeVille plan, DemandeDeLivraison demande) {
 
 		List<Chemin> graphe = Dijkstra.principalDijkstra(plan, demande);
 
-		int nombreLivraison = demande.getListeLivraison().size() + 1;
+		int nombreLivraison = demande.getListeLivraison().size();
 		long[] conversion = new long[nombreLivraison];
 
 		int[] duree = new int[nombreLivraison];
 
-		// Ajout entrepot
-		conversion[0] = demande.getAdresseEntrepot().getIdNoeud();
-		duree[0] = 0;
-
 		// Ajout des intersections de livraisons
-		for (int i = 0; i < nombreLivraison - 1; i++) {
-			conversion[i + 1] = demande.getListeLivraison().get(i).getLieuDeLivraison().getIdNoeud();
-			duree[i + 1] = demande.getListeLivraison().get(i).getDuree();
+		for (int i = 0; i < nombreLivraison; i++) {
+			conversion[i] = demande.getListeLivraison().get(i).getLieuDeLivraison().getIdNoeud();
+			duree[i] = demande.getListeLivraison().get(i).getDuree();
 		}
 
 		int[][] cout = new int[nombreLivraison][nombreLivraison];
@@ -130,8 +142,7 @@ public class Tournee extends Observable {
 		long idIntersection = 0;
 		long idIntersectionSuivante = 0;
 
-		adresseEntrepot = demande.getAdresseEntrepot();
-
+		//adresseEntrepot = demande.getAdresseEntrepot();
 
 		for (int i = 0; i < nombreLivraison; i++) {
 			idIntersection = conversion[tspSolut.getMeilleureSolution(i)];
@@ -142,15 +153,26 @@ public class Tournee extends Observable {
 			}
 			// Mettre les intersections ordonnees (une a une)
 			// On n ajoute pas a la liste des intersections pour l entrepot
-			if (i > 0) {
 				for (int j = 0; j < nombreLivraison; j++) {
-					if (idIntersection == demande.getListeLivraison().get(j).getLieuDeLivraison().getIdNoeud()) {
-						livraisonsOrdonnees.add(demande.getListeLivraison().get(j));
-						dureeTourneeSecondes += demande.getListeLivraison().get(j).getDuree();
+					Livraison livraisonActuelle = demande.getListeLivraison().get(j);
+					if (idIntersection == livraisonActuelle.getLieuDeLivraison().getIdNoeud()) {
+						livraisonActuelle.setHeureArrivee(
+								PlageHoraire.calculerHeureArrivee(demande.getHeureDepart(), dureeTourneeSecondes));
+
+						if(livraisonActuelle.getPlageHoraire() != null)
+						{
+							//Ajout dans le temps de livraison le temps d attente
+							long avance = livraisonActuelle.getPlageHoraire().getDebut().getTime() - livraisonActuelle.getHeureArrivee().getTime();
+							if (avance > 0) {
+								dureeTourneeSecondes += (int) Math.ceil(avance / 1000);
+							}
+						}
+						
+						livraisonsOrdonnees.add(livraisonActuelle);
+						dureeTourneeSecondes += livraisonActuelle.getDuree();
 						break;
 					}
 				}
-			}
 
 			// Mettre les chemins ordonnees (une a une)
 			for (int j = 0; j < nombreChemin; j++) {
@@ -162,15 +184,65 @@ public class Tournee extends Observable {
 			}
 		}
 	}
+	
+	public List<Chemin> calculerNouveauxChemins(PlanDeVille plan, Intersection intersectionPre, Intersection newIntersection, Intersection intersectionSuiv) {
+		Chemin chemin1 = Dijkstra.principalDijkstra(plan, intersectionPre, newIntersection);
+		Chemin chemin2 = Dijkstra.principalDijkstra(plan, newIntersection, intersectionSuiv);
+		
+		List<Chemin> nouveauxChemins =  new ArrayList <Chemin>();
+		nouveauxChemins.add(chemin1);
+		nouveauxChemins.add(chemin2);
+		
+		return nouveauxChemins;
+	}
 
 	public int getDureeTourneeSecondes() {
 		return dureeTourneeSecondes;
 	}
 	
 	public void clear() {
-		this.adresseEntrepot = null;
+		this.entrepot = null;
 		this.heureDepart = null;
 		chemins.clear();
 		livraisonsOrdonnees.clear();
 	}
+	
+	public void miseAJourHeureDuree()
+	{
+		
+		//Met a jour les temps avec les nouveaux chemins et points de livraisons
+		
+		dureeTourneeSecondes = 0;
+		
+		int nombreChemins = chemins.size();
+		
+		for (int i = 0; i < nombreChemins; i++) {
+			
+			//Mettre a jour les heures pour chaque chemin
+			
+			dureeTourneeSecondes += chemins.get(i).getDuree();
+			
+			
+			// Mettre les intersections ordonnees (une a une)
+			// On n ajoute pas a la liste des intersections pour l entrepot
+			if (i + 1 < nombreChemins) {
+					Livraison livraisonActuelle = livraisonsOrdonnees.get(i);
+
+					livraisonActuelle.setHeureArrivee(
+							PlageHoraire.calculerHeureArrivee(heureDepart, dureeTourneeSecondes));
+
+					if(livraisonActuelle.getPlageHoraire() != null)
+					{
+						//Ajout dans le temps de livraison le temps d attente
+						long avance = livraisonActuelle.getPlageHoraire().getDebut().getTime() - livraisonActuelle.getHeureArrivee().getTime();
+						if (avance > 0) {
+							dureeTourneeSecondes += (int) Math.ceil(avance / 1000);
+						}
+					}
+					
+					dureeTourneeSecondes += livraisonActuelle.getDuree();
+			}
+		}
+	}
+	
 }

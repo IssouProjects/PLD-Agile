@@ -1,29 +1,36 @@
 package org.apache.project.vue;
 
+import java.sql.Time;
+
 import org.apache.project.controleur.Controleur;
 import org.apache.project.modele.DemandeDeLivraison;
+import org.apache.project.modele.Livraison;
+import org.apache.project.modele.PlageHoraire;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
+import org.apache.project.modele.PlageHoraire;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.ChoiceDialog;
-
 
 public class FenetrePrincipale extends Application {
 
@@ -37,21 +44,31 @@ public class FenetrePrincipale extends Application {
 	Button calculerTourneeButton;
 	Button loadLivraisonButton;
 	Button ajouterLivraisonButton;
+	Button annulerBouton;
 
 	ListDisplay listeLivraisons;
 	
-	Label mainLabel;
+	StackPane stack;
+
+	Label listLabel;
+	Label mapLabel;
 	
+
 	// String appearing in the user interface
 	public static final String LOAD_MAP = "Charger plan";
+	public static final String LOAD_MAP_ID = "loadMapButton"; 
 	public static final String LOAD_LIVRAISON = "Charger livraisons";
+	public static final String LOAD_LIVRAISON_ID = "loadLivraisonButton";
 	public static final String CALCULATE_TOURNEE = "Calculer tournée";
+	public static final String CALCULATE_TOURNEE_ID = "calculateTourneeButton";
 	public static final String ADD_LIVRAISON = "Ajouter livraison";
+	public static final String ADD_LIVRAISON_ID = "addLivraisonButton";
+	public static final String ANNULER = "Annuler";
+	public static final String ANNULER_ID = "AnnulerButton";
 
 	public static void launchApp(String[] args) {
 		Application.launch(FenetrePrincipale.class, args);
-	}
-  
+	}  
 	  @Override
 	  public void start(Stage stage) {
 	
@@ -64,97 +81,105 @@ public class FenetrePrincipale extends Application {
 	    GridPane layout = new GridPane();
 	    layout.setStyle("-fx-padding: 10;");
 	    layout.setHgap(10);
-	    
-	    
-	
-	    Scene scene = new Scene(layout, 1024, 500);
-	    
+	  	
+	    stack = new StackPane(layout);
+	  	Scene scene = new Scene(stack, 1024, 500);
+	  	
 		/////////////////////////////////////////////
-		///// CREATING THE MAP AND ITS BUTTONS  /////
+		///// CREATING THE MAP AND ITS BUTTONS /////
 		/////////////////////////////////////////////
-	
+
 		// layout for the map and its controls buttons
 		VBox mapLayout = new VBox();
-	
+
 		HBox mapButtonsLayout = new HBox();
-	
+
 		// buttons
 		fitMapButton = new Button("Recentrer plan");
 		fitMapButton.setDisable(true);
 		loadMapButton = new Button(LOAD_MAP);
-	
+		loadMapButton.setUserData(LOAD_MAP_ID);
+
 		mapButtonsLayout.setAlignment(Pos.CENTER);
 		mapButtonsLayout.setSpacing(10);
-	
+
 		mapButtonsLayout.getChildren().add(loadMapButton);
 		mapButtonsLayout.getChildren().add(fitMapButton);
-		
+
 		// map
-	
+		mapLabel =  new Label("Action à realiser: Charger un plan");
+		layout.add(mapLabel, 0, 0);
+
 		mapContainer = new MapContainer(2000, 2000);
 		mapLayout.getChildren().add(mapContainer);
 		mapLayout.getChildren().add(mapButtonsLayout);
 		mapLayout.setSpacing(10d);
-	
+
 		layout.add(mapLayout, 0, 1);
-	    
-	    //////////////////////////////////////
+
+		//////////////////////////////////////
 		///// CREATING THE DELIVERY LIST /////
 		//////////////////////////////////////
-	
-	    mainLabel = new Label("Livraisons: ");
-	
-	    layout.add(mainLabel, 1, 0);
-	        
-	    VBox listLayout = new VBox();
-	
-	    HBox listeButtonsLayout = new HBox();
-	    listeButtonsLayout.setSpacing(10);
-	    
-	    // buttons
-	    loadLivraisonButton = new Button(LOAD_LIVRAISON);
+
+		listLabel = new Label("Livraisons: ");
+
+		layout.add(listLabel, 1, 0);
+
+		VBox listLayout = new VBox();
+
+		HBox listeButtonsLayout = new HBox();
+		listeButtonsLayout.setSpacing(10);
+
+		// buttons
+		loadLivraisonButton = new Button(LOAD_LIVRAISON);
+		loadLivraisonButton.setUserData(LOAD_LIVRAISON_ID);
 		loadLivraisonButton.setDisable(true);
 		calculerTourneeButton = new Button(CALCULATE_TOURNEE);
+		calculerTourneeButton.setUserData(CALCULATE_TOURNEE_ID);
 		calculerTourneeButton.setDisable(true);
-	    ajouterLivraisonButton = new Button(ADD_LIVRAISON);
-	    ajouterLivraisonButton.setDisable(true);
-	
-	    listLayout.setSpacing(10);
-	    
-	    // list
-	    listeLivraisons = new ListDisplay();
+		ajouterLivraisonButton = new Button(ADD_LIVRAISON);
+		ajouterLivraisonButton.setUserData(ADD_LIVRAISON_ID);
+		ajouterLivraisonButton.setDisable(true);
+		annulerBouton = new Button (ANNULER);
+		annulerBouton.setUserData(ANNULER_ID);
+		annulerBouton.setDisable(true);
+		
+		
+		listLayout.setSpacing(10);
 
-	    listLayout.getChildren().add(listeLivraisons);
-	    listeButtonsLayout.getChildren().add(loadLivraisonButton);
-	    listeButtonsLayout.getChildren().add(calculerTourneeButton);
-	    listeButtonsLayout.getChildren().add(ajouterLivraisonButton);
-	
-	    listLayout.getChildren().add(listeButtonsLayout);
-	
-	    layout.add(listLayout, 1, 1);
-	    
-	    
-		///////////////////////////
-		/////  LAYOUT STYLE  //////
-		///////////////////////////
-	    
-	    
- 		ColumnConstraints MapCC = new ColumnConstraints();
- 		MapCC.setPercentWidth(67.0);
- 		MapCC.setHgrow(Priority.ALWAYS);
- 		layout.getColumnConstraints().add(MapCC);
+		// list
+		listeLivraisons = new ListDisplay();
 
- 		ColumnConstraints ListCC = new ColumnConstraints();
- 		ListCC.setPercentWidth(33.0);
- 		ListCC.setHgrow(Priority.ALWAYS);
- 		layout.getColumnConstraints().add(ListCC);
+		listLayout.getChildren().add(listeLivraisons);
+		listeButtonsLayout.getChildren().add(loadLivraisonButton);
+		listeButtonsLayout.getChildren().add(calculerTourneeButton);
+		listeButtonsLayout.getChildren().add(ajouterLivraisonButton);
+		listeButtonsLayout.getChildren().add(annulerBouton);
+
+		listLayout.getChildren().add(listeButtonsLayout);
+
+		layout.add(listLayout, 1, 1);
+
+		///////////////////////////
+		///// LAYOUT STYLE //////
+		///////////////////////////
+
+		ColumnConstraints MapCC = new ColumnConstraints();
+		MapCC.setPercentWidth(67.0);
+		MapCC.setHgrow(Priority.ALWAYS);
+		layout.getColumnConstraints().add(MapCC);
+
+		ColumnConstraints ListCC = new ColumnConstraints();
+		ListCC.setPercentWidth(33.0);
+		ListCC.setHgrow(Priority.ALWAYS);
+		layout.getColumnConstraints().add(ListCC);
 
 		//////////////////////////////////////////
 		///// MAPPING CONTROLS AND LISTENERS /////
 		//////////////////////////////////////////
 
- 		// button listener
- 		
+		// button listener
+
 		edb = new EcouteurDeBouton(controleur);
 
 		fitMapButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -168,9 +193,9 @@ public class FenetrePrincipale extends Application {
 		loadLivraisonButton.setOnAction(edb);
 		calculerTourneeButton.setOnAction(edb);
 		ajouterLivraisonButton.setOnAction(edb);
-		
+		annulerBouton.setOnAction(edb);
+
 		// map listener
-		
 		edm = new EcouteurDeMap(controleur);
 		mapContainer.setEcouteurDeMap(edm);
 
@@ -178,62 +203,68 @@ public class FenetrePrincipale extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
-	  
+
 	public void afficherPopupError(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
-	    alert.setTitle("Erreur");
-	    alert.setHeaderText("Une erreur a eu lieu");
-	    alert.setContentText(message);
+		alert.setTitle("Erreur");
+		alert.setHeaderText("Une erreur a eu lieu");
+		alert.setContentText(message);
 
-	    alert.showAndWait();
+		alert.showAndWait();
 	}
-	
-	public void afficherPopupInfo(String message) {
-		Alert alert = new Alert(AlertType.INFORMATION);
-	    alert.setTitle("Information");
-	    alert.setHeaderText("Voici l'action à faire");
-	    alert.setContentText(message);
 
-	    alert.showAndWait();
+	public void afficherInfo(String message) {
+		mapLabel.setText("Action à réaliser: " + message);
 	}
-    
-    public void afficherPlanDeVille(PlanDeVille plan){
-    	mapContainer.getMapDisplay().afficherPlanDeVille(plan);
-    	mapContainer.fitMapInView();
-    	
-    	loadMapButton.setDisable(false);
-    	fitMapButton.setDisable(false);
-    	loadLivraisonButton.setDisable(false);
-    }
-    
-    public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
-    	mapContainer.getMapDisplay().afficherDemandeDeLivraison(livraison);
-    	listeLivraisons.afficherTexteLivraisons(livraison);
-    	
-    	loadLivraisonButton.setDisable(false);
-    	calculerTourneeButton.setDisable(false);
-    }
-    
-    public void afficherTournee(Tournee tournee) {
-    	mapContainer.getMapDisplay().afficherTournee(tournee);
-    	listeLivraisons.afficherTexteLivraisonsOrdonnees(tournee);
-    	double duree_min = tournee.getDureeTourneeSecondes()/60;
-    	mainLabel.setText("Duree de la tournee " + (int)Math.ceil(duree_min)+ " minutes." );
-    	calculerTourneeButton.setDisable(true);
-    	ajouterLivraisonButton.setDisable(false);
-    }
-    
-    public void clearPlanDeVille() {
-    	clearLivraison();
-    	clearTournee();
-    	mapContainer.getMapDisplay().clearPlanDeVille();
-    }
-    
-    public void clearLivraison() {
-    	mapContainer.getMapDisplay().clearDemandeDeLivraison();
-    }
-    
-    public void clearTournee() {
-    	mapContainer.getMapDisplay().clearTournee();
+
+	public void afficherPlanDeVille(PlanDeVille plan) {
+		mapContainer.getMapDisplay().afficherPlanDeVille(plan);
+		mapContainer.fitMapInView();
+
+		loadMapButton.setDisable(false);
+		fitMapButton.setDisable(false);
+		loadLivraisonButton.setDisable(false);
+	}
+
+	public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
+		mapContainer.getMapDisplay().afficherDemandeDeLivraison(livraison);
+		listeLivraisons.afficherTexteLivraisons(livraison);
+
+		loadLivraisonButton.setDisable(false);
+		calculerTourneeButton.setDisable(false);
+	}
+
+	public void afficherTournee(Tournee tournee) {
+		mapContainer.getMapDisplay().afficherTournee(tournee);
+		listeLivraisons.afficherTexteLivraisonsOrdonnees(tournee);
+		double duree_min = tournee.getDureeTourneeSecondes();
+		listLabel.setText(
+				"Durée de la tournée " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(duree_min * 1000));
+		calculerTourneeButton.setDisable(true);
+		ajouterLivraisonButton.setDisable(false);
+		annulerBouton.setDisable(false);
+	}
+
+	public void clearPlanDeVille() {
+		clearLivraison();
+		clearTournee();
+		mapContainer.getMapDisplay().clearPlanDeVille();
+	}
+
+	public void clearLivraison() {
+		mapContainer.getMapDisplay().clearDemandeDeLivraison();
+		listeLivraisons.clearList();
+		listLabel.setText("Livraisons:");
+	}
+
+	public void clearTournee() {
+		mapContainer.getMapDisplay().clearTournee();
+		listeLivraisons.clearList();
+		listLabel.setText("Livraisons:");
+	}
+ 
+    public void afficherFenetreAjouterLivraison(Livraison l) {	    
+    	LivraisonPopup popup = new LivraisonPopup(l, stack, edb);
+	  	
     }
 }

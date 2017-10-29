@@ -13,6 +13,7 @@ public class EcouteurDeMap {
 	}
 	
 	public void onIntersectionClicked(Intersection intersection) {
+		System.out.println(intersection);
 		controleur.intersectionClicked(intersection);
 	}
 	
@@ -22,6 +23,10 @@ public class EcouteurDeMap {
 	
 	public void onLivraisonClicked(Livraison livraison) {
 		controleur.livraisonClicked(livraison);
+	}
+	
+	public void onEntrepotClicked(Intersection intersection) {
+		controleur.entrepotClicked();
 	}
 	
 }

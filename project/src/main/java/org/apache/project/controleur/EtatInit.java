@@ -18,14 +18,11 @@ public class EtatInit extends EtatDefaut {
 			Deserialisateur.chargerPlanVille(planDeVille);
 			controleur.setEtatCourant(controleur.etatPlanCharge);
 			fenetrePrincipale.afficherPlanDeVille(planDeVille);
+			fenetrePrincipale.afficherInfo("Charger une demande de livraison");
 		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
 		} catch (SAXException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (ExceptionXML e) {
-			e.printStackTrace();
 			fenetrePrincipale.afficherPopupError(e.getMessage());
 		}
 	}

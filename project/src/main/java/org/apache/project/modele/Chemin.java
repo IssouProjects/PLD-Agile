@@ -56,4 +56,10 @@ public class Chemin {
 		return listeTroncons;
 	}
 
+	@Override
+	public String toString() {
+		String chemin_s = "De " + debut.getIdNoeud() + " à " + fin.getIdNoeud();
+		return chemin_s;
+	}
+	
 }

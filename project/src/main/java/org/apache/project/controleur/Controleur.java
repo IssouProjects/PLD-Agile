@@ -1,6 +1,9 @@
 package org.apache.project.controleur;
 
 import org.apache.project.modele.PlanDeVille;
+
+import java.sql.Time;
+
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
@@ -71,12 +74,24 @@ public class Controleur {
 		etatCourant.ajouterLivraison(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale);
 	}
 	
+	public void annuler() {
+		etatCourant.annuler(this, fenetrePrincipale);
+	}
+	
 	public void intersectionClicked(Intersection intersection) {
 		etatCourant.intersectionClicked(this,  planDeVille,  demandeDeLivraison,  tournee,  fenetrePrincipale,  intersection);
 	}
 	
 	public void livraisonClicked(Livraison livraison) {
-		etatCourant.livraisonClicked(this,  planDeVille,  demandeDeLivraison,  tournee,  fenetrePrincipale,  livraison);
+		etatCourant.livraisonClicked(this,  planDeVille,  tournee,  fenetrePrincipale,  livraison);
+	}
+	
+	public void entrepotClicked() {
+		etatCourant.entrepotClicked(this, planDeVille, tournee, fenetrePrincipale);
+	}
+	
+	public void calculerChemins(Integer duree, Time heureDeb, Time heureFin) {
+		etatCourant.calculerChemins(this, planDeVille, tournee, fenetrePrincipale, duree, heureDeb, heureFin);
 	}
 	
 	public void clearPlanDeVille() {

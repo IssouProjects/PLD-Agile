@@ -19,15 +19,12 @@ public class EtatPlanCharge extends EtatDefaut {
 			Deserialisateur.chargerDemandeLivraison(demandeDeLivraison, planDeVille);
 			controleur.setEtatCourant(controleur.etatDemandeLivraisonCharge);
 			fenetrePrincipale.afficherDemandeDeLivraison(demandeDeLivraison);
+			fenetrePrincipale.afficherInfo("Calculer une tournée");
 		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
 		} catch (SAXException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (ExceptionXML e) {
-			e.printStackTrace();
-			fenetrePrincipale.afficherPopupError(e.getMessage());
+			fenetrePrincipale.afficherPopupError(e.getMessage()+ "\nChargement de demande de livraison annulée.");
 		}
 	}
 	
