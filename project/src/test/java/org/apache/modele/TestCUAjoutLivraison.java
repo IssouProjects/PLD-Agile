@@ -20,7 +20,7 @@ import org.apache.project.xml.ExceptionXML;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-public class TestAjoutLivraison {
+public class TestCUAjoutLivraison {
 
 	@Test(timeout = 1000)
 	public void testAjoutSimple() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
