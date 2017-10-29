@@ -100,13 +100,13 @@ public class Tournee extends Observable {
 
 		List<Chemin> graphe = Dijkstra.principalDijkstra(plan, demande);
 
-		int nombreLivraison = demande.getListeLivraison().size() + 1;
+		int nombreLivraison = demande.getListeLivraison().size();
 		long[] conversion = new long[nombreLivraison];
 
 		int[] duree = new int[nombreLivraison];
 
 		// Ajout des intersections de livraisons
-		for (int i = 0; i < nombreLivraison - 1; i++) {
+		for (int i = 0; i < nombreLivraison; i++) {
 			conversion[i] = demande.getListeLivraison().get(i).getLieuDeLivraison().getIdNoeud();
 			duree[i] = demande.getListeLivraison().get(i).getDuree();
 		}
@@ -153,7 +153,6 @@ public class Tournee extends Observable {
 			}
 			// Mettre les intersections ordonnees (une a une)
 			// On n ajoute pas a la liste des intersections pour l entrepot
-			if (i > 0) {
 				for (int j = 0; j < nombreLivraison; j++) {
 					Livraison livraisonActuelle = demande.getListeLivraison().get(j);
 					if (idIntersection == livraisonActuelle.getLieuDeLivraison().getIdNoeud()) {
@@ -174,7 +173,6 @@ public class Tournee extends Observable {
 						break;
 					}
 				}
-			}
 
 			// Mettre les chemins ordonnees (une a une)
 			for (int j = 0; j < nombreChemin; j++) {

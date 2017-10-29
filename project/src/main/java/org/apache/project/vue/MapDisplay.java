@@ -218,14 +218,14 @@ public class MapDisplay extends Pane{
     	int i=0;
     	
     	for(Livraison l : livraisons) {
-    		i++;
+    		
     		Circle circle;
     		if( i == 0) {
     			circle = creerVueLivraison(l, defaultEntrepotColor, livraisonIntersectionRadius);
     		}else    {
     			circle = creerVueLivraison(l, defaultTourneeLivraisonColor, livraisonIntersectionRadius);
     		}
-    		
+    		i++;
     		demandeDeLivraisonInter.add(circle);
             getChildren().add(circle);
             
