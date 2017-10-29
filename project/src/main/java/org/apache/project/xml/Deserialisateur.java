@@ -91,7 +91,8 @@ public class Deserialisateur {
 		String heureDepart = entrepot.getAttribute("heureDepart");
 		demande.setHeureDepart(getTimeFromString(heureDepart));
 		Intersection adresseEntrepot = plan.getIntersectionById(Long.parseLong(entrepot.getAttribute("adresse")));
-		demande.setAdresseEntrepot(adresseEntrepot);
+		Livraison livEntrepot = new Livraison (adresseEntrepot);
+		demande.setEntrepot(livEntrepot);
 
 		NodeList listeLivraisons = noeudDOMRacine.getElementsByTagName("livraison");
 		for (int i = 0; i < listeLivraisons.getLength(); i++) {

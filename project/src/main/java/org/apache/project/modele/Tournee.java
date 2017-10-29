@@ -9,25 +9,25 @@ import org.apache.project.modele.tsp.TSP2;
 
 public class Tournee extends Observable {
 
-	private Intersection adresseEntrepot;
+	private Livraison entrepot;
 	private Time heureDepart;
 	private List<Livraison> livraisonsOrdonnees;
 	private List<Chemin> chemins;
 	private int dureeTourneeSecondes;
 
 	public Tournee() {
-		this.adresseEntrepot = null;
+		this.entrepot = null;
 		this.heureDepart = null;
 		chemins = new ArrayList<Chemin>();
 		livraisonsOrdonnees = new ArrayList<Livraison>();
 	}
 
-	public Intersection getAdresseEntrepot() {
-		return adresseEntrepot;
+	public Livraison getEntrepot() {
+		return entrepot;
 	}
 
-	public void setAdresseEntrepot(Intersection adresseEntrepot) {
-		this.adresseEntrepot = adresseEntrepot;
+	public void setEntrepot(Livraison entrepot) {
+		this.entrepot = entrepot;
 	}
 
 	public Time getHeureDepart() {
@@ -100,19 +100,15 @@ public class Tournee extends Observable {
 
 		List<Chemin> graphe = Dijkstra.principalDijkstra(plan, demande);
 
-		int nombreLivraison = demande.getListeLivraison().size() + 1;
+		int nombreLivraison = demande.getListeLivraison().size();
 		long[] conversion = new long[nombreLivraison];
 
 		int[] duree = new int[nombreLivraison];
 
-		// Ajout entrepot
-		conversion[0] = demande.getAdresseEntrepot().getIdNoeud();
-		duree[0] = 0;
-
 		// Ajout des intersections de livraisons
-		for (int i = 0; i < nombreLivraison - 1; i++) {
-			conversion[i + 1] = demande.getListeLivraison().get(i).getLieuDeLivraison().getIdNoeud();
-			duree[i + 1] = demande.getListeLivraison().get(i).getDuree();
+		for (int i = 0; i < nombreLivraison; i++) {
+			conversion[i] = demande.getListeLivraison().get(i).getLieuDeLivraison().getIdNoeud();
+			duree[i] = demande.getListeLivraison().get(i).getDuree();
 		}
 
 		int[][] cout = new int[nombreLivraison][nombreLivraison];
@@ -146,7 +142,7 @@ public class Tournee extends Observable {
 		long idIntersection = 0;
 		long idIntersectionSuivante = 0;
 
-		adresseEntrepot = demande.getAdresseEntrepot();
+		//adresseEntrepot = demande.getAdresseEntrepot();
 
 		for (int i = 0; i < nombreLivraison; i++) {
 			idIntersection = conversion[tspSolut.getMeilleureSolution(i)];
@@ -157,7 +153,6 @@ public class Tournee extends Observable {
 			}
 			// Mettre les intersections ordonnees (une a une)
 			// On n ajoute pas a la liste des intersections pour l entrepot
-			if (i > 0) {
 				for (int j = 0; j < nombreLivraison; j++) {
 					Livraison livraisonActuelle = demande.getListeLivraison().get(j);
 					if (idIntersection == livraisonActuelle.getLieuDeLivraison().getIdNoeud()) {
@@ -178,7 +173,6 @@ public class Tournee extends Observable {
 						break;
 					}
 				}
-			}
 
 			// Mettre les chemins ordonnees (une a une)
 			for (int j = 0; j < nombreChemin; j++) {
@@ -207,7 +201,7 @@ public class Tournee extends Observable {
 	}
 	
 	public void clear() {
-		this.adresseEntrepot = null;
+		this.entrepot = null;
 		this.heureDepart = null;
 		chemins.clear();
 		livraisonsOrdonnees.clear();

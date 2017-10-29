@@ -27,7 +27,7 @@ public class Dijkstra {
 	public static List<Chemin> principalDijkstra(PlanDeVille plan, DemandeDeLivraison demande) {
 		// Liste des intersections correspondants aux lieux a livrer
 		List<Intersection> interLivraisons = new ArrayList<Intersection>();
-		interLivraisons.add(demande.getAdresseEntrepot());
+		//interLivraisons.add(demande.getAdresseEntrepot());
 
 		List<Livraison> demandesLivraisons = demande.getListeLivraison();
 		for (Livraison livraison : demandesLivraisons) {
