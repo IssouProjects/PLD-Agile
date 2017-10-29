@@ -1,5 +1,6 @@
 ignore:
-  - "project/src/test"
+  - "project/src/test"  
+  - "project/src/main/java/org/apache/project/vue"
 
 coverage:
   range: 20..60
