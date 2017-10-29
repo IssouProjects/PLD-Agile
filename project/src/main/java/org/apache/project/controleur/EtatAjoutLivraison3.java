@@ -25,30 +25,15 @@ public class EtatAjoutLivraison3 extends EtatDefaut{
 			nouvelleLivraison.setPlageHoraire(new PlageHoraire(heureDeb, heureFin));
 		}
 		
-		int indexPre;
-		/*if(livraisonPrecedente != null){
-			indexPre = tournee.getLivraisonIndex(livraisonPrecedente);
-			if(tournee.getLivraisonIndex(livraisonPrecedente)==tournee.getLivraisonsSize()-1) {
-				nouveauxChemins = tournee.calculerNouveauxChemins(planDeVille, livraisonPrecedente.getLieuDeLivraison(), nouvelleLivraison.getLieuDeLivraison(), tournee.getAdresseEntrepot());
-			}else {
-				
-				Livraison livraisonSuiv = tournee.getLivraison(indexPre + 1);
-				nouveauxChemins = tournee.calculerNouveauxChemins(planDeVille, livraisonPrecedente.getLieuDeLivraison(), nouvelleLivraison.getLieuDeLivraison(), livraisonSuiv.getLieuDeLivraison());
-			}
-			tournee.ajouterLivraison(nouvelleLivraison, indexPre + 1);
-			tournee.supprimerChemin(indexPre+1);
-			tournee.ajouterChemin(nouveauxChemins.get(0), indexPre + 1);
-			tournee.ajouterChemin(nouveauxChemins.get(1), indexPre + 2);
-			
-		}else {
-			Livraison livraisonSuiv = tournee.getLivraison(0);
-			nouveauxChemins = tournee.calculerNouveauxChemins(planDeVille, tournee.getAdresseEntrepot(), nouvelleLivraison.getLieuDeLivraison(), livraisonSuiv.getLieuDeLivraison());
-			
-			tournee.ajouterLivraison(nouvelleLivraison, 0);
-			tournee.supprimerChemin(0);
-			tournee.ajouterChemin(nouveauxChemins.get(0), 0);
-			tournee.ajouterChemin(nouveauxChemins.get(1), 1);
-		}*/
+		int indexPre = tournee.getLivraisonIndex(livraisonPrecedente);
+		Livraison livraisonSuiv = tournee.getLivraison(indexPre + 1);
+		nouveauxChemins = tournee.calculerNouveauxChemins(planDeVille, livraisonPrecedente.getLieuDeLivraison(), nouvelleLivraison.getLieuDeLivraison(), livraisonSuiv.getLieuDeLivraison());
+	
+		
+		tournee.ajouterLivraison(nouvelleLivraison, indexPre + 1);
+		tournee.supprimerChemin(indexPre);
+		tournee.ajouterChemin(nouveauxChemins.get(0), indexPre);
+		tournee.ajouterChemin(nouveauxChemins.get(1), indexPre + 1);
 		
 		tournee.miseAJourHeureDuree();
 		fenetrePrincipale.clearTournee();

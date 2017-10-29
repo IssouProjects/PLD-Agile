@@ -215,25 +215,22 @@ public class MapDisplay extends Pane{
     	// we show the Livraisons
     	final List<Livraison> livraisons = tournee.getLivraisonsOrdonnees();
     	
-    	int i=0;
+    	//int i=0;
+    	Circle circle = creerVueLivraison(livraisons.get(0), defaultEntrepotColor, livraisonIntersectionRadius);
+    	getChildren().add(circle);
     	
-    	for(Livraison l : livraisons) {
-    		
-    		Circle circle;
-    		if( i == 0) {
-    			circle = creerVueLivraison(l, defaultEntrepotColor, livraisonIntersectionRadius);
-    		}else    {
-    			circle = creerVueLivraison(l, defaultTourneeLivraisonColor, livraisonIntersectionRadius);
-    		}
+    	for(int i = 1; i< livraisons.size()-1; i++) {
+    		circle = creerVueLivraison(livraisons.get(i), defaultTourneeLivraisonColor, livraisonIntersectionRadius);
+	
     		demandeDeLivraisonInter.add(circle);
-            getChildren().add(circle);
-            
-            Label label = creerNumeroLivraison(l.getLieuDeLivraison(), Integer.toString(i) , defaultTourneeLivraisonColor, defaultFontSize);
-            numerosLivraisons.add(label);
-            getChildren().add(label);
-            i++;
+    		getChildren().add(circle);
+        
+    		Label label = creerNumeroLivraison(livraisons.get(i).getLieuDeLivraison(), Integer.toString(i) , defaultTourneeLivraisonColor, defaultFontSize);
+    		numerosLivraisons.add(label);
+    		getChildren().add(label);
     	}
     	
+    
     	/*
     	// we show the entrepot
     	entrepotInter = creerVueIntersection(tournee.getAdresseEntrepot(), defaultEntrepotColor, livraisonIntersectionRadius);
