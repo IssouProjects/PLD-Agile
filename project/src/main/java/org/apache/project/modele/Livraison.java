@@ -109,11 +109,11 @@ public class Livraison {
 	public String toString() {
 		String livraison_s = "";
 		if (heureArrivee != null) {
-			livraison_s += "Heure d'arrivée: " + PlageHoraire.formatTime(heureArrivee) + "\n";
+			livraison_s += "Heure d'arrivée: " + PlageHoraire.timeToString(heureArrivee) + "\n";
 		}
 		if (plageHoraire != null) {
-			livraison_s += "Plage horaire: " + PlageHoraire.formatTime(plageHoraire.getDebut()) + " - "
-					+ PlageHoraire.formatTime(plageHoraire.getFin());
+			livraison_s += "Plage horaire: " + PlageHoraire.timeToString(plageHoraire.getDebut()) + " - "
+					+ PlageHoraire.timeToString(plageHoraire.getFin());
 			if (heureArrivee != null) {
 				long avance = plageHoraire.getDebut().getTime() - heureArrivee.getTime();
 				if (avance > 0) {

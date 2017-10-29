@@ -21,7 +21,7 @@ public class ListDisplay extends ListView<String> implements Observer {
 	public void afficherTexteLivraisons(DemandeDeLivraison demandeLivraison) {
 		List<Livraison> livraisons = demandeLivraison.getListeLivraison();
 		Time heureDepart = demandeLivraison.getHeureDepart();
-		getItems().add("Entrepôt - départ à " + PlageHoraire.formatTime(heureDepart));
+		getItems().add("Entrepôt - départ à " + PlageHoraire.timeToString(heureDepart));
 		for (Livraison livraison : livraisons) {
 			getItems().add("Livraison: " + "\n" + livraison.toString());
 		}
@@ -31,7 +31,7 @@ public class ListDisplay extends ListView<String> implements Observer {
 		getItems().clear();
 		List<Livraison> livraisons = tournee.getLivraisonsOrdonnees();
 		Time heureDepart = tournee.getHeureDepart();
-		getItems().add("Entrepôt - départ à " + PlageHoraire.formatTime(heureDepart));
+		getItems().add("Entrepôt - départ à " + PlageHoraire.timeToString(heureDepart));
 		int i = 1;
 		for (Livraison livraison : livraisons) {
 			getItems().add("Livraison " + i + ":\n" + livraison.toString());
