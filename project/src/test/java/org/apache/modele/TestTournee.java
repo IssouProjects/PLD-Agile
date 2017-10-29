@@ -76,4 +76,35 @@ public class TestTournee {
 		assertEquals(15593, tournee.getDureeTourneeSecondes());
 		*/
 	}
+	
+	@Test
+	public void TestClear() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+		//Creation d'une tournee
+		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
+		PlanDeVille plan = new PlanDeVille();
+		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+		DemandeDeLivraison demande = new DemandeDeLivraison();
+		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+
+		// Calcul tournee
+		Tournee tournee = new Tournee();
+		tournee.setEntrepot(demande.getEntrepot());
+		tournee.setHeureDepart(demande.getHeureDepart());
+		tournee.calculerTournee(plan, demande);
+		
+		assertNotNull(tournee.getEntrepot());
+		assertNotNull(tournee.getHeureDepart());
+		assertFalse(tournee.getChemins().isEmpty());
+		assertFalse(tournee.getLivraisonsOrdonnees().isEmpty());
+		assertNotEquals(0, tournee.getDureeTourneeSecondes());
+		
+		tournee.clear();
+		
+		assertNull(tournee.getEntrepot());
+		assertNull(tournee.getHeureDepart());
+		assertTrue(tournee.getChemins().isEmpty());
+		assertTrue(tournee.getLivraisonsOrdonnees().isEmpty());
+		assertEquals(0, tournee.getDureeTourneeSecondes());
+	}
 }
