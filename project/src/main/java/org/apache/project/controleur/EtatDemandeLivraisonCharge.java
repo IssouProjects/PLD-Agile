@@ -9,7 +9,7 @@ import org.apache.project.vue.FenetrePrincipale;
 public class EtatDemandeLivraisonCharge extends EtatDefaut {
 	@Override
  	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale) {
-		tournee.setAdresseEntrepot(demandeDeLivraison.getAdresseEntrepot());
+		tournee.setEntrepot(demandeDeLivraison.getEntrepot());
 		tournee.setHeureDepart(demandeDeLivraison.getHeureDepart());
 		tournee.calculerTournee(planDeVille, demandeDeLivraison);
 		fenetrePrincipale.afficherTournee(tournee);

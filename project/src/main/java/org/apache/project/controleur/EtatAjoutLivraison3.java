@@ -26,7 +26,7 @@ public class EtatAjoutLivraison3 extends EtatDefaut{
 		}
 		
 		int indexPre;
-		if(livraisonPrecedente != null){
+		/*if(livraisonPrecedente != null){
 			indexPre = tournee.getLivraisonIndex(livraisonPrecedente);
 			if(tournee.getLivraisonIndex(livraisonPrecedente)==tournee.getLivraisonsSize()-1) {
 				nouveauxChemins = tournee.calculerNouveauxChemins(planDeVille, livraisonPrecedente.getLieuDeLivraison(), nouvelleLivraison.getLieuDeLivraison(), tournee.getAdresseEntrepot());
@@ -48,7 +48,7 @@ public class EtatAjoutLivraison3 extends EtatDefaut{
 			tournee.supprimerChemin(0);
 			tournee.ajouterChemin(nouveauxChemins.get(0), 0);
 			tournee.ajouterChemin(nouveauxChemins.get(1), 1);
-		}
+		}*/
 		
 		tournee.miseAJourHeureDuree();
 		fenetrePrincipale.clearTournee();

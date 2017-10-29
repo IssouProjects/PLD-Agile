@@ -148,16 +148,28 @@ public class MapDisplay extends Pane{
     	// showing all the Livraison
     	final List<Livraison> livraisons = demandeDeLivraison.getListeLivraison();
     	
+    	boolean entrepot = true;
     	for(Livraison l : livraisons) {
-    		Circle circle = creerVueLivraison(l, defaultLivraisonColor, livraisonIntersectionRadius);
-    		demandeDeLivraisonInter.add(circle);
-            getChildren().add(circle);
+    		if(entrepot) {
+    			Circle circle = creerVueLivraison(l, defaultEntrepotColor, livraisonIntersectionRadius);
+        		demandeDeLivraisonInter.add(circle);
+                getChildren().add(circle);
+                entrepot = false;
+                System.out.println("test");
+    		}else {
+    			Circle circle = creerVueLivraison(l, defaultLivraisonColor, livraisonIntersectionRadius);
+        		demandeDeLivraisonInter.add(circle);
+                getChildren().add(circle);
+    		}
+    		
     	}
     	
+    	/*
     	// showing the entrepot
     	entrepotInter = creerVueIntersection(demandeDeLivraison.getAdresseEntrepot(), defaultEntrepotColor, livraisonIntersectionRadius);
     	entrepot = demandeDeLivraison.getAdresseEntrepot();
     	getChildren().add(entrepotInter);    	
+    	*/
     	
     }
     
@@ -207,7 +219,13 @@ public class MapDisplay extends Pane{
     	
     	for(Livraison l : livraisons) {
     		i++;
-    		Circle circle = creerVueLivraison(l, defaultTourneeLivraisonColor, livraisonIntersectionRadius);
+    		Circle circle;
+    		if( i == 0) {
+    			circle = creerVueLivraison(l, defaultEntrepotColor, livraisonIntersectionRadius);
+    		}else    {
+    			circle = creerVueLivraison(l, defaultTourneeLivraisonColor, livraisonIntersectionRadius);
+    		}
+    		
     		demandeDeLivraisonInter.add(circle);
             getChildren().add(circle);
             
@@ -216,10 +234,11 @@ public class MapDisplay extends Pane{
             getChildren().add(label);
     	}
     	
+    	/*
     	// we show the entrepot
     	entrepotInter = creerVueIntersection(tournee.getAdresseEntrepot(), defaultEntrepotColor, livraisonIntersectionRadius);
     	entrepot = tournee.getAdresseEntrepot();
-    	getChildren().add(entrepotInter);
+    	getChildren().add(entrepotInter);*/
     	
     }
     
@@ -309,7 +328,7 @@ public class MapDisplay extends Pane{
     }
     
     public Circle creerVueLivraison(Livraison livraison, Color color, int width) {
-    	Circle circle = creerVueIntersection(livraison.getLieuDeLivraison(), defaultTourneeLivraisonColor, livraisonIntersectionRadius);
+    	Circle circle = creerVueIntersection(livraison.getLieuDeLivraison(), color, width);
     	circle.setUserData(livraison);
     	
     	return circle;    	
