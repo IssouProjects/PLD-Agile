@@ -34,6 +34,9 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 			case FenetrePrincipale.ADD_LIVRAISON_ID:
 				controleur.ajouterLivraison();
 				break;
+			case FenetrePrincipale.SUPPR_LIVRAISON_ID:
+				controleur.supprimerLivraison();
+				break;
 			case FenetrePrincipale.ANNULER_ID:
 				controleur.annuler();
 				break;

@@ -71,7 +71,7 @@ public class Tournee extends Observable {
 	 * @param index
 	 * 			 l'index
 	 */
-	public void suppriemerLivraison(int index) {
+	public void supprimerLivraison(int index) {
 		livraisonsOrdonnees.remove(index);
 	}
 

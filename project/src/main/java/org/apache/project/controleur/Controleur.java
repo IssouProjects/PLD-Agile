@@ -97,6 +97,10 @@ public class Controleur {
 		etatCourant.calculerCheminsNouvelleLivraison(this, planDeVille, tournee, fenetrePrincipale, duree, heureDeb, heureFin);
 	}
 	
+	public void calculerCheminSupprLivraison() {
+		etatCourant.calculerCheminSupprLivraison(this, planDeVille, tournee, fenetrePrincipale);
+	}
+	
 	public void clearPlanDeVille() {
 		planDeVille.clear();
 	}

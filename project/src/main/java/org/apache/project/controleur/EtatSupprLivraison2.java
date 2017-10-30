@@ -20,17 +20,27 @@ public class EtatSupprLivraison2 extends EtatDefaut{
 			controleur.setEtatCourant(controleur.etatSupprLivraison1);
 		}
 		
+		if(tournee.getLivraisonsOrdonnees().size() == 2) {
+			fenetrePrincipale.afficherPopupError("Vous ne pouvez pas suprimer la seule livraison");
+			controleur.setEtatCourant(controleur.etatTourneeCalculee);
+		}
+		
 		Livraison livraisonPre = tournee.getLivraison(indexLivSuppr - 1);
 		Livraison livraisonSuiv = tournee.getLivraison(indexLivSuppr + 1);
 		Chemin chemin = tournee.calculerNouveauChemin(planDeVille, livraisonPre.getLieuDeLivraison(), livraisonSuiv.getLieuDeLivraison());
 		
-		tournee.suppriemerLivraison(indexLivSuppr);
-		tournee.supprimerChemin(indexLivSuppr);
+		tournee.supprimerLivraison(indexLivSuppr);
+		tournee.supprimerChemin(indexLivSuppr-1);
+		tournee.supprimerChemin(indexLivSuppr-1);
 	
-		tournee.ajouterChemin(chemin, indexLivSuppr);
+		tournee.ajouterChemin(chemin, indexLivSuppr-1);
 		
+		tournee.calculerDureeTotale();
+		fenetrePrincipale.clearTournee();
+		fenetrePrincipale.afficherTournee(tournee);
+		fenetrePrincipale.afficherInfo("Vous êtes libre");
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
-		fenetrePrincipale.notify();
+		
 	}
 
 	
