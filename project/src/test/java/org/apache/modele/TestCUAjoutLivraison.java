@@ -226,24 +226,24 @@ public class TestCUAjoutLivraison {
 			anciensChemins.add(c);
 		}
 		
-		// On recupère la livraison suivante et la livraison précédente
+		// On recupere la livraison suivante et la livraison precedente
 		Livraison livraisonPre = tournee.getLivraison(0);
 		Livraison livraisonSuiv = tournee.getLivraison(1);
 		
 		Intersection intersectionLiv = plan.getIntersection((long) 251171098);
 		Livraison livraisonNouv = new Livraison (intersectionLiv, 600);
 		
-		// Calcule des nouveaux chemins
+		// Calcul des nouveaux chemins
 		List <Chemin> nouveauxChemins = new ArrayList<Chemin>();
 		nouveauxChemins = tournee.calculerNouveauxChemins(plan, livraisonPre.getLieuDeLivraison(), livraisonNouv.getLieuDeLivraison(), livraisonSuiv.getLieuDeLivraison());
 		
-		// Mise à jour de tournee
+		// Mise a jour de tournee
 		tournee.ajouterLivraison(livraisonNouv, 2);
 		tournee.supprimerChemin(1);
 		tournee.ajouterChemin(nouveauxChemins.get(0), 1);
 		tournee.ajouterChemin(nouveauxChemins.get(1), 2);
 		
-		//Verification de l'ordre et des intersection a livrer
+		// Verification de l'ordre et des intersections a livrer
 		assertEquals(25321357, (long)tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud());
 		assertEquals(1860559399, (long)tournee.getLivraisonsOrdonnees().get(1).getLieuDeLivraison().getIdNoeud());
 		assertEquals(251171098, (long)tournee.getLivraisonsOrdonnees().get(2).getLieuDeLivraison().getIdNoeud());
@@ -251,7 +251,7 @@ public class TestCUAjoutLivraison {
 		assertEquals(26155540, (long)tournee.getLivraisonsOrdonnees().get(4).getLieuDeLivraison().getIdNoeud());
 		assertEquals(29003879, (long)tournee.getLivraisonsOrdonnees().get(5).getLieuDeLivraison().getIdNoeud());
 		
-		//Verification de l'ordre des tronçons
+		// Verification de l'ordre des troncons
 		List <Chemin> chemins = new ArrayList<Chemin>();
 		chemins = tournee.getChemins();
 		assertEquals(anciensChemins.get(0),chemins.get(0));
@@ -261,7 +261,7 @@ public class TestCUAjoutLivraison {
 		assertEquals(anciensChemins.get(3),chemins.get(4));
 		assertEquals(anciensChemins.get(4),chemins.get(5));
 		
-		/*************************** Nouveau jout ************************************/
+		/*************************** Nouvel ajout ************************************/
 		tournee.miseAJourHeureDuree();
 		
 		anciensChemins = new ArrayList<Chemin>();
@@ -269,23 +269,23 @@ public class TestCUAjoutLivraison {
 			anciensChemins.add(c);
 		}
 		
-		// On recupère la livraison suivante et la livraison précédente
+		// On recupere la livraison suivante et la livraison precedente
 		livraisonPre = tournee.getLivraison(1);
 		livraisonSuiv = tournee.getLivraison(2);
 				
 		intersectionLiv = plan.getIntersection((long) 1383027249);
 		livraisonNouv = new Livraison (intersectionLiv, 600);
 				
-		// Calcule des nouveaux chemins
+		// Calcul des nouveaux chemins
 		nouveauxChemins = tournee.calculerNouveauxChemins(plan, livraisonPre.getLieuDeLivraison(), livraisonNouv.getLieuDeLivraison(), livraisonSuiv.getLieuDeLivraison());
 				
-		// Mise à jour de tournee
+		// Mise a jour de tournee
 		tournee.ajouterLivraison(livraisonNouv, 2);
 		tournee.supprimerChemin(1);
 		tournee.ajouterChemin(nouveauxChemins.get(0), 1);
 		tournee.ajouterChemin(nouveauxChemins.get(1), 2);
 				
-		//Verification de l'ordre et des intersection a livrer
+		// Verification de l'ordre et des intersections a livrer
 		assertEquals(25321357, (long)tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud());
 		assertEquals(1860559399, (long)tournee.getLivraisonsOrdonnees().get(1).getLieuDeLivraison().getIdNoeud());
 		assertEquals(1383027249, (long)tournee.getLivraisonsOrdonnees().get(2).getLieuDeLivraison().getIdNoeud());
@@ -294,7 +294,7 @@ public class TestCUAjoutLivraison {
 		assertEquals(26155540, (long)tournee.getLivraisonsOrdonnees().get(5).getLieuDeLivraison().getIdNoeud());
 		assertEquals(29003879, (long)tournee.getLivraisonsOrdonnees().get(6).getLieuDeLivraison().getIdNoeud());
 				
-		//Verification de l'ordre des tronçons
+		// Verification de l'ordre des tronçons
 		chemins = new ArrayList<Chemin>();
 		chemins = tournee.getChemins();
 		assertEquals(anciensChemins.get(0),chemins.get(0));
