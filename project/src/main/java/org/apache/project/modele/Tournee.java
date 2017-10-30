@@ -266,10 +266,6 @@ public class Tournee extends Observable {
 
 		for (int i = 0; i < nombreChemins; i++) {
 
-			// Mettre a jour les heures pour chaque chemin
-
-			dureeTourneeSecondes += chemins.get(i).getDuree();
-
 			// Mettre les intersections ordonnees (une a une)
 			Livraison livraisonActuelle = livraisonsOrdonnees.get(i);
 
@@ -285,6 +281,10 @@ public class Tournee extends Observable {
 			}
 
 			dureeTourneeSecondes += livraisonActuelle.getDuree();
+			
+			// Mettre a jour les heures pour chaque chemin
+
+			dureeTourneeSecondes += chemins.get(i).getDuree();
 		}
 	}
 
