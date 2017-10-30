@@ -12,7 +12,7 @@ Livraison livraisonSelectionee;
 		this.livraisonSelectionee = livraisonSelectionee;
 		controleur.etatSupprLivraison2.actionEntreeEtatSupprLivraison2(livraisonSelectionee);
 		controleur.setEtatCourant(controleur.etatSupprLivraison2);
-		// need a popup later to validate
+		// TODO	need a popup later to validate
 		controleur.calculerCheminSupprLivraison();
 	}
 }
