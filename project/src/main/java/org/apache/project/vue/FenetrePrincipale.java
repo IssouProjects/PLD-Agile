@@ -1,7 +1,5 @@
 package org.apache.project.vue;
 
-import java.sql.Time;
-
 import org.apache.project.controleur.Controleur;
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
@@ -9,24 +7,17 @@ import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlageHoraire;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
-import org.apache.project.modele.PlageHoraire;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -49,16 +40,15 @@ public class FenetrePrincipale extends Application {
 	Button annulerBouton;
 
 	ListDisplay listeLivraisons;
-	
+
 	StackPane stack;
 
 	Label listLabel;
 	Label mapLabel;
-	
 
 	// String appearing in the user interface
 	public static final String LOAD_MAP = "Charger plan";
-	public static final String LOAD_MAP_ID = "loadMapButton"; 
+	public static final String LOAD_MAP_ID = "loadMapButton";
 	public static final String LOAD_LIVRAISON = "Charger livraisons";
 	public static final String LOAD_LIVRAISON_ID = "loadLivraisonButton";
 	public static final String CALCULATE_TOURNEE = "Calculer tournée";
@@ -70,23 +60,24 @@ public class FenetrePrincipale extends Application {
 
 	public static void launchApp(String[] args) {
 		Application.launch(FenetrePrincipale.class, args);
-	}  
-	  @Override
-	  public void start(Stage stage) {
-	
-	    controleur = controleur.getInstance();
-	    controleur.setFenetre(this);
-	    
-	    stage.setTitle("SALTY DELIVERY");
-	
-	    // layout for the full window
-	    GridPane layout = new GridPane();
-	    layout.setStyle("-fx-padding: 10;");
-	    layout.setHgap(10);
-	  	
-	    stack = new StackPane(layout);
-	  	Scene scene = new Scene(stack, 1024, 500);
-	  	
+	}
+
+	@Override
+	public void start(Stage stage) {
+
+		controleur = Controleur.getInstance();
+		controleur.setFenetre(this);
+
+		stage.setTitle("SALTY DELIVERY");
+
+		// layout for the full window
+		GridPane layout = new GridPane();
+		layout.setStyle("-fx-padding: 10;");
+		layout.setHgap(10);
+
+		stack = new StackPane(layout);
+		Scene scene = new Scene(stack, 1024, 500);
+
 		/////////////////////////////////////////////
 		///// CREATING THE MAP AND ITS BUTTONS /////
 		/////////////////////////////////////////////
@@ -109,7 +100,7 @@ public class FenetrePrincipale extends Application {
 		mapButtonsLayout.getChildren().add(fitMapButton);
 
 		// map
-		mapLabel =  new Label("Action à realiser: Charger un plan");
+		mapLabel = new Label("Action à realiser: Charger un plan");
 		layout.add(mapLabel, 0, 0);
 
 		mapContainer = new MapContainer(2000, 2000);
@@ -142,11 +133,10 @@ public class FenetrePrincipale extends Application {
 		ajouterLivraisonButton = new Button(ADD_LIVRAISON);
 		ajouterLivraisonButton.setUserData(ADD_LIVRAISON_ID);
 		ajouterLivraisonButton.setDisable(true);
-		annulerBouton = new Button (ANNULER);
+		annulerBouton = new Button(ANNULER);
 		annulerBouton.setUserData(ANNULER_ID);
 		annulerBouton.setDisable(true);
-		
-		
+
 		listLayout.setSpacing(10);
 
 		// list
@@ -214,7 +204,6 @@ public class FenetrePrincipale extends Application {
 		alert.setTitle("Erreur");
 		alert.setHeaderText("Une erreur a eu lieu");
 		alert.setContentText(message);
-
 		alert.showAndWait();
 	}
 
@@ -267,10 +256,10 @@ public class FenetrePrincipale extends Application {
 		listeLivraisons.clearList();
 		listLabel.setText("Livraisons:");
 	}
- 
-    public void afficherFenetreAjouterLivraison(Livraison l) {	    
-    	LivraisonPopup popup = new LivraisonPopup(l, stack, edb);
-    }
+	
+	public void afficherFenetreAjouterLivraison(Livraison l) {
+		new LivraisonPopup(l, stack, edb);
+	}
     
     public void highlightLivraison(Livraison l) {
     	mapContainer.getMapDisplay().resetAndHighlight(l);

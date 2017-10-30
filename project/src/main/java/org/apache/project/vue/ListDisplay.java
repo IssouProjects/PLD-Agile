@@ -26,7 +26,6 @@ public class ListDisplay extends ListView<Livraison> implements Observer {
 		clearList();
 		List<Livraison> livraisons = demandeLivraison.getListeLivraison();
 		getItems().addAll(livraisons);
-
 	}
 
 	public void afficherTexteLivraisonsOrdonnees(Tournee tournee) {
@@ -34,7 +33,7 @@ public class ListDisplay extends ListView<Livraison> implements Observer {
 		List<Livraison> livraisons = tournee.getLivraisonsOrdonnees();
 		getItems().addAll(livraisons);
 	}
-	
+
 	public void clearList() {
 		getItems().clear();
 	}
