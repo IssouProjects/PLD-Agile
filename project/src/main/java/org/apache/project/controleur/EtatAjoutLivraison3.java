@@ -52,6 +52,6 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 	@Override
 	public void annuler(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
-		fenetrePrincipale.afficherInfo("Ajout annulé vous êtes libre");
+		fenetrePrincipale.afficherInfo("Ajout annulé, vous êtes libre");
 	}
 }
