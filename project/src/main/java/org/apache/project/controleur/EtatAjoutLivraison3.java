@@ -1,8 +1,6 @@
 package org.apache.project.controleur;
 
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.project.modele.Chemin;
 import org.apache.project.modele.Livraison;
@@ -27,7 +25,7 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 
 		int indexPre = tournee.getLivraisonIndex(livraisonPrecedente);
 		Livraison livraisonSuiv = tournee.getLivraison(indexPre + 1);
-		
+
 		Chemin chemin1 = tournee.calculerNouveauChemin(planDeVille, livraisonPrecedente.getLieuDeLivraison(),
 				nouvelleLivraison.getLieuDeLivraison());
 		Chemin chemin2 = tournee.calculerNouveauChemin(planDeVille, nouvelleLivraison.getLieuDeLivraison(),
