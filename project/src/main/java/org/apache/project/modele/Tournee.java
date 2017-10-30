@@ -57,9 +57,9 @@ public class Tournee extends Observable {
 	/**
 	 * Ajoute une livraison à une place (donnée en paramètre) de la tournée.
 	 * 
-	 * @param uneLivraison
+	 * @param livraison
 	 *            la livraison à ajouter
-	 * @param place
+	 * @param index
 	 *            l'index dans la liste ordonnée
 	 */
 	public void ajouterLivraison(Livraison livraison, int index) {
