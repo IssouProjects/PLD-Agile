@@ -20,11 +20,11 @@ public class ListDisplay extends ListView<String> implements Observer {
 
 	public void afficherTexteLivraisons(DemandeDeLivraison demandeLivraison) {
 		List<Livraison> livraisons = demandeLivraison.getListeLivraison();
-		Time heureDepart = demandeLivraison.getHeureDepart();
-		getItems().add("Entrepôt - départ à " + PlageHoraire.formatTime(heureDepart));
+		Time heureDepart = demandeLivraison.getEntrepot().getHeureDepart();
+		getItems().add("Entrepôt - départ à " + PlageHoraire.timeToString(heureDepart));
 		int i = 0;
 		for (Livraison livraison : livraisons) {
-			if(i!=0)
+			if (i != 0)
 				getItems().add("Livraison: " + "\n" + livraison.toString());
 			++i;
 		}
@@ -33,13 +33,13 @@ public class ListDisplay extends ListView<String> implements Observer {
 	public void afficherTexteLivraisonsOrdonnees(Tournee tournee) {
 		getItems().clear();
 		List<Livraison> livraisons = tournee.getLivraisonsOrdonnees();
-		Time heureDepart = tournee.getHeureDepart();
-		getItems().add("Entrepôt - départ à " + PlageHoraire.formatTime(heureDepart));
-		for(int i = 1; i< livraisons.size() - 1; ++i) {
+		Time heureDepart = tournee.getEntrepot().getHeureDepart();
+		getItems().add("Entrepôt - départ à " + PlageHoraire.timeToString(heureDepart));
+		for (int i = 1; i < livraisons.size() - 1; ++i) {
 			getItems().add("Livraison " + i + ":\n" + livraisons.get(i).toString());
 		}
 	}
-	
+
 	public void clearList() {
 		getItems().clear();
 	}

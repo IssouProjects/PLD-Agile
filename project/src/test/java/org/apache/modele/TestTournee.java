@@ -30,22 +30,22 @@ public class TestTournee {
 		// Calcul tournee
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.setHeureDepart(demande.getHeureDepart());
 		tournee.calculerTournee(plan, demande);
-		
-		//Verification de l'ordre et des intersection a livrer
-		assertEquals(25321357, (long)tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud());
-		assertEquals(1860559399, (long)tournee.getLivraisonsOrdonnees().get(1).getLieuDeLivraison().getIdNoeud());
-		assertEquals(25303807, (long)tournee.getLivraisonsOrdonnees().get(2).getLieuDeLivraison().getIdNoeud());
-		assertEquals(26155540, (long)tournee.getLivraisonsOrdonnees().get(3).getLieuDeLivraison().getIdNoeud());
-		assertEquals(29003879, (long)tournee.getLivraisonsOrdonnees().get(4).getLieuDeLivraison().getIdNoeud());
-		
-		//Test duree tournee
+
+		// Verification de l'ordre et des intersection a livrer
+		assertEquals(25321357, (long) tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud());
+		assertEquals(1860559399, (long) tournee.getLivraisonsOrdonnees().get(1).getLieuDeLivraison().getIdNoeud());
+		assertEquals(25303807, (long) tournee.getLivraisonsOrdonnees().get(2).getLieuDeLivraison().getIdNoeud());
+		assertEquals(26155540, (long) tournee.getLivraisonsOrdonnees().get(3).getLieuDeLivraison().getIdNoeud());
+		assertEquals(29003879, (long) tournee.getLivraisonsOrdonnees().get(4).getLieuDeLivraison().getIdNoeud());
+
+		// Test duree tournee
 		assertEquals(3221, tournee.getDureeTourneeSecondes());
 	}
-	
-	@Test(timeout=30000)
-	public void testCalculerGrandeTournee() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+
+	@Test(timeout = 30000)
+	public void testCalculerGrandeTournee()
+			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		// Creation des objets plan et demande
 		File xml = new File("src/test/java/org/apache/modele/fichiers/DLgrand20.xml");
 		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonGrand.xml");
@@ -57,29 +57,35 @@ public class TestTournee {
 		// Calcul tournee
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.setHeureDepart(demande.getHeureDepart());
 		tournee.calculerTournee(plan, demande);
 		/*
-		assertEquals(517370427, (long)tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud());
-		assertEquals(21674814, (long)tournee.getLivraisonsOrdonnees().get(1).getLieuDeLivraison().getIdNoeud());
-		assertEquals(315381991, (long)tournee.getLivraisonsOrdonnees().get(2).getLieuDeLivraison().getIdNoeud());
-		assertEquals(245032683, (long)tournee.getLivraisonsOrdonnees().get(3).getLieuDeLivraison().getIdNoeud());
-		//D'autres lieux, mais impossible de tous les tester
-		//assertEquals(Long.valueOf("3280925503"), 
-		System.out.println((Long)tournee.getLivraisonsOrdonnees().get(16).getLieuDeLivraison().getIdNoeud());
-		//assertEquals(Long.valueOf("4136115322"), 
-		System.out.println((Long)tournee.getLivraisonsOrdonnees().get(17).getLieuDeLivraison().getIdNoeud());
-		//assertEquals(Long.valueOf("3840413118"), 
-		System.out.println((Long)tournee.getLivraisonsOrdonnees().get(18).getLieuDeLivraison().getIdNoeud());
-		
-		//Duree de la tournee ok
-		assertEquals(15593, tournee.getDureeTourneeSecondes());
-		*/
+		 * assertEquals(517370427,
+		 * (long)tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud
+		 * ()); assertEquals(21674814,
+		 * (long)tournee.getLivraisonsOrdonnees().get(1).getLieuDeLivraison().getIdNoeud
+		 * ()); assertEquals(315381991,
+		 * (long)tournee.getLivraisonsOrdonnees().get(2).getLieuDeLivraison().getIdNoeud
+		 * ()); assertEquals(245032683,
+		 * (long)tournee.getLivraisonsOrdonnees().get(3).getLieuDeLivraison().getIdNoeud
+		 * ()); //D'autres lieux, mais impossible de tous les tester
+		 * //assertEquals(Long.valueOf("3280925503"),
+		 * System.out.println((Long)tournee.getLivraisonsOrdonnees().get(16).
+		 * getLieuDeLivraison().getIdNoeud());
+		 * //assertEquals(Long.valueOf("4136115322"),
+		 * System.out.println((Long)tournee.getLivraisonsOrdonnees().get(17).
+		 * getLieuDeLivraison().getIdNoeud());
+		 * //assertEquals(Long.valueOf("3840413118"),
+		 * System.out.println((Long)tournee.getLivraisonsOrdonnees().get(18).
+		 * getLieuDeLivraison().getIdNoeud());
+		 * 
+		 * //Duree de la tournee ok assertEquals(15593,
+		 * tournee.getDureeTourneeSecondes());
+		 */
 	}
-	
+
 	@Test
 	public void TestClear() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
-		//Creation d'une tournee
+		// Creation d'une tournee
 		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5.xml");
 		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
 		PlanDeVille plan = new PlanDeVille();
@@ -90,19 +96,17 @@ public class TestTournee {
 		// Calcul tournee
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.setHeureDepart(demande.getHeureDepart());
 		tournee.calculerTournee(plan, demande);
-		
+
 		assertNotNull(tournee.getEntrepot());
-		assertNotNull(tournee.getHeureDepart());
+		assertNotNull(tournee.getEntrepot().getHeureDepart());
 		assertFalse(tournee.getChemins().isEmpty());
 		assertFalse(tournee.getLivraisonsOrdonnees().isEmpty());
 		assertNotEquals(0, tournee.getDureeTourneeSecondes());
-		
+
 		tournee.clear();
-		
+
 		assertNull(tournee.getEntrepot());
-		assertNull(tournee.getHeureDepart());
 		assertTrue(tournee.getChemins().isEmpty());
 		assertTrue(tournee.getLivraisonsOrdonnees().isEmpty());
 		assertEquals(0, tournee.getDureeTourneeSecondes());
