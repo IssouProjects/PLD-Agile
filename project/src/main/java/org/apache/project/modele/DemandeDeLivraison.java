@@ -11,12 +11,6 @@ public class DemandeDeLivraison extends Observable {
 	private Time heureDepart;
 	private List<Livraison> livraisons;
 	
-	public DemandeDeLivraison(Livraison entrepot, Time heureDepart) {
-		this.entrepot=entrepot;
-		this.heureDepart=heureDepart;
-		this.livraisons=new ArrayList<Livraison>();
-	}
-	
 	public DemandeDeLivraison() {
 		this.entrepot=null;
 		this.heureDepart=null;
