@@ -1,8 +1,6 @@
 package org.apache.project.controleur;
 
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.project.modele.Chemin;
 import org.apache.project.modele.Livraison;
@@ -15,10 +13,9 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 
 	Livraison nouvelleLivraison;
 	Livraison livraisonPrecedente;
-	List<Chemin> nouveauxChemins;
 
 	@Override
-	public void calculerChemins(Controleur controleur, PlanDeVille planDeVille, Tournee tournee,
+	public void calculerCheminsNouvelleLivraison(Controleur controleur, PlanDeVille planDeVille, Tournee tournee,
 			FenetrePrincipale fenetrePrincipale, Integer duree, Time heureDeb, Time heureFin) {
 		nouvelleLivraison.setDuree(duree);
 
@@ -28,13 +25,16 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 
 		int indexPre = tournee.getLivraisonIndex(livraisonPrecedente);
 		Livraison livraisonSuiv = tournee.getLivraison(indexPre + 1);
-		nouveauxChemins = tournee.calculerNouveauxChemins(planDeVille, livraisonPrecedente.getLieuDeLivraison(),
-				nouvelleLivraison.getLieuDeLivraison(), livraisonSuiv.getLieuDeLivraison());
+
+		Chemin chemin1 = tournee.calculerNouveauChemin(planDeVille, livraisonPrecedente.getLieuDeLivraison(),
+				nouvelleLivraison.getLieuDeLivraison());
+		Chemin chemin2 = tournee.calculerNouveauChemin(planDeVille, nouvelleLivraison.getLieuDeLivraison(),
+				livraisonSuiv.getLieuDeLivraison());
 
 		tournee.ajouterLivraison(nouvelleLivraison, indexPre + 1);
 		tournee.supprimerChemin(indexPre);
-		tournee.ajouterChemin(nouveauxChemins.get(0), indexPre);
-		tournee.ajouterChemin(nouveauxChemins.get(1), indexPre + 1);
+		tournee.ajouterChemin(chemin1, indexPre);
+		tournee.ajouterChemin(chemin2, indexPre + 1);
 
 		tournee.calculerDureeTotale();
 		fenetrePrincipale.clearTournee();
@@ -46,7 +46,6 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 	protected void actionEntreeEtatAjoutLivraison3(Livraison livraisonPrecedente, Livraison nouvelleLivraison) {
 		this.nouvelleLivraison = nouvelleLivraison;
 		this.livraisonPrecedente = livraisonPrecedente;
-		this.nouveauxChemins = new ArrayList<Chemin>();
 	}
 
 	@Override

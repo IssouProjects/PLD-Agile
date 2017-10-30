@@ -25,6 +25,9 @@ public class Controleur {
 	protected final EtatAjoutLivraison1 etatAjoutLivraison1 = new EtatAjoutLivraison1();
 	protected final EtatAjoutLivraison2 etatAjoutLivraison2 = new EtatAjoutLivraison2();
 	protected final EtatAjoutLivraison3 etatAjoutLivraison3 = new EtatAjoutLivraison3();
+	protected final EtatSupprLivraison1 etatSupprLivraison1 = new EtatSupprLivraison1();
+	protected final EtatSupprLivraison2 etatSupprLivraison2 = new EtatSupprLivraison2();
+	
 	
 	private static Controleur instance = null;
 	
@@ -71,7 +74,11 @@ public class Controleur {
 	}
 	
 	public void ajouterLivraison() {
-		etatCourant.ajouterLivraison(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale);
+		etatCourant.ajouterLivraison(this, fenetrePrincipale);
+	}
+	
+	public void supprimerLivraison() {
+		etatCourant.supprimerLivraison(this, fenetrePrincipale);
 	}
 	
 	public void annuler() {
@@ -83,15 +90,15 @@ public class Controleur {
 	}
 	
 	public void livraisonClicked(Livraison livraison) {
-		etatCourant.livraisonClicked(this,  planDeVille,  tournee,  fenetrePrincipale,  livraison);
+		etatCourant.livraisonClicked(this, fenetrePrincipale,  livraison);
 	}
 	
-	public void entrepotClicked() {
-		etatCourant.entrepotClicked(this, planDeVille, tournee, fenetrePrincipale);
+	public void calculerCheminsNouvelleLivraison(Integer duree, Time heureDeb, Time heureFin) {
+		etatCourant.calculerCheminsNouvelleLivraison(this, planDeVille, tournee, fenetrePrincipale, duree, heureDeb, heureFin);
 	}
 	
-	public void calculerChemins(Integer duree, Time heureDeb, Time heureFin) {
-		etatCourant.calculerChemins(this, planDeVille, tournee, fenetrePrincipale, duree, heureDeb, heureFin);
+	public void calculerCheminSupprLivraison() {
+		etatCourant.calculerCheminSupprLivraison(this, planDeVille, tournee, fenetrePrincipale);
 	}
 	
 	public void clearPlanDeVille() {
