@@ -214,7 +214,7 @@ public class Tournee extends Observable {
 	}
 
 	/**
-	 * Cette méthode calcule deux chemins que doit emprunter un livreur: 1) pour
+	 * Cette méthode calcule les deux chemins que doit emprunter un livreur: 1) pour
 	 * aller de l'<tt>intersectionPre</tt> à <tt>newIntersection</tt> 2) pour aller
 	 * de <tt>newIntersection</tt> à <tt>intersectionSuiv</tt>.
 	 * 
@@ -223,7 +223,7 @@ public class Tournee extends Observable {
 	 * @param intersectionPre
 	 *            intersection où a lieu la 1ère livraison.
 	 * @param newIntersection
-	 *            intersection où a lieu la 2ème livraison.
+	 *            intersection où a lieu la nouvelle livraison.
 	 * @param intersectionSuiv
 	 *            intersection où a lieu la 3ème livraison.
 	 * @return une liste de deux chemins: le 1er pour aller de
