@@ -77,12 +77,7 @@ public class MapGestures {
 	            	if(obj instanceof Livraison) {
 		            	livraison = target;
 		            } else if (obj instanceof Intersection) {
-		            	if((Intersection)obj == map.getEntrepot()){
-		            		livraison = target;
-		            	}
-		            	else {
-		            		intersection = target;
-		            	}
+		            	intersection = target;
 		            } else if(obj instanceof Troncon) {
 		            	troncon = target;
 		            }
@@ -179,14 +174,8 @@ public class MapGestures {
         	edm.onLivraisonClicked((Livraison)obj);
         	return true;
         } else if (obj instanceof Intersection) {
-        	if((Intersection)obj == map.getEntrepot()){
-        		edm.onEntrepotClicked((Intersection)obj);
-        		return true;
-        	}
-        	else {
-        		edm.onIntersectionClicked((Intersection)obj);
-        		return true;
-        	}
+    		edm.onIntersectionClicked((Intersection)obj);
+    		return true;
         } else if(obj instanceof Troncon) {
         	edm.onTronconClicked((Troncon)obj);
         	return true;
