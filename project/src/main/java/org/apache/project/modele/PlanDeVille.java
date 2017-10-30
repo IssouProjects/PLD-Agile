@@ -8,7 +8,7 @@ import java.util.Observable;
 
 /**
  * La classe <tt>PlanDeVille</tt> représente un plan des rues d'une
- * ville/agglomération, il n'a que des tronçons et des intersections.
+ * ville/agglomération. Il n'est composé que de tronçons et d'intersections.
  */
 public class PlanDeVille extends Observable {
 
@@ -16,7 +16,7 @@ public class PlanDeVille extends Observable {
 	private List<Troncon> troncons;
 
 	/**
-	 * Construis un plan routier vide.
+	 * Construit un plan routier vide.
 	 */
 	public PlanDeVille() {
 		intersections = new HashMap<Long, Intersection>();
@@ -24,58 +24,71 @@ public class PlanDeVille extends Observable {
 	}
 
 	/**
+	 * Ajoute une intersection au plan.
+	 * 
 	 * @param id
+	 *            identifiant de l'<tt>Intersection</tt>
 	 * @param coordX
+	 *            coordonnée x de l'<tt>Intersection</tt>
 	 * @param coordY
+	 *            coordonnée y de l'<tt>Intersection</tt>
 	 */
 	public void ajouterIntersection(Long id, Long coordX, Long coordY) {
 		intersections.put(id, new Intersection(id, coordX, coordY));
 	}
 
 	/**
-	 * @param distance
+	 * Ajoute un tronçon au plan.
+	 * 
+	 * @param longueur
+	 *            longueur du <tt>Troncon</tt> en mètres.
 	 * @param numDepart
+	 *            id de l'<tt>Intersection</tt> de départ
 	 * @param numArrivee
+	 *            id de l'<tt>Intersection</tt> d'arrivée
 	 * @param nomRue
+	 *            nom usuel du tronçon (exemple: "Boulevard Roger Salengro")
 	 */
-	public void ajouterTroncon(double distance, Long numDepart, Long numArrivee, String nomRue) {
-		Troncon troncon = new Troncon(distance, intersections.get(numDepart), intersections.get(numArrivee), nomRue);
+	public void ajouterTroncon(double longueur, Long numDepart, Long numArrivee, String nomRue) {
+		Troncon troncon = new Troncon(longueur, intersections.get(numDepart), intersections.get(numArrivee), nomRue);
 		intersections.get(numDepart).ajouterTronconPartant(troncon);
 		troncons.add(troncon);
 	}
 
 	/**
-	 * @return
+	 * La méthode renvoie l'ensemble des <tt>Intersection</tt> du plan.
+	 * 
+	 * @return la <tt>Map<Long, Intersection></tt> du plan.
 	 */
 	public Map<Long, Intersection> getAllIntersections() {
 		return intersections;
 	}
 
 	/**
-	 * @param id
-	 * @return
-	 */
-	public Intersection getIntersection(Long id) {
-		return intersections.get(id);
-	}
-
-	/**
-	 * @return
+	 * La méthode renvoie la liste complète des tronçons du plan.
+	 * 
+	 * @return la liste des tronçons du plan.
 	 */
 	public List<Troncon> getAllTroncons() {
 		return troncons;
 	}
 
 	/**
+	 * La méthode renvoie l'intersection du plan dont l'identifiant correspond à
+	 * l'<tt>id</tt> fourni en paramètre si elle existe, autrement elle renvoie
+	 * null.
+	 * 
 	 * @param id
-	 * @return
+	 *            identifiant de l'intersection recherchée.
+	 * @return l'intersection correspondante à l'<tt>id</tt> fourni si elle existe,
+	 *         sinon <tt>null</tt>.
 	 */
 	public Intersection getIntersectionById(Long id) {
 		return intersections.get(id);
 	}
 
 	/**
-	 * 
+	 * La méthode supprime toutes les données (intersections et tronçons) du plan.
 	 */
 	public void clear() {
 		intersections.clear();
