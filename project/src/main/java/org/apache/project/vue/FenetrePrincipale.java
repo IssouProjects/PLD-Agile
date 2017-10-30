@@ -196,7 +196,7 @@ public class FenetrePrincipale extends Application {
 		annulerBouton.setOnAction(edb);
 
 		// map listener
-		edm = new EcouteurDeMap(controleur);
+		edm = new EcouteurDeMap(controleur, mapContainer);
 		mapContainer.setEcouteurDeMap(edm);
 
 		// we can now show the window

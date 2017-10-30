@@ -28,7 +28,7 @@ public class MapDisplay extends Pane{
 	
 	DoubleProperty myScale = new SimpleDoubleProperty(1.0);
 	
-	Map<Livraison, Circle> demandeDeLivraisonInter;
+	Map<Livraison, Circle> mapLivraisons;
 	List<Circle> tourneeInter;
 	List<Line> tourneeTroncons;
 	Circle entrepotInter = null;
@@ -80,7 +80,7 @@ public class MapDisplay extends Pane{
         scaleXProperty().bind(myScale);
         scaleYProperty().bind(myScale);
         
-        demandeDeLivraisonInter = new HashMap<Livraison, Circle>();
+        mapLivraisons = new HashMap<Livraison, Circle>();
         tourneeInter = new ArrayList<Circle>();
         tourneeTroncons = new ArrayList<Line>();
         numerosLivraisons = new ArrayList<Label>();
@@ -159,13 +159,13 @@ public class MapDisplay extends Pane{
     	for(Livraison l : livraisons) {
     		if(entrepot) {
     			Circle circle = creerVueLivraison(l, defaultEntrepotColor, livraisonIntersectionRadius);
-        		demandeDeLivraisonInter.put(l, circle);
+        		mapLivraisons.put(l, circle);
                 getChildren().add(circle);
                 entrepot = false;
                 System.out.println("test");
     		}else {
     			Circle circle = creerVueLivraison(l, defaultLivraisonColor, livraisonIntersectionRadius);
-    			demandeDeLivraisonInter.put(l, circle);
+    			mapLivraisons.put(l, circle);
                 getChildren().add(circle);
     		}
     	}
@@ -179,26 +179,38 @@ public class MapDisplay extends Pane{
     }
     
     public void highlightLivraison(Livraison livraison) {
-    	demandeDeLivraisonInter.get(livraison).setRadius(livraisonIntersectionRadiusHL);
-    	demandeDeLivraisonInter.get(livraison).setFill(defaultLivraisonColorHL);
+    	mapLivraisons.get(livraison).setRadius(livraisonIntersectionRadiusHL);
+    	//demandeDeLivraisonLiv.get(livraison).setFill(defaultLivraisonColorHL);
     }
     
     public void unHighlightLivraison(Livraison livraison) {
-    	demandeDeLivraisonInter.get(livraison).setRadius(livraisonIntersectionRadius);
-    	demandeDeLivraisonInter.get(livraison).setFill(defaultLivraisonColor);
+    	mapLivraisons.get(livraison).setRadius(livraisonIntersectionRadius);
+    	//demandeDeLivraisonLiv.get(livraison).setFill(defaultLivraisonColor);
     }
     
+    public void highlightIntersection(Intersection intersection) {
+    	
+    }
+    
+    public void unHighlightIntersection(Intersection intersection) {
+    	
+    }
+    
+    
+    
     public void clearDemandeDeLivraison() {
-    	if(!demandeDeLivraisonInter.isEmpty()) {
+    	if(!mapLivraisons.isEmpty()) {
     		// we remove the previous livraison
     		// Might create errors
-    		getChildren().removeAll(demandeDeLivraisonInter.keySet());
-    		demandeDeLivraisonInter.clear();
+    		for(Map.Entry<Livraison, Circle> entry : mapLivraisons.entrySet())
+    			getChildren().remove(entry.getValue());
+    		mapLivraisons.clear();
     		getChildren().remove(entrepotInter);
     		entrepot = null;
     		getChildren().removeAll(numerosLivraisons);
     		numerosLivraisons.clear();
     	}
+    	 
     	
     	if(!numerosLivraisons.isEmpty()) {
     		getChildren().removeAll(numerosLivraisons);
@@ -239,7 +251,7 @@ public class MapDisplay extends Pane{
     	for(int i = 1; i< livraisons.size()-1; i++) {
     		circle = creerVueLivraison(livraisons.get(i), defaultTourneeLivraisonColor, livraisonIntersectionRadius);
 	
-    		demandeDeLivraisonInter.put(livraisons.get(i), circle);
+    		mapLivraisons.put(livraisons.get(i), circle);
     		getChildren().add(circle);
         
     		Label label = creerNumeroLivraison(livraisons.get(i).getLieuDeLivraison(), Integer.toString(i) , defaultTourneeLivraisonColor, defaultFontSize);
@@ -263,18 +275,16 @@ public class MapDisplay extends Pane{
     		
     		getChildren().removeAll(tourneeTroncons);
     		tourneeTroncons.clear();
-    		
-    		// Might create errors
-    		getChildren().removeAll(demandeDeLivraisonInter.keySet());
-    		
+
     		getChildren().remove(entrepotInter);
     		entrepot = null;
     	}
     	
-    	if(!demandeDeLivraisonInter.isEmpty()) {
+    	if(!mapLivraisons.isEmpty()) {
     		// Might create errors
-    		getChildren().removeAll(demandeDeLivraisonInter.keySet());
-    		demandeDeLivraisonInter.clear();
+    		for(Map.Entry<Livraison, Circle> entry : mapLivraisons.entrySet())
+    			getChildren().remove(entry.getValue());
+    		mapLivraisons.clear();
     	}
     	
     	if(!numerosLivraisons.isEmpty()) {

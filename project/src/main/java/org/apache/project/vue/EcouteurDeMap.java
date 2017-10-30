@@ -7,9 +7,13 @@ import org.apache.project.modele.Troncon;
 
 public class EcouteurDeMap {
 	Controleur controleur;
+	MapContainer mapContainer;
+	Livraison livraisonHighlited; 
 	
-	public EcouteurDeMap(Controleur c) {
+	public EcouteurDeMap(Controleur c, MapContainer mapContainer) {
 		controleur = c;
+		this.mapContainer = mapContainer;
+		this.livraisonHighlited = null;
 	}
 	
 	public void onIntersectionClicked(Intersection intersection) {
@@ -22,6 +26,12 @@ public class EcouteurDeMap {
 	}
 	
 	public void onLivraisonClicked(Livraison livraison) {
+		
+		if(livraisonHighlited != null)
+			mapContainer.getMapDisplay().unHighlightLivraison(livraisonHighlited);
+		
+		livraisonHighlited = livraison;
+		mapContainer.getMapDisplay().highlightLivraison(livraison);
 		controleur.livraisonClicked(livraison);
 	}
 	
