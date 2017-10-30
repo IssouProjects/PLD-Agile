@@ -10,14 +10,22 @@ import org.apache.project.modele.Tournee;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.util.Callback;
 
 public class ListDisplay extends ListView<Livraison> implements Observer {
 	
 	private EcouteurDeListe ecouteurDeListe;
 
 	public ListDisplay() {
-		this.setCellFactory(i -> new LivraisonCell());
+		this.setCellFactory(new Callback<ListView<Livraison>, ListCell<Livraison>>(){
+			@Override
+			public ListCell<Livraison> call(ListView<Livraison> param) {
+				return new LivraisonCell();
+			}
+		});
+		
 		getStylesheets().add(getClass().getResource("list.css").toExternalForm());
 		this.getSelectionModel().selectedItemProperty().addListener(onSelected);
 	}	
