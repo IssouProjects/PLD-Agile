@@ -41,7 +41,7 @@ public class Livraison {
 	 * @param lieuDeLivraison
 	 *            intersection où se déroule la livraison.
 	 * @param dureeLivraison
-	 *            temps de déchargement des produits livrés du camion du livreur.
+	 *            temps de déchargement des produits livrés.
 	 */
 	public Livraison(Intersection lieuDeLivraison, int dureeLivraison) {
 		this.lieuDeLivraison = lieuDeLivraison;
