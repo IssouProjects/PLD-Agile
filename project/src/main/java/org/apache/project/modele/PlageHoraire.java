@@ -81,7 +81,7 @@ public class PlageHoraire {
 	 * Transforme une durée en millisecondes (ms) en une <tt>String</tt> de type "Xh
 	 * Ymin"
 	 * 
-	 * Exemple: duree= 3600000 ms => return "1h 0min"
+	 * Exemple: si duree= 3600000 ms alors`return "1h 0min"`
 	 * 
 	 * @param duree
 	 *            une durée en ms
