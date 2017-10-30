@@ -204,7 +204,7 @@ public class TestCUAjoutLivraison {
 		assertEquals(nouveauxChemins.get(1),chemins.get(5));
 	}
 	
-	@Test(timeout = 12000)
+	@Test(timeout = 1000)
 	public void testAjoutMutiples() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		// Creation des objets plan et demande
 		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5.xml");
