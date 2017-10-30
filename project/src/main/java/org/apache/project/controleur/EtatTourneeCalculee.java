@@ -1,7 +1,10 @@
 package org.apache.project.controleur;
 
 import org.apache.project.modele.DemandeDeLivraison;
+import org.apache.project.modele.Intersection;
+import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlanDeVille;
+import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
 
 public class EtatTourneeCalculee extends EtatDefaut{
@@ -34,6 +37,16 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		fenetrePrincipale.afficherInfo("Veuillez cliquer sur une intersection de la carte");
 	}
 	
+  @Override
+	public void intersectionClicked (Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Intersection intersection) {
+		fenetrePrincipale.highlightIntersection(intersection);
+	}
+	
+  @Override
+	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {
+		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
+  }
+
 	@Override 
 	public void supprimerLivraison( Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		controleur.setEtatCourant(controleur.etatSupprLivraison1);

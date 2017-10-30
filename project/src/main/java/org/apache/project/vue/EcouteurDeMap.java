@@ -7,13 +7,16 @@ import org.apache.project.modele.Troncon;
 
 public class EcouteurDeMap {
 	Controleur controleur;
+	MapContainer mapContainer;
 	
-	public EcouteurDeMap(Controleur c) {
+	
+	
+	public EcouteurDeMap(Controleur c, MapContainer mapContainer) {
 		controleur = c;
+		this.mapContainer = mapContainer;
 	}
 	
 	public void onIntersectionClicked(Intersection intersection) {
-		System.out.println(intersection);
 		controleur.intersectionClicked(intersection);
 	}
 	

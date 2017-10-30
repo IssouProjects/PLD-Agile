@@ -77,12 +77,7 @@ public class MapGestures {
 	            	if(obj instanceof Livraison) {
 		            	livraison = target;
 		            } else if (obj instanceof Intersection) {
-		            	if((Intersection)obj == map.getEntrepot()){
-		            		livraison = target;
-		            	}
-		            	else {
-		            		intersection = target;
-		            	}
+		            	intersection = target;
 		            } else if(obj instanceof Troncon) {
 		            	troncon = target;
 		            }

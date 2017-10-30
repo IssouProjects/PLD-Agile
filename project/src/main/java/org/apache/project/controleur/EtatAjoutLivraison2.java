@@ -15,6 +15,9 @@ public class EtatAjoutLivraison2 extends EtatDefaut {
 	@Override
 	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale,
 			Livraison livraisonPrecedente) {
+		
+		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
+
 		controleur.setEtatCourant(controleur.etatAjoutLivraison3);
 		nouvelleLivraison = new Livraison(intersectionLivraison);
 		fenetrePrincipale.afficherFenetreAjouterLivraison(nouvelleLivraison);
@@ -38,7 +41,7 @@ public class EtatAjoutLivraison2 extends EtatDefaut {
 	@Override
 	public void annuler(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
-		fenetrePrincipale.afficherInfo("Ajout annulé vous êtes libre");
+		fenetrePrincipale.afficherInfo("Ajout annulé, vous êtes libre");
 	}
 
 	protected void actionEntreeEtatAjoutLivraison2(Intersection intersection) {

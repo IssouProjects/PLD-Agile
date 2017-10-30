@@ -1,48 +1,61 @@
 package org.apache.project.vue;
 
-import java.sql.Time;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Livraison;
-import org.apache.project.modele.PlageHoraire;
 import org.apache.project.modele.Tournee;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.util.Callback;
 
-public class ListDisplay extends ListView<String> implements Observer {
+public class ListDisplay extends ListView<Livraison> implements Observer {
+	
+	private EcouteurDeListe ecouteurDeListe;
 
 	public ListDisplay() {
+		this.setCellFactory(new Callback<ListView<Livraison>, ListCell<Livraison>>(){
+			@Override
+			public ListCell<Livraison> call(ListView<Livraison> param) {
+				return new LivraisonCell();
+			}
+		});
+		
 		getStylesheets().add(getClass().getResource("list.css").toExternalForm());
-	}
-
+		this.getSelectionModel().selectedItemProperty().addListener(onSelected);
+	}	
+	
 	public void afficherTexteLivraisons(DemandeDeLivraison demandeLivraison) {
+		clearList();
 		List<Livraison> livraisons = demandeLivraison.getListeLivraison();
-		Time heureDepart = demandeLivraison.getEntrepot().getHeureDepart();
-		getItems().add("Entrepôt - départ à " + PlageHoraire.timeToString(heureDepart));
-		int i = 0;
-		for (Livraison livraison : livraisons) {
-			if (i != 0)
-				getItems().add("Livraison: " + "\n" + livraison.toString());
-			++i;
-		}
+		getItems().addAll(livraisons);
 	}
 
 	public void afficherTexteLivraisonsOrdonnees(Tournee tournee) {
-		getItems().clear();
+		clearList();
 		List<Livraison> livraisons = tournee.getLivraisonsOrdonnees();
-		Time heureDepart = tournee.getEntrepot().getHeureDepart();
-		getItems().add("Entrepôt - départ à " + PlageHoraire.timeToString(heureDepart));
-		for (int i = 1; i < livraisons.size() - 1; ++i) {
-			getItems().add("Livraison " + i + ":\n" + livraisons.get(i).toString());
-		}
+		getItems().addAll(livraisons);
 	}
 
 	public void clearList() {
 		getItems().clear();
 	}
+	
+	public void setEcouteurDeListe(EcouteurDeListe edc) {
+		ecouteurDeListe = edc;
+	}
+	
+	private ChangeListener<Livraison> onSelected = new ChangeListener<Livraison>() {
+		@Override
+		public void changed(ObservableValue<? extends Livraison> observable, Livraison oldValue, Livraison newValue) {
+			ecouteurDeListe.onLivraisonClicked(newValue);
+		}
+	};
 
 	@Override
 	public void update(Observable o, Object arg) {
