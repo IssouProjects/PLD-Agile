@@ -4,12 +4,14 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.project.modele.DemandeDeLivraison;
+import org.apache.project.modele.Entrepot;
 import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlanDeVille;
@@ -46,7 +48,8 @@ public class TestDemandeDeLivraison {
 		Intersection B = new Intersection((long) 2, (long) 1, (long) 2);
 		Intersection C = new Intersection((long) 3, (long) 2, (long) 2);
 
-		Livraison entrepot = new Livraison(A);
+		@SuppressWarnings("deprecation")
+		Entrepot entrepot = new Entrepot(A, new Time(8, 0, 0));
 		Livraison lB = new Livraison(B);
 		Livraison lC = new Livraison(C);
 
