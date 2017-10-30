@@ -4,8 +4,8 @@ import java.sql.Time;
 
 /**
  * La classe <tt>Livraison</tt> représente une livraison. Ses principaux
- * attributs sont le lieu où elle a lieu, sa durée (temps de déchargement du
- * camion) et la plage horaire que le livreur doit respecter.
+ * attributs sont le lieu où elle doit être effectuée, sa durée (temps de
+ * déchargement du camion) et la plage horaire que le livreur doit respecter.
  */
 public class Livraison {
 
@@ -22,7 +22,7 @@ public class Livraison {
 	 * @param lieuDeLivraison
 	 *            intersection où se déroule la livraison.
 	 * @param dureeLivraison
-	 *            temps de déchargement des produits livrés du camion du livreur.
+	 *            temps de déchargement des produits livrés.
 	 * @param plageHoraire
 	 *            plage horaire où se déroule la livraison.
 	 */

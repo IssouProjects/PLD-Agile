@@ -22,8 +22,8 @@ public class Intersection {
 	 * 
 	 * @param id
 	 *            identifiant unique de l'intersection, on ne s'assure pas qu'elle
-	 *            soit unique, c'est ceux qui font le fichier xml du plan où se
-	 *            trouve l'intersection qui s'en assurent.
+	 *            soit unique. On considère que le fichier satisfait cette
+	 *            condition.
 	 * @param x
 	 *            coordonnée x de l'intersection
 	 * @param y

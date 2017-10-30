@@ -3,7 +3,7 @@ package org.apache.project.modele;
 import java.sql.Time;
 
 /**
- * La classe <tt>PlageHoraire</tt> représente une plage horaire, elle une heure
+ * La classe <tt>PlageHoraire</tt> représente une plage horaire, avec une heure
  * de début et une heure de fin.
  */
 public class PlageHoraire {

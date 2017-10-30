@@ -47,7 +47,7 @@ public class DemandeDeLivraison extends Observable {
 	}
 
 	/**
-	 * Remet à zéro tous les attributs de la <tt>DemandeDeLivraison</tt>
+	 * Réinitialise tous les attributs de la <tt>DemandeDeLivraison</tt>
 	 */
 	public void clear() {
 		this.entrepot = null;

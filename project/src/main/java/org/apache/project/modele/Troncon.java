@@ -1,17 +1,15 @@
 package org.apache.project.modele;
 
 /**
- * Un tronçon est un morçeau de rue qui porte son nom et part d'une intersection
- * pour finir sur une autre. Il a une longueur donnée.
+ * Un tronçon est une portion de rue qui porte son nom et part d'une
+ * intersection pour finir sur une autre. Il a une longueur donnée.
  * 
- * Si une intersection A et une intersection B ne sont relié que par un seul
+ * Si une intersection A et une intersection B ne sont reliées que par un seul
  * tronçon, alors elle sont reliées par une rue à sens unique.
  * 
- * Si par contre A et B sont reliés par un tronçon allant de A vers B et un
+ * Si par contre A et B sont reliées par un tronçon allant de A vers B et un
  * tronçon allant de B vers A, alors elle sont reliées par une rue à double
  * sens.
- * 
- * Les autres cas ne sont pas sensés exister mais cela n'est pas vérifié.
  */
 public class Troncon {
 

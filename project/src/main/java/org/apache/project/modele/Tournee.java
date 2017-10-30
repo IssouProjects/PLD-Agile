@@ -8,7 +8,8 @@ import java.util.Observable;
 import org.apache.project.modele.tsp.TSP2;
 
 /**
- * La classe <tt>Tournee</tt> représente une tournée de livraisons.
+ * La classe <tt>Tournee</tt> représente une tournée constituée d'un ensemble de
+ * livraisons.
  */
 public class Tournee extends Observable {
 
@@ -54,7 +55,7 @@ public class Tournee extends Observable {
 	}
 
 	/**
-	 * Ajoute une livraison à une place donnée de la tournée.
+	 * Ajoute une livraison à une place (donnée en paramètre) de la tournée.
 	 * 
 	 * @param uneLivraison
 	 *            la livraison à ajouter
@@ -70,7 +71,7 @@ public class Tournee extends Observable {
 	}
 
 	/**
-	 * Ajoute un chemin à un endroit donné de la tournée.
+	 * Ajoute un chemin à un endroit (donné en paramètre) de la tournée.
 	 * 
 	 * @param chemin
 	 *            le chemin à ajouter
@@ -169,7 +170,7 @@ public class Tournee extends Observable {
 		long idIntersection = 0;
 		long idIntersectionSuivante = 0;
 
-		//adresseEntrepot = demande.getAdresseEntrepot();
+		// adresseEntrepot = demande.getAdresseEntrepot();
 
 		for (int i = 0; i < nombreLivraison; i++) {
 			idIntersection = conversion[tspSolut.getMeilleureSolution(i)];
@@ -180,26 +181,26 @@ public class Tournee extends Observable {
 			}
 			// Mettre les intersections ordonnees (une a une)
 			// On n ajoute pas a la liste des intersections pour l entrepot
-				for (int j = 0; j < nombreLivraison; j++) {
-					Livraison livraisonActuelle = demande.getListeLivraison().get(j);
-					if (idIntersection == livraisonActuelle.getLieuDeLivraison().getIdNoeud()) {
-						livraisonActuelle.setHeureArrivee(
-								PlageHoraire.calculerHeureArrivee(demande.getHeureDepart(), dureeTourneeSecondes));
+			for (int j = 0; j < nombreLivraison; j++) {
+				Livraison livraisonActuelle = demande.getListeLivraison().get(j);
+				if (idIntersection == livraisonActuelle.getLieuDeLivraison().getIdNoeud()) {
+					livraisonActuelle.setHeureArrivee(
+							PlageHoraire.calculerHeureArrivee(demande.getHeureDepart(), dureeTourneeSecondes));
 
-						if (livraisonActuelle.getPlageHoraire() != null) {
-							// Ajout dans le temps de livraison le temps d attente
-							long avance = livraisonActuelle.getPlageHoraire().getDebut().getTime()
-									- livraisonActuelle.getHeureArrivee().getTime();
-							if (avance > 0) {
-								dureeTourneeSecondes += (int) Math.ceil(avance / 1000);
-							}
+					if (livraisonActuelle.getPlageHoraire() != null) {
+						// Ajout dans le temps de livraison le temps d attente
+						long avance = livraisonActuelle.getPlageHoraire().getDebut().getTime()
+								- livraisonActuelle.getHeureArrivee().getTime();
+						if (avance > 0) {
+							dureeTourneeSecondes += (int) Math.ceil(avance / 1000);
 						}
-
-						livraisonsOrdonnees.add(livraisonActuelle);
-						dureeTourneeSecondes += livraisonActuelle.getDuree();
-						break;
 					}
+
+					livraisonsOrdonnees.add(livraisonActuelle);
+					dureeTourneeSecondes += livraisonActuelle.getDuree();
+					break;
 				}
+			}
 
 			// Mettre les chemins ordonnees (une a une)
 			for (int j = 0; j < nombreChemin; j++) {
@@ -242,7 +243,7 @@ public class Tournee extends Observable {
 	}
 
 	/**
-	 * La méthode supprime tous les attributs d'une tournée.
+	 * La méthode réinitialise tous les attributs d'une tournée.
 	 */
 	public void clear() {
 		this.entrepot = null;
@@ -257,7 +258,7 @@ public class Tournee extends Observable {
 	 * appeler à chaque fois qu'on crée/modifie un élement de la tournée afin de ne
 	 * pas avoir une durée totale incorrecte.
 	 */
-	public void calculeDureeTotale() {
+	public void calculerDureeTotale() {
 
 		dureeTourneeSecondes = 0;
 

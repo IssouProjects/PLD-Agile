@@ -268,7 +268,7 @@ public class TestCUAjoutLivraison {
 		assertEquals(anciensChemins.get(4), chemins.get(5));
 
 		/*************************** Nouvel ajout ************************************/
-		tournee.calculeDureeTotale();
+		tournee.calculerDureeTotale();
 
 		anciensChemins = new ArrayList<Chemin>();
 		for (Chemin c : tournee.getChemins()) {
