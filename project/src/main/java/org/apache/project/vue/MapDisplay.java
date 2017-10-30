@@ -196,8 +196,6 @@ public class MapDisplay extends Pane{
     	
     }
     
-    
-    
     public void clearDemandeDeLivraison() {
     	if(!mapLivraisons.isEmpty()) {
     		// we remove the previous livraison
@@ -205,6 +203,7 @@ public class MapDisplay extends Pane{
     		for(Map.Entry<Livraison, Circle> entry : mapLivraisons.entrySet())
     			getChildren().remove(entry.getValue());
     		mapLivraisons.clear();
+
     		getChildren().remove(entrepotInter);
     		entrepot = null;
     		getChildren().removeAll(numerosLivraisons);
@@ -247,7 +246,6 @@ public class MapDisplay extends Pane{
     	Circle circle = creerVueLivraison(livraisons.get(0), defaultEntrepotColor, livraisonIntersectionRadius);
     	getChildren().add(circle);
     	
-
     	for(int i = 1; i< livraisons.size()-1; i++) {
     		circle = creerVueLivraison(livraisons.get(i), defaultTourneeLivraisonColor, livraisonIntersectionRadius);
 	
