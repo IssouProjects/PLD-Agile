@@ -271,21 +271,20 @@ public class Tournee extends Observable {
 			dureeTourneeSecondes += chemins.get(i).getDuree();
 
 			// Mettre les intersections ordonnees (une a une)
-			// On n ajoute pas a la liste des intersections pour l entrepot
-				Livraison livraisonActuelle = livraisonsOrdonnees.get(i);
+			Livraison livraisonActuelle = livraisonsOrdonnees.get(i);
 
-				livraisonActuelle.setHeureArrivee(PlageHoraire.calculerHeureArrivee(heureDepart, dureeTourneeSecondes));
+			livraisonActuelle.setHeureArrivee(PlageHoraire.calculerHeureArrivee(heureDepart, dureeTourneeSecondes));
 
-				if (livraisonActuelle.getPlageHoraire() != null) {
-					// Ajout dans le temps de livraison le temps d attente
-					long avance = livraisonActuelle.getPlageHoraire().getDebut().getTime()
-							- livraisonActuelle.getHeureArrivee().getTime();
-					if (avance > 0) {
-						dureeTourneeSecondes += (int) Math.ceil(avance / 1000);
-					}
+			if (livraisonActuelle.getPlageHoraire() != null) {
+				// Ajout dans le temps de livraison le temps d attente
+				long avance = livraisonActuelle.getPlageHoraire().getDebut().getTime()
+						- livraisonActuelle.getHeureArrivee().getTime();
+				if (avance > 0) {
+					dureeTourneeSecondes += (int) Math.ceil(avance / 1000);
 				}
+			}
 
-				dureeTourneeSecondes += livraisonActuelle.getDuree();
+			dureeTourneeSecondes += livraisonActuelle.getDuree();
 		}
 	}
 

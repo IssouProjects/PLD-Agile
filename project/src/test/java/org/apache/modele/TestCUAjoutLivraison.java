@@ -80,19 +80,15 @@ public class TestCUAjoutLivraison {
 		assertEquals(anciensChemins.get(2), chemins.get(3));
 		assertEquals(anciensChemins.get(3), chemins.get(4));
 		assertEquals(anciensChemins.get(4), chemins.get(5));
-
 		
+		int ancienneDuree = tournee.getDureeTourneeSecondes();
 		 
-		 int ancienneDuree = tournee.getDureeTourneeSecondes();
-		 System.out.println(ancienneDuree);
+		tournee.calculerDureeTotale();
 		 
-		 tournee.calculerDureeTotale();
+		int nouvelleDuree = tournee.getDureeTourneeSecondes();
 		 
-		 int nouvelleDuree = tournee.getDureeTourneeSecondes();
-		 
-		 
-		 assertTrue(ancienneDuree < nouvelleDuree); //La duree a bien ete changee
-		 assertEquals(3873, nouvelleDuree);
+		assertTrue(ancienneDuree < nouvelleDuree); //La duree a bien ete changee
+		assertEquals(3873, nouvelleDuree);
 	}
 
 	@Test(timeout = 1000)
