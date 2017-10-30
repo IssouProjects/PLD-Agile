@@ -29,15 +29,16 @@ public class TestTournee {
 
 		// Calcul tournee
 		Tournee tournee = new Tournee();
-		tournee.setAdresseEntrepot(demande.getAdresseEntrepot());
+		tournee.setEntrepot(demande.getEntrepot());
 		tournee.setHeureDepart(demande.getHeureDepart());
 		tournee.calculerTournee(plan, demande);
 		
 		//Verification de l'ordre et des intersection a livrer
-		assertEquals(1860559399, (long)tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud());
-		assertEquals(25303807, (long)tournee.getLivraisonsOrdonnees().get(1).getLieuDeLivraison().getIdNoeud());
-		assertEquals(26155540, (long)tournee.getLivraisonsOrdonnees().get(2).getLieuDeLivraison().getIdNoeud());
-		assertEquals(29003879, (long)tournee.getLivraisonsOrdonnees().get(3).getLieuDeLivraison().getIdNoeud());
+		assertEquals(25321357, (long)tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud());
+		assertEquals(1860559399, (long)tournee.getLivraisonsOrdonnees().get(1).getLieuDeLivraison().getIdNoeud());
+		assertEquals(25303807, (long)tournee.getLivraisonsOrdonnees().get(2).getLieuDeLivraison().getIdNoeud());
+		assertEquals(26155540, (long)tournee.getLivraisonsOrdonnees().get(3).getLieuDeLivraison().getIdNoeud());
+		assertEquals(29003879, (long)tournee.getLivraisonsOrdonnees().get(4).getLieuDeLivraison().getIdNoeud());
 		
 		//Test duree tournee
 		assertEquals(3221, tournee.getDureeTourneeSecondes());
@@ -55,7 +56,7 @@ public class TestTournee {
 
 		// Calcul tournee
 		Tournee tournee = new Tournee();
-		tournee.setAdresseEntrepot(demande.getAdresseEntrepot());
+		tournee.setEntrepot(demande.getEntrepot());
 		tournee.setHeureDepart(demande.getHeureDepart());
 		tournee.calculerTournee(plan, demande);
 		/*
@@ -74,5 +75,36 @@ public class TestTournee {
 		//Duree de la tournee ok
 		assertEquals(15593, tournee.getDureeTourneeSecondes());
 		*/
+	}
+	
+	@Test
+	public void TestClear() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+		//Creation d'une tournee
+		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
+		PlanDeVille plan = new PlanDeVille();
+		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+		DemandeDeLivraison demande = new DemandeDeLivraison();
+		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+
+		// Calcul tournee
+		Tournee tournee = new Tournee();
+		tournee.setEntrepot(demande.getEntrepot());
+		tournee.setHeureDepart(demande.getHeureDepart());
+		tournee.calculerTournee(plan, demande);
+		
+		assertNotNull(tournee.getEntrepot());
+		assertNotNull(tournee.getHeureDepart());
+		assertFalse(tournee.getChemins().isEmpty());
+		assertFalse(tournee.getLivraisonsOrdonnees().isEmpty());
+		assertNotEquals(0, tournee.getDureeTourneeSecondes());
+		
+		tournee.clear();
+		
+		assertNull(tournee.getEntrepot());
+		assertNull(tournee.getHeureDepart());
+		assertTrue(tournee.getChemins().isEmpty());
+		assertTrue(tournee.getLivraisonsOrdonnees().isEmpty());
+		assertEquals(0, tournee.getDureeTourneeSecondes());
 	}
 }

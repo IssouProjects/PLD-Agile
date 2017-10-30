@@ -11,31 +11,23 @@ import java.util.Observable;
  */
 public class DemandeDeLivraison extends Observable {
 
-	private Intersection adresseEntrepot;
+	private Livraison entrepot;
 	private Time heureDepart;
 	private List<Livraison> livraisons;
 
-	public DemandeDeLivraison(Intersection entrepot, Time heureDepart) {
-		this.adresseEntrepot = entrepot;
-		this.heureDepart = heureDepart;
-		this.livraisons = new ArrayList<Livraison>();
-	}
-
-	/**
-	 * Constructeur par défaut.
-	 */
 	public DemandeDeLivraison() {
-		this.adresseEntrepot = null;
+		this.entrepot = null;
 		this.heureDepart = null;
 		this.livraisons = new ArrayList<Livraison>();
 	}
 
-	public Intersection getAdresseEntrepot() {
-		return adresseEntrepot;
+	public Livraison getEntrepot() {
+		return entrepot;
 	}
 
-	public void setAdresseEntrepot(Intersection adresseEntrepot) {
-		this.adresseEntrepot = adresseEntrepot;
+	public void setEntrepot(Livraison entrepot) {
+		this.entrepot = entrepot;
+		this.ajouterLivraison(entrepot);
 	}
 
 	public Time getHeureDepart() {
@@ -58,7 +50,7 @@ public class DemandeDeLivraison extends Observable {
 	 * Remet à zéro tous les attributs de la <tt>DemandeDeLivraison</tt>
 	 */
 	public void clear() {
-		this.adresseEntrepot = null;
+		this.entrepot = null;
 		this.heureDepart = null;
 		this.livraisons.clear();
 	}
