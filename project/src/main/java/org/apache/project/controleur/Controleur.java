@@ -71,7 +71,11 @@ public class Controleur {
 	}
 	
 	public void ajouterLivraison() {
-		etatCourant.ajouterLivraison(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale);
+		etatCourant.ajouterLivraison(this, fenetrePrincipale);
+	}
+	
+	public void supprimerLivraison() {
+		etatCourant.supprimerLivraison(this, fenetrePrincipale);
 	}
 	
 	public void annuler() {
@@ -84,10 +88,6 @@ public class Controleur {
 	
 	public void livraisonClicked(Livraison livraison) {
 		etatCourant.livraisonClicked(this,  planDeVille,  tournee,  fenetrePrincipale,  livraison);
-	}
-	
-	public void entrepotClicked() {
-		etatCourant.entrepotClicked(this, planDeVille, tournee, fenetrePrincipale);
 	}
 	
 	public void calculerChemins(Integer duree, Time heureDeb, Time heureFin) {

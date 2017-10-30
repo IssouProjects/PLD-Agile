@@ -30,7 +30,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	}
 	
 	@Override
-	public void ajouterLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale) {
+	public void ajouterLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		controleur.setEtatCourant(controleur.etatAjoutLivraison1);
 		fenetrePrincipale.afficherInfo("Veuillez cliquer sur une intersection de la carte");
 	}
