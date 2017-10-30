@@ -65,6 +65,15 @@ public class Tournee extends Observable {
 	public void ajouterLivraison(Livraison livraison, int index) {
 		livraisonsOrdonnees.add(index, livraison);
 	}
+	
+	/**
+	 * Supprimer la livraison a l'index donne
+	 * @param index
+	 * 			 l'index
+	 */
+	public void suppriemerLivraison(int index) {
+		livraisonsOrdonnees.remove(index);
+	}
 
 	public void ajouterChemin(Chemin chemin) {
 		chemins.add(chemin);
