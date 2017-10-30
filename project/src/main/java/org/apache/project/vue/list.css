@@ -2,3 +2,30 @@
     -fx-background-color: linear-gradient(#328BDB 0%, #207BCF 25%, #1973C9 75%, #0A65BF 100%);
     -fx-text-fill: white;
 }
+
+.editButton{
+	-fx-pref-height: 40px;
+    -fx-pref-width: 40px;
+    -fx-background-image: url('edit.png');
+    -fx-background-size: 32px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 60%;
+}
+
+.deleteButton{
+	-fx-pref-height: 40px;
+    -fx-pref-width: 40px;
+    -fx-background-image: url('bin.png');
+    -fx-background-size: 32px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 60%;
+}
+
+.icon{
+	-fx-pref-height: 20px;
+    -fx-pref-width: 20px;
+	-fx-background-image: url('ok.png');
+    -fx-background-size: 16px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 60%;
+}

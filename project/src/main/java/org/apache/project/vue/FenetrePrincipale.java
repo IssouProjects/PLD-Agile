@@ -4,6 +4,7 @@ import java.sql.Time;
 
 import org.apache.project.controleur.Controleur;
 import org.apache.project.modele.DemandeDeLivraison;
+import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlageHoraire;
 import org.apache.project.modele.PlanDeVille;
@@ -38,6 +39,7 @@ public class FenetrePrincipale extends Application {
 	Controleur controleur;
 	EcouteurDeBouton edb;
 	EcouteurDeMap edm;
+	EcouteurDeListe edl;
 
 	Button loadMapButton;
 	Button fitMapButton;
@@ -161,7 +163,7 @@ public class FenetrePrincipale extends Application {
 		layout.add(listLayout, 1, 1);
 
 		///////////////////////////
-		///// LAYOUT STYLE //////
+		////// LAYOUT STYLE ///////
 		///////////////////////////
 
 		ColumnConstraints MapCC = new ColumnConstraints();
@@ -171,7 +173,7 @@ public class FenetrePrincipale extends Application {
 
 		ColumnConstraints ListCC = new ColumnConstraints();
 		ListCC.setPercentWidth(33.0);
-		ListCC.setHgrow(Priority.ALWAYS);
+		//ListCC.setHgrow(Priority.ALWAYS);
 		layout.getColumnConstraints().add(ListCC);
 
 		//////////////////////////////////////////
@@ -179,7 +181,6 @@ public class FenetrePrincipale extends Application {
 		//////////////////////////////////////////
 
 		// button listener
-
 		edb = new EcouteurDeBouton(controleur);
 
 		fitMapButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -198,6 +199,10 @@ public class FenetrePrincipale extends Application {
 		// map listener
 		edm = new EcouteurDeMap(controleur, mapContainer);
 		mapContainer.setEcouteurDeMap(edm);
+		
+		// list listener
+		edl = new EcouteurDeListe(controleur, listeLivraisons);
+		listeLivraisons.setEcouteurDeListe(edl);
 
 		// we can now show the window
 		stage.setScene(scene);
@@ -265,6 +270,15 @@ public class FenetrePrincipale extends Application {
  
     public void afficherFenetreAjouterLivraison(Livraison l) {	    
     	LivraisonPopup popup = new LivraisonPopup(l, stack, edb);
-	  	
+    }
+    
+    public void highlightLivraison(Livraison l) {
+    	mapContainer.getMapDisplay().resetAndHighlight(l);
+    	listeLivraisons.getSelectionModel().select(l);
+    }
+    
+    public void highlightIntersection(Intersection I) {
+    	listeLivraisons.getSelectionModel().select(null);
+    	mapContainer.getMapDisplay().resetAndHighlight(I);
     }
 }

@@ -16,6 +16,9 @@ private Livraison nouvelleLivraison;
 	
 	@Override
 	public void livraisonClicked(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {
+		
+		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
+		
 		this.livraisonPrecedente = livraisonPrecedente;
 		controleur.setEtatCourant(controleur.etatAjoutLivraison3);
 		nouvelleLivraison = new Livraison(intersectionLivraison);

@@ -9,7 +9,7 @@ public class EcouteurDeMap {
 	Controleur controleur;
 	MapContainer mapContainer;
 	
-	Object highlightedObject = null;
+	
 	
 	public EcouteurDeMap(Controleur c, MapContainer mapContainer) {
 		controleur = c;
@@ -18,13 +18,6 @@ public class EcouteurDeMap {
 	
 	public void onIntersectionClicked(Intersection intersection) {
 		controleur.intersectionClicked(intersection);
-		
-		if(highlightedObject != null)
-			mapContainer.getMapDisplay().unHighlight(highlightedObject);
-		
-		if(mapContainer.getMapDisplay().highlight(intersection)) {
-			highlightedObject = intersection;
-		}
 	}
 	
 	public void onTronconClicked(Troncon troncon) {
@@ -32,13 +25,6 @@ public class EcouteurDeMap {
 	}
 	
 	public void onLivraisonClicked(Livraison livraison) {
-		
-		if(highlightedObject != null)
-			mapContainer.getMapDisplay().unHighlight(highlightedObject);
-		
-		if(mapContainer.getMapDisplay().highlight(livraison)) {
-			highlightedObject = livraison;
-		}
 		controleur.livraisonClicked(livraison);
 	}
 	

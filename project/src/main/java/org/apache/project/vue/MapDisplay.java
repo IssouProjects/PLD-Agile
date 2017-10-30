@@ -36,7 +36,8 @@ public class MapDisplay extends Pane{
 	
 	List<Label> numerosLivraisons;
 	
-	// Map elements display
+	// highlight management
+	Object highlightedObject = null;
 	
 	// default map display
 	final int defaultFontSize = 1000;
@@ -172,6 +173,15 @@ public class MapDisplay extends Pane{
                 getChildren().add(circle);
     		}
     	}    	
+    }
+    
+    public void resetAndHighlight(Object obj) {
+    	if(highlightedObject != null)
+			unHighlight(highlightedObject);
+		
+		if(highlight(obj)) {
+			highlightedObject = obj;
+		}
     }
     
     public boolean highlight(Object obj) {

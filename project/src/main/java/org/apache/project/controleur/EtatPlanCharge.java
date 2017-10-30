@@ -5,7 +5,9 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.project.modele.DemandeDeLivraison;
+import org.apache.project.modele.Intersection;
 import org.apache.project.modele.PlanDeVille;
+import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
 import org.apache.project.xml.Deserialisateur;
 import org.apache.project.xml.ExceptionXML;
@@ -34,5 +36,9 @@ public class EtatPlanCharge extends EtatDefaut {
 		fenetrePrincipale.clearPlanDeVille();
 		controleur.clearPlanDeVille();
 		controleur.ouvrirPlanDeVille();
+	}
+	
+	public void intersectionClicked (Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Intersection intersection) {
+		fenetrePrincipale.highlightIntersection(intersection);
 	}
 }
