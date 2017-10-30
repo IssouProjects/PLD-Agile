@@ -4,6 +4,7 @@ import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlanDeVille;
+import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
 
 public class EtatTourneeCalculee extends EtatDefaut{
@@ -42,7 +43,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	}
 	
   @Override
-	public void livraisonClicked(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {
+	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {
 		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
   }
 
