@@ -10,32 +10,19 @@ import org.apache.project.vue.FenetrePrincipale;
 public class EtatAjoutLivraison2 extends EtatDefaut {
 
 	private Intersection intersectionLivraison;
-	private Livraison livraisonPrecedente;
 	private Livraison nouvelleLivraison;
 
 	@Override
-	public void livraisonClicked(Controleur controleur, PlanDeVille planDeVille, Tournee tournee,
-			FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {
+	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale,
+			Livraison livraisonPrecedente) {
 		
 		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
 
-		this.livraisonPrecedente = livraisonPrecedente;
 		controleur.setEtatCourant(controleur.etatAjoutLivraison3);
 		nouvelleLivraison = new Livraison(intersectionLivraison);
 		fenetrePrincipale.afficherFenetreAjouterLivraison(nouvelleLivraison);
 		controleur.etatAjoutLivraison3.actionEntreeEtatAjoutLivraison3(livraisonPrecedente, nouvelleLivraison);
 	}
-
-	/*
-	 * @Override public void entrepotClicked(Controleur controleur, PlanDeVille
-	 * planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale) {
-	 * this.livraisonPrecedente = null;
-	 * controleur.setEtatCourant(controleur.etatAjoutLivraison3); nouvelleLivraison
-	 * = new Livraison(intersectionLivraison);
-	 * fenetrePrincipale.afficherFenetreAjouterLivraison(nouvelleLivraison);
-	 * controleur.etatAjoutLivraison3.actionEntreeEtatAjoutLivraison3(
-	 * livraisonPrecedente, nouvelleLivraison); }
-	 */
 
 	@Override
 	public void intersectionClicked(Controleur controleur, PlanDeVille planDeVille,
@@ -45,9 +32,9 @@ public class EtatAjoutLivraison2 extends EtatDefaut {
 		if (intersection != null) {
 			controleur.setEtatCourant(controleur.etatAjoutLivraison2);
 			controleur.etatAjoutLivraison2.actionEntreeEtatAjoutLivraison2(intersection);
-			fenetrePrincipale.afficherInfo("Veuilliez cliquer sur une livraison ou choisir une autre intersection");
+			fenetrePrincipale.afficherInfo("Veulliez cliquer sur une livraison ou choisir une autre intersection");
 		} else {
-			fenetrePrincipale.afficherPopupError("Veuilliez cliquer sur une intersection valide");
+			fenetrePrincipale.afficherPopupError("Veulliez cliquer sur une intersection valide");
 		}
 	}
 

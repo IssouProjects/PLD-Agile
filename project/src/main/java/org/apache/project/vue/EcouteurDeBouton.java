@@ -34,12 +34,15 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 			case FenetrePrincipale.ADD_LIVRAISON_ID:
 				controleur.ajouterLivraison();
 				break;
+			case FenetrePrincipale.SUPPR_LIVRAISON_ID:
+				controleur.supprimerLivraison();
+				break;
 			case FenetrePrincipale.ANNULER_ID:
 				controleur.annuler();
 				break;
 			case LivraisonPopup.VALIDATE_ID:
 				if(popup != null) {
-					controleur.calculerChemins(popup.getNewDuree(), popup.getNewHeureDeb(), popup.getNewHeureFin());	
+					controleur.calculerCheminsNouvelleLivraison(popup.getNewDuree(), popup.getNewHeureDeb(), popup.getNewHeureFin());	
 					popup.selfDestruct();
 					popup = null;
 				}

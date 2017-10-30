@@ -37,6 +37,7 @@ public class FenetrePrincipale extends Application {
 	Button calculerTourneeButton;
 	Button loadLivraisonButton;
 	Button ajouterLivraisonButton;
+	Button supprLivraisonButton;
 	Button annulerBouton;
 
 	ListDisplay listeLivraisons;
@@ -55,8 +56,10 @@ public class FenetrePrincipale extends Application {
 	public static final String CALCULATE_TOURNEE_ID = "calculateTourneeButton";
 	public static final String ADD_LIVRAISON = "Ajouter livraison";
 	public static final String ADD_LIVRAISON_ID = "addLivraisonButton";
+	public static final String SUPPR_LIVRAISON = "Supprimer livraison";
+	public static final String SUPPR_LIVRAISON_ID = "supprLivraisonButton";	
 	public static final String ANNULER = "Annuler";
-	public static final String ANNULER_ID = "AnnulerButton";
+	public static final String ANNULER_ID = "AnnulerButton";;
 
 	public static void launchApp(String[] args) {
 		Application.launch(FenetrePrincipale.class, args);
@@ -120,8 +123,11 @@ public class FenetrePrincipale extends Application {
 
 		VBox listLayout = new VBox();
 
-		HBox listeButtonsLayout = new HBox();
-		listeButtonsLayout.setSpacing(10);
+		HBox listeButtonsLayout1 = new HBox();
+		listeButtonsLayout1.setSpacing(10);
+		
+		HBox listeButtonsLayout2 = new HBox();
+		listeButtonsLayout2.setSpacing(10);
 
 		// buttons
 		loadLivraisonButton = new Button(LOAD_LIVRAISON);
@@ -133,6 +139,9 @@ public class FenetrePrincipale extends Application {
 		ajouterLivraisonButton = new Button(ADD_LIVRAISON);
 		ajouterLivraisonButton.setUserData(ADD_LIVRAISON_ID);
 		ajouterLivraisonButton.setDisable(true);
+		supprLivraisonButton = new Button(SUPPR_LIVRAISON);
+		supprLivraisonButton.setUserData(SUPPR_LIVRAISON_ID);
+		supprLivraisonButton.setDisable(true);
 		annulerBouton = new Button(ANNULER);
 		annulerBouton.setUserData(ANNULER_ID);
 		annulerBouton.setDisable(true);
@@ -143,12 +152,15 @@ public class FenetrePrincipale extends Application {
 		listeLivraisons = new ListDisplay();
 
 		listLayout.getChildren().add(listeLivraisons);
-		listeButtonsLayout.getChildren().add(loadLivraisonButton);
-		listeButtonsLayout.getChildren().add(calculerTourneeButton);
-		listeButtonsLayout.getChildren().add(ajouterLivraisonButton);
-		listeButtonsLayout.getChildren().add(annulerBouton);
+		listeButtonsLayout1.getChildren().add(loadLivraisonButton);
+		listeButtonsLayout1.getChildren().add(calculerTourneeButton);
+		listeButtonsLayout2.getChildren().add(ajouterLivraisonButton);
+		listeButtonsLayout2.getChildren().add(supprLivraisonButton);
+		listeButtonsLayout2.getChildren().add(annulerBouton);
 
-		listLayout.getChildren().add(listeButtonsLayout);
+		listLayout.getChildren().add(listeButtonsLayout1);
+		listLayout.getChildren().add(listeButtonsLayout2);
+		
 
 		layout.add(listLayout, 1, 1);
 
@@ -184,6 +196,7 @@ public class FenetrePrincipale extends Application {
 		loadLivraisonButton.setOnAction(edb);
 		calculerTourneeButton.setOnAction(edb);
 		ajouterLivraisonButton.setOnAction(edb);
+		supprLivraisonButton.setOnAction(edb);
 		annulerBouton.setOnAction(edb);
 
 		// map listener
@@ -236,6 +249,7 @@ public class FenetrePrincipale extends Application {
 				"Durée de la tournée " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(duree_min * 1000));
 		calculerTourneeButton.setDisable(true);
 		ajouterLivraisonButton.setDisable(false);
+		supprLivraisonButton.setDisable(false);
 		annulerBouton.setDisable(false);
 	}
 

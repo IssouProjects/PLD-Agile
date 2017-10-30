@@ -54,6 +54,15 @@ public class Tournee extends Observable {
 	public void ajouterLivraison(Livraison livraison, int index) {
 		livraisonsOrdonnees.add(index, livraison);
 	}
+	
+	/**
+	 * Supprimer la livraison a l'index donne
+	 * @param index
+	 * 			 l'index
+	 */
+	public void supprimerLivraison(int index) {
+		livraisonsOrdonnees.remove(index);
+	}
 
 	public void ajouterChemin(Chemin chemin) {
 		chemins.add(chemin);
@@ -203,32 +212,19 @@ public class Tournee extends Observable {
 	}
 
 	/**
-	 * Cette méthode calcule les deux chemins que doit emprunter un livreur: 1) pour
-	 * aller de l'<tt>intersectionPre</tt> à <tt>newIntersection</tt> 2) pour aller
-	 * de <tt>newIntersection</tt> à <tt>intersectionSuiv</tt>.
-	 * 
-	 * @param plan
-	 *            plan de la ville ou a lieu la <tt>Tournee</tt>
+	 * Calcul le nouveau chemin pour aller de l'intersectionPre a l'intersectionSuiv
+	 * @param plan 
+	 * 				plan de la ville/agglomeration où se déroule la tournee.
 	 * @param intersectionPre
-	 *            intersection où a lieu la 1ère livraison.
-	 * @param newIntersection
-	 *            intersection où a lieu la nouvelle livraison.
+	 * 						Intersection d'origine
 	 * @param intersectionSuiv
-	 *            intersection où a lieu la 3ème livraison.
-	 * @return une liste de deux chemins: le 1er pour aller de
-	 *         <tt>intersectionPre</tt> à <tt>newIntersection</tt>, le second pour
-	 *         aller de <tt>newIntersection</tt> à<tt>intersectionSuiv</tt>.
+	 * 						Intersection d'arrivee
+	 * @return
 	 */
-	public List<Chemin> calculerNouveauxChemins(PlanDeVille plan, Intersection intersectionPre,
-			Intersection newIntersection, Intersection intersectionSuiv) {
-		Chemin chemin1 = Dijkstra.principalDijkstra(plan, intersectionPre, newIntersection);
-		Chemin chemin2 = Dijkstra.principalDijkstra(plan, newIntersection, intersectionSuiv);
+	public Chemin calculerNouveauChemin(PlanDeVille plan, Intersection intersectionPre,
+			 Intersection intersectionSuiv) {
 
-		List<Chemin> nouveauxChemins = new ArrayList<Chemin>();
-		nouveauxChemins.add(chemin1);
-		nouveauxChemins.add(chemin2);
-
-		return nouveauxChemins;
+		return Dijkstra.principalDijkstra(plan, intersectionPre, intersectionSuiv);
 	}
 
 	/**
@@ -254,29 +250,26 @@ public class Tournee extends Observable {
 
 		for (int i = 0; i < nombreChemins; i++) {
 
-			// Mettre a jour les heures pour chaque chemin
-
-			dureeTourneeSecondes += chemins.get(i).getDuree();
-
 			// Mettre les intersections ordonnees (une a une)
-			// On n ajoute pas a la liste des intersections pour l entrepot
-			if (i + 1 < nombreChemins) {
-				Livraison livraisonActuelle = livraisonsOrdonnees.get(i);
+			Livraison livraisonActuelle = livraisonsOrdonnees.get(i);
 
 				livraisonActuelle.setHeureArrivee(
 						PlageHoraire.calculerHeureArrivee(entrepot.getHeureDepart(), dureeTourneeSecondes));
 
-				if (livraisonActuelle.getPlageHoraire() != null) {
-					// Ajout dans le temps de livraison le temps d attente
-					long avance = livraisonActuelle.getPlageHoraire().getDebut().getTime()
-							- livraisonActuelle.getHeureArrivee().getTime();
-					if (avance > 0) {
-						dureeTourneeSecondes += (int) Math.ceil(avance / 1000);
-					}
+			if (livraisonActuelle.getPlageHoraire() != null) {
+				// Ajout dans le temps de livraison le temps d attente
+				long avance = livraisonActuelle.getPlageHoraire().getDebut().getTime()
+						- livraisonActuelle.getHeureArrivee().getTime();
+				if (avance > 0) {
+					dureeTourneeSecondes += (int) Math.ceil(avance / 1000);
 				}
-
-				dureeTourneeSecondes += livraisonActuelle.getDuree();
 			}
+
+			dureeTourneeSecondes += livraisonActuelle.getDuree();
+			
+			// Mettre a jour les heures pour chaque chemin
+
+			dureeTourneeSecondes += chemins.get(i).getDuree();
 		}
 	}
 
