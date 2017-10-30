@@ -34,5 +34,11 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		controleur.setEtatCourant(controleur.etatAjoutLivraison1);
 		fenetrePrincipale.afficherInfo("Veuillez cliquer sur une intersection de la carte");
 	}
+	
+	@Override 
+	public void supprimerLivraison( Controleur controleur, FenetrePrincipale fenetrePrincipale) {
+		controleur.setEtatCourant(controleur.etatSupprLivraison1);
+		fenetrePrincipale.afficherInfo("Veuillez cliquer sur une livraison de la carte");
+	}
 
 }

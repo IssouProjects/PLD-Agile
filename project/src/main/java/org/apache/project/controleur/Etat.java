@@ -54,7 +54,16 @@ public interface Etat {
 	 * @param heureDeb
 	 * @param heureFin
 	 */
-	public void calculerChemins(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale, Integer duree, Time heureDeb, Time heureFin);
+	public void calculerCheminsNouvelleLivraison(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale, Integer duree, Time heureDeb, Time heureFin);
+	
+	/**
+	 * Methode appelee par controleur apres un clic valider de la popup supprimer livraison
+	 * @param controleur
+	 * @param planDeVille
+	 * @param tournee
+	 * @param fenetrePrincipale
+	 */
+	public void calculerCheminSupprLivraison(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale);
 	
 	/**
 	 * Methode appelee par controleur apres un clic sur le bouton "Ajouter livraison"
@@ -84,11 +93,8 @@ public interface Etat {
 	/**
 	 * Methode appelee apres un clic sur une livraison
 	 * @param controleur
-	 * @param planDeVille
-	 * @param demandeDeLivraison
-	 * @param tournee
 	 * @param fenetrePrincipale
 	 * @param intersection
 	 */
-	public void livraisonClicked(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente);
+	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, Livraison livraison);
 }

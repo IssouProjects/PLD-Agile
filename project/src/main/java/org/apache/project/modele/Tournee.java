@@ -214,32 +214,19 @@ public class Tournee extends Observable {
 	}
 
 	/**
-	 * Cette méthode calcule les deux chemins que doit emprunter un livreur: 1) pour
-	 * aller de l'<tt>intersectionPre</tt> à <tt>newIntersection</tt> 2) pour aller
-	 * de <tt>newIntersection</tt> à <tt>intersectionSuiv</tt>.
-	 * 
-	 * @param plan
-	 *            plan de la ville ou a lieu la <tt>Tournee</tt>
+	 * Calcul le nouveau chemin pour aller de l'intersectionPre a l'intersectionSuiv
+	 * @param plan 
+	 * 				plan de la ville/agglomeration où se déroule la tournee.
 	 * @param intersectionPre
-	 *            intersection où a lieu la 1ère livraison.
-	 * @param newIntersection
-	 *            intersection où a lieu la nouvelle livraison.
+	 * 						Intersection d'origine
 	 * @param intersectionSuiv
-	 *            intersection où a lieu la 3ème livraison.
-	 * @return une liste de deux chemins: le 1er pour aller de
-	 *         <tt>intersectionPre</tt> à <tt>newIntersection</tt>, le second pour
-	 *         aller de <tt>newIntersection</tt> à<tt>intersectionSuiv</tt>.
+	 * 						Intersection d'arrivee
+	 * @return
 	 */
-	public List<Chemin> calculerNouveauxChemins(PlanDeVille plan, Intersection intersectionPre,
-			Intersection newIntersection, Intersection intersectionSuiv) {
-		Chemin chemin1 = Dijkstra.principalDijkstra(plan, intersectionPre, newIntersection);
-		Chemin chemin2 = Dijkstra.principalDijkstra(plan, newIntersection, intersectionSuiv);
+	public Chemin calculerNouveauChemin(PlanDeVille plan, Intersection intersectionPre,
+			 Intersection intersectionSuiv) {
 
-		List<Chemin> nouveauxChemins = new ArrayList<Chemin>();
-		nouveauxChemins.add(chemin1);
-		nouveauxChemins.add(chemin2);
-
-		return nouveauxChemins;
+		return Dijkstra.principalDijkstra(plan, intersectionPre, intersectionSuiv);
 	}
 
 	/**

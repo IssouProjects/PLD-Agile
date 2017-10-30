@@ -39,7 +39,7 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 				break;
 			case LivraisonPopup.VALIDATE_ID:
 				if(popup != null) {
-					controleur.calculerChemins(popup.getNewDuree(), popup.getNewHeureDeb(), popup.getNewHeureFin());	
+					controleur.calculerCheminsNouvelleLivraison(popup.getNewDuree(), popup.getNewHeureDeb(), popup.getNewHeureFin());	
 					popup.selfDestruct();
 					popup = null;
 				}

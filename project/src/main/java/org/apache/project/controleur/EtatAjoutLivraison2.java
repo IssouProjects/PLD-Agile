@@ -15,22 +15,13 @@ private Livraison livraisonPrecedente;
 private Livraison nouvelleLivraison;
 	
 	@Override
-	public void livraisonClicked(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {
+	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {
 		this.livraisonPrecedente = livraisonPrecedente;
 		controleur.setEtatCourant(controleur.etatAjoutLivraison3);
 		nouvelleLivraison = new Livraison(intersectionLivraison);
 		fenetrePrincipale.afficherFenetreAjouterLivraison(nouvelleLivraison);
 		controleur.etatAjoutLivraison3.actionEntreeEtatAjoutLivraison3(livraisonPrecedente, nouvelleLivraison);
 	}
-	
-	/*@Override
-	public void entrepotClicked(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale) {
-		this.livraisonPrecedente = null;
-		controleur.setEtatCourant(controleur.etatAjoutLivraison3);
-		nouvelleLivraison = new Livraison(intersectionLivraison);
-		fenetrePrincipale.afficherFenetreAjouterLivraison(nouvelleLivraison);
-		controleur.etatAjoutLivraison3.actionEntreeEtatAjoutLivraison3(livraisonPrecedente, nouvelleLivraison);
-	}*/
 	
 	@Override 
 	public void intersectionClicked (Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Intersection intersection) {

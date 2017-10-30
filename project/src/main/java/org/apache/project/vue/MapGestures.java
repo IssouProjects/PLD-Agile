@@ -179,14 +179,8 @@ public class MapGestures {
         	edm.onLivraisonClicked((Livraison)obj);
         	return true;
         } else if (obj instanceof Intersection) {
-        	if((Intersection)obj == map.getEntrepot()){
-        		edm.onEntrepotClicked((Intersection)obj);
-        		return true;
-        	}
-        	else {
-        		edm.onIntersectionClicked((Intersection)obj);
-        		return true;
-        	}
+        	edm.onIntersectionClicked((Intersection)obj);
+        	return true;
         } else if(obj instanceof Troncon) {
         	edm.onTronconClicked((Troncon)obj);
         	return true;
