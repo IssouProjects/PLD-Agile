@@ -58,7 +58,7 @@ public class PlanDeVille extends Observable {
 	/**
 	 * La méthode renvoie l'ensemble des <tt>Intersection</tt> du plan.
 	 * 
-	 * @return la <tt>Map<Long, Intersection></tt> du plan.
+	 * @return la <tt>Map(Long, Intersection)</tt> du plan.
 	 */
 	public Map<Long, Intersection> getAllIntersections() {
 		return intersections;
