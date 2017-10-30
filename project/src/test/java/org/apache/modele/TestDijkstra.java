@@ -17,7 +17,7 @@ import org.xml.sax.SAXException;
 
 public class TestDijkstra {
 
-	@Test(timeout=1000)
+	@Test(timeout = 1000)
 	public void testAlgoDijkstra() throws Exception {
 		Intersection A = new Intersection((long) 1, (long) 3, (long) 3);
 		Intersection B = new Intersection((long) 2, (long) 1, (long) 2);
@@ -56,11 +56,11 @@ public class TestDijkstra {
 		livraison_inter.add(E);
 
 		List<Chemin> output = Dijkstra.calculDijkstra(plan_inter, livraison_inter);
-		
-		//Taille de output ok
+
+		// Taille de output ok
 		assertEquals(output.size(), 6);
-		
-		//Verification chemins
+
+		// Verification chemins
 		assertEquals(1, output.get(0).getTroncons().size());
 		assertEquals("T2", output.get(0).getTroncons().get(0).getNomRue());
 		assertEquals("T2", output.get(1).getTroncons().get(0).getNomRue());
@@ -69,11 +69,12 @@ public class TestDijkstra {
 		assertEquals("T5", output.get(3).getTroncons().get(0).getNomRue());
 		assertEquals("T8", output.get(4).getTroncons().get(0).getNomRue());
 		assertEquals("T10", output.get(5).getTroncons().get(0).getNomRue());
-		
+
 	}
-	
-	@Test(timeout=1000)
-	public void TestPrincipalDijkstraDeuxLivraisons() throws NumberFormatException, ParserConfigurationException, SAXException, IOException, ExceptionXML {
+
+	@Test(timeout = 1000)
+	public void TestPrincipalDijkstraDeuxLivraisons()
+			throws NumberFormatException, ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		// Calcul classique de la tournee
 		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5.xml");
 		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
@@ -81,21 +82,21 @@ public class TestDijkstra {
 		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
 		DemandeDeLivraison demande = new DemandeDeLivraison();
 		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
-		
+
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.setHeureDepart(demande.getHeureDepart());
 		tournee.calculerTournee(plan, demande);
-		
-		//Comparaison avec le calcul par Dijkstra entre deux livraisons
+
+		// Comparaison avec le calcul par Dijkstra entre deux livraisons
 		Livraison depart = tournee.getLivraisonsOrdonnees().get(2);
 		Livraison arrivee = tournee.getLivraisonsOrdonnees().get(3);
-		
-		List<Troncon> calculDijkstra = Dijkstra.principalDijkstra(plan, depart.getLieuDeLivraison(), arrivee.getLieuDeLivraison()).getTroncons();
-		
+
+		List<Troncon> calculDijkstra = Dijkstra
+				.principalDijkstra(plan, depart.getLieuDeLivraison(), arrivee.getLieuDeLivraison()).getTroncons();
+
 		List<Troncon> calculTournee = tournee.getChemins().get(2).getTroncons();
-		
+
 		assertEquals(calculDijkstra, calculTournee);
 	}
-	
+
 }

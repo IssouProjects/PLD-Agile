@@ -35,7 +35,6 @@ public class TestCUAjoutLivraison {
 		// Calcul tournee
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.setHeureDepart(demande.getHeureDepart());
 		tournee.calculerTournee(plan, demande);
 
 		// Copie des chemins initiaux
@@ -106,7 +105,6 @@ public class TestCUAjoutLivraison {
 		// Calcul tournee
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.setHeureDepart(demande.getHeureDepart());
 		tournee.calculerTournee(plan, demande);
 
 		// Copie des chemins initiaux
@@ -164,7 +162,6 @@ public class TestCUAjoutLivraison {
 		// Calcul tournee
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.setHeureDepart(demande.getHeureDepart());
 		tournee.calculerTournee(plan, demande);
 
 		// Copie des chemins initiaux
@@ -222,7 +219,6 @@ public class TestCUAjoutLivraison {
 		// Calcul tournee
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.setHeureDepart(demande.getHeureDepart());
 		tournee.calculerTournee(plan, demande);
 
 		// Copie des chemins initiaux
