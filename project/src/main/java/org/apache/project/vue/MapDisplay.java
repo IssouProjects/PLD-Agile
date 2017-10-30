@@ -1,6 +1,7 @@
 package org.apache.project.vue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.Scene;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
@@ -26,7 +28,7 @@ public class MapDisplay extends Pane{
 	
 	DoubleProperty myScale = new SimpleDoubleProperty(1.0);
 	
-	List<Circle> demandeDeLivraisonInter;
+	Map<Livraison, Circle> demandeDeLivraisonInter;
 	List<Circle> tourneeInter;
 	List<Line> tourneeTroncons;
 	Circle entrepotInter = null;
@@ -48,15 +50,20 @@ public class MapDisplay extends Pane{
 
 	// default livraison display
 	final int livraisonIntersectionRadius = 200;
-	final Color defaultLivraisonColor = Color.web("#ff0000");
+	final Color defaultLivraisonColor = Color.web("#425087");
 	final Color defaultEntrepotColor = Color.BLACK;
+	
+	// highlighted livraison display
+	final int livraisonIntersectionRadiusHL = 400;
+	final Color defaultLivraisonColorHL = Color.web("#FAA12D");
+	final Color defaultEntrepotColorHL = Color.BLACK;
 	
 	// default tournee display
 	final int tourneeIntersectionRadius = 50;
 	final int tourneeTronconWidth = 150;
 	final Color defaultTourneeTronconColor = Color.web("#3399ff");
 	final Color defaultTourneeIntersectionColor = Color.web("#3399ff");
-	final Color defaultTourneeLivraisonColor = Color.web("#ff0000");
+	final Color defaultTourneeLivraisonColor = Color.web("#425087");
 	
 	
 	Long minimalX = Long.MAX_VALUE;
@@ -73,7 +80,7 @@ public class MapDisplay extends Pane{
         scaleXProperty().bind(myScale);
         scaleYProperty().bind(myScale);
         
-        demandeDeLivraisonInter = new ArrayList<Circle>();
+        demandeDeLivraisonInter = new HashMap<Livraison, Circle>();
         tourneeInter = new ArrayList<Circle>();
         tourneeTroncons = new ArrayList<Line>();
         numerosLivraisons = new ArrayList<Label>();
@@ -152,18 +159,16 @@ public class MapDisplay extends Pane{
     	for(Livraison l : livraisons) {
     		if(entrepot) {
     			Circle circle = creerVueLivraison(l, defaultEntrepotColor, livraisonIntersectionRadius);
-        		demandeDeLivraisonInter.add(circle);
+        		demandeDeLivraisonInter.put(l, circle);
                 getChildren().add(circle);
                 entrepot = false;
                 System.out.println("test");
     		}else {
     			Circle circle = creerVueLivraison(l, defaultLivraisonColor, livraisonIntersectionRadius);
-        		demandeDeLivraisonInter.add(circle);
+    			demandeDeLivraisonInter.put(l, circle);
                 getChildren().add(circle);
     		}
-    		
     	}
-    	
     	/*
     	// showing the entrepot
     	entrepotInter = creerVueIntersection(demandeDeLivraison.getAdresseEntrepot(), defaultEntrepotColor, livraisonIntersectionRadius);
@@ -173,10 +178,21 @@ public class MapDisplay extends Pane{
     	
     }
     
+    public void highlightLivraison(Livraison livraison) {
+    	demandeDeLivraisonInter.get(livraison).setRadius(livraisonIntersectionRadiusHL);
+    	demandeDeLivraisonInter.get(livraison).setFill(defaultLivraisonColorHL);
+    }
+    
+    public void unHighlightLivraison(Livraison livraison) {
+    	demandeDeLivraisonInter.get(livraison).setRadius(livraisonIntersectionRadius);
+    	demandeDeLivraisonInter.get(livraison).setFill(defaultLivraisonColor);
+    }
+    
     public void clearDemandeDeLivraison() {
     	if(!demandeDeLivraisonInter.isEmpty()) {
     		// we remove the previous livraison
-    		getChildren().removeAll(demandeDeLivraisonInter);
+    		// Might create errors
+    		getChildren().removeAll(demandeDeLivraisonInter.keySet());
     		demandeDeLivraisonInter.clear();
     		getChildren().remove(entrepotInter);
     		entrepot = null;
@@ -219,10 +235,11 @@ public class MapDisplay extends Pane{
     	Circle circle = creerVueLivraison(livraisons.get(0), defaultEntrepotColor, livraisonIntersectionRadius);
     	getChildren().add(circle);
     	
+
     	for(int i = 1; i< livraisons.size()-1; i++) {
     		circle = creerVueLivraison(livraisons.get(i), defaultTourneeLivraisonColor, livraisonIntersectionRadius);
 	
-    		demandeDeLivraisonInter.add(circle);
+    		demandeDeLivraisonInter.put(livraisons.get(i), circle);
     		getChildren().add(circle);
         
     		Label label = creerNumeroLivraison(livraisons.get(i).getLieuDeLivraison(), Integer.toString(i) , defaultTourneeLivraisonColor, defaultFontSize);
@@ -247,14 +264,16 @@ public class MapDisplay extends Pane{
     		getChildren().removeAll(tourneeTroncons);
     		tourneeTroncons.clear();
     		
-    		getChildren().removeAll(demandeDeLivraisonInter);
+    		// Might create errors
+    		getChildren().removeAll(demandeDeLivraisonInter.keySet());
     		
     		getChildren().remove(entrepotInter);
     		entrepot = null;
     	}
     	
     	if(!demandeDeLivraisonInter.isEmpty()) {
-    		getChildren().removeAll(demandeDeLivraisonInter);
+    		// Might create errors
+    		getChildren().removeAll(demandeDeLivraisonInter.keySet());
     		demandeDeLivraisonInter.clear();
     	}
     	
