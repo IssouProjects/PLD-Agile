@@ -50,7 +50,7 @@ public class EtatAjoutLivraison3 extends EtatDefaut{
 			tournee.ajouterChemin(nouveauxChemins.get(1), 1);
 		}
 		
-		tournee.miseAJourHeureDuree();
+		tournee.calculeDureeTotale();
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
 		fenetrePrincipale.afficherInfo("Vous êtes libre");

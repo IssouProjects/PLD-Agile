@@ -7,6 +7,9 @@ import java.util.Observable;
 
 import org.apache.project.modele.tsp.TSP2;
 
+/**
+ * La classe <tt>Tournee</tt> représente une tournée de livraisons.
+ */
 public class Tournee extends Observable {
 
 	private Intersection adresseEntrepot;
@@ -15,6 +18,10 @@ public class Tournee extends Observable {
 	private List<Chemin> chemins;
 	private int dureeTourneeSecondes;
 
+	/**
+	 * Construit une tournée vide, c'est à dire sans aucune livraison, entrepôt et
+	 * heure de départ.
+	 */
 	public Tournee() {
 		this.adresseEntrepot = null;
 		this.heureDepart = null;
@@ -41,11 +48,18 @@ public class Tournee extends Observable {
 	public void ajouterLivraison(Livraison livraison) {
 		livraisonsOrdonnees.add(livraison);
 	}
-	
+
+	public int getDureeTourneeSecondes() {
+		return dureeTourneeSecondes;
+	}
+
 	/**
-	 * ajoute une livraison 
-	 * @param uneLivraison la livraison à ajouter
-	 * @param place l'index dans la liste ordonnée
+	 * Ajoute une livraison à une place donnée de la tournée.
+	 * 
+	 * @param uneLivraison
+	 *            la livraison à ajouter
+	 * @param place
+	 *            l'index dans la liste ordonnée
 	 */
 	public void ajouterLivraison(Livraison livraison, int index) {
 		livraisonsOrdonnees.add(index, livraison);
@@ -54,11 +68,14 @@ public class Tournee extends Observable {
 	public void ajouterChemin(Chemin chemin) {
 		chemins.add(chemin);
 	}
-	
+
 	/**
-	 * ajoute un chemin
-	 * @param chemin le chemin à ajouter
-	 * @param index l'index dans la liste ordonnée
+	 * Ajoute un chemin à un endroit donné de la tournée.
+	 * 
+	 * @param chemin
+	 *            le chemin à ajouter
+	 * @param index
+	 *            l'index dans la liste ordonnée
 	 */
 	public void ajouterChemin(Chemin chemin, int index) {
 		chemins.add(index, chemin);
@@ -67,22 +84,22 @@ public class Tournee extends Observable {
 	public List<Chemin> getChemins() {
 		return chemins;
 	}
-	
+
 	public Chemin getChemin(int index) {
 		return chemins.get(index);
 	}
-	
+
 	public void supprimerChemin(int index) {
 		chemins.remove(index);
 	}
-	
+
 	public Livraison getLivraison(int index) {
 		return livraisonsOrdonnees.get(index);
 	}
-	
+
 	public int getLivraisonIndex(Livraison livraison) {
-		for(int i = 0; i<livraisonsOrdonnees.size(); i++) {
-			if(livraisonsOrdonnees.get(i)==livraison)
+		for (int i = 0; i < livraisonsOrdonnees.size(); i++) {
+			if (livraisonsOrdonnees.get(i) == livraison)
 				return i;
 		}
 		return 0;
@@ -91,11 +108,21 @@ public class Tournee extends Observable {
 	public List<Livraison> getLivraisonsOrdonnees() {
 		return livraisonsOrdonnees;
 	}
-	
+
 	public int getLivraisonsSize() {
 		return livraisonsOrdonnees.size();
 	}
 
+	/**
+	 * La méthode calcule l'ordre et les horaires de passages des livraisons dans
+	 * une tournée à partir de la demande de livraisons, ainsi que du plan de la
+	 * ville où ont lieu lesdites livraisons.
+	 * 
+	 * @param plan
+	 *            plan de la ville/agglomération où se déroule la tournée.
+	 * @param demande
+	 *            demande de livraison à partir de laquelle on construit la tournée.
+	 */
 	public void calculerTournee(PlanDeVille plan, DemandeDeLivraison demande) {
 
 		List<Chemin> graphe = Dijkstra.principalDijkstra(plan, demande);
@@ -164,15 +191,15 @@ public class Tournee extends Observable {
 						livraisonActuelle.setHeureArrivee(
 								PlageHoraire.calculerHeureArrivee(demande.getHeureDepart(), dureeTourneeSecondes));
 
-						if(livraisonActuelle.getPlageHoraire() != null)
-						{
-							//Ajout dans le temps de livraison le temps d attente
-							long avance = livraisonActuelle.getPlageHoraire().getDebut().getTime() - livraisonActuelle.getHeureArrivee().getTime();
+						if (livraisonActuelle.getPlageHoraire() != null) {
+							// Ajout dans le temps de livraison le temps d attente
+							long avance = livraisonActuelle.getPlageHoraire().getDebut().getTime()
+									- livraisonActuelle.getHeureArrivee().getTime();
 							if (avance > 0) {
 								dureeTourneeSecondes += (int) Math.ceil(avance / 1000);
 							}
 						}
-						
+
 						livraisonsOrdonnees.add(livraisonActuelle);
 						dureeTourneeSecondes += livraisonActuelle.getDuree();
 						break;
@@ -190,65 +217,82 @@ public class Tournee extends Observable {
 			}
 		}
 	}
-	
-	public List<Chemin> calculerNouveauxChemins(PlanDeVille plan, Intersection intersectionPre, Intersection newIntersection, Intersection intersectionSuiv) {
+
+	/**
+	 * Cette méthode calcule deux chemins que doit emprunter un livreur: 1) pour
+	 * aller de l'<tt>intersectionPre</tt> à <tt>newIntersection</tt> 2) pour aller
+	 * de <tt>newIntersection</tt> à <tt>intersectionSuiv</tt>.
+	 * 
+	 * @param plan
+	 *            plan de la ville ou a lieu la <tt>Tournee</tt>
+	 * @param intersectionPre
+	 *            intersection où a lieu la 1ère livraison.
+	 * @param newIntersection
+	 *            intersection où a lieu la 2ème livraison.
+	 * @param intersectionSuiv
+	 *            intersection où a lieu la 3ème livraison.
+	 * @return une liste de deux chemins: le 1er pour aller de
+	 *         <tt>intersectionPre</tt> à <tt>newIntersection</tt>, le second pour
+	 *         aller de <tt>newIntersection</tt> à<tt>intersectionSuiv</tt>.
+	 */
+	public List<Chemin> calculerNouveauxChemins(PlanDeVille plan, Intersection intersectionPre,
+			Intersection newIntersection, Intersection intersectionSuiv) {
 		Chemin chemin1 = Dijkstra.principalDijkstra(plan, intersectionPre, newIntersection);
 		Chemin chemin2 = Dijkstra.principalDijkstra(plan, newIntersection, intersectionSuiv);
-		
-		List<Chemin> nouveauxChemins =  new ArrayList <Chemin>();
+
+		List<Chemin> nouveauxChemins = new ArrayList<Chemin>();
 		nouveauxChemins.add(chemin1);
 		nouveauxChemins.add(chemin2);
-		
+
 		return nouveauxChemins;
 	}
 
-	public int getDureeTourneeSecondes() {
-		return dureeTourneeSecondes;
-	}
-	
+	/**
+	 * La méthode supprime tous les attributs d'une tournée.
+	 */
 	public void clear() {
 		this.adresseEntrepot = null;
 		this.heureDepart = null;
 		chemins.clear();
 		livraisonsOrdonnees.clear();
 	}
-	
-	public void miseAJourHeureDuree()
-	{
-		
-		//Met a jour les temps avec les nouveaux chemins et points de livraisons
-		
+
+	/**
+	 * La méthode calcule la durée totale de la tournée en secondes. Elle est à
+	 * appeler à chaque fois qu'on crée/modifie un élement de la tournée afin de ne
+	 * pas avoir une durée totale incorrecte.
+	 */
+	public void calculeDureeTotale() {
+
 		dureeTourneeSecondes = 0;
-		
+
 		int nombreChemins = chemins.size();
-		
+
 		for (int i = 0; i < nombreChemins; i++) {
-			
-			//Mettre a jour les heures pour chaque chemin
-			
+
+			// Mettre a jour les heures pour chaque chemin
+
 			dureeTourneeSecondes += chemins.get(i).getDuree();
-			
-			
+
 			// Mettre les intersections ordonnees (une a une)
 			// On n ajoute pas a la liste des intersections pour l entrepot
 			if (i + 1 < nombreChemins) {
-					Livraison livraisonActuelle = livraisonsOrdonnees.get(i);
+				Livraison livraisonActuelle = livraisonsOrdonnees.get(i);
 
-					livraisonActuelle.setHeureArrivee(
-							PlageHoraire.calculerHeureArrivee(heureDepart, dureeTourneeSecondes));
+				livraisonActuelle.setHeureArrivee(PlageHoraire.calculerHeureArrivee(heureDepart, dureeTourneeSecondes));
 
-					if(livraisonActuelle.getPlageHoraire() != null)
-					{
-						//Ajout dans le temps de livraison le temps d attente
-						long avance = livraisonActuelle.getPlageHoraire().getDebut().getTime() - livraisonActuelle.getHeureArrivee().getTime();
-						if (avance > 0) {
-							dureeTourneeSecondes += (int) Math.ceil(avance / 1000);
-						}
+				if (livraisonActuelle.getPlageHoraire() != null) {
+					// Ajout dans le temps de livraison le temps d attente
+					long avance = livraisonActuelle.getPlageHoraire().getDebut().getTime()
+							- livraisonActuelle.getHeureArrivee().getTime();
+					if (avance > 0) {
+						dureeTourneeSecondes += (int) Math.ceil(avance / 1000);
 					}
-					
-					dureeTourneeSecondes += livraisonActuelle.getDuree();
+				}
+
+				dureeTourneeSecondes += livraisonActuelle.getDuree();
 			}
 		}
 	}
-	
+
 }
