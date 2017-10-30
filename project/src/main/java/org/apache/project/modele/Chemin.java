@@ -79,7 +79,7 @@ public class Chemin {
 	}
 
 	/**
-	 * Ajoute un <tt>Troncon<tt> à la fin de la <tt>List<Troncon></tt> constituant
+	 * Ajoute un <tt>Troncon</tt> à la fin de la <tt>List(Troncon)</tt> constituant
 	 * un chemin
 	 * 
 	 * @param unTroncon
