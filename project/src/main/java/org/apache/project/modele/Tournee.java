@@ -272,7 +272,6 @@ public class Tournee extends Observable {
 
 			// Mettre les intersections ordonnees (une a une)
 			// On n ajoute pas a la liste des intersections pour l entrepot
-			if (i + 1 < nombreChemins) {
 				Livraison livraisonActuelle = livraisonsOrdonnees.get(i);
 
 				livraisonActuelle.setHeureArrivee(PlageHoraire.calculerHeureArrivee(heureDepart, dureeTourneeSecondes));
@@ -287,7 +286,6 @@ public class Tournee extends Observable {
 				}
 
 				dureeTourneeSecondes += livraisonActuelle.getDuree();
-			}
 		}
 	}
 
