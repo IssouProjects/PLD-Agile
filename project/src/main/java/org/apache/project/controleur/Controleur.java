@@ -26,8 +26,6 @@ public class Controleur {
 	protected final EtatAjoutLivraison2 etatAjoutLivraison2 = new EtatAjoutLivraison2();
 	protected final EtatAjoutLivraison3 etatAjoutLivraison3 = new EtatAjoutLivraison3();
 	protected final EtatSupprLivraison1 etatSupprLivraison1 = new EtatSupprLivraison1();
-	protected final EtatSupprLivraison2 etatSupprLivraison2 = new EtatSupprLivraison2();
-	
 	
 	private static Controleur instance = null;
 	
@@ -78,9 +76,7 @@ public class Controleur {
 	}
 	
 	public void supprimerLivraison() {
-		etatCourant.supprimerLivraison(this, fenetrePrincipale);
-		//TODO: @Amos, faut il le faire comme ça ?
-		etatCourant.calculerCheminSupprLivraison(this, planDeVille, tournee, fenetrePrincipale);
+		etatCourant.supprimerLivraison(this,tournee, planDeVille, fenetrePrincipale);
 	}
 	
 	public void editerLivraison() {
@@ -101,10 +97,6 @@ public class Controleur {
 	
 	public void calculerCheminsNouvelleLivraison(Integer duree, Time heureDeb, Time heureFin) {
 		etatCourant.calculerCheminsNouvelleLivraison(this, planDeVille, tournee, fenetrePrincipale, duree, heureDeb, heureFin);
-	}
-	
-	public void calculerCheminSupprLivraison() {
-		etatCourant.calculerCheminSupprLivraison(this, planDeVille, tournee, fenetrePrincipale);
 	}
 	
 	public void clearPlanDeVille() {
