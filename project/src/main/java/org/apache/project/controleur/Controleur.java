@@ -28,6 +28,9 @@ public class Controleur {
 	protected final EtatAjoutLivraison3 etatAjoutLivraison3 = new EtatAjoutLivraison3();
 	protected final EtatSupprLivraison1 etatSupprLivraison1 = new EtatSupprLivraison1();
 	protected final EtatModifierLivraison1 etatModifierLivraison1 = new EtatModifierLivraison1();
+	protected final EtatSupprLivraison2 etatSupprLivraison2 = new EtatSupprLivraison2();
+	
+	private List<Commande> listeDeCommandes;
 	
 	private List<Commande> listeDeCommandes;
 	
