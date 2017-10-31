@@ -18,6 +18,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -75,9 +76,7 @@ public class FenetrePrincipale extends Application {
 
 		// layout for the full window
 		GridPane layout = new GridPane();
-		layout.setStyle("-fx-padding: 10;");
-		layout.setHgap(10);
-
+		
 		stack = new StackPane(layout);
 		Scene scene = new Scene(stack, 1024, 500);
 
@@ -86,7 +85,6 @@ public class FenetrePrincipale extends Application {
 		/////////////////////////////////////////////
 
 		// layout for the map and its controls buttons
-		VBox mapLayout = new VBox();
 
 		HBox mapButtonsLayout = new HBox();
 
@@ -107,22 +105,17 @@ public class FenetrePrincipale extends Application {
 		layout.add(mapLabel, 0, 0);
 
 		mapContainer = new MapContainer(2000, 2000);
-		mapLayout.getChildren().add(mapContainer);
-		mapLayout.getChildren().add(mapButtonsLayout);
-		mapLayout.setSpacing(10d);
-
-		layout.add(mapLayout, 0, 1);
+		
+		layout.add(mapContainer, 0, 1);
+		layout.add(mapButtonsLayout, 0, 2);
 
 		//////////////////////////////////////
 		///// CREATING THE DELIVERY LIST /////
 		//////////////////////////////////////
 
 		listLabel = new Label("Livraisons: ");
-
+		
 		layout.add(listLabel, 1, 0);
-
-		VBox listLayout = new VBox();
-
 		HBox listeButtonsLayout1 = new HBox();
 		listeButtonsLayout1.setSpacing(10);
 		
@@ -146,37 +139,47 @@ public class FenetrePrincipale extends Application {
 		annulerBouton.setUserData(ANNULER_ID);
 		annulerBouton.setDisable(true);
 
-		listLayout.setSpacing(10);
-
 		// list
 		listeLivraisons = new ListDisplay();
 
-		listLayout.getChildren().add(listeLivraisons);
+		layout.add(listeLivraisons, 1, 1);
 		listeButtonsLayout1.getChildren().add(loadLivraisonButton);
 		listeButtonsLayout1.getChildren().add(calculerTourneeButton);
-		listeButtonsLayout2.getChildren().add(ajouterLivraisonButton);
-		listeButtonsLayout2.getChildren().add(supprLivraisonButton);
-		listeButtonsLayout2.getChildren().add(annulerBouton);
-
-		listLayout.getChildren().add(listeButtonsLayout1);
-		listLayout.getChildren().add(listeButtonsLayout2);
+		listeButtonsLayout1.getChildren().add(ajouterLivraisonButton);
+		//listeButtonsLayout1.getChildren().add(supprLivraisonButton);
+		listeButtonsLayout1.getChildren().add(annulerBouton);
 		
 
-		layout.add(listLayout, 1, 1);
+		layout.add(listeButtonsLayout1, 1, 2);
 
 		///////////////////////////
 		////// LAYOUT STYLE ///////
 		///////////////////////////
+		
+		layout.setStyle("-fx-padding: 10;");
+		layout.setHgap(10);
+		layout.setVgap(10);
 
 		ColumnConstraints MapCC = new ColumnConstraints();
-		MapCC.setPercentWidth(67.0);
+		MapCC.setPercentWidth(50.0);
 		MapCC.setHgrow(Priority.ALWAYS);
 		layout.getColumnConstraints().add(MapCC);
 
 		ColumnConstraints ListCC = new ColumnConstraints();
-		ListCC.setPercentWidth(33.0);
+		ListCC.setPercentWidth(50.0);
 		//ListCC.setHgrow(Priority.ALWAYS);
 		layout.getColumnConstraints().add(ListCC);
+		
+		RowConstraints LabelRC = new RowConstraints();
+		layout.getRowConstraints().add(LabelRC);
+		
+		RowConstraints MapListRC = new RowConstraints();
+		MapListRC.setVgrow(Priority.ALWAYS);
+		layout.getRowConstraints().add(LabelRC);
+		
+		RowConstraints ButtonsRC = new RowConstraints();
+		layout.getRowConstraints().add(LabelRC);
+		
 
 		//////////////////////////////////////////
 		///// MAPPING CONTROLS AND LISTENERS /////
