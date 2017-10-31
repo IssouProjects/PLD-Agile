@@ -1,18 +1,17 @@
 package org.apache.project.controleur;
 
+import org.apache.project.modele.Chemin;
 import org.apache.project.modele.Livraison;
+import org.apache.project.modele.PlanDeVille;
+import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
 
 public class EtatSupprLivraison1 extends EtatDefaut{
-
-Livraison livraisonSelectionee;
 	
 	@Override
-	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, Livraison livraisonSelectionee) {
-		this.livraisonSelectionee = livraisonSelectionee;
-		controleur.etatSupprLivraison2.actionEntreeEtatSupprLivraison2(livraisonSelectionee);
-		controleur.setEtatCourant(controleur.etatSupprLivraison2);
-		// TODO	need a popup later to validate
-		controleur.calculerCheminSupprLivraison();
+	public void calculerCheminSupprLivraison(Controleur controleur, PlanDeVille planDeVille, Tournee tournee,
+			FenetrePrincipale fenetrePrincipale) {
+		
+	 //TODO: Si popup
 	}
 }

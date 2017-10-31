@@ -52,6 +52,9 @@ public class LivraisonCell extends ListCell<Livraison>{
 		editButton.setPrefWidth(100d);
 		deleteButton.setPrefWidth(100d);
 		
+		editButton.setUserData(FenetrePrincipale.EDIT_LIVRAISON_ID);
+		deleteButton.setUserData(FenetrePrincipale.SUPPR_LIVRAISON_ID);
+		
 		setEditMode(false);
 		
 		this.focusedProperty().addListener(new ChangeListener<Object>(){
@@ -81,6 +84,9 @@ public class LivraisonCell extends ListCell<Livraison>{
 	
 	public void addContent(Livraison livraison) {
 		setText(null);
+		EcouteurDeBouton edb = ((ListDisplay) this.getListView()).getEcouteurDeBouton();
+		deleteButton.setOnAction(edb);
+		editButton.setOnAction(edb);
 		
 		if(livraison instanceof Entrepot) {
 			titleText.setText("Entrepôt - départ à " + PlageHoraire.timeToString(((Entrepot) livraison).getHeureDepart()));
@@ -118,6 +124,8 @@ public class LivraisonCell extends ListCell<Livraison>{
 			livraison_s += "\n";
 			livraison_s += "Duree sur place: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(livraison.getDuree() * 1000);
 			subText.setText(livraison_s);
+			editButton.setDisable(false);
+			deleteButton.setDisable(false);
 		}
         
 		setGraphic(grid);        

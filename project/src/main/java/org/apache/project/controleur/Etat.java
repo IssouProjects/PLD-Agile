@@ -94,7 +94,7 @@ public interface Etat {
 	 * @param controleur
 	 * @param fenetrePrincipale
 	 */
-	public void supprimerLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale);
+	public void supprimerLivraison(Controleur controleur, Tournee tournee, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale);
 	
 	/**
 	 * Methode appelee apres un clic sur une intersection

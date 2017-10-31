@@ -8,9 +8,8 @@ import javafx.scene.control.Button;
 
 public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 	
-	Controleur controleur;
-	
-	LivraisonPopup popup = null;
+	private Controleur controleur;
+	private LivraisonPopup popup = null;
 
 	public EcouteurDeBouton(Controleur c) {
 		super();
@@ -37,6 +36,9 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 			case FenetrePrincipale.SUPPR_LIVRAISON_ID:
 				controleur.supprimerLivraison();
 				break;
+			case FenetrePrincipale.EDIT_LIVRAISON_ID:
+				controleur.editerLivraison();
+				break;
 			case FenetrePrincipale.ANNULER_ID:
 				controleur.annuler();
 				break;
@@ -59,7 +61,7 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 			default:
 				System.out.println("Unmapped Button");
 			}
-			System.out.println(sender.getText());
+			System.out.println((String)sender.getUserData());
 		}
 	}
 	

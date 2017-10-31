@@ -1,5 +1,6 @@
 package org.apache.project.controleur;
 
+import org.apache.project.modele.Chemin;
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
@@ -48,9 +49,38 @@ public class EtatTourneeCalculee extends EtatDefaut{
   }
 
 	@Override 
-	public void supprimerLivraison( Controleur controleur, FenetrePrincipale fenetrePrincipale) {
-		controleur.setEtatCourant(controleur.etatSupprLivraison1);
-		fenetrePrincipale.afficherInfo("Veuillez cliquer sur une livraison de la carte");
+	public void supprimerLivraison( Controleur controleur, Tournee tournee,  PlanDeVille planDeVille,  FenetrePrincipale fenetrePrincipale) {
+		
+		Livraison livraisonASupprimer = fenetrePrincipale.getSelectedLivraison();
+		
+		if(livraisonASupprimer == null) {
+			controleur.setEtatCourant(controleur.etatTourneeCalculee);
+			return;
+		}
+		
+		// TODO: AFFICHER UNE POPUP : ETES VOUS SUR
+		
+		int indexLivSuppr = tournee.getLivraisonIndex(livraisonASupprimer);
+		
+		if(tournee.getLivraisonsOrdonnees().size() == 3) {
+			fenetrePrincipale.afficherPopupError("Vous ne pouvez pas suprimer la seule livraison");
+			controleur.setEtatCourant(controleur.etatTourneeCalculee);
+			return;
+		}
+		
+		Livraison livraisonPre = tournee.getLivraison(indexLivSuppr - 1);
+		Livraison livraisonSuiv = tournee.getLivraison(indexLivSuppr + 1);
+		Chemin chemin = tournee.calculerNouveauChemin(planDeVille, livraisonPre.getLieuDeLivraison(), livraisonSuiv.getLieuDeLivraison());
+		
+		tournee.supprimerLivraison(indexLivSuppr);
+		tournee.supprimerChemin(indexLivSuppr-1);
+		tournee.supprimerChemin(indexLivSuppr-1);
+	
+		tournee.ajouterChemin(chemin, indexLivSuppr-1);
+		
+		tournee.calculerDureeTotale();
+		fenetrePrincipale.clearTournee();
+		fenetrePrincipale.afficherTournee(tournee);
 	}
 
 }
