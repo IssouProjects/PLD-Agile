@@ -20,7 +20,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -78,7 +77,7 @@ public class FenetrePrincipale extends Application {
 		GridPane layout = new GridPane();
 		
 		stack = new StackPane(layout);
-		Scene scene = new Scene(stack, 1024, 500);
+		Scene scene = new Scene(stack, 1024, 576);
 
 		/////////////////////////////////////////////
 		///// CREATING THE MAP AND ITS BUTTONS /////
@@ -118,9 +117,6 @@ public class FenetrePrincipale extends Application {
 		layout.add(listLabel, 1, 0);
 		HBox listeButtonsLayout1 = new HBox();
 		listeButtonsLayout1.setSpacing(10);
-		
-		HBox listeButtonsLayout2 = new HBox();
-		listeButtonsLayout2.setSpacing(10);
 
 		// buttons
 		loadLivraisonButton = new Button(LOAD_LIVRAISON);
@@ -175,9 +171,6 @@ public class FenetrePrincipale extends Application {
 		
 		RowConstraints MapListRC = new RowConstraints();
 		MapListRC.setVgrow(Priority.ALWAYS);
-		layout.getRowConstraints().add(LabelRC);
-		
-		RowConstraints ButtonsRC = new RowConstraints();
 		layout.getRowConstraints().add(LabelRC);
 		
 
