@@ -1,6 +1,7 @@
 package org.apache.project.vue;
 
 import java.sql.Time;
+import java.time.LocalTime;
 
 import org.apache.project.modele.Livraison;
 import javafx.event.ActionEvent;
@@ -10,8 +11,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -28,13 +27,15 @@ public class LivraisonPopup extends VBox {
 	private Region opaqueLayer;
 	private Pane parentPane;
 
-	private Spinner<Integer> dureeSpinner;
+	private TimeSpinner dureeSpinner;
 	
 	private Label heureDebLabel;
 	private Label heureFinLabel;
-	private Spinner<Integer> heureDebSpinner;
-	private Spinner<Integer> heureFinSpinner;
+	private TimeSpinner heureDebSpinner;
+	private TimeSpinner heureFinSpinner;
 	private CheckBox checkBox;
+	
+	private Label invalidLabel;
 
 	private GridPane mainLayout;
 
@@ -56,8 +57,6 @@ public class LivraisonPopup extends VBox {
 		title.setStyle("-fx-font-weight: bold; -fx-font-size: 24;");
 		this.getChildren().add(title);
 
-		SpinnerValueFactory<Integer> dureeFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 3600, 100);
-
 		StackPane.setMargin(this, new Insets(100, 100, 100, 100));
 		
 		mainLayout = new GridPane();
@@ -66,8 +65,7 @@ public class LivraisonPopup extends VBox {
 
 		mainLayout.setAlignment(Pos.CENTER_LEFT);
 		Label dureeLabel = new Label("Durée sur place :");
-		dureeSpinner = new Spinner<Integer>();
-		dureeSpinner.setValueFactory(dureeFactory);
+		dureeSpinner = new TimeSpinner(LocalTime.of(0,5,0));
 		mainLayout.add(dureeLabel, 0, 0);
 		mainLayout.add(dureeSpinner, 1, 0);
 
@@ -75,18 +73,18 @@ public class LivraisonPopup extends VBox {
 		checkBox.setText("Plage horaire");
 		checkBox.setSelected(false);
 		checkBox.setAlignment(Pos.CENTER_LEFT);
-		mainLayout.add(checkBox, 0, 1, 2, 1);
-
-		SpinnerValueFactory<Integer> heureFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, 12);
-		SpinnerValueFactory<Integer> heureFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, 12);
+		mainLayout.add(checkBox, 0, 1);
+		
+		invalidLabel = new Label("Plage horaire invalide");
+		invalidLabel.setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
+		invalidLabel.setVisible(false);
+		mainLayout.add(invalidLabel, 1, 1);
 
 		mainLayout.setAlignment(Pos.CENTER_LEFT);
 		heureDebLabel = new Label("Heure de début:");
-		heureDebSpinner = new Spinner<Integer>();
-		heureDebSpinner.setValueFactory(heureFactory);
+		heureDebSpinner = new TimeSpinner(LocalTime.of(12,0,0));
 		heureFinLabel = new Label("Heure de fin:");
-		heureFinSpinner = new Spinner<Integer>();
-		heureFinSpinner.setValueFactory(heureFactory2);
+		heureFinSpinner = new TimeSpinner(LocalTime.of(12,15,0));
 		
 		mainLayout.add(heureDebLabel, 0, 2);
 		mainLayout.add(heureDebSpinner, 1, 2);
@@ -141,13 +139,13 @@ public class LivraisonPopup extends VBox {
 	}
 
 	public Integer getNewDuree() {
-		return dureeSpinner.getValue();
+		return dureeSpinner.getValue().toSecondOfDay();
 	}
 
 	@SuppressWarnings("deprecation")
 	public Time getNewHeureDeb() {
 		if (checkBox.isSelected()) {
-			return new Time(heureDebSpinner.getValue(), 0, 0);
+			return new Time(heureDebSpinner.getValue().getHour(), heureDebSpinner.getValue().getMinute(), heureDebSpinner.getValue().getSecond());
 		}
 		return null;
 	}
@@ -155,9 +153,35 @@ public class LivraisonPopup extends VBox {
 	@SuppressWarnings("deprecation")
 	public Time getNewHeureFin() {
 		if (checkBox.isSelected()) {
-			return new Time(heureFinSpinner.getValue(), 0, 0);
+			return new Time(heureFinSpinner.getValue().getHour(), heureFinSpinner.getValue().getMinute(), heureFinSpinner.getValue().getSecond());
 		}
 		return null;
+	}
+	
+	public boolean checkTimeOk() {
+		if(!checkBox.isSelected())
+			return true;
+		
+		if(heureFinSpinner.getValue().isBefore(heureDebSpinner.getValue())) {
+			setInvalid(true);
+			return false;
+		}
+			
+		setInvalid(false);
+		
+		return true;
+	}
+	
+	public void setInvalid(boolean invalid) {
+		invalidLabel.setVisible(invalid);
+		
+		if(invalid) {
+			heureDebSpinner.setStyle("-fx-effect: dropshadow(three-pass-box, #FF0000, 10, 0, 0, 0);");
+			heureFinSpinner.setStyle("-fx-effect: dropshadow(three-pass-box, #FF0000, 10, 0, 0, 0);");
+		} else {
+			heureDebSpinner.setStyle("");
+			heureFinSpinner.setStyle("");
+		}
 	}
 
 	public void selfDestruct() {
