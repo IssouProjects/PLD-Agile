@@ -81,12 +81,14 @@ public class LivraisonCell extends ListCell<Livraison>{
 		if(livraison instanceof Entrepot) {
 			titleText.setText("Entrepôt");
 			subText.setText("départ à " + PlageHoraire.timeToString(((Entrepot) livraison).getHeureDepart()));
+			icon.getStyleClass().clear();
 			icon.getStyleClass().add("iconHome");
 			editButton.setDisable(true);
 			deleteButton.setDisable(true);
 		}
 		else if (livraison instanceof Livraison) {
 			titleText.setText("Livraison");
+			icon.getStyleClass().clear();
 			icon.getStyleClass().add("iconOk");
 			subText.setText(livraison.toString());
 		}

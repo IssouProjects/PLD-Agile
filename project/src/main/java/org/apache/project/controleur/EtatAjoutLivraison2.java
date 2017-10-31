@@ -29,6 +29,8 @@ public class EtatAjoutLivraison2 extends EtatDefaut {
 			DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale,
 			Intersection intersection) {
 
+		fenetrePrincipale.highlightIntersection(intersection);
+		
 		if (intersection != null) {
 			controleur.setEtatCourant(controleur.etatAjoutLivraison2);
 			controleur.etatAjoutLivraison2.actionEntreeEtatAjoutLivraison2(intersection);
