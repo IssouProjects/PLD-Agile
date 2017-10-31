@@ -27,7 +27,7 @@ public class TimeSpinner extends Spinner<LocalTime> {
     
     private SpinnerValueFactory<LocalTime> factory;
     
-    public TimeSpinner(LocalTime time) {
+    public TimeSpinner(final LocalTime time) {
         setEditable(true);
 
         factory = new SpinnerValueFactory<LocalTime>() {
