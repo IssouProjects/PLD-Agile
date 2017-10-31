@@ -3,6 +3,7 @@ package org.apache.project.controleur;
 import org.apache.project.modele.PlanDeVille;
 
 import java.sql.Time;
+import java.util.List;
 
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
@@ -28,6 +29,7 @@ public class Controleur {
 	protected final EtatSupprLivraison1 etatSupprLivraison1 = new EtatSupprLivraison1();
 	protected final EtatSupprLivraison2 etatSupprLivraison2 = new EtatSupprLivraison2();
 	
+	private List<Commande> listeDeCommandes;
 	
 	private static Controleur instance = null;
 	
