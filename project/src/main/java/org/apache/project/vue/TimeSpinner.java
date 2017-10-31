@@ -23,12 +23,14 @@ public class TimeSpinner extends Spinner<LocalTime> {
 	}
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-    private final ObjectProperty<EditMode> mode = new SimpleObjectProperty<>(EditMode.MINUTES) ;
+    private final ObjectProperty<EditMode> mode = new SimpleObjectProperty<>(EditMode.MINUTES);
+    
+    private SpinnerValueFactory<LocalTime> factory;
     
     public TimeSpinner(LocalTime time) {
         setEditable(true);
 
-        SpinnerValueFactory<LocalTime> factory = new SpinnerValueFactory<LocalTime>() {
+        factory = new SpinnerValueFactory<LocalTime>() {
 
             {
                 setValue(time);
