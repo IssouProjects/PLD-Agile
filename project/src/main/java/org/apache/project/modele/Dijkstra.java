@@ -143,13 +143,15 @@ public class Dijkstra {
 				// On inverse la liste des troncons, puisue l on est partie de la fin
 				for (int j = tailleListe - 1; j >= 0; j--) {
 					listTroncon.add(listTronconInverse.get(j));
-					distanceLivraison = distanceLivraison + listTronconInverse.get(j).getLongueur();
+					//TODO EXPLAIN THIS TO ME
+					//distanceLivraison = distanceLivraison + listTronconInverse.get(j).getLongueur();
 				}
 				for (Troncon inter : listTroncon) {
 					distanceLivraison = distanceLivraison + inter.getLongueur();
 				}
-
-				dureeLivraison = (int) (distanceLivraison * 36) / 1500;
+				
+				dureeLivraison = (int) (distanceLivraison * 3.6) / 15;
+				System.out.println(intersectionOrigine.getIdNoeud() + " " + intersectionDestination.getIdNoeud() + " " + distanceLivraison + " " + dureeLivraison);
 				resChemin.add(new Chemin(intersectionOrigine, intersectionDestination, dureeLivraison, listTroncon));
 			}
 		}
