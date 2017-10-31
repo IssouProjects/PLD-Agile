@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import org.apache.project.modele.DemandeDeLivraison;
+import org.apache.project.modele.Entrepot;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.Tournee;
 
@@ -39,7 +40,9 @@ public class ListDisplay extends ListView<Livraison> implements Observer {
 	public void afficherTexteLivraisonsOrdonnees(Tournee tournee) {
 		clearList();
 		List<Livraison> livraisons = tournee.getLivraisonsOrdonnees();
-		getItems().addAll(livraisons);
+		for(int i =0; i<livraisons.size()-1; i++) {
+			getItems().add(livraisons.get(i));
+		}
 	}
 
 	public void clearList() {
@@ -48,6 +51,10 @@ public class ListDisplay extends ListView<Livraison> implements Observer {
 	
 	public void setEcouteurDeListe(EcouteurDeListe edc) {
 		ecouteurDeListe = edc;
+	}
+	
+	public void selectLivraison(Livraison livraison) {
+    	this.getSelectionModel().select(livraison);
 	}
 	
 	private ChangeListener<Livraison> onSelected = new ChangeListener<Livraison>() {

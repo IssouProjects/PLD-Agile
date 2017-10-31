@@ -1,6 +1,8 @@
 package org.apache.project.vue;
 
+import org.apache.project.modele.Entrepot;
 import org.apache.project.modele.Livraison;
+import org.apache.project.modele.PlageHoraire;
 
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -40,8 +42,6 @@ public class LivraisonCell extends ListCell<Livraison>{
         grid.add(editButton, 2, 0);
         grid.add(deleteButton, 2, 1);
         
-        icon.getStyleClass().add("icon");
-        
         editButton.getStyleClass().add("editButton");
         deleteButton.getStyleClass().add("deleteButton");
         	
@@ -72,14 +72,27 @@ public class LivraisonCell extends ListCell<Livraison>{
 		this.setText(null);
 		titleText.setText(null);
 		subText.setText(null);
+		setGraphic(null);
 	}
 	
 	public void addContent(Livraison livraison) {
 		setText(null);
-        titleText.setText("Livraison");
-        subText.setText(livraison.toString());
-        setGraphic(grid);
-	}
+		
+		if(livraison instanceof Entrepot) {
+			titleText.setText("Entrepôt");
+			subText.setText("départ à " + PlageHoraire.timeToString(((Entrepot) livraison).getHeureDepart()));
+			icon.getStyleClass().add("iconHome");
+			editButton.setDisable(true);
+			deleteButton.setDisable(true);
+		}
+		else if (livraison instanceof Livraison) {
+			titleText.setText("Livraison");
+			icon.getStyleClass().add("iconOk");
+			subText.setText(livraison.toString());
+		}
+        
+		setGraphic(grid);        
+}
 	
 	public void setEditMode(boolean editMode) {
 		subText.setVisible(editMode);

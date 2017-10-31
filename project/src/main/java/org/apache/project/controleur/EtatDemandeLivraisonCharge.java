@@ -42,7 +42,7 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		fenetrePrincipale.highlightIntersection(intersection);
 	}
 	
-	public void livraisonClicked(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {
+	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {
 		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
 	}
 }
