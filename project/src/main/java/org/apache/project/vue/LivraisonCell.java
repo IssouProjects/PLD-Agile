@@ -25,6 +25,7 @@ public class LivraisonCell extends ListCell<Livraison>{
 	public LivraisonCell() {
 		grid.setHgap(10d);
 		grid.setVgap(5d);
+		
 		ColumnConstraints column = new ColumnConstraints();
 	    column.setPrefWidth(20d);
 	    grid.getColumnConstraints().add(column);
@@ -36,12 +37,15 @@ public class LivraisonCell extends ListCell<Livraison>{
 	    column = new ColumnConstraints();
 	    column.setPrefWidth(40d);
 	    grid.getColumnConstraints().add(column);
+	    
 		grid.add(icon, 0, 0);                    
         grid.add(titleText, 1, 0);        
         grid.add(subText, 1, 1);
         grid.add(editButton, 2, 0);
         grid.add(deleteButton, 2, 1);
         
+        titleText.getStyleClass().add("titleText");
+        subText.getStyleClass().add("subText");
         editButton.getStyleClass().add("editButton");
         deleteButton.getStyleClass().add("deleteButton");
         	
