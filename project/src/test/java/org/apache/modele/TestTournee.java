@@ -45,7 +45,7 @@ public class TestTournee {
 		// Test duree tournee
 		assertEquals(3221, tournee.getDureeTourneeSecondes());
 		
-		// Verification que l'ajout de l'entrepot en derniere position n'impact pas la duree
+		// Verification que l'ajout de l'entrepot en derniere position n'impacte pas la duree
 		tournee.ajouterLivraison(demande.getEntrepot());
 		assertEquals(25321357, (long) tournee.getLivraisonsOrdonnees().get(5).getLieuDeLivraison().getIdNoeud());
 		
