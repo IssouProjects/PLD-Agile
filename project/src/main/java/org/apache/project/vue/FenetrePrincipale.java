@@ -59,7 +59,8 @@ public class FenetrePrincipale extends Application {
 	public static final String SUPPR_LIVRAISON = "Supprimer livraison";
 	public static final String SUPPR_LIVRAISON_ID = "supprLivraisonButton";	
 	public static final String ANNULER = "Annuler";
-	public static final String ANNULER_ID = "AnnulerButton";;
+	public static final String ANNULER_ID = "AnnulerButton";
+	public static final String EDIT_LIVRAISON_ID = "EditerLivraisonButton";;
 
 	public static void launchApp(String[] args) {
 		Application.launch(FenetrePrincipale.class, args);
@@ -206,6 +207,7 @@ public class FenetrePrincipale extends Application {
 		// list listener
 		edl = new EcouteurDeListe(controleur, listeLivraisons);
 		listeLivraisons.setEcouteurDeListe(edl);
+		listeLivraisons.setEcouteurDeBouton(edb);
 
 		// we can now show the window
 		stage.setScene(scene);
@@ -283,5 +285,9 @@ public class FenetrePrincipale extends Application {
     public void highlightIntersection(Intersection I) {
     	listeLivraisons.selectLivraison(null);
     	mapContainer.getMapDisplay().resetAndHighlight(I);
+    }
+    
+    public Livraison getSelectedLivraison() {
+    	return listeLivraisons.getSelectedLivraison();
     }
 }

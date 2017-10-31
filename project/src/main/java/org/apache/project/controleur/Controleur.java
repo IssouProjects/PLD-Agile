@@ -79,6 +79,12 @@ public class Controleur {
 	
 	public void supprimerLivraison() {
 		etatCourant.supprimerLivraison(this, fenetrePrincipale);
+		//TODO: @Amos, faut il le faire comme ça ?
+		etatCourant.calculerCheminSupprLivraison(this, planDeVille, tournee, fenetrePrincipale);
+	}
+	
+	public void editerLivraison() {
+		//TODO: @Amos, je t'ai ajouté une méthode FenetrePrincipale.getLivraisonSelectionnee
 	}
 	
 	public void annuler() {

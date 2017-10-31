@@ -18,6 +18,7 @@ import javafx.util.Callback;
 public class ListDisplay extends ListView<Livraison> implements Observer {
 	
 	private EcouteurDeListe ecouteurDeListe;
+	private EcouteurDeBouton ecouteurDeBouton;
 
 	public ListDisplay() {
 		this.setCellFactory(new Callback<ListView<Livraison>, ListCell<Livraison>>(){
@@ -53,8 +54,16 @@ public class ListDisplay extends ListView<Livraison> implements Observer {
 		ecouteurDeListe = edc;
 	}
 	
+	public void setEcouteurDeBouton(EcouteurDeBouton edb) {
+		ecouteurDeBouton = edb;
+	}
+	
 	public void selectLivraison(Livraison livraison) {
     	this.getSelectionModel().select(livraison);
+	}
+	
+	public Livraison getSelectedLivraison() {
+    	return this.getSelectionModel().getSelectedItem();
 	}
 	
 	private ChangeListener<Livraison> onSelected = new ChangeListener<Livraison>() {
@@ -63,6 +72,10 @@ public class ListDisplay extends ListView<Livraison> implements Observer {
 			ecouteurDeListe.onLivraisonClicked(newValue);
 		}
 	};
+	
+	public EcouteurDeBouton getEcouteurDeBouton() {
+		return ecouteurDeBouton;
+	}
 
 	@Override
 	public void update(Observable o, Object arg) {

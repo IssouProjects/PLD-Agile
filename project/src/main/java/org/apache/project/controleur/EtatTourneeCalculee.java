@@ -50,7 +50,6 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	@Override 
 	public void supprimerLivraison( Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		controleur.setEtatCourant(controleur.etatSupprLivraison1);
-		fenetrePrincipale.afficherInfo("Veuillez cliquer sur une livraison de la carte");
 	}
 
 }
