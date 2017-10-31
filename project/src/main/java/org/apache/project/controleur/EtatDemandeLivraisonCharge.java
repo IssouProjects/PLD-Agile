@@ -18,10 +18,6 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		fenetrePrincipale.afficherTournee(tournee);
 		fenetrePrincipale.afficherInfo("Vous êtes libre de toute action");
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
-		
-		for(Chemin c : tournee.getChemins()) {
-			System.out.println(c.getDuree());
-		}
 	}
 
 	@Override
