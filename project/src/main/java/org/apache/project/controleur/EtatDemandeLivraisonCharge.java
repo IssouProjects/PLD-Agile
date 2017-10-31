@@ -24,7 +24,6 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 			DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale) {
 		controleur.setEtatCourant(controleur.etatPlanCharge);
 		fenetrePrincipale.clearLivraison();
-		;
 		controleur.clearDemandeDeLivraison();
 		controleur.ouvrirDemandeDeLivraison();
 	}

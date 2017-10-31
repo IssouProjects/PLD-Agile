@@ -31,6 +31,7 @@ public class TestTournee {
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
 		tournee.calculerTournee(plan, demande);
+		
 
 		// Verification de l'ordre et des intersection a livrer
 		assertEquals(25321357, (long) tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud());
@@ -38,8 +39,17 @@ public class TestTournee {
 		assertEquals(25303807, (long) tournee.getLivraisonsOrdonnees().get(2).getLieuDeLivraison().getIdNoeud());
 		assertEquals(26155540, (long) tournee.getLivraisonsOrdonnees().get(3).getLieuDeLivraison().getIdNoeud());
 		assertEquals(29003879, (long) tournee.getLivraisonsOrdonnees().get(4).getLieuDeLivraison().getIdNoeud());
+		
+
 
 		// Test duree tournee
+		assertEquals(3221, tournee.getDureeTourneeSecondes());
+		
+		// Verification que l'ajout de l'entrepot en derniere position n'impact pas la duree
+		tournee.ajouterLivraison(demande.getEntrepot());
+		assertEquals(25321357, (long) tournee.getLivraisonsOrdonnees().get(5).getLieuDeLivraison().getIdNoeud());
+		
+		tournee.calculerDureeTotale();
 		assertEquals(3221, tournee.getDureeTourneeSecondes());
 	}
 
