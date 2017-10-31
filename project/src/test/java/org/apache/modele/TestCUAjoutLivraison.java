@@ -88,8 +88,8 @@ public class TestCUAjoutLivraison {
 		int nouvelleDuree = tournee.getDureeTourneeSecondes();
 		 
 		assertTrue(ancienneDuree < nouvelleDuree); //La duree a bien ete changee
-		//FAUX
-		//assertEquals(3873, nouvelleDuree);
+		// WARNING: Test de non regression -> cette valeur n'est pas 100% sûr
+		assertEquals(4980, nouvelleDuree);
 	}
 
 	@Test(timeout = 1000)

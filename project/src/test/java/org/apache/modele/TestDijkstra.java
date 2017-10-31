@@ -60,16 +60,26 @@ public class TestDijkstra {
 		// Taille de output ok
 		assertEquals(output.size(), 6);
 
-		// Verification chemins
+		// Verification des chemins, duree = (distance * 3.6)/15 
 		assertEquals(1, output.get(0).getTroncons().size());
 		assertEquals("T2", output.get(0).getTroncons().get(0).getNomRue());
+		assertEquals(7200, output.get(0).getDuree(), 0); // (30 000*3.6)/15
+		
 		assertEquals("T2", output.get(1).getTroncons().get(0).getNomRue());
 		assertEquals("T5", output.get(1).getTroncons().get(1).getNomRue());
+		assertEquals(16800, output.get(1).getDuree(), 0); // [(30 000 + 40 000)*3.6]/15
+		
 		assertEquals("T9", output.get(2).getTroncons().get(0).getNomRue());
+		assertEquals(16800, output.get(2).getDuree(), 0);
+		
 		assertEquals("T5", output.get(3).getTroncons().get(0).getNomRue());
+		assertEquals(9600, output.get(3).getDuree(), 0);
+		
 		assertEquals("T8", output.get(4).getTroncons().get(0).getNomRue());
+		assertEquals(16800, output.get(4).getDuree(), 0);
+		
 		assertEquals("T10", output.get(5).getTroncons().get(0).getNomRue());
-
+		assertEquals(24000, output.get(5).getDuree(), 0);
 	}
 
 	@Test(timeout = 1000)
