@@ -4,9 +4,12 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.project.modele.Chemin;
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
@@ -18,7 +21,37 @@ import org.xml.sax.SAXException;
 public class TestTournee {
 
 	@Test(timeout = 1000)
-	public void testCalculerTournee() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+	public void testCalculerTourneePerso() throws ParserConfigurationException, SAXException, IOException, ExceptionXML{
+		// Creation des objets plan et demande
+		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit4.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planPetit.xml");
+		PlanDeVille plan = new PlanDeVille();
+		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+		DemandeDeLivraison demande = new DemandeDeLivraison();
+		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+		
+		// Calcul tournee
+		Tournee tournee = new Tournee();
+		
+		tournee.setEntrepot(demande.getEntrepot());
+		assertEquals(0, (long)tournee.getEntrepot().getLieuDeLivraison().getIdNoeud());
+			
+		tournee.calculerTournee(plan, demande);
+		List<Chemin> chemins = new ArrayList<Chemin>();
+		chemins = tournee.getChemins();
+		
+		// Tests 100% sur si distance en m et duree en s
+		assertEquals(480, chemins.get(0).getDuree());
+		assertEquals(480, chemins.get(1).getDuree());
+		assertEquals(3600, chemins.get(2).getDuree());
+		assertEquals(2760, chemins.get(3).getDuree());
+		
+		assertEquals(7320, tournee.getDureeTourneeSecondes());
+	}
+	
+	
+	@Test(timeout = 1000)
+	public void testCalculerTourneeDonnee() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		// Creation des objets plan et demande
 		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5.xml");
 		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
