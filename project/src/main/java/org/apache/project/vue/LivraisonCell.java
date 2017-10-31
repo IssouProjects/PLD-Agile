@@ -79,7 +79,7 @@ public class LivraisonCell extends ListCell<Livraison>{
 		setText(null);
 		
 		if(livraison instanceof Entrepot) {
-			titleText.setText("Entrepôt");
+			titleText.setText("Entrepôt - départ à " + PlageHoraire.timeToString(((Entrepot) livraison).getHeureDepart()));
 			subText.setText("départ à " + PlageHoraire.timeToString(((Entrepot) livraison).getHeureDepart()));
 			icon.getStyleClass().clear();
 			icon.getStyleClass().add("iconHome");
@@ -87,10 +87,33 @@ public class LivraisonCell extends ListCell<Livraison>{
 			deleteButton.setDisable(true);
 		}
 		else if (livraison instanceof Livraison) {
-			titleText.setText("Livraison");
+			
+			if(livraison.getHeureArrivee() != null) {
+				titleText.setText("Livraison - passage à " + PlageHoraire.timeToString(livraison.getHeureArrivee()));
+			}
+			else {
+				titleText.setText("Livraison");
+			}
 			icon.getStyleClass().clear();
 			icon.getStyleClass().add("iconOk");
-			subText.setText(livraison.toString());
+			
+			String livraison_s = "";
+			PlageHoraire plageHoraire = livraison.getPlageHoraire();
+			if (plageHoraire != null) {
+				livraison_s += "Plage horaire: " + PlageHoraire.timeToString(plageHoraire.getDebut()) + " - "
+						+ PlageHoraire.timeToString(plageHoraire.getFin());
+				if (livraison.getHeureArrivee() != null) {
+					long avance = plageHoraire.getDebut().getTime() - livraison.getHeureArrivee().getTime();
+					if (avance > 0) {
+						livraison_s += "\n" + "Avance: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(avance);
+					}
+				}
+			} else {
+				livraison_s += "Horaire libre";
+			}
+			livraison_s += "\n";
+			livraison_s += "Duree sur place: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(livraison.getDuree() * 1000);
+			subText.setText(livraison_s);
 		}
         
 		setGraphic(grid);        
