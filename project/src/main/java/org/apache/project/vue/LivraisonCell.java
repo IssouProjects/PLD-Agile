@@ -1,6 +1,8 @@
 package org.apache.project.vue;
 
+import org.apache.project.modele.Entrepot;
 import org.apache.project.modele.Livraison;
+import org.apache.project.modele.PlageHoraire;
 
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -40,8 +42,6 @@ public class LivraisonCell extends ListCell<Livraison>{
         grid.add(editButton, 2, 0);
         grid.add(deleteButton, 2, 1);
         
-        icon.getStyleClass().add("icon");
-        
         editButton.getStyleClass().add("editButton");
         deleteButton.getStyleClass().add("deleteButton");
         	
@@ -72,14 +72,52 @@ public class LivraisonCell extends ListCell<Livraison>{
 		this.setText(null);
 		titleText.setText(null);
 		subText.setText(null);
+		setGraphic(null);
 	}
 	
 	public void addContent(Livraison livraison) {
 		setText(null);
-        titleText.setText("Livraison");
-        subText.setText(livraison.toString());
-        setGraphic(grid);
-	}
+		
+		if(livraison instanceof Entrepot) {
+			titleText.setText("Entrepôt - départ à " + PlageHoraire.timeToString(((Entrepot) livraison).getHeureDepart()));
+			subText.setText("départ à " + PlageHoraire.timeToString(((Entrepot) livraison).getHeureDepart()));
+			icon.getStyleClass().clear();
+			icon.getStyleClass().add("iconHome");
+			editButton.setDisable(true);
+			deleteButton.setDisable(true);
+		}
+		else if (livraison instanceof Livraison) {
+			
+			if(livraison.getHeureArrivee() != null) {
+				titleText.setText("Livraison - passage à " + PlageHoraire.timeToString(livraison.getHeureArrivee()));
+			}
+			else {
+				titleText.setText("Livraison");
+			}
+			icon.getStyleClass().clear();
+			icon.getStyleClass().add("iconOk");
+			
+			String livraison_s = "";
+			PlageHoraire plageHoraire = livraison.getPlageHoraire();
+			if (plageHoraire != null) {
+				livraison_s += "Plage horaire: " + PlageHoraire.timeToString(plageHoraire.getDebut()) + " - "
+						+ PlageHoraire.timeToString(plageHoraire.getFin());
+				if (livraison.getHeureArrivee() != null) {
+					long avance = plageHoraire.getDebut().getTime() - livraison.getHeureArrivee().getTime();
+					if (avance > 0) {
+						livraison_s += "\n" + "Avance: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(avance);
+					}
+				}
+			} else {
+				livraison_s += "Horaire libre";
+			}
+			livraison_s += "\n";
+			livraison_s += "Duree sur place: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(livraison.getDuree() * 1000);
+			subText.setText(livraison_s);
+		}
+        
+		setGraphic(grid);        
+}
 	
 	public void setEditMode(boolean editMode) {
 		subText.setVisible(editMode);

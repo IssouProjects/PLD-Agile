@@ -277,11 +277,11 @@ public class FenetrePrincipale extends Application {
     
     public void highlightLivraison(Livraison l) {
     	mapContainer.getMapDisplay().resetAndHighlight(l);
-    	listeLivraisons.getSelectionModel().select(l);
+    	listeLivraisons.selectLivraison(l);
     }
     
     public void highlightIntersection(Intersection I) {
-    	listeLivraisons.getSelectionModel().select(null);
+    	listeLivraisons.selectLivraison(null);
     	mapContainer.getMapDisplay().resetAndHighlight(I);
     }
 }
