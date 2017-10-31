@@ -1,5 +1,6 @@
 package org.apache.project.controleur;
 
+import org.apache.project.modele.Chemin;
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
