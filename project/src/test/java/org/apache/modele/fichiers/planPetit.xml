@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<reseau>
+<noeud id="0" x="1000" y="11000"/>
+<noeud id="1" x="2000" y="11000"/>
+<noeud id="2" x="5000" y="11000"/>
+<noeud id="3" x="8000" y="7000"/>
+<noeud id="4" x="8000" y="5000"/>
+<noeud id="5" x="8000" y="3000"/>
+<noeud id="6" x="7000" y="1000"/>
+<noeud id="7" x="3000" y="4000"/>
+<noeud id="8" x="2000" y="6000"/>
+<noeud id="9" x="1000" y="8000"/>
+<troncon destination="1" longueur="1000" nomRue="Rue du Docteur Bonhomme" origine="0"/>
+<troncon destination="2" longueur="1000" nomRue="Rue Maryse Bastié" origine="1"/>
+<troncon destination="3" longueur="2000" nomRue="Avenue des Frères Lumière" origine="2"/>
+<troncon destination="4" longueur="5000" nomRue="Rue Maryse Bastié" origine="3"/>
+<troncon destination="5" longueur="5000" nomRue="Cours Albert Thomas" origine="4"/>
+<troncon destination="6" longueur="5000" nomRue="Rue Charles Richard" origine="5"/>
+<troncon destination="7" longueur="4000" nomRue="Place du Château" origine="6"/>
+<troncon destination="8" longueur="5000" nomRue="" origine="7"/>
+<troncon destination="9" longueur="1000" nomRue="Cours Albert Thomas" origine="8"/>
+<troncon destination="0" longueur="1500" nomRue="" origine="9"/>
+</reseau>
+
