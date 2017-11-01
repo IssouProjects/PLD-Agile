@@ -104,8 +104,6 @@ public class LivraisonCell extends ListCell<Livraison>{
 			else {
 				titleText.setText("Livraison");
 			}
-			icon.getStyleClass().clear();
-			icon.getStyleClass().add("iconOk");
 			
 			String livraison_s = "";
 			PlageHoraire plageHoraire = livraison.getPlageHoraire();
@@ -126,6 +124,32 @@ public class LivraisonCell extends ListCell<Livraison>{
 			subText.setText(livraison_s);
 			editButton.setDisable(false);
 			deleteButton.setDisable(false);
+			
+			// test si l'heure d'arrivée n'est pas en conflit avec la plage horaire
+			if(livraison.getHeureArrivee() != null && livraison.getPlageHoraire() != null) {
+				int heureArriveeAsSeconds = livraison.getHeureArrivee().getHours()*3600
+						+livraison.getHeureArrivee().getMinutes()*60
+						+livraison.getHeureArrivee().getSeconds();
+				
+				int plageHoraireDebutAsSeconds = livraison.getPlageHoraire().getDebut().getHours()*3600
+						+livraison.getPlageHoraire().getDebut().getMinutes()*60
+						+livraison.getPlageHoraire().getDebut().getSeconds();
+				
+				int plageHoraireFinAsSeconds = livraison.getPlageHoraire().getFin().getHours()*3600
+						+livraison.getPlageHoraire().getFin().getMinutes()*60
+						+livraison.getPlageHoraire().getFin().getSeconds();
+				
+				if(heureArriveeAsSeconds < plageHoraireDebutAsSeconds || heureArriveeAsSeconds > plageHoraireFinAsSeconds) {
+					icon.getStyleClass().clear();
+					icon.getStyleClass().add("iconWarning");
+				}else {
+					icon.getStyleClass().clear();
+					icon.getStyleClass().add("iconOk");
+				}
+			} else {
+				icon.getStyleClass().clear();
+				icon.getStyleClass().add("iconOk");
+			}
 		}
         
 		setGraphic(grid);        

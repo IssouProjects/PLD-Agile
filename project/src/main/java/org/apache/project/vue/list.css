@@ -73,6 +73,15 @@
     -fx-background-position: 60%;
 }
 
+.iconWarning{
+	-fx-pref-height: 20px;
+    -fx-pref-width: 20px;
+	-fx-background-image: url('warning.png');
+    -fx-background-size: 16px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 60%;
+}
+
 .iconHome{
 	-fx-pref-height: 20px;
     -fx-pref-width: 20px;
