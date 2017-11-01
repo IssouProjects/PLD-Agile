@@ -108,8 +108,10 @@ public interface Etat {
 	 * @param controleur
 	 * @param fenetrePrincipale
 	 * @param tournee
+	 * @param heureDeb
+	 * @param heureFin
 	 */
-	public void validerModificationLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee);
+	public void validerModificationLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee, Time heureDeb, Time heureFin);
 	
 	/**
 	 * Methode appelee apres un clic sur une intersection

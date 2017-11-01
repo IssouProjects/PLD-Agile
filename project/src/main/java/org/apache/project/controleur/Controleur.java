@@ -84,8 +84,8 @@ public class Controleur {
 		etatCourant.modifierLivraison(this, fenetrePrincipale);
 	}
 	
-	public void validerModificationLivraison(Livraison livraison) {
-		
+	public void validerModificationLivraison(Time heureDeb, Time heureFin) {
+		etatCourant.validerModificationLivraison(this, fenetrePrincipale, tournee, heureDeb, heureFin);
 	}
 	
 	public void annuler() {

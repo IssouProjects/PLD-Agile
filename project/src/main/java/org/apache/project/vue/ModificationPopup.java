@@ -70,9 +70,15 @@ public class ModificationPopup extends VBox {
 
 		mainLayout.setAlignment(Pos.CENTER_LEFT);
 		heureDebLabel = new Label("Heure de début:");
-		heureDebSpinner = new TimeSpinner(livraison.getPlageHoraire().getDebut().toLocalTime());
 		heureFinLabel = new Label("Heure de fin:");
-		heureFinSpinner = new TimeSpinner(livraison.getPlageHoraire().getFin().toLocalTime());
+	
+		if(livraison.getPlageHoraire() == null) {
+			heureDebSpinner = new TimeSpinner(LocalTime.of(12,0,0));
+			heureFinSpinner = new TimeSpinner(LocalTime.of(12,15,0));
+		}else {
+			heureDebSpinner = new TimeSpinner(livraison.getPlageHoraire().getDebut().toLocalTime());
+			heureFinSpinner = new TimeSpinner(livraison.getPlageHoraire().getFin().toLocalTime());
+		}
 		
 		mainLayout.add(heureDebLabel, 0, 2);
 		mainLayout.add(heureDebSpinner, 1, 2);
