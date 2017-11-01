@@ -47,7 +47,7 @@ public class LivraisonPopup extends VBox {
 
 	public LivraisonPopup(Livraison livraison, Pane parent, EcouteurDeBouton edb) {
 		parentPane = parent;
-		edb.setPopup(this);
+		edb.setLivraisonPopup(this);
 		this.setMaxSize(400, 300);
 		this.setSpacing(40);
 		this.setPadding(new Insets(20,40,20,40));
