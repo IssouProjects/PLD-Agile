@@ -61,6 +61,12 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 					}
 				}
 				break;
+			case ModificationPopup.VALIDATE_ID:
+				if(modificationPopup != null) {
+					if(modificationPopup.checkTimeOk()) {
+						
+					}
+				}
 		
 			
 			default:

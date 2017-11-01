@@ -26,6 +26,7 @@ public class Controleur {
 	protected final EtatAjoutLivraison2 etatAjoutLivraison2 = new EtatAjoutLivraison2();
 	protected final EtatAjoutLivraison3 etatAjoutLivraison3 = new EtatAjoutLivraison3();
 	protected final EtatSupprLivraison1 etatSupprLivraison1 = new EtatSupprLivraison1();
+	protected final EtatModifierLivraison1 etatModifierLivraison1 = new EtatModifierLivraison1();
 	
 	private static Controleur instance = null;
 	
@@ -76,11 +77,15 @@ public class Controleur {
 	}
 	
 	public void supprimerLivraison() {
-		etatCourant.supprimerLivraison(this,tournee, planDeVille, fenetrePrincipale);
+		etatCourant.supprimerLivraison(this, tournee, planDeVille, fenetrePrincipale);
 	}
 	
 	public void editerLivraison() {
-		//TODO: @Amos, je t'ai ajouté une méthode FenetrePrincipale.getLivraisonSelectionnee
+		etatCourant.modifierLivraison(this, fenetrePrincipale);
+	}
+	
+	public void validerModificationLivraison(Livraison livraison) {
+		
 	}
 	
 	public void annuler() {

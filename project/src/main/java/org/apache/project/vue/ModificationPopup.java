@@ -51,7 +51,7 @@ public class ModificationPopup extends VBox {
 		this.setPadding(new Insets(20,40,20,40));
 		setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
 		
-		Label title = new Label("Nouvelle livraison");
+		Label title = new Label("Modifier livraison");
 		title.setStyle("-fx-font-weight: bold; -fx-font-size: 24;");
 		this.getChildren().add(title);
 
@@ -70,16 +70,14 @@ public class ModificationPopup extends VBox {
 
 		mainLayout.setAlignment(Pos.CENTER_LEFT);
 		heureDebLabel = new Label("Heure de début:");
-		heureDebSpinner = new TimeSpinner(LocalTime.of(12,0,0));
+		heureDebSpinner = new TimeSpinner(livraison.getPlageHoraire().getDebut().toLocalTime());
 		heureFinLabel = new Label("Heure de fin:");
-		heureFinSpinner = new TimeSpinner(LocalTime.of(12,15,0));
+		heureFinSpinner = new TimeSpinner(livraison.getPlageHoraire().getFin().toLocalTime());
 		
 		mainLayout.add(heureDebLabel, 0, 2);
 		mainLayout.add(heureDebSpinner, 1, 2);
 		mainLayout.add(heureFinLabel, 0, 3);
 		mainLayout.add(heureFinSpinner, 1, 3);
-		
-		disablePlageHoraire(true);
 
 		HBox buttonLayout = new HBox();
 		boutonAnnuler = new Button(CANCEL);
@@ -111,15 +109,6 @@ public class ModificationPopup extends VBox {
 		boutonValider.setOnAction(edb);
 		boutonAnnuler.setOnAction(edb);
 	}
-	
-	public void disablePlageHoraire(boolean disable) {
-		heureDebLabel.setDisable(disable);
-		heureDebSpinner.setDisable(disable);
-		heureFinLabel.setDisable(disable);
-		heureFinSpinner.setDisable(disable);
-	}
-
-
 	
 	public boolean checkTimeOk() {
 		if(heureFinSpinner.getValue().isBefore(heureDebSpinner.getValue())) {
