@@ -22,21 +22,9 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 		if (heureDeb != null && heureFin != null) {
 			nouvelleLivraison.setPlageHoraire(new PlageHoraire(heureDeb, heureFin));
 		}
-
-		int indexPre = tournee.getLivraisonIndex(livraisonPrecedente);
-		Livraison livraisonSuiv = tournee.getLivraison(indexPre + 1);
-
-		Chemin chemin1 = tournee.calculerNouveauChemin(planDeVille, livraisonPrecedente.getLieuDeLivraison(),
-				nouvelleLivraison.getLieuDeLivraison());
-		Chemin chemin2 = tournee.calculerNouveauChemin(planDeVille, nouvelleLivraison.getLieuDeLivraison(),
-				livraisonSuiv.getLieuDeLivraison());
-
-		tournee.ajouterLivraison(nouvelleLivraison, indexPre + 1);
-		tournee.supprimerChemin(indexPre);
-		tournee.ajouterChemin(chemin1, indexPre);
-		tournee.ajouterChemin(chemin2, indexPre + 1);
-
-		tournee.calculerDureeTotale();
+		
+		tournee.ajouterNouvelleLivraison(planDeVille, nouvelleLivraison, livraisonPrecedente);
+		
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
 		fenetrePrincipale.afficherInfo("Vous êtes libre");
