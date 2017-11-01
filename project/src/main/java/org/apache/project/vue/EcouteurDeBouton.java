@@ -9,7 +9,8 @@ import javafx.scene.control.Button;
 public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 	
 	private Controleur controleur;
-	private LivraisonPopup popup = null;
+	private LivraisonPopup livraisonPopup = null;
+	private ModificationPopup modificationPopup = null; 
 
 	public EcouteurDeBouton(Controleur c) {
 		super();
@@ -43,25 +44,41 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 				controleur.annuler();
 				break;
 			case LivraisonPopup.VALIDATE_ID:
-				if(popup != null) {
-					if(popup.checkTimeOk()) {
-						controleur.calculerCheminsNouvelleLivraison(popup.getNewDuree(), popup.getNewHeureDeb(), popup.getNewHeureFin());	
-						popup.selfDestruct();
-						popup = null;
+				if(livraisonPopup != null) {
+					if(livraisonPopup.checkTimeOk()) {
+						controleur.calculerCheminsNouvelleLivraison(livraisonPopup.getNewDuree(), livraisonPopup.getNewHeureDeb(), livraisonPopup.getNewHeureFin());	
+						livraisonPopup.selfDestruct();
+						livraisonPopup = null;
 					}
 				}
 				break;
 			case LivraisonPopup.CANCEL_ID:
-				if(popup != null) {
-					if(popup.checkTimeOk()) {
+				if(livraisonPopup != null) {
+					if(livraisonPopup.checkTimeOk()) {
 						controleur.annuler();	
-						popup.selfDestruct();
-						popup = null;
+						livraisonPopup.selfDestruct();
+						livraisonPopup = null;
 					}
 				}
 				break;
-		
-			
+			case ModificationPopup.VALIDATE_ID:
+				if(modificationPopup != null) {
+					if(modificationPopup.checkTimeOk()) {
+						controleur.validerModificationLivraison(modificationPopup.getNewHeureDeb(), modificationPopup.getNewHeureFin());
+						modificationPopup.selfDestruct();
+						modificationPopup = null;
+					}
+				}
+				break;
+			case ModificationPopup.CANCEL_ID:
+				if(modificationPopup != null) {
+					if(modificationPopup.checkTimeOk()) {
+						controleur.annuler();
+						modificationPopup.selfDestruct();
+						modificationPopup = null;
+					}
+				}
+				break;
 			default:
 				System.out.println("Unmapped Button");
 			}
@@ -69,8 +86,12 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 		}
 	}
 	
-	void setPopup(LivraisonPopup popup) {
-		this.popup = popup;
+	void setLivraisonPopup(LivraisonPopup popup) {
+		this.livraisonPopup = popup;
+	}
+	
+	void setModificationPopup(ModificationPopup popup) {
+		this.modificationPopup = popup;
 	}
 
 }

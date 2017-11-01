@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.time.LocalTime;
 
 import org.apache.project.modele.Livraison;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -19,41 +20,38 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class LivraisonPopup extends VBox {
-
+public class ModificationPopup extends VBox {
+	
 	private Button boutonAnnuler;
 	private Button boutonValider;
 
 	private Region opaqueLayer;
 	private Pane parentPane;
 
-	private TimeSpinner dureeSpinner;
-	
 	private Label heureDebLabel;
 	private Label heureFinLabel;
 	private TimeSpinner heureDebSpinner;
 	private TimeSpinner heureFinSpinner;
-	private CheckBox checkBox;
 	
 	private Label invalidLabel;
 
 	private GridPane mainLayout;
 
 	public static final String VALIDATE = "Valider";
-	public static final String VALIDATE_ID = "validerAjoutLivraisonButton";
+	public static final String VALIDATE_ID = "validerModificationLivraisonButton";
 
 	public static final String CANCEL = "Annuler";
-	public static final String CANCEL_ID = "annulerAjoutLivraisonButton";
-
-	public LivraisonPopup(Livraison livraison, Pane parent, EcouteurDeBouton edb) {
+	public static final String CANCEL_ID = "annulerModificationLivraisonButton";
+	
+	public ModificationPopup(Livraison livraison, Pane parent, EcouteurDeBouton edb) {
 		parentPane = parent;
-		edb.setLivraisonPopup(this);
+		edb.setModificationPopup(this);
 		this.setMaxSize(400, 300);
 		this.setSpacing(40);
 		this.setPadding(new Insets(20,40,20,40));
 		setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
 		
-		Label title = new Label("Nouvelle livraison");
+		Label title = new Label("Modifier livraison");
 		title.setStyle("-fx-font-weight: bold; -fx-font-size: 24;");
 		this.getChildren().add(title);
 
@@ -64,16 +62,6 @@ public class LivraisonPopup extends VBox {
 		mainLayout.setVgap(10);
 
 		mainLayout.setAlignment(Pos.CENTER_LEFT);
-		Label dureeLabel = new Label("Durée sur place :");
-		dureeSpinner = new TimeSpinner(LocalTime.of(0,5,0));
-		mainLayout.add(dureeLabel, 0, 0);
-		mainLayout.add(dureeSpinner, 1, 0);
-
-		checkBox = new CheckBox();
-		checkBox.setText("Plage horaire");
-		checkBox.setSelected(false);
-		checkBox.setAlignment(Pos.CENTER_LEFT);
-		mainLayout.add(checkBox, 0, 1);
 		
 		invalidLabel = new Label("Plage horaire invalide");
 		invalidLabel.setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
@@ -82,16 +70,20 @@ public class LivraisonPopup extends VBox {
 
 		mainLayout.setAlignment(Pos.CENTER_LEFT);
 		heureDebLabel = new Label("Heure de début:");
-		heureDebSpinner = new TimeSpinner(LocalTime.of(12,0,0));
 		heureFinLabel = new Label("Heure de fin:");
-		heureFinSpinner = new TimeSpinner(LocalTime.of(12,15,0));
+	
+		if(livraison.getPlageHoraire() == null) {
+			heureDebSpinner = new TimeSpinner(LocalTime.of(12,0,0));
+			heureFinSpinner = new TimeSpinner(LocalTime.of(12,15,0));
+		}else {
+			heureDebSpinner = new TimeSpinner(livraison.getPlageHoraire().getDebut().toLocalTime());
+			heureFinSpinner = new TimeSpinner(livraison.getPlageHoraire().getFin().toLocalTime());
+		}
 		
 		mainLayout.add(heureDebLabel, 0, 2);
 		mainLayout.add(heureDebSpinner, 1, 2);
 		mainLayout.add(heureFinLabel, 0, 3);
 		mainLayout.add(heureFinSpinner, 1, 3);
-		
-		disablePlageHoraire(true);
 
 		HBox buttonLayout = new HBox();
 		boutonAnnuler = new Button(CANCEL);
@@ -122,46 +114,19 @@ public class LivraisonPopup extends VBox {
 
 		boutonValider.setOnAction(edb);
 		boutonAnnuler.setOnAction(edb);
-
-		checkBox.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				disablePlageHoraire(!checkBox.isSelected());
-			}
-		});
 	}
 	
-	public void disablePlageHoraire(boolean disable) {
-		heureDebLabel.setDisable(disable);
-		heureDebSpinner.setDisable(disable);
-		heureFinLabel.setDisable(disable);
-		heureFinSpinner.setDisable(disable);
-	}
-
-	public Integer getNewDuree() {
-		return dureeSpinner.getValue().toSecondOfDay();
-	}
-
 	@SuppressWarnings("deprecation")
 	public Time getNewHeureDeb() {
-		if (checkBox.isSelected()) {
-			return new Time(heureDebSpinner.getValue().getHour(), heureDebSpinner.getValue().getMinute(), heureDebSpinner.getValue().getSecond());
-		}
-		return null;
+		return new Time(heureDebSpinner.getValue().getHour(), heureDebSpinner.getValue().getMinute(), heureDebSpinner.getValue().getSecond());
 	}
 
 	@SuppressWarnings("deprecation")
 	public Time getNewHeureFin() {
-		if (checkBox.isSelected()) {
-			return new Time(heureFinSpinner.getValue().getHour(), heureFinSpinner.getValue().getMinute(), heureFinSpinner.getValue().getSecond());
-		}
-		return null;
+		return new Time(heureFinSpinner.getValue().getHour(), heureFinSpinner.getValue().getMinute(), heureFinSpinner.getValue().getSecond());
 	}
 	
 	public boolean checkTimeOk() {
-		if(!checkBox.isSelected())
-			return true;
-		
 		if(heureFinSpinner.getValue().isBefore(heureDebSpinner.getValue())) {
 			setInvalid(true);
 			return false;
