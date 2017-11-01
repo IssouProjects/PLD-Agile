@@ -31,8 +31,6 @@ public class Controleur {
 	
 	private List<Commande> listeDeCommandes;
 	
-	private List<Commande> listeDeCommandes;
-	
 	private static Controleur instance = null;
 	
 	/**
