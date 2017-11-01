@@ -35,7 +35,7 @@ public class Tournee extends Observable {
 		this.entrepot = entrepot;
 	}
 
-	public void ajouterLivraison(Livraison livraison) {
+	public void ajouterListeLivraison(Livraison livraison) {
 		livraisonsOrdonnees.add(livraison);
 	}
 
@@ -51,16 +51,16 @@ public class Tournee extends Observable {
 	 * @param index
 	 *            l'index dans la liste ordonnée
 	 */
-	public void ajouterLivraison(Livraison livraison, int index) {
+	public void ajouterListeLivraison(Livraison livraison, int index) {
 		livraisonsOrdonnees.add(index, livraison);
 	}
 	
 	/**
-	 * Supprimer la livraison a l'index donne
+	 * Retire la livraison a l'index donne
 	 * @param index
 	 * 			 l'index
 	 */
-	public void supprimerLivraison(int index) {
+	public void retireListeLivraison(int index) {
 		livraisonsOrdonnees.remove(index);
 	}
 
@@ -272,5 +272,39 @@ public class Tournee extends Observable {
 			dureeTourneeSecondes += chemins.get(i).getDuree();
 		}
 	}
+	
+	public void ajouterNouvelleLivraison(PlanDeVille planDeVille, Livraison nouvelleLivraison, Livraison livraisonPrecedente) {
+		
+		int indexPre = this.getLivraisonIndex(livraisonPrecedente);
+		Livraison livraisonSuiv = this.getLivraison(indexPre + 1);
+		
+		Chemin chemin1 = this.calculerNouveauChemin(planDeVille, livraisonPrecedente.getLieuDeLivraison(),
+				nouvelleLivraison.getLieuDeLivraison());
+		Chemin chemin2 = this.calculerNouveauChemin(planDeVille, nouvelleLivraison.getLieuDeLivraison(),
+				livraisonSuiv.getLieuDeLivraison());
+		
+		this.ajouterListeLivraison(nouvelleLivraison, indexPre + 1);
+		this.supprimerChemin(indexPre);
+		this.ajouterChemin(chemin1, indexPre);
+		this.ajouterChemin(chemin2, indexPre + 1);
+		
+		this.calculerDureeTotale();
+	}
+	
+	public void supprimerLivraison(PlanDeVille planDeVille, int indexLivSuppr) {
+		Livraison livraisonPre = this.getLivraison(indexLivSuppr - 1);
+		Livraison livraisonSuiv = this.getLivraison(indexLivSuppr + 1);
+		Chemin chemin = this.calculerNouveauChemin(planDeVille, livraisonPre.getLieuDeLivraison(), livraisonSuiv.getLieuDeLivraison());
+		
+		this.retireListeLivraison(indexLivSuppr);
+		this.supprimerChemin(indexLivSuppr-1);
+		this.supprimerChemin(indexLivSuppr-1);
+	
+		this.ajouterChemin(chemin, indexLivSuppr-1);
+		
+		this.calculerDureeTotale();
+	}
+	
+	
 
 }
