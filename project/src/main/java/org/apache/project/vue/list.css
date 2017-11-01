@@ -41,6 +41,11 @@
 	-fx-font-weight: bold;
 }
 
+.userMsg{
+	-fx-text-fill: orange;
+	-fx-font-weight: normal;
+}
+
 .list-cell:filled:selected:focused, .list-cell:filled:selected .subText{
 	-fx-text-fill: grey;
 	-fx-font-weight: normal;

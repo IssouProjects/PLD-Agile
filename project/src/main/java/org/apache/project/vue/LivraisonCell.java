@@ -19,6 +19,7 @@ public class LivraisonCell extends ListCell<Livraison>{
 	private Label icon = new Label();
 	private Label titleText = new Label();
 	private Label subText = new Label();
+	private Label userMsg = new Label();
 	private Button editButton = new Button();
 	private Button deleteButton = new Button();
 	
@@ -41,13 +42,16 @@ public class LivraisonCell extends ListCell<Livraison>{
 		grid.add(icon, 0, 0);                    
         grid.add(titleText, 1, 0);        
         grid.add(subText, 1, 1);
-        grid.add(editButton, 2, 0);
-        grid.add(deleteButton, 2, 1);
+        grid.add(userMsg, 1, 2);
+        grid.add(editButton, 3, 0);
+        grid.add(deleteButton, 3, 1);
         
         titleText.getStyleClass().add("titleText");
         subText.getStyleClass().add("subText");
+        userMsg.getStyleClass().add("userMsg");
         editButton.getStyleClass().add("editButton");
         deleteButton.getStyleClass().add("deleteButton");
+        
         	
 		editButton.setPrefWidth(100d);
 		deleteButton.setPrefWidth(100d);
@@ -113,7 +117,7 @@ public class LivraisonCell extends ListCell<Livraison>{
 				if (livraison.getHeureArrivee() != null) {
 					long avance = plageHoraire.getDebut().getTime() - livraison.getHeureArrivee().getTime();
 					if (avance > 0) {
-						livraison_s += "\n" + "Avance: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(avance);
+						userMsg.setText("Horaire invalide : " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(avance) + " d'avance");
 					}
 				}
 			} else {
@@ -159,9 +163,11 @@ public class LivraisonCell extends ListCell<Livraison>{
 		subText.setVisible(editMode);
 		editButton.setVisible(editMode);
 		deleteButton.setVisible(editMode);
+		userMsg.setVisible(editMode);
 		
 		subText.setManaged(editMode);
 		editButton.setManaged(editMode);
 		deleteButton.setManaged(editMode);
+		userMsg.setManaged(editMode);
 	}
 }
