@@ -86,8 +86,9 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	@Override
 	public void modifierLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		Livraison livraisonSelectionnee = fenetrePrincipale.getSelectedLivraison();
-		fenetrePrincipale.afficherFenetreModifierLivraison(livraisonSelectionnee);
-		controleur.setEtatCourant(controleur.etatAjoutLivraison1);
+		fenetrePrincipale.afficherFenetreModifierLivraison(livraisonSelectionnee);	
+		controleur.etatModifierLivraison1.actionEntreeEtatModifierLivraison1(livraisonSelectionnee);
+		controleur.setEtatCourant(controleur.etatModifierLivraison1);
 	}
 
 }

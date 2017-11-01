@@ -64,11 +64,21 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 			case ModificationPopup.VALIDATE_ID:
 				if(modificationPopup != null) {
 					if(modificationPopup.checkTimeOk()) {
-						
+						controleur.validerModificationLivraison(modificationPopup.getNewHeureDeb(), modificationPopup.getNewHeureFin());
+						modificationPopup.selfDestruct();
+						modificationPopup = null;
 					}
 				}
-		
-			
+				break;
+			case ModificationPopup.CANCEL_ID:
+				if(modificationPopup != null) {
+					if(modificationPopup.checkTimeOk()) {
+						controleur.annuler();
+						modificationPopup.selfDestruct();
+						modificationPopup = null;
+					}
+				}
+				break;
 			default:
 				System.out.println("Unmapped Button");
 			}

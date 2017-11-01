@@ -116,6 +116,16 @@ public class ModificationPopup extends VBox {
 		boutonAnnuler.setOnAction(edb);
 	}
 	
+	@SuppressWarnings("deprecation")
+	public Time getNewHeureDeb() {
+		return new Time(heureDebSpinner.getValue().getHour(), heureDebSpinner.getValue().getMinute(), heureDebSpinner.getValue().getSecond());
+	}
+
+	@SuppressWarnings("deprecation")
+	public Time getNewHeureFin() {
+		return new Time(heureFinSpinner.getValue().getHour(), heureFinSpinner.getValue().getMinute(), heureFinSpinner.getValue().getSecond());
+	}
+	
 	public boolean checkTimeOk() {
 		if(heureFinSpinner.getValue().isBefore(heureDebSpinner.getValue())) {
 			setInvalid(true);
