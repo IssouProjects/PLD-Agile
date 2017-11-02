@@ -29,7 +29,7 @@ public class Controleur {
 	protected final EtatSupprLivraison1 etatSupprLivraison1 = new EtatSupprLivraison1();
 	protected final EtatModifierLivraison1 etatModifierLivraison1 = new EtatModifierLivraison1();
 	
-	private List<Commande> listeDeCommandes;
+	private ListeDeCommandes commandes;
 	
 	private static Controleur instance = null;
 	
@@ -42,6 +42,7 @@ public class Controleur {
 		demandeDeLivraison = new DemandeDeLivraison();
 		tournee = new Tournee();
 		etatCourant = etatInit;		
+		commandes = new ListeDeCommandes();
 	}
 	
 	public static Controleur getInstance(){
@@ -100,7 +101,7 @@ public class Controleur {
 	}
 	
 	public void livraisonClicked(Livraison livraison) {
-		etatCourant.livraisonClicked(this, fenetrePrincipale,  livraison);
+		etatCourant.livraisonClicked(this, fenetrePrincipale, planDeVille, tournee, livraison, commandes);
 	}
 	
 	public void calculerCheminsNouvelleLivraison(Integer duree, Time heureDeb, Time heureFin) {

@@ -44,7 +44,8 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	}
 	
   @Override
-	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {
+	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, Tournee tournee,
+			Livraison livraisonPrecedente, ListeDeCommandes commandes) {
 		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
   }
 

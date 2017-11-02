@@ -132,6 +132,7 @@ public interface Etat {
 	 * @param fenetrePrincipale
 	 * @param livraisonPrecedente
 	 */
-	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, Livraison livraison);
+	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, 
+			Tournee tournee, Livraison livraison, ListeDeCommandes commandes);
 
 }

@@ -31,9 +31,10 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
 	}
 
-	protected void actionEntreeEtatAjoutLivraison3(Livraison livraisonPrecedente, Livraison nouvelleLivraison) {
+	protected void actionEntreeEtatAjoutLivraison3(PlanDeVille plan, Tournee tournee, Livraison livraisonPrecedente, Livraison nouvelleLivraison, ListeDeCommandes commandes) {
 		this.nouvelleLivraison = nouvelleLivraison;
 		this.livraisonPrecedente = livraisonPrecedente;
+		commandes.ajouteCommande(new CdeAjouterLivraison(plan, tournee, nouvelleLivraison, livraisonPrecedente));		
 	}
 
 	@Override

@@ -14,14 +14,14 @@ public class EtatAjoutLivraison2 extends EtatDefaut {
 
 	@Override
 	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale,
-			Livraison livraisonPrecedente) {
+			PlanDeVille plan, Tournee tournee, Livraison livraisonPrecedente, ListeDeCommandes commandes) {
 		
 		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
 
 		controleur.setEtatCourant(controleur.etatAjoutLivraison3);
 		nouvelleLivraison = new Livraison(intersectionLivraison);
 		fenetrePrincipale.afficherFenetreAjouterLivraison(nouvelleLivraison);
-		controleur.etatAjoutLivraison3.actionEntreeEtatAjoutLivraison3(livraisonPrecedente, nouvelleLivraison);
+		controleur.etatAjoutLivraison3.actionEntreeEtatAjoutLivraison3(plan, tournee, livraisonPrecedente, nouvelleLivraison, commandes);
 	}
 
 	@Override
