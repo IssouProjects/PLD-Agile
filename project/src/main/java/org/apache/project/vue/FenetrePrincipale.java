@@ -18,6 +18,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -26,26 +27,29 @@ import javafx.scene.control.Alert.AlertType;
 
 public class FenetrePrincipale extends Application {
 
-	MapContainer mapContainer;
-	Controleur controleur;
-	EcouteurDeBouton edb;
-	EcouteurDeMap edm;
-	EcouteurDeListe edl;
+	private MapContainer mapContainer;
+	private Controleur controleur;
+	private EcouteurDeBouton edb;
+	private EcouteurDeMap edm;
+	private EcouteurDeListe edl;
 
-	Button loadMapButton;
-	Button fitMapButton;
-	Button calculerTourneeButton;
-	Button loadLivraisonButton;
-	Button ajouterLivraisonButton;
-	Button supprLivraisonButton;
-	Button annulerBouton;
+	private Button loadMapButton;
+	private Button fitMapButton;
+	private Button calculerTourneeButton;
+	private Button loadLivraisonButton;
+	private Button ajouterLivraisonButton;
+	private Button supprLivraisonButton;
+	private Button annulerBouton;
 
-	ListDisplay listeLivraisons;
+	private ListDisplay listeLivraisons;
+	
+	private LivraisonPopup popup = null;
+	private Region opaqueLayer;
 
-	StackPane stack;
+	private StackPane stack;
 
-	Label listLabel;
-	Label mapLabel;
+	private Label listLabel;
+	private Label mapLabel;
 
 	// String appearing in the user interface
 	public static final String LOAD_MAP = "Charger plan";
@@ -180,7 +184,7 @@ public class FenetrePrincipale extends Application {
 		//////////////////////////////////////////
 
 		// button listener
-		edb = new EcouteurDeBouton(controleur);
+		edb = new EcouteurDeBouton(controleur, this);
 
 		fitMapButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -270,7 +274,27 @@ public class FenetrePrincipale extends Application {
 	}
 	
 	public void afficherFenetreAjouterLivraison(Livraison l) {
-		new LivraisonPopup(l, stack, edb);
+		if(popup != null)
+			return;
+		popup = new LivraisonPopup(l, edb);
+		opaqueLayer = new Region();
+		opaqueLayer.setStyle("-fx-background-color: #00000088;");
+		opaqueLayer.setVisible(true);
+
+		stack.getChildren().add(opaqueLayer);
+		stack.getChildren().add(popup);
+	}
+	
+	public LivraisonPopup getFenetreAjouterLivraison(){
+		return popup;
+	}
+	
+	public void masquerFenetreAjouterLivraison() {
+		stack.getChildren().remove(popup);
+		stack.getChildren().remove(opaqueLayer);
+		
+		popup = null;
+		opaqueLayer = null;
 	}
     
     public void highlightLivraison(Livraison l) {

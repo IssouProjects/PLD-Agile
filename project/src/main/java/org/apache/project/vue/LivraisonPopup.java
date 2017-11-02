@@ -24,9 +24,6 @@ public class LivraisonPopup extends VBox {
 	private Button boutonAnnuler;
 	private Button boutonValider;
 
-	private Region opaqueLayer;
-	private Pane parentPane;
-
 	private TimeSpinner dureeSpinner;
 	
 	private Label heureDebLabel;
@@ -45,9 +42,7 @@ public class LivraisonPopup extends VBox {
 	public static final String CANCEL = "Annuler";
 	public static final String CANCEL_ID = "annulerAjoutLivraisonButton";
 
-	public LivraisonPopup(Livraison livraison, Pane parent, EcouteurDeBouton edb) {
-		parentPane = parent;
-		edb.setPopup(this);
+	public LivraisonPopup(Livraison livraison, EcouteurDeBouton edb) {
 		this.setMaxSize(400, 300);
 		this.setSpacing(40);
 		this.setPadding(new Insets(20,40,20,40));
@@ -56,8 +51,6 @@ public class LivraisonPopup extends VBox {
 		Label title = new Label("Nouvelle livraison");
 		title.setStyle("-fx-font-weight: bold; -fx-font-size: 24;");
 		this.getChildren().add(title);
-
-		StackPane.setMargin(this, new Insets(100, 100, 100, 100));
 		
 		mainLayout = new GridPane();
 		mainLayout.setHgap(10);
@@ -105,14 +98,6 @@ public class LivraisonPopup extends VBox {
 
 		getChildren().add(mainLayout);
 		getChildren().add(buttonLayout);
-		
-
-		opaqueLayer = new Region();
-		opaqueLayer.setStyle("-fx-background-color: #00000088;");
-		opaqueLayer.setVisible(true);
-
-		parent.getChildren().add(opaqueLayer);
-		parent.getChildren().add(this);
 
 		setAlignment(Pos.CENTER);
 		
@@ -168,7 +153,6 @@ public class LivraisonPopup extends VBox {
 		}
 			
 		setInvalid(false);
-		
 		return true;
 	}
 	
@@ -183,10 +167,4 @@ public class LivraisonPopup extends VBox {
 			heureFinSpinner.setStyle("");
 		}
 	}
-
-	public void selfDestruct() {
-		parentPane.getChildren().remove(this);
-		parentPane.getChildren().remove(opaqueLayer);
-	}
-
 }

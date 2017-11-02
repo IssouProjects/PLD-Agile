@@ -9,10 +9,11 @@ import javafx.scene.control.Button;
 public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 	
 	private Controleur controleur;
-	private LivraisonPopup popup = null;
+	private FenetrePrincipale fenetrePrincipale;
 
-	public EcouteurDeBouton(Controleur c) {
+	public EcouteurDeBouton(Controleur c, FenetrePrincipale fp) {
 		super();
+		fenetrePrincipale = fp;
 		controleur = c;
 	}
 	
@@ -43,34 +44,27 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 				controleur.annuler();
 				break;
 			case LivraisonPopup.VALIDATE_ID:
+				LivraisonPopup popup = fenetrePrincipale.getFenetreAjouterLivraison();
 				if(popup != null) {
 					if(popup.checkTimeOk()) {
 						controleur.calculerCheminsNouvelleLivraison(popup.getNewDuree(), popup.getNewHeureDeb(), popup.getNewHeureFin());	
-						popup.selfDestruct();
-						popup = null;
+						fenetrePrincipale.masquerFenetreAjouterLivraison();
 					}
 				}
 				break;
 			case LivraisonPopup.CANCEL_ID:
-				if(popup != null) {
-					if(popup.checkTimeOk()) {
+				LivraisonPopup popup2 = fenetrePrincipale.getFenetreAjouterLivraison();
+				if(popup2 != null) {
+					if(popup2.checkTimeOk()) {
 						controleur.annuler();	
-						popup.selfDestruct();
-						popup = null;
+						fenetrePrincipale.masquerFenetreAjouterLivraison();
 					}
 				}
 				break;
-		
-			
 			default:
 				System.out.println("Unmapped Button");
 			}
 			System.out.println((String)sender.getUserData());
 		}
 	}
-	
-	void setPopup(LivraisonPopup popup) {
-		this.popup = popup;
-	}
-
 }
