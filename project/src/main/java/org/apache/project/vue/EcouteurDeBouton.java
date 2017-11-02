@@ -9,11 +9,12 @@ import javafx.scene.control.Button;
 public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 	
 	private Controleur controleur;
-	private LivraisonPopup livraisonPopup = null;
+	private FenetrePrincipale fenetrePrincipale;
 	private ModificationPopup modificationPopup = null; 
 
-	public EcouteurDeBouton(Controleur c) {
+	public EcouteurDeBouton(Controleur c, FenetrePrincipale fp) {
 		super();
+		fenetrePrincipale = fp;
 		controleur = c;
 	}
 	
@@ -44,20 +45,20 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 				controleur.annuler();
 				break;
 			case LivraisonPopup.VALIDATE_ID:
-				if(livraisonPopup != null) {
-					if(livraisonPopup.checkTimeOk()) {
-						controleur.calculerCheminsNouvelleLivraison(livraisonPopup.getNewDuree(), livraisonPopup.getNewHeureDeb(), livraisonPopup.getNewHeureFin());	
-						livraisonPopup.selfDestruct();
-						livraisonPopup = null;
+				LivraisonPopup popup = fenetrePrincipale.getFenetreAjouterLivraison();
+				if(popup != null) {
+					if(popup.checkTimeOk()) {
+						controleur.calculerCheminsNouvelleLivraison(popup.getNewDuree(), popup.getNewHeureDeb(), popup.getNewHeureFin());	
+						fenetrePrincipale.masquerFenetreAjouterLivraison();
 					}
 				}
 				break;
 			case LivraisonPopup.CANCEL_ID:
-				if(livraisonPopup != null) {
-					if(livraisonPopup.checkTimeOk()) {
+				LivraisonPopup popup2 = fenetrePrincipale.getFenetreAjouterLivraison();
+				if(popup2 != null) {
+					if(popup2.checkTimeOk()) {
 						controleur.annuler();	
-						livraisonPopup.selfDestruct();
-						livraisonPopup = null;
+						fenetrePrincipale.masquerFenetreAjouterLivraison();
 					}
 				}
 				break;
@@ -85,13 +86,7 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 			System.out.println((String)sender.getUserData());
 		}
 	}
-	
-	void setLivraisonPopup(LivraisonPopup popup) {
-		this.livraisonPopup = popup;
-	}
-	
 	void setModificationPopup(ModificationPopup popup) {
 		this.modificationPopup = popup;
 	}
-
 }
