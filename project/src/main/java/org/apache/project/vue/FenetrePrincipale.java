@@ -39,6 +39,8 @@ public class FenetrePrincipale extends Application {
 	Button ajouterLivraisonButton;
 	Button supprLivraisonButton;
 	Button annulerBouton;
+	Button undo;
+	Button redo;
 
 	ListDisplay listeLivraisons;
 
@@ -61,6 +63,8 @@ public class FenetrePrincipale extends Application {
 	public static final String ANNULER = "Annuler";
 	public static final String ANNULER_ID = "AnnulerButton";
 	public static final String EDIT_LIVRAISON_ID = "EditerLivraisonButton";;
+	public static final String UNDO = "Undo";
+	public static final String REDO = "Redo";
 
 	public static void launchApp(String[] args) {
 		Application.launch(FenetrePrincipale.class, args);
@@ -87,6 +91,7 @@ public class FenetrePrincipale extends Application {
 		// layout for the map and its controls buttons
 
 		HBox mapButtonsLayout = new HBox();
+		HBox undoRedoLayout = new HBox();
 
 		// buttons
 		fitMapButton = new Button("Recentrer plan");
@@ -99,6 +104,18 @@ public class FenetrePrincipale extends Application {
 
 		mapButtonsLayout.getChildren().add(loadMapButton);
 		mapButtonsLayout.getChildren().add(fitMapButton);
+		
+		undo = new Button(UNDO);
+		redo = new Button(REDO);
+		
+		undo.setUserData(UNDO);
+		redo.setUserData(REDO);
+		
+		undoRedoLayout.setAlignment(Pos.CENTER);
+		undoRedoLayout.setSpacing(10);
+		
+		undoRedoLayout.getChildren().add(undo);
+		undoRedoLayout.getChildren().add(redo);
 
 		// map
 		mapLabel = new Label("Action à realiser: Charger un plan");
@@ -108,6 +125,7 @@ public class FenetrePrincipale extends Application {
 		
 		layout.add(mapContainer, 0, 1);
 		layout.add(mapButtonsLayout, 0, 2);
+		layout.add(undoRedoLayout, 0, 3);
 
 		//////////////////////////////////////
 		///// CREATING THE DELIVERY LIST /////
@@ -135,6 +153,8 @@ public class FenetrePrincipale extends Application {
 		annulerBouton = new Button(ANNULER);
 		annulerBouton.setUserData(ANNULER_ID);
 		annulerBouton.setDisable(true);
+		undo = new Button(UNDO);
+		redo = new Button(REDO);
 
 		// list
 		listeLivraisons = new ListDisplay();
@@ -195,6 +215,8 @@ public class FenetrePrincipale extends Application {
 		ajouterLivraisonButton.setOnAction(edb);
 		supprLivraisonButton.setOnAction(edb);
 		annulerBouton.setOnAction(edb);
+		undo.setOnAction(edb);
+		redo.setOnAction(edb);
 
 		// map listener
 		edm = new EcouteurDeMap(controleur, mapContainer);
