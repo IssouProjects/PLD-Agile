@@ -105,7 +105,7 @@ public class Controleur {
 	}
 	
 	public void calculerCheminsNouvelleLivraison(Integer duree, Time heureDeb, Time heureFin) {
-		etatCourant.calculerCheminsNouvelleLivraison(this, planDeVille, tournee, fenetrePrincipale, duree, heureDeb, heureFin);
+		etatCourant.calculerCheminsNouvelleLivraison(this, planDeVille, tournee, fenetrePrincipale, duree, heureDeb, heureFin, commandes);
 	}
 	
 	public void clearPlanDeVille() {

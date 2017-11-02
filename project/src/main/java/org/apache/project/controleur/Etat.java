@@ -69,7 +69,7 @@ public interface Etat {
 	 * @param heureDeb
 	 * @param heureFin
 	 */
-	public void calculerCheminsNouvelleLivraison(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale, Integer duree, Time heureDeb, Time heureFin);
+	public void calculerCheminsNouvelleLivraison(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale, Integer duree, Time heureDeb, Time heureFin, ListeDeCommandes commandes);
 	
   /**
 	 * Methode appelee par controleur apres un clic sur le bouton "Ajouter
