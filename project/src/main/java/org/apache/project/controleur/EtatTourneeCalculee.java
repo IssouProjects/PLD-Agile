@@ -50,7 +50,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
   }
 
 	@Override 
-	public void supprimerLivraison( Controleur controleur, Tournee tournee,  PlanDeVille planDeVille,  FenetrePrincipale fenetrePrincipale) {
+	public void supprimerLivraison( Controleur controleur, Tournee tournee,  PlanDeVille planDeVille,  FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes) {
 		
 		Livraison livraisonASupprimer = fenetrePrincipale.getSelectedLivraison();
 		
@@ -67,6 +67,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 			return;
 		}
 		
+		commandes.ajouteCommande(new CdeSupprimerLivraison(planDeVille, tournee, tournee.getLivraison(indexLivSuppr)));
 		tournee.supprimerLivraison(planDeVille, indexLivSuppr);
 		
 		fenetrePrincipale.clearTournee();

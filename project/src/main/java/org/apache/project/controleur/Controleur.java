@@ -81,7 +81,7 @@ public class Controleur {
 	}
 	
 	public void supprimerLivraison() {
-		etatCourant.supprimerLivraison(this, tournee, planDeVille, fenetrePrincipale);
+		etatCourant.supprimerLivraison(this, tournee, planDeVille, fenetrePrincipale, commandes);
 	}
 	
 	public void editerLivraison() {

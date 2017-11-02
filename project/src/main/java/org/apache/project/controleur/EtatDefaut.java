@@ -20,7 +20,7 @@ public abstract class EtatDefaut implements Etat {
 	public void calculerCheminSupprLivraison(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale) {}
 	public void annuler(Controleur controleur, FenetrePrincipale fenetrePrincipale) {}
 	public void ajouterLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale) {}
-	public void supprimerLivraison(Controleur controleur, Tournee tournee, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale) {}
+	public void supprimerLivraison(Controleur controleur, Tournee tournee, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes) {}
 	public void modifierLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale) {}
 	public void validerModificationLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee, Time heureDeb, Time heureFin) {}
 	public void intersectionClicked(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Intersection intersection) {}

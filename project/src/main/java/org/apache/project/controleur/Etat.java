@@ -94,7 +94,7 @@ public interface Etat {
 	 * @param controleur
 	 * @param fenetrePrincipale
 	 */
-	public void supprimerLivraison(Controleur controleur, Tournee tournee, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale);
+	public void supprimerLivraison(Controleur controleur, Tournee tournee, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes);
 	
 	/**
 	 * Methode appelee par controleur apres un clic sur le bouton "Modifier livraison"
