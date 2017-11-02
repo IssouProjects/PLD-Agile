@@ -8,7 +8,7 @@ public class ListeDeCommandes {
 	private int i;
 
 	public ListeDeCommandes() {
-		liste = new LinkedList();
+		liste = new LinkedList<Commande>();
 	}
 	
 	public void ajouteCommande(Commande commande) {
