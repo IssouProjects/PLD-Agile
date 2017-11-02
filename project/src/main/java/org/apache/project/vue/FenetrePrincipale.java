@@ -157,8 +157,6 @@ public class FenetrePrincipale extends Application {
 		annulerBouton = new Button(ANNULER);
 		annulerBouton.setUserData(ANNULER_ID);
 		annulerBouton.setDisable(true);
-		undo = new Button(UNDO);
-		redo = new Button(REDO);
 
 		// list
 		listeLivraisons = new ListDisplay();
