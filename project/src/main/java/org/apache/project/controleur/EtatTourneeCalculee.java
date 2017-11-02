@@ -81,11 +81,11 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		controleur.setEtatCourant(controleur.etatModifierLivraison1);
 	}
 	
-	public void undoCde(ListeDeCommandes commandes) {
+	public void undo(ListeDeCommandes commandes) {
 		commandes.undo();
 	}
 	
-	public void doCde(ListeDeCommandes commandes) {
+	public void redo(ListeDeCommandes commandes) {
 		commandes.redo();
 	}
 
