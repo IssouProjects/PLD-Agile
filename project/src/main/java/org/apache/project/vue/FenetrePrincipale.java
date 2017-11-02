@@ -296,6 +296,10 @@ public class FenetrePrincipale extends Application {
 		popup = null;
 		opaqueLayer = null;
 	}
+	
+	public void afficherFenetreModifierLivraison(Livraison l) {
+		new ModificationPopup(l, stack, edb);
+	}
     
     public void highlightLivraison(Livraison l) {
     	mapContainer.getMapDisplay().resetAndHighlight(l);

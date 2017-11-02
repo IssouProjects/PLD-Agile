@@ -4,21 +4,25 @@ import org.apache.project.modele.Entrepot;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlageHoraire;
 
-import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 public class LivraisonCell extends ListCell<Livraison>{
 	private GridPane grid = new GridPane();
 	private Label icon = new Label();
 	private Label titleText = new Label();
+	private Label titleMsg = new Label();
+	private Label titleIcon = new Label();
 	private Label subText = new Label();
+	private Label bonusMsg = new Label();
 	private Button editButton = new Button();
 	private Button deleteButton = new Button();
 	
@@ -38,14 +42,24 @@ public class LivraisonCell extends ListCell<Livraison>{
 	    column.setPrefWidth(40d);
 	    grid.getColumnConstraints().add(column);
 	    
+	    HBox titleLayout = new HBox();
+	    titleLayout.setSpacing(10);
+	    titleLayout.getChildren().add(titleText);
+	    titleLayout.getChildren().add(titleIcon);
+	    titleLayout.getChildren().add(titleMsg);
+	    titleLayout.setAlignment(Pos.CENTER_LEFT);
+	    
 		grid.add(icon, 0, 0);                    
-        grid.add(titleText, 1, 0);        
+        grid.add(titleLayout, 1, 0);
         grid.add(subText, 1, 1);
+        grid.add(bonusMsg, 1, 2);
         grid.add(editButton, 2, 0);
         grid.add(deleteButton, 2, 1);
         
         titleText.getStyleClass().add("titleText");
+		titleMsg.getStyleClass().add("titleMsg");
         subText.getStyleClass().add("subText");
+        bonusMsg.getStyleClass().add("bonusMsg");
         editButton.getStyleClass().add("editButton");
         deleteButton.getStyleClass().add("deleteButton");
         	
@@ -78,15 +92,23 @@ public class LivraisonCell extends ListCell<Livraison>{
 	public void clearContent() {
 		this.setText(null);
 		titleText.setText(null);
+		titleMsg.setText(null);
 		subText.setText(null);
+		bonusMsg.setText(null);
 		setGraphic(null);
 	}
 	
 	public void addContent(Livraison livraison) {
-		setText(null);
+		clearContent();
+		
 		EcouteurDeBouton edb = ((ListDisplay) this.getListView()).getEcouteurDeBouton();
 		deleteButton.setOnAction(edb);
 		editButton.setOnAction(edb);
+		
+		titleIcon.setVisible(false);
+		titleIcon.setManaged(false);
+		titleMsg.setVisible(false);
+		titleMsg.setManaged(false);
 		
 		if(livraison instanceof Entrepot) {
 			titleText.setText("Entrepôt - départ à " + PlageHoraire.timeToString(((Entrepot) livraison).getHeureDepart()));
@@ -99,13 +121,11 @@ public class LivraisonCell extends ListCell<Livraison>{
 		else if (livraison instanceof Livraison) {
 			
 			if(livraison.getHeureArrivee() != null) {
-				titleText.setText("Livraison - passage à " + PlageHoraire.timeToString(livraison.getHeureArrivee()));
+				titleText.setText("Livraison - arrivée à " + PlageHoraire.timeToString(livraison.getHeureArrivee()));
 			}
 			else {
 				titleText.setText("Livraison");
 			}
-			icon.getStyleClass().clear();
-			icon.getStyleClass().add("iconOk");
 			
 			String livraison_s = "";
 			PlageHoraire plageHoraire = livraison.getPlageHoraire();
@@ -113,10 +133,7 @@ public class LivraisonCell extends ListCell<Livraison>{
 				livraison_s += "Plage horaire: " + PlageHoraire.timeToString(plageHoraire.getDebut()) + " - "
 						+ PlageHoraire.timeToString(plageHoraire.getFin());
 				if (livraison.getHeureArrivee() != null) {
-					long avance = plageHoraire.getDebut().getTime() - livraison.getHeureArrivee().getTime();
-					if (avance > 0) {
-						livraison_s += "\n" + "Avance: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(avance);
-					}
+					
 				}
 			} else {
 				livraison_s += "Horaire libre";
@@ -126,6 +143,52 @@ public class LivraisonCell extends ListCell<Livraison>{
 			subText.setText(livraison_s);
 			editButton.setDisable(false);
 			deleteButton.setDisable(false);
+			
+			// test si l'heure d'arrivée n'est pas en conflit avec la plage horaire
+			if(livraison.getHeureArrivee() != null && livraison.getPlageHoraire() != null) {
+				int heureArriveeAsSeconds = livraison.getHeureArrivee().getHours()*3600
+						+livraison.getHeureArrivee().getMinutes()*60
+						+livraison.getHeureArrivee().getSeconds();
+				
+				int plageHoraireDebutAsSeconds = livraison.getPlageHoraire().getDebut().getHours()*3600
+						+livraison.getPlageHoraire().getDebut().getMinutes()*60
+						+livraison.getPlageHoraire().getDebut().getSeconds();
+				
+				int plageHoraireFinAsSeconds = livraison.getPlageHoraire().getFin().getHours()*3600
+						+livraison.getPlageHoraire().getFin().getMinutes()*60
+						+livraison.getPlageHoraire().getFin().getSeconds();
+				
+				if(heureArriveeAsSeconds > plageHoraireFinAsSeconds) {
+					long retard = livraison.getHeureArrivee().getTime() - plageHoraire.getFin().getTime();
+					bonusMsg.setText(PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(retard) + " de retard");
+					bonusMsg.getStyleClass().clear();
+					bonusMsg.getStyleClass().add("bonusMsgWarning");
+					icon.getStyleClass().clear();
+					icon.getStyleClass().add("iconWarning");
+				}else if(heureArriveeAsSeconds < plageHoraireDebutAsSeconds) {
+					long avance = plageHoraire.getDebut().getTime() - livraison.getHeureArrivee().getTime();
+					
+					titleIcon.setVisible(true);
+					titleIcon.setManaged(true);
+					titleIcon.getStyleClass().clear();
+					titleIcon.getStyleClass().add("iconTime");
+					titleMsg.setVisible(true);
+					titleMsg.setManaged(true);
+					titleMsg.setText(PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(avance) + " d'avance");
+					
+					bonusMsg.setText(PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(avance) + " d'avance");
+					bonusMsg.getStyleClass().clear();
+					bonusMsg.getStyleClass().add("bonusMsgNice");
+					icon.getStyleClass().clear();
+					icon.getStyleClass().add("iconOk");
+				}else {
+					icon.getStyleClass().clear();
+					icon.getStyleClass().add("iconOk");
+				}
+			} else {
+				icon.getStyleClass().clear();
+				icon.getStyleClass().add("iconOk");
+			}
 		}
         
 		setGraphic(grid);        
@@ -135,9 +198,11 @@ public class LivraisonCell extends ListCell<Livraison>{
 		subText.setVisible(editMode);
 		editButton.setVisible(editMode);
 		deleteButton.setVisible(editMode);
+		bonusMsg.setVisible(bonusMsg.getText() != null && editMode);
 		
 		subText.setManaged(editMode);
 		editButton.setManaged(editMode);
 		deleteButton.setManaged(editMode);
+		bonusMsg.setManaged(bonusMsg.getText() != null && editMode);
 	}
 }

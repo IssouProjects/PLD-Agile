@@ -58,7 +58,7 @@ public class TestCUAjoutLivraison {
 				livraisonSuiv.getLieuDeLivraison());
 
 		// Mise à jour de tournee
-		tournee.ajouterLivraison(livraisonNouv, 2);
+		tournee.ajouterListeLivraison(livraisonNouv, 2);
 		tournee.supprimerChemin(1);
 		tournee.ajouterChemin(chemin1, 1);
 		tournee.ajouterChemin(chemin2, 2);
@@ -126,7 +126,7 @@ public class TestCUAjoutLivraison {
 				livraisonSuiv.getLieuDeLivraison());
 
 		// Mise à jour de tournee
-		tournee.ajouterLivraison(livraisonNouv, 1);
+		tournee.ajouterListeLivraison(livraisonNouv, 1);
 		tournee.supprimerChemin(0);
 		tournee.ajouterChemin(chemin1, 0);
 		tournee.ajouterChemin(chemin2, 1);
@@ -184,7 +184,7 @@ public class TestCUAjoutLivraison {
 				tournee.getEntrepot().getLieuDeLivraison());
 
 		// Mise à jour de tournee
-		tournee.ajouterLivraison(livraisonNouv, 5);
+		tournee.ajouterListeLivraison(livraisonNouv, 5);
 		tournee.supprimerChemin(4);
 		tournee.ajouterChemin(chemin1, 4);
 		tournee.ajouterChemin(chemin2, 5);
@@ -243,7 +243,7 @@ public class TestCUAjoutLivraison {
 				livraisonSuiv.getLieuDeLivraison());
 				
 		// Mise a jour de tournee
-		tournee.ajouterLivraison(livraisonNouv, 2);
+		tournee.ajouterListeLivraison(livraisonNouv, 2);
 		tournee.supprimerChemin(1);
 		tournee.ajouterChemin(chemin1, 1);
 		tournee.ajouterChemin(chemin2, 2);
@@ -288,7 +288,7 @@ public class TestCUAjoutLivraison {
 				livraisonSuiv.getLieuDeLivraison());
 
 		// Mise a jour de tournee
-		tournee.ajouterLivraison(livraisonNouv, 2);
+		tournee.ajouterListeLivraison(livraisonNouv, 2);
 		tournee.supprimerChemin(1);
 		tournee.ajouterChemin(chemin1, 1);
 		tournee.ajouterChemin(chemin2, 2);

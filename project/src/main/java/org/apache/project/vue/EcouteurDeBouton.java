@@ -10,6 +10,7 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 	
 	private Controleur controleur;
 	private FenetrePrincipale fenetrePrincipale;
+	private ModificationPopup modificationPopup = null; 
 
 	public EcouteurDeBouton(Controleur c, FenetrePrincipale fp) {
 		super();
@@ -61,10 +62,31 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 					}
 				}
 				break;
+			case ModificationPopup.VALIDATE_ID:
+				if(modificationPopup != null) {
+					if(modificationPopup.checkTimeOk()) {
+						controleur.validerModificationLivraison(modificationPopup.getNewHeureDeb(), modificationPopup.getNewHeureFin());
+						modificationPopup.selfDestruct();
+						modificationPopup = null;
+					}
+				}
+				break;
+			case ModificationPopup.CANCEL_ID:
+				if(modificationPopup != null) {
+					if(modificationPopup.checkTimeOk()) {
+						controleur.annuler();
+						modificationPopup.selfDestruct();
+						modificationPopup = null;
+					}
+				}
+				break;
 			default:
 				System.out.println("Unmapped Button");
 			}
 			System.out.println((String)sender.getUserData());
 		}
+	}
+	void setModificationPopup(ModificationPopup popup) {
+		this.modificationPopup = popup;
 	}
 }

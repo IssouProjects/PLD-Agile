@@ -97,6 +97,23 @@ public interface Etat {
 	public void supprimerLivraison(Controleur controleur, Tournee tournee, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale);
 	
 	/**
+	 * Methode appelee par controleur apres un clic sur le bouton "Modifier livraison"
+	 * @param controleur
+	 * @param fenetrePrincipale
+	 */
+	public void  modifierLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale);
+	
+	/**
+	 * Methode appelee par controleur apres un clic sur le bouton "Valider" de la popup de modification
+	 * @param controleur
+	 * @param fenetrePrincipale
+	 * @param tournee
+	 * @param heureDeb
+	 * @param heureFin
+	 */
+	public void validerModificationLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee, Time heureDeb, Time heureFin);
+	
+	/**
 	 * Methode appelee apres un clic sur une intersection
 	 * @param controleur
 	 * @param planDeVille

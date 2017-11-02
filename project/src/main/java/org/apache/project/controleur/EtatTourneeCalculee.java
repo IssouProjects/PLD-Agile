@@ -58,8 +58,6 @@ public class EtatTourneeCalculee extends EtatDefaut{
 			return;
 		}
 		
-		// TODO: AFFICHER UNE POPUP : ETES VOUS SUR
-		
 		int indexLivSuppr = tournee.getLivraisonIndex(livraisonASupprimer);
 		
 		if(tournee.getLivraisonsOrdonnees().size() == 3) {
@@ -68,19 +66,18 @@ public class EtatTourneeCalculee extends EtatDefaut{
 			return;
 		}
 		
-		Livraison livraisonPre = tournee.getLivraison(indexLivSuppr - 1);
-		Livraison livraisonSuiv = tournee.getLivraison(indexLivSuppr + 1);
-		Chemin chemin = tournee.calculerNouveauChemin(planDeVille, livraisonPre.getLieuDeLivraison(), livraisonSuiv.getLieuDeLivraison());
+		tournee.supprimerLivraison(planDeVille, indexLivSuppr);
 		
-		tournee.supprimerLivraison(indexLivSuppr);
-		tournee.supprimerChemin(indexLivSuppr-1);
-		tournee.supprimerChemin(indexLivSuppr-1);
-	
-		tournee.ajouterChemin(chemin, indexLivSuppr-1);
-		
-		tournee.calculerDureeTotale();
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
+	}
+	
+	@Override
+	public void modifierLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
+		Livraison livraisonSelectionnee = fenetrePrincipale.getSelectedLivraison();
+		fenetrePrincipale.afficherFenetreModifierLivraison(livraisonSelectionnee);	
+		controleur.etatModifierLivraison1.actionEntreeEtatModifierLivraison1(livraisonSelectionnee);
+		controleur.setEtatCourant(controleur.etatModifierLivraison1);
 	}
 
 }
