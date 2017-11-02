@@ -134,5 +134,17 @@ public interface Etat {
 	 */
 	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, 
 			Tournee tournee, Livraison livraison, ListeDeCommandes commandes);
+	
+	/**
+	 * Methode appelee pour annuler derniere action entreprise
+	 * @param commandes
+	 */
+	public void undo(ListeDeCommandes commandes);
+	
+	/**
+	 * Methode appelee pour refaire derniere action annulee
+	 * @param commandes
+	 */
+	public void redo(ListeDeCommandes commandes);
 
 }

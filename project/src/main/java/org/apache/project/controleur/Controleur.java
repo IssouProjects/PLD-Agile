@@ -119,4 +119,12 @@ public class Controleur {
 	public void clearTournee() {
 		tournee.clear();
 	}
+	
+	public void undo(ListeDeCommandes commandes) {
+		etatCourant.undo(commandes);
+	}
+	
+	public void redo(ListeDeCommandes commandes) {
+		etatCourant.redo(commandes);
+	}
 }
