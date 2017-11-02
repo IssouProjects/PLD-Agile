@@ -122,9 +122,13 @@ public class Controleur {
 	
 	public void undo() {
 		etatCourant.undo(commandes);
+		fenetrePrincipale.clearTournee();
+		fenetrePrincipale.afficherTournee(tournee);
 	}
 	
 	public void redo() {
 		etatCourant.redo(commandes);
+		fenetrePrincipale.clearTournee();
+		fenetrePrincipale.afficherTournee(tournee);
 	}
 }
