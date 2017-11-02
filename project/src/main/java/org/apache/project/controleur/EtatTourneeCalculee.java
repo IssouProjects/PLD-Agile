@@ -44,12 +44,13 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	}
 	
   @Override
-	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {
+	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, Tournee tournee,
+			Livraison livraisonPrecedente, ListeDeCommandes commandes) {
 		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
   }
 
 	@Override 
-	public void supprimerLivraison( Controleur controleur, Tournee tournee,  PlanDeVille planDeVille,  FenetrePrincipale fenetrePrincipale) {
+	public void supprimerLivraison( Controleur controleur, Tournee tournee,  PlanDeVille planDeVille,  FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes) {
 		
 		Livraison livraisonASupprimer = fenetrePrincipale.getSelectedLivraison();
 		
@@ -66,7 +67,8 @@ public class EtatTourneeCalculee extends EtatDefaut{
 			return;
 		}
 		
-		tournee.supprimerLivraison(planDeVille, indexLivSuppr);
+		commandes.ajouteCommande(new CdeSupprimerLivraison(planDeVille, tournee, tournee.getLivraison(indexLivSuppr)));
+		//tournee.supprimerLivraison(planDeVille, indexLivSuppr);
 		
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
@@ -78,6 +80,14 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		fenetrePrincipale.afficherFenetreModifierLivraison(livraisonSelectionnee);	
 		controleur.etatModifierLivraison1.actionEntreeEtatModifierLivraison1(livraisonSelectionnee);
 		controleur.setEtatCourant(controleur.etatModifierLivraison1);
+	}
+	
+	public void undo(ListeDeCommandes commandes) {
+		commandes.undo();
+	}
+	
+	public void redo(ListeDeCommandes commandes) {
+		commandes.redo();
 	}
 
 }

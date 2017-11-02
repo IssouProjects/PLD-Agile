@@ -3,6 +3,7 @@ package org.apache.project.controleur;
 import org.apache.project.modele.PlanDeVille;
 
 import java.sql.Time;
+import java.util.List;
 
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
@@ -28,6 +29,8 @@ public class Controleur {
 	protected final EtatSupprLivraison1 etatSupprLivraison1 = new EtatSupprLivraison1();
 	protected final EtatModifierLivraison1 etatModifierLivraison1 = new EtatModifierLivraison1();
 	
+	private ListeDeCommandes commandes;
+	
 	private static Controleur instance = null;
 	
 	/**
@@ -39,6 +42,7 @@ public class Controleur {
 		demandeDeLivraison = new DemandeDeLivraison();
 		tournee = new Tournee();
 		etatCourant = etatInit;		
+		commandes = new ListeDeCommandes();
 	}
 	
 	public static Controleur getInstance(){
@@ -77,7 +81,7 @@ public class Controleur {
 	}
 	
 	public void supprimerLivraison() {
-		etatCourant.supprimerLivraison(this, tournee, planDeVille, fenetrePrincipale);
+		etatCourant.supprimerLivraison(this, tournee, planDeVille, fenetrePrincipale, commandes);
 	}
 	
 	public void editerLivraison() {
@@ -97,11 +101,11 @@ public class Controleur {
 	}
 	
 	public void livraisonClicked(Livraison livraison) {
-		etatCourant.livraisonClicked(this, fenetrePrincipale,  livraison);
+		etatCourant.livraisonClicked(this, fenetrePrincipale, planDeVille, tournee, livraison, commandes);
 	}
 	
 	public void calculerCheminsNouvelleLivraison(Integer duree, Time heureDeb, Time heureFin) {
-		etatCourant.calculerCheminsNouvelleLivraison(this, planDeVille, tournee, fenetrePrincipale, duree, heureDeb, heureFin);
+		etatCourant.calculerCheminsNouvelleLivraison(this, planDeVille, tournee, fenetrePrincipale, duree, heureDeb, heureFin, commandes);
 	}
 	
 	public void clearPlanDeVille() {
@@ -114,5 +118,17 @@ public class Controleur {
 	
 	public void clearTournee() {
 		tournee.clear();
+	}
+	
+	public void undo() {
+		etatCourant.undo(commandes);
+		fenetrePrincipale.clearTournee();
+		fenetrePrincipale.afficherTournee(tournee);
+	}
+	
+	public void redo() {
+		etatCourant.redo(commandes);
+		fenetrePrincipale.clearTournee();
+		fenetrePrincipale.afficherTournee(tournee);
 	}
 }

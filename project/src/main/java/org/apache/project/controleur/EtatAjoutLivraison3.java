@@ -16,14 +16,15 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 
 	@Override
 	public void calculerCheminsNouvelleLivraison(Controleur controleur, PlanDeVille planDeVille, Tournee tournee,
-			FenetrePrincipale fenetrePrincipale, Integer duree, Time heureDeb, Time heureFin) {
+			FenetrePrincipale fenetrePrincipale, Integer duree, Time heureDeb, Time heureFin, ListeDeCommandes commandes) {
 		nouvelleLivraison.setDuree(duree);
 
 		if (heureDeb != null && heureFin != null) {
 			nouvelleLivraison.setPlageHoraire(new PlageHoraire(heureDeb, heureFin));
 		}
 		
-		tournee.ajouterNouvelleLivraison(planDeVille, nouvelleLivraison, livraisonPrecedente);
+		//tournee.ajouterNouvelleLivraison(planDeVille, nouvelleLivraison, livraisonPrecedente);
+		commandes.ajouteCommande(new CdeAjouterLivraison(planDeVille, tournee, nouvelleLivraison, livraisonPrecedente));
 		
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
@@ -33,7 +34,7 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 
 	protected void actionEntreeEtatAjoutLivraison3(Livraison livraisonPrecedente, Livraison nouvelleLivraison) {
 		this.nouvelleLivraison = nouvelleLivraison;
-		this.livraisonPrecedente = livraisonPrecedente;
+		this.livraisonPrecedente = livraisonPrecedente;		
 	}
 
 	@Override

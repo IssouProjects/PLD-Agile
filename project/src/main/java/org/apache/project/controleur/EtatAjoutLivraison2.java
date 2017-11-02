@@ -14,7 +14,7 @@ public class EtatAjoutLivraison2 extends EtatDefaut {
 
 	@Override
 	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale,
-			Livraison livraisonPrecedente) {
+			PlanDeVille plan, Tournee tournee, Livraison livraisonPrecedente, ListeDeCommandes commandes) {
 		
 		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
 
