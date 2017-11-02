@@ -68,7 +68,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		}
 		
 		commandes.ajouteCommande(new CdeSupprimerLivraison(planDeVille, tournee, tournee.getLivraison(indexLivSuppr)));
-		tournee.supprimerLivraison(planDeVille, indexLivSuppr);
+		//tournee.supprimerLivraison(planDeVille, indexLivSuppr);
 		
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);

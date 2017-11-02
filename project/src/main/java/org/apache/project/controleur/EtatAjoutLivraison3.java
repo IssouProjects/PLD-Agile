@@ -23,7 +23,7 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 			nouvelleLivraison.setPlageHoraire(new PlageHoraire(heureDeb, heureFin));
 		}
 		
-		tournee.ajouterNouvelleLivraison(planDeVille, nouvelleLivraison, livraisonPrecedente);
+		//tournee.ajouterNouvelleLivraison(planDeVille, nouvelleLivraison, livraisonPrecedente);
 		commandes.ajouteCommande(new CdeAjouterLivraison(planDeVille, tournee, nouvelleLivraison, livraisonPrecedente));
 		
 		fenetrePrincipale.clearTournee();

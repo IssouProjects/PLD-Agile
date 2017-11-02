@@ -13,8 +13,13 @@ public class ListeDeCommandes {
 	}
 	
 	public void ajouteCommande(Commande commande) {
-		liste.add(commande);
-		i++;
+		int temp = i+1;
+        while(temp<liste.size()){
+            liste.remove(temp);
+        }
+        i++;
+        liste.add(i, commande);
+        commande.doCommande();
 	}
 	
 	public void undo() {
