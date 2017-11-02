@@ -120,11 +120,11 @@ public class Controleur {
 		tournee.clear();
 	}
 	
-	public void undo(ListeDeCommandes commandes) {
+	public void undo() {
 		etatCourant.undo(commandes);
 	}
 	
-	public void redo(ListeDeCommandes commandes) {
+	public void redo() {
 		etatCourant.redo(commandes);
 	}
 }
