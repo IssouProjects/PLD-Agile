@@ -21,7 +21,7 @@ public class EtatAjoutLivraison2 extends EtatDefaut {
 		controleur.setEtatCourant(controleur.etatAjoutLivraison3);
 		nouvelleLivraison = new Livraison(intersectionLivraison);
 		fenetrePrincipale.afficherFenetreAjouterLivraison(nouvelleLivraison);
-		controleur.etatAjoutLivraison3.actionEntreeEtatAjoutLivraison3(plan, tournee, livraisonPrecedente, nouvelleLivraison, commandes);
+		controleur.etatAjoutLivraison3.actionEntreeEtatAjoutLivraison3(livraisonPrecedente, nouvelleLivraison);
 	}
 
 	@Override
