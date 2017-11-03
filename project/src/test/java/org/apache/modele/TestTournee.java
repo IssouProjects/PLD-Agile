@@ -90,7 +90,7 @@ public class TestTournee {
 		assertEquals(4118, tournee.getDureeTourneeSecondes());
 	}
 
-	/*@Test(timeout = 30000)
+	@Test(timeout = 30000)
 	public void testCalculerGrandeTournee()
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		// Creation des objets plan et demande
@@ -105,7 +105,7 @@ public class TestTournee {
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
 		tournee.calculerTournee(plan, demande);
-		
+		/*
 		  assertEquals(517370427,
 		  (long)tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud
 		  ()); assertEquals(21674814,
@@ -127,8 +127,8 @@ public class TestTournee {
 		  
 		  //Duree de la tournee ok assertEquals(15593,
 		  tournee.getDureeTourneeSecondes());
-		 
-	}*/
+		 */
+	}
 
 	@Test
 	public void TestClear() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
