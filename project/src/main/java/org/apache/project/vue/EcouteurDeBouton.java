@@ -62,10 +62,8 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 			case LivraisonPopup.CANCEL_ID:
 				LivraisonPopup popup2 = fenetrePrincipale.getFenetreAjouterLivraison();
 				if(popup2 != null) {
-					if(popup2.checkTimeOk()) {
-						controleur.annuler();	
-						fenetrePrincipale.masquerFenetreAjouterLivraison();
-					}
+					controleur.annuler();	
+					fenetrePrincipale.masquerFenetreAjouterLivraison();
 				}
 				break;
 			case ModificationPopup.VALIDATE_ID:
