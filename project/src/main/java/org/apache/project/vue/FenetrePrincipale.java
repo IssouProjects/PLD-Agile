@@ -76,6 +76,14 @@ public class FenetrePrincipale extends Application {
 	public static final String EDIT_LIVRAISON_ID = "EditerLivraisonButton";;
 	public static final String UNDO_ID = "UndoButton";
 	public static final String REDO_ID = "RedoButton";
+	
+	public static final String PDV_FILE_DESCRIPTION = "Fichier de plan de ville";
+	public static final String PDV_FILEDIALOG_DESCRIPTION = "Ouvrir un plan de ville";
+	public static final String PDV_FILE_EXTENSION = "*.xml";
+	
+	public static final String DDL_FILE_DESCRIPTION = "Fichier de demande de livraison";
+	public static final String DDL_FILEDIALOG_DESCRIPTION = "Ouvrir une demande de livraison";
+	public static final String DDL_FILE_EXTENSION = "*.xml";
 
 	public static void launchApp(String[] args) {
 		Application.launch(FenetrePrincipale.class, args);

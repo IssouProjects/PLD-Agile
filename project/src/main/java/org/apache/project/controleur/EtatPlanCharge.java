@@ -18,7 +18,8 @@ public class EtatPlanCharge extends EtatDefaut {
 
 	@Override
 	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale){
-		File file = fenetrePrincipale.ouvrirFichierXml("Fichier de demande de livraison", "*.xml", "Ouvrir une demande de livraison");
+		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.DDL_FILE_DESCRIPTION,
+				FenetrePrincipale.DDL_FILE_EXTENSION, FenetrePrincipale.DDL_FILEDIALOG_DESCRIPTION);
 		if(file == null) {
 			return;
 		}
@@ -42,7 +43,8 @@ public class EtatPlanCharge extends EtatDefaut {
 	
 	@Override
 	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale){
-		File file = fenetrePrincipale.ouvrirFichierXml("Fichier de plan", "*.xml", "Ouvrir un plan de ville");
+		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.PDV_FILE_DESCRIPTION, 
+				FenetrePrincipale.PDV_FILE_EXTENSION, FenetrePrincipale.PDV_FILEDIALOG_DESCRIPTION);
 		if(file == null)
 			return;
 		controleur.setEtatCourant(controleur.etatInit);
