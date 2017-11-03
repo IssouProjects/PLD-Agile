@@ -96,14 +96,6 @@ public class Tournee extends Observable {
 		return livraisonsOrdonnees.get(index);
 	}
 
-	public int getLivraisonIndex(Livraison livraison) {
-		for (int i = 0; i < livraisonsOrdonnees.size(); i++) {
-			if (livraisonsOrdonnees.get(i) == livraison)
-				return i;
-		}
-		return 0;
-	}
-
 	public List<Livraison> getLivraisonsOrdonnees() {
 		return livraisonsOrdonnees;
 	}
@@ -275,7 +267,7 @@ public class Tournee extends Observable {
 	
 	public void ajouterNouvelleLivraison(PlanDeVille planDeVille, Livraison nouvelleLivraison, Livraison livraisonPrecedente) {
 		
-		int indexPre = this.getLivraisonIndex(livraisonPrecedente);
+		int indexPre = this.livraisonsOrdonnees.indexOf(livraisonPrecedente);
 		Livraison livraisonSuiv = this.getLivraison(indexPre + 1);
 		
 		Chemin chemin1 = this.calculerNouveauChemin(planDeVille, livraisonPrecedente.getLieuDeLivraison(),

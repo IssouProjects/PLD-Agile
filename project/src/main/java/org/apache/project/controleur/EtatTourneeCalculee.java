@@ -69,16 +69,13 @@ public class EtatTourneeCalculee extends EtatDefaut{
 			return;
 		}
 		
-		int indexLivSuppr = tournee.getLivraisonIndex(livraisonASupprimer);
-		
 		if(tournee.getLivraisonsOrdonnees().size() == 3) {
 			fenetrePrincipale.afficherPopupError("Vous ne pouvez pas suprimer la seule livraison");
 			controleur.setEtatCourant(controleur.etatTourneeCalculee);
 			return;
 		}
 		
-		commandes.ajouteCommande(new CdeSupprimerLivraison(planDeVille, tournee, tournee.getLivraison(indexLivSuppr)));
-		//tournee.supprimerLivraison(planDeVille, indexLivSuppr);
+		commandes.ajouteCommande(new CdeSupprimerLivraison(planDeVille, tournee, livraisonASupprimer));
 		
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
