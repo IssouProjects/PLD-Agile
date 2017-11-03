@@ -89,7 +89,7 @@ public class FenetrePrincipale extends Application {
 		layout.getStylesheets().add(getClass().getResource("main.css").toExternalForm());
 		
 		stack = new StackPane(layout);
-		Scene scene = new Scene(stack, 1024, 576);
+		Scene scene = new Scene(stack, 1050, 576);
 
 		/////////////////////////////////////////////
 		///// CREATING THE MAP AND ITS BUTTONS /////
