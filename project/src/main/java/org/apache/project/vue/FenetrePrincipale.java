@@ -11,6 +11,7 @@ import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -267,7 +268,12 @@ public class FenetrePrincipale extends Application {
 
 	public void afficherPlanDeVille(PlanDeVille plan) {
 		mapContainer.getMapDisplay().afficherPlanDeVille(plan);
-		mapContainer.fitMapInView();
+		
+		Platform.runLater(new Runnable() {
+		    @Override public void run() {
+		    	mapContainer.fitMapInView();
+		    }
+		});
 
 		loadMapButton.setDisable(false);
 		fitMapButton.setDisable(false);
