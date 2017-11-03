@@ -3,7 +3,7 @@ ignore:
   - "project/src/main/java/org/apache/project/vue"
 
 coverage:
-  range: 20..60
+  range: 30..75
   status:
       project: no
       patch: no
