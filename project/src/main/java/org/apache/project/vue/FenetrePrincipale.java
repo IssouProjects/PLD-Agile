@@ -7,15 +7,14 @@ import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlageHoraire;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.control.Button;
 import javafx.scene.layout.ColumnConstraints;
@@ -44,10 +43,10 @@ public class FenetrePrincipale extends Application {
 	Button ajouterLivraisonButton;
 	Button supprLivraisonButton;
 	Button annulerBouton;
-	Button undoButton;
-	Button redoButton;
 
 	ListDisplay listeLivraisons;
+	
+	private UndoRedoWidget undoRedoWidget;
 	
 	private LivraisonPopup popup = null;
 	private Region opaqueLayer;
@@ -71,9 +70,7 @@ public class FenetrePrincipale extends Application {
 	public static final String ANNULER = "Annuler";
 	public static final String ANNULER_ID = "AnnulerButton";
 	public static final String EDIT_LIVRAISON_ID = "EditerLivraisonButton";;
-	public static final String UNDO = "Défaire";
 	public static final String UNDO_ID = "UndoButton";
-	public static final String REDO = "Refaire";
 	public static final String REDO_ID = "RedoButton";
 
 	public static void launchApp(String[] args) {
@@ -82,9 +79,6 @@ public class FenetrePrincipale extends Application {
 
 	@Override
 	public void start(Stage stage) {
-
-		controleur = Controleur.getInstance();
-		controleur.setFenetre(this);
 
 		stage.setTitle("Salty delivery");
 		stage.getIcons().add(new Image(getClass().getResource("winicon.png").toExternalForm()));
@@ -136,25 +130,13 @@ public class FenetrePrincipale extends Application {
 		listLabel = new Label("Livraisons :");
 		GridPane.setValignment(listLabel, VPos.BOTTOM);
 		
-		
-		undoButton = new Button();
-		undoButton.setTooltip(new Tooltip(UNDO));
-		undoButton.setPrefSize(32d, 32d);
-		undoButton.getStyleClass().add("undoButton");
-		redoButton = new Button();
-		redoButton.setTooltip(new Tooltip(REDO));
-		redoButton.setPrefSize(32d, 32d);
-		redoButton.getStyleClass().add("redoButton");
-		
-		undoButton.setUserData(UNDO_ID);
-		redoButton.setUserData(REDO_ID);
+		undoRedoWidget = new UndoRedoWidget(edb);
 		
 		undoRedoLayout.setAlignment(Pos.CENTER_LEFT);
 		undoRedoLayout.setHgap(5);
 		HBox.setHgrow(listLabel, Priority.ALWAYS);
 		undoRedoLayout.add(listLabel, 0, 0);
-		undoRedoLayout.add(undoButton, 1, 0);
-		undoRedoLayout.add(redoButton, 2 , 0);
+		undoRedoLayout.add(undoRedoWidget, 1, 0);
 		ColumnConstraints labelCC = new ColumnConstraints();
 		labelCC.setHgrow(Priority.ALWAYS);
 		undoRedoLayout.getColumnConstraints().add(labelCC);
@@ -221,6 +203,9 @@ public class FenetrePrincipale extends Application {
 		//////////////////////////////////////////
 		///// MAPPING CONTROLS AND LISTENERS /////
 		//////////////////////////////////////////
+		
+		controleur = Controleur.getInstance();
+		controleur.setFenetre(this);
 
 		// button listener
 		edb = new EcouteurDeBouton(controleur, this);
@@ -238,8 +223,7 @@ public class FenetrePrincipale extends Application {
 		ajouterLivraisonButton.setOnAction(edb);
 		supprLivraisonButton.setOnAction(edb);
 		annulerBouton.setOnAction(edb);
-		undoButton.setOnAction(edb);
-		redoButton.setOnAction(edb);
+		undoRedoWidget.setEcouteurDeBouton(edb);
 
 		// map listener
 		edm = new EcouteurDeMap(controleur, mapContainer);
@@ -249,7 +233,7 @@ public class FenetrePrincipale extends Application {
 		edl = new EcouteurDeListe(controleur, listeLivraisons);
 		listeLivraisons.setEcouteurDeListe(edl);
 		listeLivraisons.setEcouteurDeBouton(edb);
-
+		
 		// we can now show the window
 		stage.setScene(scene);
 		stage.show();
@@ -354,5 +338,9 @@ public class FenetrePrincipale extends Application {
     
     public Livraison getSelectedLivraison() {
     	return listeLivraisons.getSelectedLivraison();
+    }
+    
+    public UndoRedoWidget getUndoRedoWidget() {
+    	return undoRedoWidget;
     }
 }
