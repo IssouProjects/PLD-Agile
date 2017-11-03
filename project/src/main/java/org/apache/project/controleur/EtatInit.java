@@ -1,5 +1,6 @@
 package org.apache.project.controleur;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -14,8 +15,18 @@ public class EtatInit extends EtatDefaut {
 
 	@Override
 	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale){
+		File file = fenetrePrincipale.ouvrirFichierXml("Fichier de plan", "*.xml", "Ouvrir un plan de ville");
+		if(file == null)
+			return;
+		controleur.chargerPlanDeVille(file);
+	}
+	
+	@Override
+	public void chargerPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, File fichier) {
+		if(fichier == null)
+			return;
 		try {
-			Deserialisateur.chargerPlanVille(planDeVille);
+			Deserialisateur.chargerPlanDeVilleFichier(planDeVille, fichier);
 			controleur.setEtatCourant(controleur.etatPlanCharge);
 			fenetrePrincipale.afficherPlanDeVille(planDeVille);
 			fenetrePrincipale.afficherInfo("Charger une demande de livraison");

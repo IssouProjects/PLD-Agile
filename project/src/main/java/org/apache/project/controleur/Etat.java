@@ -1,5 +1,6 @@
 package org.apache.project.controleur;
 
+import java.io.File;
 import java.sql.Time;
 
 import org.apache.project.modele.DemandeDeLivraison;
@@ -22,6 +23,23 @@ public interface Etat {
 	 *            la fenêtre principale de l'application.
 	 */
 	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale);
+	
+
+	/**
+	 * 
+	 * Methode appelee par le controleur pour charger un fichier de plan de ville qui
+	 * 
+	 * @param controleur
+	 *            contrôleur de l'application.
+	 * @param planDeVille
+	 *            l'objet <tt>PlanDeVille</tt> qu'on va compléter en désérialisant
+	 *            un fichier XML.
+	 * @param fenetrePrincipale
+	 *            la fenêtre principale de l'application.
+	 * @param fichier
+	 * 			  le fichier de plan de ville à charger dans l'application
+	 */
+	public void chargerPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, File fichier);
 
 	/**
 	 * Méthode appelée par controleur apres un clic sur le bouton "Ouvrir demande de
@@ -39,6 +57,25 @@ public interface Etat {
 	 */
 	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille,
 			DemandeDeLivraison demandeDelivraison, FenetrePrincipale fenetrePrincipale);
+	
+	/**
+	 * 
+	 * Methode appelee par le controleur pour charger un fichier de plan de ville qui
+	 * 
+	 * @param controleur
+	 *            contrôleur de l'application.
+	 * @param planDeVille
+	 *            plan de la ville où a lieu les livraisons.
+     * @param demandeDelivraison
+	 *            objet <tt>DemandeDeLivraison</tt> qu'on va compléter en
+	 *            désérialisant un fichier XML.
+	 * @param fenetrePrincipale
+	 *            la fenêtre principale de l'application.
+	 * @param fichier
+	 * 			  le fichier de demande de livraisons à charger dans l'application
+	 */
+	public void chargerDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille,
+			DemandeDeLivraison demandeDelivraison, FenetrePrincipale fenetrePrincipale, File fichier);
 
 	/**
 	 * Methode appelee par controleur apres un clic sur le bouton "Calculer tournée"

@@ -1,6 +1,7 @@
 package org.apache.project.controleur;
 
-import org.apache.project.modele.Chemin;
+import java.io.File;
+
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
@@ -23,19 +24,26 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 	@Override
 	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille,
 			DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale) {
+		File file = fenetrePrincipale.ouvrirFichierXml("Fichier de demande de livraison", "*.xml", "Ouvrir une demande de livraison");
+		if(file == null) {
+			return;
+		}
 		controleur.setEtatCourant(controleur.etatPlanCharge);
 		fenetrePrincipale.clearLivraison();
 		controleur.clearDemandeDeLivraison();
-		controleur.ouvrirDemandeDeLivraison();
+		controleur.chargerDemandeDeLivraison(file);
 	}
 
 	@Override
 	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale) {
+		File file = fenetrePrincipale.ouvrirFichierXml("Fichier de plan", "*.xml", "Ouvrir un plan de ville");
+		if(file == null)
+			return;
 		controleur.setEtatCourant(controleur.etatInit);
 		fenetrePrincipale.clearPlanDeVille();
 		controleur.clearPlanDeVille();
 		controleur.clearDemandeDeLivraison();
-		controleur.ouvrirPlanDeVille();
+		controleur.chargerPlanDeVille(file);
 	}
 	
 	public void intersectionClicked (Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Intersection intersection) {

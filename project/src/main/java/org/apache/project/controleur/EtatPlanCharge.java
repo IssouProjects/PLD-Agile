@@ -1,5 +1,6 @@
 package org.apache.project.controleur;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,8 +18,17 @@ public class EtatPlanCharge extends EtatDefaut {
 
 	@Override
 	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale){
+		File file = fenetrePrincipale.ouvrirFichierXml("Fichier de demande de livraison", "*.xml", "Ouvrir une demande de livraison");
+		if(file == null) {
+			return;
+		}
+		controleur.chargerDemandeDeLivraison(file);
+	}
+	
+	@Override
+	public void chargerDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale, File fichier){
 		try {
-			Deserialisateur.chargerDemandeLivraison(demandeDeLivraison, planDeVille);
+			Deserialisateur.chargerDemandeLivraisonFichier(demandeDeLivraison, planDeVille, fichier);
 			controleur.setEtatCourant(controleur.etatDemandeLivraisonCharge);
 			fenetrePrincipale.afficherDemandeDeLivraison(demandeDeLivraison);
 			fenetrePrincipale.afficherInfo("Calculer une tournée");
@@ -32,10 +42,13 @@ public class EtatPlanCharge extends EtatDefaut {
 	
 	@Override
 	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale){
+		File file = fenetrePrincipale.ouvrirFichierXml("Fichier de plan", "*.xml", "Ouvrir un plan de ville");
+		if(file == null)
+			return;
 		controleur.setEtatCourant(controleur.etatInit);
 		fenetrePrincipale.clearPlanDeVille();
 		controleur.clearPlanDeVille();
-		controleur.ouvrirPlanDeVille();
+		controleur.chargerPlanDeVille(file);
 	}
 	
 	public void intersectionClicked (Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Intersection intersection) {
