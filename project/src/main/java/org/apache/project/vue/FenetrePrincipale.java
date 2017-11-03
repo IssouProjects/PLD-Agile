@@ -1,5 +1,7 @@
 package org.apache.project.vue;
 
+import java.io.File;
+
 import org.apache.project.controleur.Controleur;
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
@@ -29,6 +31,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class FenetrePrincipale extends Application {
+	
+	private Stage stage;
 
 	MapContainer mapContainer;
 	Controleur controleur;
@@ -79,6 +83,8 @@ public class FenetrePrincipale extends Application {
 
 	@Override
 	public void start(Stage stage) {
+		
+		this.stage = stage;
 
 		stage.setTitle("Salty delivery");
 		stage.getIcons().add(new Image(getClass().getResource("winicon.png").toExternalForm()));
@@ -342,5 +348,21 @@ public class FenetrePrincipale extends Application {
     
     public UndoRedoWidget getUndoRedoWidget() {
     	return undoRedoWidget;
+    }
+    
+    /**
+	 * Affiche une boite de dialogue pour ouvrir un fichier. Cette méthode est bloquante : on n'en sors pas tant que l'utilisateur n'a pas choisi un fichier ou annulé l'opération.
+	 * 
+	 * @param fileDescription
+	 *            Description du fichier (exemple : fichier de plan XML)
+	 * @param fileExtension
+	 *            Extension du fichier à ouvrir (exemple : *.xml)
+	 * @param windowTitle
+	 *            Titre de la fenetre (exemple : Ouvrir un fichier XML)
+	 * 
+	 * @return Le fichier, ou null si l'utilisateur à annulé l'opération
+	 */
+    public File ouvrirFichierXml(String fileDescription, String fileExtension, String windowTitle) {
+    	return FileOpener.ouvrirFichier(stage, fileDescription, fileExtension, windowTitle);
     }
 }
