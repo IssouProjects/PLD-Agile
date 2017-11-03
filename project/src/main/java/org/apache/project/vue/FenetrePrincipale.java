@@ -10,9 +10,13 @@ import org.apache.project.modele.Tournee;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.control.Button;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -40,8 +44,8 @@ public class FenetrePrincipale extends Application {
 	Button ajouterLivraisonButton;
 	Button supprLivraisonButton;
 	Button annulerBouton;
-	Button undo;
-	Button redo;
+	Button undoButton;
+	Button redoButton;
 
 	ListDisplay listeLivraisons;
 	
@@ -67,8 +71,10 @@ public class FenetrePrincipale extends Application {
 	public static final String ANNULER = "Annuler";
 	public static final String ANNULER_ID = "AnnulerButton";
 	public static final String EDIT_LIVRAISON_ID = "EditerLivraisonButton";;
-	public static final String UNDO = "Undo";
-	public static final String REDO = "Redo";
+	public static final String UNDO = "Défaire";
+	public static final String UNDO_ID = "UndoButton";
+	public static final String REDO = "Refaire";
+	public static final String REDO_ID = "RedoButton";
 
 	public static void launchApp(String[] args) {
 		Application.launch(FenetrePrincipale.class, args);
@@ -80,10 +86,13 @@ public class FenetrePrincipale extends Application {
 		controleur = Controleur.getInstance();
 		controleur.setFenetre(this);
 
-		stage.setTitle("SALTY DELIVERY");
+		stage.setTitle("Salty delivery");
+		stage.getIcons().add(new Image(getClass().getResource("winicon.png").toExternalForm()));
 
 		// layout for the full window
 		GridPane layout = new GridPane();
+		
+		layout.getStylesheets().add(getClass().getResource("main.css").toExternalForm());
 		
 		stack = new StackPane(layout);
 		Scene scene = new Scene(stack, 1024, 576);
@@ -95,7 +104,6 @@ public class FenetrePrincipale extends Application {
 		// layout for the map and its controls buttons
 
 		HBox mapButtonsLayout = new HBox();
-		HBox undoRedoLayout = new HBox();
 
 		// buttons
 		fitMapButton = new Button("Recentrer plan");
@@ -108,36 +116,50 @@ public class FenetrePrincipale extends Application {
 
 		mapButtonsLayout.getChildren().add(loadMapButton);
 		mapButtonsLayout.getChildren().add(fitMapButton);
-		
-		undo = new Button(UNDO);
-		redo = new Button(REDO);
-		
-		undo.setUserData(UNDO);
-		redo.setUserData(REDO);
-		
-		undoRedoLayout.setAlignment(Pos.CENTER);
-		undoRedoLayout.setSpacing(10);
-		
-		undoRedoLayout.getChildren().add(undo);
-		undoRedoLayout.getChildren().add(redo);
 
 		// map
 		mapLabel = new Label("Action à realiser: Charger un plan");
+		mapLabel.getStyleClass().add("mapLabel");
 		layout.add(mapLabel, 0, 0);
+		GridPane.setValignment(mapLabel, VPos.BOTTOM);
 
 		mapContainer = new MapContainer(2000, 2000);
 		
 		layout.add(mapContainer, 0, 1);
 		layout.add(mapButtonsLayout, 0, 2);
-		layout.add(undoRedoLayout, 0, 3);
 
 		//////////////////////////////////////
 		///// CREATING THE DELIVERY LIST /////
 		//////////////////////////////////////
 
-		listLabel = new Label("Livraisons: ");
+		GridPane undoRedoLayout = new GridPane();
+		listLabel = new Label("Livraisons :");
+		GridPane.setValignment(listLabel, VPos.BOTTOM);
 		
-		layout.add(listLabel, 1, 0);
+		
+		undoButton = new Button();
+		undoButton.setTooltip(new Tooltip(UNDO));
+		undoButton.setPrefSize(32d, 32d);
+		undoButton.getStyleClass().add("undoButton");
+		redoButton = new Button();
+		redoButton.setTooltip(new Tooltip(REDO));
+		redoButton.setPrefSize(32d, 32d);
+		redoButton.getStyleClass().add("redoButton");
+		
+		undoButton.setUserData(UNDO_ID);
+		redoButton.setUserData(REDO_ID);
+		
+		undoRedoLayout.setAlignment(Pos.CENTER_LEFT);
+		undoRedoLayout.setHgap(5);
+		HBox.setHgrow(listLabel, Priority.ALWAYS);
+		undoRedoLayout.add(listLabel, 0, 0);
+		undoRedoLayout.add(undoButton, 1, 0);
+		undoRedoLayout.add(redoButton, 2 , 0);
+		ColumnConstraints labelCC = new ColumnConstraints();
+		labelCC.setHgrow(Priority.ALWAYS);
+		undoRedoLayout.getColumnConstraints().add(labelCC);
+		
+		layout.add(undoRedoLayout, 1, 0);
 		HBox listeButtonsLayout1 = new HBox();
 		listeButtonsLayout1.setSpacing(10);
 
@@ -165,7 +187,6 @@ public class FenetrePrincipale extends Application {
 		listeButtonsLayout1.getChildren().add(loadLivraisonButton);
 		listeButtonsLayout1.getChildren().add(calculerTourneeButton);
 		listeButtonsLayout1.getChildren().add(ajouterLivraisonButton);
-		//listeButtonsLayout1.getChildren().add(supprLivraisonButton);
 		listeButtonsLayout1.getChildren().add(annulerBouton);
 		
 
@@ -217,8 +238,8 @@ public class FenetrePrincipale extends Application {
 		ajouterLivraisonButton.setOnAction(edb);
 		supprLivraisonButton.setOnAction(edb);
 		annulerBouton.setOnAction(edb);
-		undo.setOnAction(edb);
-		redo.setOnAction(edb);
+		undoButton.setOnAction(edb);
+		redoButton.setOnAction(edb);
 
 		// map listener
 		edm = new EcouteurDeMap(controleur, mapContainer);
