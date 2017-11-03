@@ -33,7 +33,6 @@
     -fx-border-width: 2px;
     -fx-background-insets: 0px, 2px ;
     -fx-background-radius: 5;
-    -fx-padding: 10;
 }
 
 .list-cell:filled:selected:focused, .list-cell:filled:selected .titleText{
@@ -63,21 +62,21 @@
 }
 
 .editButton{
-	-fx-pref-height: 40px;
-    -fx-pref-width: 40px;
+	-fx-pref-height: 38px;
+    -fx-pref-width: 38px;
     -fx-background-image: url('edit.png');
-    -fx-background-size: 32px;
+    -fx-background-size: 24px;
     -fx-background-repeat: no-repeat;
-    -fx-background-position: 60%;
+    -fx-background-position: 50%;
 }
 
 .deleteButton{
-	-fx-pref-height: 40px;
-    -fx-pref-width: 40px;
+	-fx-pref-height: 38px;
+    -fx-pref-width: 38px;
     -fx-background-image: url('bin.png');
-    -fx-background-size: 32px;
+    -fx-background-size: 24px;
     -fx-background-repeat: no-repeat;
-    -fx-background-position: 60%;
+    -fx-background-position: 50%;
 }
 
 .iconOk{

@@ -44,10 +44,10 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 			case FenetrePrincipale.ANNULER_ID:
 				controleur.annuler();
 				break;
-			case FenetrePrincipale.UNDO:
+			case FenetrePrincipale.UNDO_ID:
 				controleur.undo();
 				break;
-			case FenetrePrincipale.REDO:
+			case FenetrePrincipale.REDO_ID:
 				controleur.redo();
 				break;
 			case LivraisonPopup.VALIDATE_ID:

@@ -54,6 +54,7 @@ public class Controleur {
 	
 	public void setFenetre(FenetrePrincipale fenetre) {
 		fenetrePrincipale = fenetre;
+		commandes.addObserver(fenetrePrincipale.getUndoRedoWidget());
 	}
 	
 	/**
