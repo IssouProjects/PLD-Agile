@@ -82,6 +82,21 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 					modificationPopup = null;
 				}
 				break;
+			case TimeoutPopup.VALIDATE_ID:
+				TimeoutPopup timeoutPopup = fenetrePrincipale.getFenetreTimeoutPopup();
+				if(timeoutPopup != null) {
+					//controleur.calculerTournee();
+					fenetrePrincipale.masquerFenetreTimeoutPopup();
+					
+				}
+				break;
+			case TimeoutPopup.CANCEL_ID:
+				TimeoutPopup timeoutPopup2 = fenetrePrincipale.getFenetreTimeoutPopup();
+				if(timeoutPopup2 != null) {
+					controleur.annuler();	
+					fenetrePrincipale.masquerFenetreTimeoutPopup();
+				}
+				break;
 			default:
 				System.out.println("Unmapped Button");
 			}

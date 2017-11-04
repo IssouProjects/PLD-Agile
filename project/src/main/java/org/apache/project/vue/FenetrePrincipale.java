@@ -355,8 +355,8 @@ public class FenetrePrincipale extends Application {
 		stack.getChildren().add(timeoutPopup);
 	}
 	
-	public LivraisonPopup getFenetreTimeoutPopup(){
-		return livraisonPopup;
+	public TimeoutPopup getFenetreTimeoutPopup(){
+		return timeoutPopup;
 	}
 	
 	public void masquerFenetreTimeoutPopup() {
