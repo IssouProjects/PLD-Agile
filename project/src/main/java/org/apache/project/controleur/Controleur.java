@@ -24,6 +24,7 @@ public class Controleur {
 	protected final EtatInit etatInit = new EtatInit();
 	protected final EtatPlanCharge etatPlanCharge = new EtatPlanCharge();
 	protected final EtatDemandeLivraisonCharge etatDemandeLivraisonCharge = new EtatDemandeLivraisonCharge();
+	protected final EtatTempsLimiteAtteint etatTempsLimiteAtteint = new EtatTempsLimiteAtteint();
 	protected final EtatTourneeCalculee etatTourneeCalculee = new EtatTourneeCalculee();
 	protected final EtatAjoutLivraison1 etatAjoutLivraison1 = new EtatAjoutLivraison1();
 	protected final EtatAjoutLivraison2 etatAjoutLivraison2 = new EtatAjoutLivraison2();

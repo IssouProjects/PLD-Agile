@@ -43,8 +43,8 @@ public class TimeoutPopup extends VBox {
 		mainLayout.setVgap(10);
 
 		mainLayout.setAlignment(Pos.CENTER_LEFT);
-		Label dureeLabel = new Label("Durée sur place :");
-		dureeSpinner = new TimeSpinner(LocalTime.of(0,5,0));
+		Label dureeLabel = new Label("Durée du time out:");
+		dureeSpinner = new TimeSpinner(LocalTime.of(0,0,10));
 		mainLayout.add(dureeLabel, 0, 0);
 		mainLayout.add(dureeSpinner, 1, 0);
 

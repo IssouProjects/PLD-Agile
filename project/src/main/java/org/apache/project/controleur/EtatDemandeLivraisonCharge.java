@@ -18,14 +18,16 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		tournee.setEntrepot(demandeDeLivraison.getEntrepot());
 		
 		boolean tempsLimiteAtteint = tournee.calculerTournee(planDeVille, demandeDeLivraison, tempsLimite);
-		if(tempsLimiteAtteint) {
-			//TODO APPELFENETRE
-			//TODO setEtat ?
-		}
 		tournee.ajouterListeLivraison(demandeDeLivraison.getEntrepot());
-		fenetrePrincipale.afficherTournee(tournee);
-		fenetrePrincipale.afficherInfo("Vous êtes libre de toute action");
-		controleur.setEtatCourant(controleur.etatTourneeCalculee);
+		
+		if(tempsLimiteAtteint) {
+			fenetrePrincipale.afficherFenetreTimeout();
+			controleur.setEtatCourant(controleur.etatTempsLimiteAtteint);
+		}else {
+			fenetrePrincipale.afficherTournee(tournee);
+			fenetrePrincipale.afficherInfo("Vous êtes libre de toute action");
+			controleur.setEtatCourant(controleur.etatTourneeCalculee);
+		}
 	}
 
 	@Override

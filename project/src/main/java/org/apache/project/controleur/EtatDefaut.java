@@ -21,6 +21,7 @@ public abstract class EtatDefaut implements Etat {
 	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, int tempsLimite) {}
 	public void calculerCheminsNouvelleLivraison(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale, Integer duree, Time heureDeb, Time heureFin, ListeDeCommandes commandes) {}
 	public void calculerCheminSupprLivraison(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale) {}
+	public void annulerRecalcul(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee) {}
 	public void annuler(Controleur controleur, FenetrePrincipale fenetrePrincipale) {}
 	public void ajouterLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale) {}
 	public void supprimerLivraison(Controleur controleur, Tournee tournee, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes) {}
