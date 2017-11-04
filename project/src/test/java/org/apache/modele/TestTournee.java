@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Time;
@@ -12,6 +13,9 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.project.modele.Chemin;
 import org.apache.project.modele.DemandeDeLivraison;
+import org.apache.project.modele.Intersection;
+import org.apache.project.modele.Livraison;
+import org.apache.project.modele.PlageHoraire;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
 import org.apache.project.xml.Deserialisateur;
@@ -133,7 +137,7 @@ public class TestTournee {
 		assertEquals(4118, tournee.getDureeTourneeSecondes());
 	}
 
-	/*@Test(timeout = 30000)
+	@Test(timeout = 30000)
 	public void testCalculerGrandeTournee()
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		// Creation des objets plan et demande
@@ -148,7 +152,7 @@ public class TestTournee {
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
 		tournee.calculerTournee(plan, demande);
-		
+		/*
 		  assertEquals(517370427,
 		  (long)tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud
 		  ()); assertEquals(21674814,
@@ -170,8 +174,8 @@ public class TestTournee {
 		  
 		  //Duree de la tournee ok assertEquals(15593,
 		  tournee.getDureeTourneeSecondes());
-		 
-	}*/
+		 */
+	}
 
 	@Test
 	public void TestClear() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
@@ -200,5 +204,122 @@ public class TestTournee {
 		assertTrue(tournee.getChemins().isEmpty());
 		assertTrue(tournee.getLivraisonsOrdonnees().isEmpty());
 		assertEquals(0, tournee.getDureeTourneeSecondes());
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Test
+	public void TestAjouterNouvelleLivraison() throws NumberFormatException, ParserConfigurationException, SAXException, IOException, ExceptionXML {
+		// Creation d'une tournee
+		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
+		PlanDeVille plan = new PlanDeVille();
+		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+		DemandeDeLivraison demande = new DemandeDeLivraison();
+		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+
+		// Calcul tournee
+		Tournee tournee = new Tournee();
+		tournee.setEntrepot(demande.getEntrepot());
+		tournee.calculerTournee(plan, demande);
+		
+		int ancienneDureeTournee = tournee.getDureeTourneeSecondes();
+		Livraison ancienneLivraison = tournee.getLivraison(3);
+		String ancienneHeurePassageLivraison = tournee.getLivraison(3).getHeureArrivee().toString();
+		
+		// Creation d'une nouvelle livraison
+		Intersection intersectionNvLivraison = plan.getIntersectionById((long)26155368);
+		
+		PlageHoraire plage = new PlageHoraire(new Time(8,0,0), new Time(8,30,0));
+		
+		Livraison nouvelleLivraison = new Livraison(intersectionNvLivraison, 60, plage);
+		
+		// Ajout de cette nouvelle livraison a la tournee
+		tournee.ajouterNouvelleLivraison(plan, nouvelleLivraison, tournee.getLivraison(1));
+		
+		// Verification des informations de la nouvelle livraison dans la tournee
+		assertEquals(60, tournee.getLivraison(2).getDuree());
+		assertEquals((long)26155368, (long)tournee.getLivraison(2).getLieuDeLivraison().getIdNoeud());
+		assertEquals(plage, tournee.getLivraison(2).getPlageHoraire());
+		
+		assertEquals((long)25321357, (long)tournee.getEntrepot().getLieuDeLivraison().getIdNoeud()); // Entrepot inchange
+		
+		assertEquals(6, tournee.getLivraisonsSize()); // Nombre de livraisons ok
+		
+		assertEquals(4437, tournee.getDureeTourneeSecondes());
+		assertTrue(tournee.getDureeTourneeSecondes() > ancienneDureeTournee);
+		
+		// Verification de l'heure de passage
+		assertEquals("08:26:04", tournee.getLivraison(2).getHeureArrivee().toString());
+		
+		// Verification de la repercussion de la nouvelle livraison sur les heures de passages des suivantes
+		assertEquals(ancienneLivraison, tournee.getLivraison(4)); // L'ancienne livraison a ete decalee de 1
+		assertTrue(tournee.getLivraison(4).getHeureArrivee().toString() != ancienneHeurePassageLivraison);
+		assertEquals("08:35:08", tournee.getLivraison(4).getHeureArrivee().toString());
+		
+		// Verification de l'itineraire emprunte
+		// De la livraison precdente a la nouvelle livraison...
+		assertEquals("ID: 1860559399 X:20437 Y:23772", tournee.getChemin(1).getDebut().toString());
+		assertEquals("ID: 26155368 X:23009 Y:33904", tournee.getChemin(1).getFin().toString());
+		
+		// On verifie que ca passe par la nouvelle livraison
+		assertEquals((long)tournee.getLivraison(2).getLieuDeLivraison().getIdNoeud(), (long)tournee.getChemin(1).getFin().getIdNoeud());
+		assertEquals((long)tournee.getLivraison(2).getLieuDeLivraison().getIdNoeud(), (long)tournee.getChemin(2).getDebut().getIdNoeud());
+		
+		// Et de la nouvelle livraison a la suivante
+		assertEquals("ID: 26155368 X:23009 Y:33904", tournee.getChemin(2).getDebut().toString());
+		assertEquals("ID: 25303807 X:19933 Y:32576", tournee.getChemin(2).getFin().toString());
+		
+		assertEquals("[Heure d'arrivée: 08:00\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 0min, Heure d'arrivée: 08:05\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 15min, Heure d'arrivée: 08:26\n" + 
+				"Plage horaire: 08:00 - 08:30\n" + 
+				"Duree sur place: 1min, Heure d'arrivée: 08:29\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 5min, Heure d'arrivée: 08:35\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 15min, Heure d'arrivée: 08:52\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 15min]", tournee.getLivraisonsOrdonnees().toString());
+	}
+	
+	@Test
+	public void TestSupprimerLivraison() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+		// Creation d'une tournee
+		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
+		PlanDeVille plan = new PlanDeVille();
+		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+		DemandeDeLivraison demande = new DemandeDeLivraison();
+		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+
+		// Calcul tournee
+		Tournee tournee = new Tournee();
+		tournee.setEntrepot(demande.getEntrepot());
+		tournee.calculerTournee(plan, demande);
+		
+		// Etat de la tournee avant suppression
+		int dureeAncienneTournee = tournee.getDureeTourneeSecondes();
+		
+		// Suppression tournee
+		tournee.supprimerLivraison(plan, 2);
+		
+		assertEquals(4, tournee.getLivraisonsSize());
+		
+		assertTrue(tournee.getDureeTourneeSecondes() < dureeAncienneTournee);
+		assertEquals(3818, tournee.getDureeTourneeSecondes());
+		
+		assertEquals("[Heure d'arrivée: 08:00\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 0min, Heure d'arrivée: 08:05\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 15min, Heure d'arrivée: 08:24\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 15min, Heure d'arrivée: 08:41\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 15min]", tournee.getLivraisonsOrdonnees().toString());
+		
+		assertEquals("[De 25321357 à 1860559399, De 1860559399 à 26155540, De 26155540 à 29003879, De 29003879 à 25321357]", tournee.getChemins().toString());
 	}
 }
