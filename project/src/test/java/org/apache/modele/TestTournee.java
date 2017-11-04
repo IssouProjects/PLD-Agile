@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.apache.project.modele.Chemin;
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
+import org.apache.project.modele.PlageHoraire;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
 import org.apache.project.xml.Deserialisateur;
@@ -159,6 +161,7 @@ public class TestTournee {
 		assertEquals(0, tournee.getDureeTourneeSecondes());
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void TestAjouterNouvelleLivraison() throws NumberFormatException, ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		// Creation d'une tournee
@@ -180,7 +183,10 @@ public class TestTournee {
 		
 		// Creation d'une nouvelle livraison
 		Intersection intersectionNvLivraison = plan.getIntersectionById((long)26155368);
-		Livraison nouvelleLivraison = new Livraison(intersectionNvLivraison, 60);
+		
+		PlageHoraire plage = new PlageHoraire(new Time(8,0,0), new Time(8,30,0));
+		
+		Livraison nouvelleLivraison = new Livraison(intersectionNvLivraison, 60, plage);
 		
 		// Ajout de cette nouvelle livraison a la tournee
 		tournee.ajouterNouvelleLivraison(plan, nouvelleLivraison, tournee.getLivraison(1));
@@ -188,7 +194,7 @@ public class TestTournee {
 		// Verification des informations de la nouvelle livraison dans la tournee
 		assertEquals(60, tournee.getLivraison(2).getDuree());
 		assertEquals((long)26155368, (long)tournee.getLivraison(2).getLieuDeLivraison().getIdNoeud());
-		assertNull(tournee.getLivraison(2).getPlageHoraire());
+		assertEquals(plage, tournee.getLivraison(2).getPlageHoraire());
 		
 		assertEquals((long)25321357, (long)tournee.getEntrepot().getLieuDeLivraison().getIdNoeud()); // Entrepot inchange
 		
