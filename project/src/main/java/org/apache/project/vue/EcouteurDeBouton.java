@@ -1,5 +1,7 @@
 package org.apache.project.vue;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.project.controleur.Controleur;
 
 import javafx.event.ActionEvent;
