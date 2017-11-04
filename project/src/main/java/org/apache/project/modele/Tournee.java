@@ -115,7 +115,7 @@ public class Tournee extends Observable {
 	 * @param demande
 	 *            demande de livraison à partir de laquelle on construit la tournée.
 	 * @param tempsLimite
-	 * 			  le temps laissé à l'algorithme pour trouver une solution en secondes
+	 * 			  le temps laissé à l'algorithme pour trouver une solution en millisecondes
 	 */
 	public boolean calculerTournee(PlanDeVille plan, DemandeDeLivraison demande, int tempsLimite) {
 

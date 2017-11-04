@@ -53,7 +53,8 @@ public class FenetrePrincipale extends Application {
 	
 	private UndoRedoWidget undoRedoWidget;
 	
-	private LivraisonPopup popup = null;
+	private LivraisonPopup livraisonPopup = null;
+	private TimeoutPopup timeoutPopup = null;
 	private Region opaqueLayer;
 
 	private StackPane stack;
@@ -319,26 +320,50 @@ public class FenetrePrincipale extends Application {
 	}
 	
 	public void afficherFenetreAjouterLivraison(Livraison l) {
-		if(popup != null)
+		if(livraisonPopup != null)
 			return;
-		popup = new LivraisonPopup(l, edb);
+		livraisonPopup = new LivraisonPopup(l, edb);
 		opaqueLayer = new Region();
 		opaqueLayer.setStyle("-fx-background-color: #00000088;");
 		opaqueLayer.setVisible(true);
 
 		stack.getChildren().add(opaqueLayer);
-		stack.getChildren().add(popup);
+		stack.getChildren().add(livraisonPopup);
 	}
 	
 	public LivraisonPopup getFenetreAjouterLivraison(){
-		return popup;
+		return livraisonPopup;
 	}
 	
 	public void masquerFenetreAjouterLivraison() {
-		stack.getChildren().remove(popup);
+		stack.getChildren().remove(livraisonPopup);
 		stack.getChildren().remove(opaqueLayer);
 		
-		popup = null;
+		livraisonPopup = null;
+		opaqueLayer = null;
+	}
+	
+	public void afficherFenetreTimeout() {
+		if(timeoutPopup != null)
+			return;
+		timeoutPopup = new TimeoutPopup(edb);
+		opaqueLayer = new Region();
+		opaqueLayer.setStyle("-fx-background-color: #00000088;");
+		opaqueLayer.setVisible(true);
+
+		stack.getChildren().add(opaqueLayer);
+		stack.getChildren().add(timeoutPopup);
+	}
+	
+	public LivraisonPopup getFenetreTimeoutPopup(){
+		return livraisonPopup;
+	}
+	
+	public void masquerFenetreTimeoutPopup() {
+		stack.getChildren().remove(timeoutPopup);
+		stack.getChildren().remove(opaqueLayer);
+		
+		timeoutPopup = null;
 		opaqueLayer = null;
 	}
 	

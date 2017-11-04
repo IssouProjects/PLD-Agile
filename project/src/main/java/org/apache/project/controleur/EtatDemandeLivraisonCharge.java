@@ -16,7 +16,12 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison,
 			Tournee tournee, FenetrePrincipale fenetrePrincipale, int tempsLimite) {
 		tournee.setEntrepot(demandeDeLivraison.getEntrepot());
-		tournee.calculerTournee(planDeVille, demandeDeLivraison, tempsLimite);
+		
+		boolean tempsLimiteAtteint = tournee.calculerTournee(planDeVille, demandeDeLivraison, tempsLimite);
+		if(tempsLimiteAtteint) {
+			//TODO APPELFENETRE
+			//TODO setEtat ?
+		}
 		tournee.ajouterListeLivraison(demandeDeLivraison.getEntrepot());
 		fenetrePrincipale.afficherTournee(tournee);
 		fenetrePrincipale.afficherInfo("Vous êtes libre de toute action");
