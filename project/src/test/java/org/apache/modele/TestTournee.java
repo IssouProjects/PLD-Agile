@@ -223,6 +223,20 @@ public class TestTournee {
 		// Et de la nouvelle livraison a la suivante
 		assertEquals("ID: 26155368 X:23009 Y:33904", tournee.getChemin(2).getDebut().toString());
 		assertEquals("ID: 25303807 X:19933 Y:32576", tournee.getChemin(2).getFin().toString());
+		
+		assertEquals("[Heure d'arrivée: 08:00\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 0min, Heure d'arrivée: 08:05\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 15min, Heure d'arrivée: 08:26\n" + 
+				"Plage horaire: 08:00 - 08:30\n" + 
+				"Duree sur place: 1min, Heure d'arrivée: 08:29\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 5min, Heure d'arrivée: 08:35\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 15min, Heure d'arrivée: 08:52\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 15min]", tournee.getLivraisonsOrdonnees().toString());
 	}
 	
 	@Test
