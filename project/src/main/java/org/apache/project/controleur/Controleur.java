@@ -88,6 +88,10 @@ public class Controleur {
 		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale, tempsLimite);
 	}
 	
+	public void calculerTournee(int nouveauTempsLimite) {
+		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale, nouveauTempsLimite);
+	}
+	
 	public void ajouterLivraison() {
 		etatCourant.ajouterLivraison(this, fenetrePrincipale);
 	}
@@ -106,6 +110,10 @@ public class Controleur {
 	
 	public void annuler() {
 		etatCourant.annuler(this, fenetrePrincipale);
+	}
+	
+	public void annulerRecalcul() {
+		etatCourant.annulerRecalcul(this, fenetrePrincipale, tournee);
 	}
 	
 	public void intersectionClicked(Intersection intersection) {

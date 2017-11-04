@@ -85,15 +85,14 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 			case TimeoutPopup.VALIDATE_ID:
 				TimeoutPopup timeoutPopup = fenetrePrincipale.getFenetreTimeoutPopup();
 				if(timeoutPopup != null) {
-					//controleur.calculerTournee();
 					fenetrePrincipale.masquerFenetreTimeoutPopup();
-					
+					controleur.calculerTournee(timeoutPopup.getNewDuree()*1000);
 				}
 				break;
 			case TimeoutPopup.CANCEL_ID:
 				TimeoutPopup timeoutPopup2 = fenetrePrincipale.getFenetreTimeoutPopup();
 				if(timeoutPopup2 != null) {
-					controleur.annuler();	
+					controleur.annulerRecalcul();	
 					fenetrePrincipale.masquerFenetreTimeoutPopup();
 				}
 				break;
