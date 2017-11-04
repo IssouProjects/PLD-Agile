@@ -151,6 +151,15 @@ public interface Etat {
 	public void validerModificationLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee, Time heureDeb, Time heureFin);
 	
 	/**
+	 * Methode appelee par controleur apres un clic sur bouton "up" ou "down"
+	 * @param controleur
+	 * @param fenetrePrincipale
+	 * @param tournee
+	 * @param nouvelleIndex
+	 */
+	public void echangerLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee, int nouvelleIndex);
+	
+	/**
 	 * Methode appelee apres un clic sur une intersection
 	 * @param controleur
 	 * @param planDeVille
