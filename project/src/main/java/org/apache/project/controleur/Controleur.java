@@ -99,7 +99,7 @@ public class Controleur {
 	}
 	
 	public void validerModificationLivraison(Time heureDeb, Time heureFin) {
-		etatCourant.validerModificationLivraison(this, fenetrePrincipale, tournee, heureDeb, heureFin);
+		etatCourant.validerModificationLivraison(this, fenetrePrincipale, tournee, heureDeb, heureFin, commandes);
 	}
 	
 	public void annuler() {
