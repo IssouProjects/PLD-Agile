@@ -218,4 +218,43 @@ public class TestTournee {
 		assertEquals("ID: 26155368 X:23009 Y:33904", tournee.getChemin(2).getDebut().toString());
 		assertEquals("ID: 25303807 X:19933 Y:32576", tournee.getChemin(2).getFin().toString());
 	}
+	
+	@Test
+	public void TestSupprimerLivraison() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+		// Creation d'une tournee
+		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
+		PlanDeVille plan = new PlanDeVille();
+		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+		DemandeDeLivraison demande = new DemandeDeLivraison();
+		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+
+		// Calcul tournee
+		Tournee tournee = new Tournee();
+		tournee.setEntrepot(demande.getEntrepot());
+		tournee.calculerTournee(plan, demande);
+		
+		// Etat de la tournee avant suppression
+		int dureeAncienneTournee = tournee.getDureeTourneeSecondes();
+		
+		// Suppression tournee
+		tournee.supprimerLivraison(plan, 2);
+		
+		assertEquals(4, tournee.getLivraisonsSize());
+		
+		assertTrue(tournee.getDureeTourneeSecondes() < dureeAncienneTournee);
+		assertEquals(3818, tournee.getDureeTourneeSecondes());
+		
+		assertEquals("[Heure d'arrivée: 08:00\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 0min, Heure d'arrivée: 08:05\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 15min, Heure d'arrivée: 08:24\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 15min, Heure d'arrivée: 08:41\n" + 
+				"Pas de plage horaire\n" + 
+				"Duree sur place: 15min]", tournee.getLivraisonsOrdonnees().toString());
+		
+		assertEquals("[De 25321357 à 1860559399, De 1860559399 à 26155540, De 26155540 à 29003879, De 29003879 à 25321357]", tournee.getChemins().toString());
+	}
 }
