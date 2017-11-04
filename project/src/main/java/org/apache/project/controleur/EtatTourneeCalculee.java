@@ -89,6 +89,15 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		controleur.setEtatCourant(controleur.etatModifierLivraison1);
 	}
 	
+	@Override
+	public void echangerLivraison(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, Tournee tournee, int nouveauIndex) {
+		Livraison livraisonSelectionnee = fenetrePrincipale.getSelectedLivraison();
+		tournee.deplacerLivraison(planDeVille, livraisonSelectionnee, nouveauIndex);
+		
+		fenetrePrincipale.clearTournee();
+		fenetrePrincipale.afficherTournee(tournee);
+	}
+	
 	public void undo(ListeDeCommandes commandes) {
 		commandes.undo();
 	}
