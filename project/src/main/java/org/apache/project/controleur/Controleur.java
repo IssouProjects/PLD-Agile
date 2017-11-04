@@ -19,6 +19,7 @@ public class Controleur {
 	private FenetrePrincipale fenetrePrincipale;
 	private Tournee tournee;
 	private Etat etatCourant;
+	private int tempsLimite = 10000;
 	// Instances associees a chaque etat possible du controleur
 	protected final EtatInit etatInit = new EtatInit();
 	protected final EtatPlanCharge etatPlanCharge = new EtatPlanCharge();
@@ -83,7 +84,7 @@ public class Controleur {
 	}
 	
 	public void calculerTournee() {
-		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale);
+		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale, tempsLimite);
 	}
 	
 	public void ajouterLivraison() {

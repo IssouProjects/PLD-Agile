@@ -85,9 +85,10 @@ public interface Etat {
 	 * @param demandeDeLivraison
 	 * @param tournee
 	 * @param fenetrePrincipale
+	 * @param tempsLimite
 	 */
 	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison,
-			Tournee tournee, FenetrePrincipale fenetrePrincipale);
+			Tournee tournee, FenetrePrincipale fenetrePrincipale, int tempsLimite);
 
   /**
 	 * Methode appelee par controleur pour annuler une action

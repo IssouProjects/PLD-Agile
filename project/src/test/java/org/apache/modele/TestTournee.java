@@ -42,7 +42,7 @@ public class TestTournee {
 		tournee.setEntrepot(demande.getEntrepot());
 		assertEquals(0, (long)tournee.getEntrepot().getLieuDeLivraison().getIdNoeud());
 			
-		tournee.calculerTournee(plan, demande);
+		tournee.calculerTournee(plan, demande, 10000);
 		List<Chemin> chemins = new ArrayList<Chemin>();
 		chemins = tournee.getChemins();
 		
@@ -77,7 +77,7 @@ public class TestTournee {
 		tournee.setEntrepot(demande.getEntrepot());
 		assertEquals(0, (long)tournee.getEntrepot().getLieuDeLivraison().getIdNoeud());
 			
-		tournee.calculerTournee(plan, demande);
+		tournee.calculerTournee(plan, demande, 10000);
 		List<Chemin> chemins = new ArrayList<Chemin>();
 		chemins = tournee.getChemins();
 		
@@ -112,7 +112,7 @@ public class TestTournee {
 		// Calcul tournee
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.calculerTournee(plan, demande);
+		tournee.calculerTournee(plan, demande, 10000);
 		
 
 		// Verification de l'ordre et des intersection a livrer
@@ -151,7 +151,7 @@ public class TestTournee {
 		// Calcul tournee
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.calculerTournee(plan, demande);
+		tournee.calculerTournee(plan, demande, 10000);
 		/*
 		  assertEquals(517370427,
 		  (long)tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud
@@ -190,7 +190,7 @@ public class TestTournee {
 		// Calcul tournee
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.calculerTournee(plan, demande);
+		tournee.calculerTournee(plan, demande, 10000);
 
 		assertNotNull(tournee.getEntrepot());
 		assertNotNull(tournee.getEntrepot().getHeureDepart());
@@ -220,7 +220,7 @@ public class TestTournee {
 		// Calcul tournee
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.calculerTournee(plan, demande);
+		tournee.calculerTournee(plan, demande, 10000);
 		
 		int ancienneDureeTournee = tournee.getDureeTourneeSecondes();
 		Livraison ancienneLivraison = tournee.getLivraison(3);
@@ -297,7 +297,7 @@ public class TestTournee {
 		// Calcul tournee
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.calculerTournee(plan, demande);
+		tournee.calculerTournee(plan, demande, 10000);
 		
 		// Etat de la tournee avant suppression
 		int dureeAncienneTournee = tournee.getDureeTourneeSecondes();

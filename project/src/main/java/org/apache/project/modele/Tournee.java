@@ -108,13 +108,16 @@ public class Tournee extends Observable {
 	 * La méthode calcule l'ordre et les horaires de passages des livraisons dans
 	 * une tournée à partir de la demande de livraisons, ainsi que du plan de la
 	 * ville où ont lieu lesdites livraisons.
+	 * Retourne vrai si le temps limite a été atteint
 	 * 
 	 * @param plan
 	 *            plan de la ville/agglomération où se déroule la tournée.
 	 * @param demande
 	 *            demande de livraison à partir de laquelle on construit la tournée.
+	 * @param tempsLimite
+	 * 			  le temps laissé à l'algorithme pour trouver une solution en secondes
 	 */
-	public void calculerTournee(PlanDeVille plan, DemandeDeLivraison demande) {
+	public boolean calculerTournee(PlanDeVille plan, DemandeDeLivraison demande, int tempsLimite) {
 
 		List<Chemin> graphe = Dijkstra.principalDijkstra(plan, demande);
 
@@ -154,8 +157,9 @@ public class Tournee extends Observable {
 			cout[convertOrigine][convertDestination] = graphe.get(i).getDuree();
 		}
 		TSP2 tspSolut = new TSP2();
-		tspSolut.chercheSolution(10000, nombreLivraison, cout, duree);
-
+		tspSolut.chercheSolution(tempsLimite, nombreLivraison, cout, duree);
+		boolean tempsLimiteAtteint = tspSolut.getTempsLimiteAtteint();
+		
 		// Definit les parametres entrepots et la liste des intersections ordonnées
 		long idIntersection = 0;
 		long idIntersectionSuivante = 0;
@@ -201,6 +205,8 @@ public class Tournee extends Observable {
 				}
 			}
 		}
+		
+		return tempsLimiteAtteint;
 	}
 
 	/**

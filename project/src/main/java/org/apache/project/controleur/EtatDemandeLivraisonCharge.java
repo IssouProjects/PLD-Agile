@@ -9,12 +9,14 @@ import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
 
+import com.sun.javafx.util.TempState;
+
 public class EtatDemandeLivraisonCharge extends EtatDefaut {
 	@Override
 	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison,
-			Tournee tournee, FenetrePrincipale fenetrePrincipale) {
+			Tournee tournee, FenetrePrincipale fenetrePrincipale, int tempsLimite) {
 		tournee.setEntrepot(demandeDeLivraison.getEntrepot());
-		tournee.calculerTournee(planDeVille, demandeDeLivraison);
+		tournee.calculerTournee(planDeVille, demandeDeLivraison, tempsLimite);
 		tournee.ajouterListeLivraison(demandeDeLivraison.getEntrepot());
 		fenetrePrincipale.afficherTournee(tournee);
 		fenetrePrincipale.afficherInfo("Vous êtes libre de toute action");
