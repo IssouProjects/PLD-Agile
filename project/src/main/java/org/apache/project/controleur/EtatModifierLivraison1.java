@@ -12,16 +12,15 @@ public class EtatModifierLivraison1 extends EtatDefaut {
 	Livraison livraison;
 	
 	@Override
-	public void validerModificationLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee, Time heureDeb, Time heureFin,
-			ListeDeCommandes commandes) {
+	public void validerModificationLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee, Time heureDeb, Time heureFin) {
 		
 		PlageHoraire plageHoraire;
 		if(livraison.getPlageHoraire()==null) {
 			plageHoraire = new PlageHoraire(heureDeb, heureFin);
-			commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin));
+			livraison.setPlageHoraire(plageHoraire);
 		}else {
-			plageHoraire = new PlageHoraire(heureDeb, heureFin);
-			commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin));
+			livraison.getPlageHoraire().setDebut(heureDeb);
+			livraison.getPlageHoraire().setFin(heureFin);
 		}
 		
 		tournee.calculerDureeTotale();

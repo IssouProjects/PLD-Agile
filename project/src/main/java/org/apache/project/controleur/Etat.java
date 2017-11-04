@@ -148,7 +148,7 @@ public interface Etat {
 	 * @param heureDeb
 	 * @param heureFin
 	 */
-	public void validerModificationLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee, Time heureDeb, Time heureFin, ListeDeCommandes commandes);
+	public void validerModificationLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee, Time heureDeb, Time heureFin);
 	
 	/**
 	 * Methode appelee apres un clic sur une intersection
