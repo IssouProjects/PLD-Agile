@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Time;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -24,6 +25,7 @@ import org.xml.sax.SAXException;
 
 public class TestTournee {
 
+	@SuppressWarnings("deprecation")
 	@Test(timeout = 1000)
 	public void testCalculerTourneePerso() throws ParserConfigurationException, SAXException, IOException, ExceptionXML{
 		// Creation des objets plan et demande
@@ -46,11 +48,54 @@ public class TestTournee {
 		
 		// Tests 100% sur si distance en m et duree en s
 		assertEquals(480, chemins.get(0).getDuree());
+		
+		assertEquals(new Time (8,8,0),tournee.getLivraisonsOrdonnees().get(1).getHeureArrivee());
 		assertEquals(480, chemins.get(1).getDuree());
+		
+		assertEquals(new Time (8,16,0),tournee.getLivraisonsOrdonnees().get(2).getHeureArrivee());
 		assertEquals(3600, chemins.get(2).getDuree());
+		
+		assertEquals(new Time (9,16,0),tournee.getLivraisonsOrdonnees().get(3).getHeureArrivee());
 		assertEquals(2760, chemins.get(3).getDuree());
 		
 		assertEquals(7320, tournee.getDureeTourneeSecondes());
+	}
+	
+	@Test(timeout = 1000)
+	public void testCalculerTourneeHorairePerso() throws ParserConfigurationException, SAXException, IOException, ExceptionXML{
+		// Creation des objets plan et demande
+		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit4TW1.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planPetit.xml");
+		PlanDeVille plan = new PlanDeVille();
+		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+		DemandeDeLivraison demande = new DemandeDeLivraison();
+		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+		
+		// Calcul tournee
+		Tournee tournee = new Tournee();
+		
+		tournee.setEntrepot(demande.getEntrepot());
+		assertEquals(0, (long)tournee.getEntrepot().getLieuDeLivraison().getIdNoeud());
+			
+		tournee.calculerTournee(plan, demande);
+		List<Chemin> chemins = new ArrayList<Chemin>();
+		chemins = tournee.getChemins();
+		
+		// Tests 100% sur si distance en m et duree en s
+		assertEquals(480, chemins.get(0).getDuree());
+		
+		//Doit attendre 10h pour livrer
+		assertEquals(new Time (8,8,0),tournee.getLivraisonsOrdonnees().get(1).getHeureArrivee());
+		assertEquals(480, chemins.get(1).getDuree());
+		
+		assertEquals(new Time (10,8,0),tournee.getLivraisonsOrdonnees().get(2).getHeureArrivee());
+		assertEquals(3600, chemins.get(2).getDuree());
+		
+		assertEquals(new Time (11,8,0),tournee.getLivraisonsOrdonnees().get(3).getHeureArrivee());
+		assertEquals(2760, chemins.get(3).getDuree());
+		
+		//7320 + 3720 (112 * 60)
+		assertEquals(14040, tournee.getDureeTourneeSecondes());
 	}
 	
 	

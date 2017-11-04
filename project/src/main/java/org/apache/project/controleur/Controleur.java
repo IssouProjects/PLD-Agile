@@ -2,6 +2,7 @@ package org.apache.project.controleur;
 
 import org.apache.project.modele.PlanDeVille;
 
+import java.io.File;
 import java.sql.Time;
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class Controleur {
 	
 	public void setFenetre(FenetrePrincipale fenetre) {
 		fenetrePrincipale = fenetre;
+		commandes.addObserver(fenetrePrincipale.getUndoRedoWidget());
 	}
 	
 	/**
@@ -68,8 +70,16 @@ public class Controleur {
 		etatCourant.ouvrirPlanDeVille(this, planDeVille, fenetrePrincipale);
 	}
 	
+	public void chargerPlanDeVille(File fichier) {
+		etatCourant.chargerPlanDeVille(this, planDeVille, fenetrePrincipale, fichier);
+	}
+	
 	public void ouvrirDemandeDeLivraison() {
 		etatCourant.ouvrirDemandeDeLivraison(this, planDeVille, demandeDeLivraison, fenetrePrincipale);
+	}
+	
+	public void chargerDemandeDeLivraison(File fichier) {
+		etatCourant.chargerDemandeDeLivraison(this, planDeVille, demandeDeLivraison, fenetrePrincipale, fichier);
 	}
 	
 	public void calculerTournee() {

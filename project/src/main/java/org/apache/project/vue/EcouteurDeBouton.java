@@ -44,10 +44,10 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 			case FenetrePrincipale.ANNULER_ID:
 				controleur.annuler();
 				break;
-			case FenetrePrincipale.UNDO:
+			case FenetrePrincipale.UNDO_ID:
 				controleur.undo();
 				break;
-			case FenetrePrincipale.REDO:
+			case FenetrePrincipale.REDO_ID:
 				controleur.redo();
 				break;
 			case LivraisonPopup.VALIDATE_ID:
@@ -62,10 +62,8 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 			case LivraisonPopup.CANCEL_ID:
 				LivraisonPopup popup2 = fenetrePrincipale.getFenetreAjouterLivraison();
 				if(popup2 != null) {
-					if(popup2.checkTimeOk()) {
-						controleur.annuler();	
-						fenetrePrincipale.masquerFenetreAjouterLivraison();
-					}
+					controleur.annuler();	
+					fenetrePrincipale.masquerFenetreAjouterLivraison();
 				}
 				break;
 			case ModificationPopup.VALIDATE_ID:
