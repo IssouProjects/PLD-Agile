@@ -297,6 +297,11 @@ public class Tournee extends Observable {
 		this.calculerDureeTotale();
 	}
 	
-	
+	public void deplacerLivraison(PlanDeVille planDeVille, Livraison livraisonADeplacer, int nouveauIndex) {
+		Livraison livraisonADeplacerCopie = new Livraison(livraisonADeplacer.getLieuDeLivraison(), livraisonADeplacer.getDuree(), livraisonADeplacer.getPlageHoraire());
+		
+		this.supprimerLivraison(planDeVille, this.getLivraisonsOrdonnees().indexOf(livraisonADeplacer));
+		this.ajouterNouvelleLivraison(planDeVille, livraisonADeplacer, this.getLivraisonsOrdonnees().get(nouveauIndex-1));
+	}
 
 }
