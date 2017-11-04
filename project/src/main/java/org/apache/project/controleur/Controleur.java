@@ -132,12 +132,14 @@ public class Controleur {
 	
 	public void undo() {
 		etatCourant.undo(commandes);
+		tournee.calculerDureeTotale();
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
 	}
 	
 	public void redo() {
 		etatCourant.redo(commandes);
+		tournee.calculerDureeTotale();
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
 	}
