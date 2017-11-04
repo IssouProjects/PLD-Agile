@@ -77,11 +77,9 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 				break;
 			case ModificationPopup.CANCEL_ID:
 				if(modificationPopup != null) {
-					if(modificationPopup.checkTimeOk()) {
-						controleur.annuler();
-						modificationPopup.selfDestruct();
-						modificationPopup = null;
-					}
+					controleur.annuler();
+					modificationPopup.selfDestruct();
+					modificationPopup = null;
 				}
 				break;
 			default:
