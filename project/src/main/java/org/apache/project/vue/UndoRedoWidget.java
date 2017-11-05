@@ -4,6 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import org.apache.project.controleur.CdeAjouterLivraison;
+import org.apache.project.controleur.CdeEchangerLivraison;
 import org.apache.project.controleur.CdeModifierLivraison;
 import org.apache.project.controleur.CdeSupprimerLivraison;
 import org.apache.project.controleur.Commande;
@@ -60,6 +61,9 @@ public class UndoRedoWidget extends HBox implements Observer{
 			}else if(cmd instanceof CdeModifierLivraison) {
 				undoButton.setDisable(false);
 				undoButton.setTooltip(new Tooltip("Annuler Modification livraison"));
+			}else if(cmd instanceof CdeEchangerLivraison) {
+				undoButton.setDisable(false);
+				undoButton.setTooltip(new Tooltip("Annuler Echange livraison"));
 			}
 			
 			//gestion du redo
@@ -76,6 +80,9 @@ public class UndoRedoWidget extends HBox implements Observer{
 			}else if(cmd instanceof CdeModifierLivraison) {
 				redoButton.setDisable(false);
 				redoButton.setTooltip(new Tooltip("Rétablir Modifier livraison"));
+			}else if(cmd instanceof CdeEchangerLivraison) {
+				redoButton.setDisable(false);
+				redoButton.setTooltip(new Tooltip("Rétablir Echange livraison"));
 			}
 		}
 	}
