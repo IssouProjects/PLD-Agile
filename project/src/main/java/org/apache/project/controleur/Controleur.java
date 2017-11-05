@@ -102,6 +102,10 @@ public class Controleur {
 		etatCourant.validerModificationLivraison(this, fenetrePrincipale, tournee, heureDeb, heureFin, commandes);
 	}
 	
+	public void echangerLivraison(int nouveauIndex) {
+		etatCourant.echangerLivraison(this, planDeVille, fenetrePrincipale, tournee, nouveauIndex);
+	}
+	
 	public void annuler() {
 		etatCourant.annuler(this, fenetrePrincipale);
 	}

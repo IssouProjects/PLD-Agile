@@ -17,7 +17,7 @@ public class EtatAjoutLivraison2 extends EtatDefaut {
 			PlanDeVille plan, Tournee tournee, Livraison livraisonPrecedente, ListeDeCommandes commandes) {
 		
 		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
-
+		fenetrePrincipale.getListDisplay().disableAddHint();
 		controleur.setEtatCourant(controleur.etatAjoutLivraison3);
 		nouvelleLivraison = new Livraison(intersectionLivraison);
 		fenetrePrincipale.afficherFenetreAjouterLivraison(nouvelleLivraison);
@@ -43,6 +43,7 @@ public class EtatAjoutLivraison2 extends EtatDefaut {
 	@Override
 	public void annuler(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
+		fenetrePrincipale.getListDisplay().disableAddHint();
 		fenetrePrincipale.afficherInfo("Ajout annulé, vous êtes libre");
 	}
 

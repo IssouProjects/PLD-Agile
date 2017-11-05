@@ -14,6 +14,8 @@ public class Livraison {
 	private PlageHoraire plageHoraire;
 	private Time heureArrivee;
 	private Boolean estSelectionnee;
+	
+	private int positionDansTournee = -1;
 
 	/**
 	 * Crée une livraison avec un lieu de livraison, une durée de déchargement et
@@ -103,6 +105,14 @@ public class Livraison {
 
 	public void setEstSelectionnee(Boolean estSelectionnee) {
 		this.estSelectionnee = estSelectionnee;
+	}
+	
+	public void setPositionDansTournee(int positionDansTournee) {
+		this.positionDansTournee = positionDansTournee;
+	}
+	
+	public int getPositionDansTournee() {
+		return this.positionDansTournee;
 	}
 
 	@Override

@@ -201,6 +201,8 @@ public class Tournee extends Observable {
 				}
 			}
 		}
+		
+		updatePositionsDansTournee();
 	}
 
 	/**
@@ -263,6 +265,7 @@ public class Tournee extends Observable {
 
 			dureeTourneeSecondes += chemins.get(i).getDuree();
 		}
+		updatePositionsDansTournee();
 	}
 	
 	public void ajouterNouvelleLivraison(PlanDeVille planDeVille, Livraison nouvelleLivraison, Livraison livraisonPrecedente) {
@@ -297,6 +300,15 @@ public class Tournee extends Observable {
 		this.calculerDureeTotale();
 	}
 	
+	public void deplacerLivraison(PlanDeVille planDeVille, Livraison livraisonADeplacer, int nouveauIndex) {
+		this.supprimerLivraison(planDeVille, this.getLivraisonsOrdonnees().indexOf(livraisonADeplacer));
+		this.ajouterNouvelleLivraison(planDeVille, livraisonADeplacer, this.getLivraisonsOrdonnees().get(nouveauIndex-1));
+	}
 	
+	public void updatePositionsDansTournee() {
+		for(int i=0; i<livraisonsOrdonnees.size(); i++) {
+			livraisonsOrdonnees.get(i).setPositionDansTournee(i);
+		}
+	}
 
 }
