@@ -103,7 +103,7 @@ public class Controleur {
 	}
 	
 	public void echangerLivraison(int nouveauIndex) {
-		etatCourant.echangerLivraison(this, planDeVille, fenetrePrincipale, tournee, nouveauIndex);
+		etatCourant.echangerLivraison(this, planDeVille, fenetrePrincipale, tournee, nouveauIndex, commandes);
 	}
 	
 	public void annuler() {

@@ -92,9 +92,10 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	}
 	
 	@Override
-	public void echangerLivraison(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, Tournee tournee, int nouveauIndex) {
+	public void echangerLivraison(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, Tournee tournee, int nouveauIndex, ListeDeCommandes commandes) {
 		Livraison livraisonSelectionnee = fenetrePrincipale.getSelectedLivraison();
-		tournee.deplacerLivraison(planDeVille, livraisonSelectionnee, nouveauIndex);
+		
+		commandes.ajouteCommande(new CdeEchangerLivraison(planDeVille, tournee, livraisonSelectionnee, nouveauIndex));
 		
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);

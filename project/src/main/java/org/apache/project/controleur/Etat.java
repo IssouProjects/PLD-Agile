@@ -157,7 +157,7 @@ public interface Etat {
 	 * @param tournee
 	 * @param nouveauIndex
 	 */
-	public void echangerLivraison(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, Tournee tournee, int nouveauIndex);
+	public void echangerLivraison(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, Tournee tournee, int nouveauIndex, ListeDeCommandes commandes);
 	
 	/**
 	 * Methode appelee apres un clic sur une intersection
