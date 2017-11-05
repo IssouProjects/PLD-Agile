@@ -29,8 +29,6 @@ public class LivraisonCell extends ListCell<Livraison> {
 
 	private static HashMap<Integer, LivraisonCell> instanceMap = new HashMap<Integer, LivraisonCell>();
 
-	private int livraisonIndex = -1;
-
 	private GridPane grid = new GridPane();
 	private Label icon = new Label();
 	private Label titleText = new Label();
@@ -131,8 +129,6 @@ public class LivraisonCell extends ListCell<Livraison> {
 
 	public void addContent(Livraison livraison) {
 		clearContent();
-		
-		livraisonIndex = -1;
 
 		EcouteurDeBouton edb = ((ListDisplay) this.getListView().getParent()).getEcouteurDeBouton();
 		deleteButton.setOnAction(edb);
@@ -152,8 +148,8 @@ public class LivraisonCell extends ListCell<Livraison> {
 			editButton.setDisable(true);
 			deleteButton.setDisable(true);
 		} else if (livraison instanceof Livraison) {
-			if (livraisonIndex != -1)
-				titleText.setText("Livraison " + livraisonIndex);
+			if (livraison.getPositionDansTournee() != -1)
+				titleText.setText("Livraison " + livraison.getPositionDansTournee());
 			else
 				titleText.setText("Livraison");
 
@@ -240,11 +236,6 @@ public class LivraisonCell extends ListCell<Livraison> {
 		editButton.setManaged(editMode);
 		deleteButton.setManaged(editMode);
 		bonusMsg.setManaged(bonusMsg.getText() != null && editMode);
-	}
-
-	public void setLivraisonIndex(int index) {
-		livraisonIndex = index;
-		titleText.setText("Livraison " + livraisonIndex);
 	}
 
 	public void enableAddHint() {
@@ -344,8 +335,8 @@ public class LivraisonCell extends ListCell<Livraison> {
 				}
 				if(event.getGestureSource() instanceof LivraisonCell) {
 					LivraisonCell source = (LivraisonCell)event.getGestureSource();
-					if(source.livraisonIndex != -1 && thisCell.livraisonIndex != -1) {
-						((ListDisplay) getListView().getParent()).livraisonMoved(source.getItem(), thisCell.livraisonIndex);
+					if(source.getItem().getPositionDansTournee() != -1 && thisCell.getItem().getPositionDansTournee() != -1) {
+						((ListDisplay) getListView().getParent()).livraisonMoved(source.getItem(), thisCell.getItem().getPositionDansTournee());
 					}
 				}
 

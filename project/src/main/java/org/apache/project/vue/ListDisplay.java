@@ -97,22 +97,11 @@ public class ListDisplay extends Pane implements Observer {
 		for (int i = 0; i < livraisonsTmp.size() - 1; i++) {
 			liste.getItems().add(livraisonsTmp.get(i));
 		}
-		
-		Platform.runLater(new Runnable() {
-		    @Override public void run() {
-		    	HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
-				for(LivraisonCell lc : map.values()) {
-					if(lc.getItem() != null && !(lc.getItem() instanceof Entrepot)) {
-						int idx = livraisonsTmp.indexOf(lc.getItem());
-						lc.setLivraisonIndex(idx);
-					}
-				}
-		    }
-		});
 	}
 
 	public void clearList() {
 		liste.getItems().clear();
+		livraisonsTmp = null;
 	}
 
 	public void placeAddHintAt(double yPosition, double width) {

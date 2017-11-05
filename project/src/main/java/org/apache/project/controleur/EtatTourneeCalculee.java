@@ -25,6 +25,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		controleur.clearTournee();
 		controleur.clearDemandeDeLivraison();
 		controleur.chargerPlanDeVille(file);
+		fenetrePrincipale.getListDisplay().disableMoveLivraison();
 	}
 	
 	@Override
@@ -40,6 +41,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		controleur.clearDemandeDeLivraison();
 		controleur.clearTournee();
 		controleur.chargerDemandeDeLivraison(file);
+		fenetrePrincipale.getListDisplay().disableMoveLivraison();
 	}
 	
 	@Override
