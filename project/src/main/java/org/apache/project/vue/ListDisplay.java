@@ -13,6 +13,7 @@ import org.apache.project.modele.Tournee;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -39,7 +40,10 @@ public class ListDisplay extends Pane implements Observer {
 	private long lastAutoscrollTime = 0l;
 
 	public ListDisplay() {
+		
 		this.getChildren().add(liste);
+		
+		// using custom class LivraisonCell to display cells
 		liste.setCellFactory(new Callback<ListView<Livraison>, ListCell<Livraison>>() {
 			@Override
 			public ListCell<Livraison> call(ListView<Livraison> param) {
@@ -52,32 +56,36 @@ public class ListDisplay extends Pane implements Observer {
 		liste.prefWidthProperty().bind(this.widthProperty());
 		liste.prefHeightProperty().bind(this.heightProperty());
 
-		// auto scroll on drag
-		liste.addEventFilter(DragEvent.DRAG_OVER, event -> {
+		// auto scroll on drag management
+		liste.addEventFilter(DragEvent.DRAG_OVER, new EventHandler<DragEvent>(){
 
-			ScrollBar verticalScrollBar = (ScrollBar) liste.lookup(".scroll-bar:vertical");
-			double proximity = 100;
-			Bounds tableBounds = liste.getLayoutBounds();
-			double dragY = event.getY();
-			double topYProximity = tableBounds.getMinY() + proximity;
-			double bottomYProximity = tableBounds.getMaxY() - proximity;
-			
-			long currentTime = System.currentTimeMillis();
-			
-			if(currentTime-lastAutoscrollTime > 50) {
+			@Override
+			public void handle(DragEvent event) {
+				ScrollBar verticalScrollBar = (ScrollBar) liste.lookup(".scroll-bar:vertical");
+				double proximity = 100;
+				Bounds tableBounds = liste.getLayoutBounds();
+				double dragY = event.getY();
+				double topYProximity = tableBounds.getMinY() + proximity;
+				double bottomYProximity = tableBounds.getMaxY() - proximity;
 				
-				lastAutoscrollTime = currentTime;
+				long currentTime = System.currentTimeMillis();
 				
-				if (dragY < topYProximity) {
-					if (verticalScrollBar != null) {
-						verticalScrollBar.decrement();
-					}
-	
-				} else if (dragY > bottomYProximity) {
-					if (verticalScrollBar != null) {
-						verticalScrollBar.increment();
+				if(currentTime-lastAutoscrollTime > 50) {
+					
+					lastAutoscrollTime = currentTime;
+					
+					if (dragY < topYProximity) {
+						if (verticalScrollBar != null) {
+							verticalScrollBar.decrement();
+						}
+		
+					} else if (dragY > bottomYProximity) {
+						if (verticalScrollBar != null) {
+							verticalScrollBar.increment();
+						}
 					}
 				}
+				
 			}
 
 		});
