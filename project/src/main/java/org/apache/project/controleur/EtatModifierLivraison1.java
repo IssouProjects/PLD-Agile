@@ -16,12 +16,16 @@ public class EtatModifierLivraison1 extends EtatDefaut {
 			ListeDeCommandes commandes) {
 		
 		PlageHoraire plageHoraire;
-		if(livraison.getPlageHoraire()==null) {
-			plageHoraire = new PlageHoraire(heureDeb, heureFin);
-			commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin));
-		}else {
-			plageHoraire = new PlageHoraire(heureDeb, heureFin);
-			commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin));
+		if(heureDeb != null && heureFin != null) {
+			if(livraison.getPlageHoraire()==null) {
+				plageHoraire = new PlageHoraire(heureDeb, heureFin);
+				commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin));
+			}else {
+				plageHoraire = new PlageHoraire(heureDeb, heureFin);
+				commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin));
+			}
+		} else {
+			livraison.setPlageHoraire(null);
 		}
 		
 		tournee.calculerDureeTotale();

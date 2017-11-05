@@ -32,6 +32,7 @@ public class ModificationPopup extends VBox {
 	private Label heureFinLabel;
 	private TimeSpinner heureDebSpinner;
 	private TimeSpinner heureFinSpinner;
+	private CheckBox checkBox;
 	
 	private Label invalidLabel;
 
@@ -60,6 +61,12 @@ public class ModificationPopup extends VBox {
 		mainLayout = new GridPane();
 		mainLayout.setHgap(10);
 		mainLayout.setVgap(10);
+		
+		checkBox = new CheckBox();
+		checkBox.setText("Plage horaire");
+		checkBox.setSelected(false);
+		checkBox.setAlignment(Pos.CENTER_LEFT);
+		mainLayout.add(checkBox, 0, 1);
 
 		mainLayout.setAlignment(Pos.CENTER_LEFT);
 		
@@ -98,6 +105,8 @@ public class ModificationPopup extends VBox {
 		getChildren().add(mainLayout);
 		getChildren().add(buttonLayout);
 		
+		this.disablePlageHoraire(livraison.getPlageHoraire() == null);
+		checkBox.setSelected(livraison.getPlageHoraire() != null);
 
 		opaqueLayer = new Region();
 		opaqueLayer.setStyle("-fx-background-color: #00000088;");
@@ -105,6 +114,13 @@ public class ModificationPopup extends VBox {
 
 		parent.getChildren().add(opaqueLayer);
 		parent.getChildren().add(this);
+		
+		checkBox.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				disablePlageHoraire(!checkBox.isSelected());
+			}
+		});
 
 		setAlignment(Pos.CENTER);
 		
@@ -116,14 +132,27 @@ public class ModificationPopup extends VBox {
 		boutonAnnuler.setOnAction(edb);
 	}
 	
+	public void disablePlageHoraire(boolean disable) {
+		heureDebLabel.setDisable(disable);
+		heureDebSpinner.setDisable(disable);
+		heureFinLabel.setDisable(disable);
+		heureFinSpinner.setDisable(disable);
+	}
+	
 	@SuppressWarnings("deprecation")
 	public Time getNewHeureDeb() {
-		return new Time(heureDebSpinner.getValue().getHour(), heureDebSpinner.getValue().getMinute(), heureDebSpinner.getValue().getSecond());
+		if (checkBox.isSelected()) {
+			return new Time(heureDebSpinner.getValue().getHour(), heureDebSpinner.getValue().getMinute(), heureDebSpinner.getValue().getSecond());
+		}
+		return null;
 	}
 
 	@SuppressWarnings("deprecation")
 	public Time getNewHeureFin() {
-		return new Time(heureFinSpinner.getValue().getHour(), heureFinSpinner.getValue().getMinute(), heureFinSpinner.getValue().getSecond());
+		if (checkBox.isSelected()) {
+			return new Time(heureFinSpinner.getValue().getHour(), heureFinSpinner.getValue().getMinute(), heureFinSpinner.getValue().getSecond());
+		}
+		return null;
 	}
 	
 	public boolean checkTimeOk() {
