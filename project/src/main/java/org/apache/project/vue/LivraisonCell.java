@@ -249,8 +249,8 @@ public class LivraisonCell extends ListCell<Livraison> {
 		this.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				if (thisCell.getItem() instanceof Livraison && !(thisCell.getItem() instanceof Entrepot)) {
-					((ListDisplay) getListView().getParent()).placeAddHintAt(thisCell.getBoundsInParent().getMinY(),
+				if (thisCell.getItem() instanceof Livraison) {
+					((ListDisplay) getListView().getParent()).placeAddHintAt(thisCell.getBoundsInParent().getMinY()+thisCell.getHeight(),
 							thisCell.getWidth());
 				}
 			}
@@ -258,7 +258,7 @@ public class LivraisonCell extends ListCell<Livraison> {
 		this.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				if (thisCell.getItem() instanceof Livraison && !(thisCell.getItem() instanceof Entrepot)) {
+				if (thisCell.getItem() instanceof Livraison) {
 					((ListDisplay) getListView().getParent()).hideHint();
 				}
 			}
