@@ -18,11 +18,7 @@ public class EcouteurDeListe {
 		controleur.livraisonClicked(livraison);	
 	}
 	
-	public void onEditLivraison(Livraison livraison) {
-		//TODO
-	}
-	
-	public void onDeleteLivraison(Livraison livraison) {
-		//TODO
+	public void onMoveLivraison(Livraison livraisonToMove, int newIndex) {
+		controleur.echangerLivraison(newIndex);
 	}
 }

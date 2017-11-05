@@ -26,12 +26,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 public class LivraisonCell extends ListCell<Livraison> {
-	
+
 	private static HashMap<Integer, LivraisonCell> instanceMap = new HashMap<Integer, LivraisonCell>();
-	
+
+	private int livraisonIndex = -1;
+
 	private GridPane grid = new GridPane();
 	private Label icon = new Label();
 	private Label titleText = new Label();
+	private Label titleText2 = new Label();
 	private Label titleMsg = new Label();
 	private Label titleIcon = new Label();
 	private Label subText = new Label();
@@ -42,9 +45,9 @@ public class LivraisonCell extends ListCell<Livraison> {
 	private final LivraisonCell thisCell = this;
 
 	public LivraisonCell() {
-		
+
 		instanceMap.put(this.hashCode(), this);
-		
+
 		grid.setHgap(10d);
 		grid.setVgap(5d);
 
@@ -63,6 +66,7 @@ public class LivraisonCell extends ListCell<Livraison> {
 		HBox titleLayout = new HBox();
 		titleLayout.setSpacing(10);
 		titleLayout.getChildren().add(titleText);
+		titleLayout.getChildren().add(titleText2);
 		titleLayout.getChildren().add(titleIcon);
 		titleLayout.getChildren().add(titleMsg);
 		titleLayout.setAlignment(Pos.CENTER_LEFT);
@@ -75,6 +79,7 @@ public class LivraisonCell extends ListCell<Livraison> {
 		grid.add(deleteButton, 2, 1);
 
 		titleText.getStyleClass().add("titleText");
+		titleText2.getStyleClass().add("titleText");
 		titleMsg.getStyleClass().add("titleMsg");
 		subText.getStyleClass().add("subText");
 		bonusMsg.getStyleClass().add("bonusMsg");
@@ -95,97 +100,12 @@ public class LivraisonCell extends ListCell<Livraison> {
 				setEditMode((Boolean) observable.getValue());
 			}
 		});
-		
-
-		//////////////////////////////////
-		//// DRAG AND DROP MANAGEMENT ////
-		//////////////////////////////////
-
-		setOnDragDetected(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				if (getItem() == null) {
-					return;
-				}
-				((ListDisplay)getListView().getParent()).useMoveNotifier();
-				
-				Dragboard dragboard = startDragAndDrop(TransferMode.MOVE);
-				ClipboardContent content = new ClipboardContent();
-				content.putString(Integer.toString(this.hashCode()));
-
-				SnapshotParameters snapshotParams = new SnapshotParameters();
-				WritableImage image = thisCell.snapshot(snapshotParams, null);
-
-				dragboard.setDragView(image, event.getX(), 0);
-				dragboard.setContent(content);
-				
-				setOpacity(0.3);
-
-				event.consume();
-				
-			}
-		});
-
-		setOnDragOver(new EventHandler<DragEvent>(){
-			@Override
-			public void handle(DragEvent event) {
-				if (!(thisCell.getItem() instanceof Entrepot) && event.getGestureSource() != thisCell
-						&& event.getDragboard().hasString()) {
-					event.acceptTransferModes(TransferMode.MOVE);
-				}
-
-				event.consume();
-			}
-		});
-
-		setOnDragEntered(new EventHandler<DragEvent>(){
-			@Override
-			public void handle(DragEvent event) {
-				if (!(thisCell.getItem() instanceof Entrepot) && event.getGestureSource() != thisCell
-						&& event.getDragboard().hasString()) {
-					((ListDisplay)getListView().getParent()).placeAddHintAt(thisCell.getBoundsInParent().getMinY(), thisCell.getWidth());
-				}
-			}
-		});
-
-		setOnDragExited(new EventHandler<DragEvent>(){
-			@Override
-			public void handle(DragEvent event) {
-				if (!(thisCell.getItem() instanceof Entrepot) && event.getGestureSource() != thisCell 
-						&& event.getDragboard().hasString()) {
-					((ListDisplay)getListView().getParent()).hideHint();
-				}
-			}
-		});
-
-		setOnDragDropped(new EventHandler<DragEvent>(){
-			@Override
-			public void handle(DragEvent event) {
-				if (getItem() == null) {
-					return;
-				}
-				// TODO: handle drop with controller
-	
-				event.consume();
-			}
-		});
-
-		setOnDragDone(new EventHandler<DragEvent>(){
-			@Override
-			public void handle(DragEvent event) {
-				if(event.getDragboard().hasString()) {
-					thisCell.setOpacity(1);
-				}
-	
-				event.consume();
-			}
-		});
 	}
-	
+
 	public void finalize() {
 		instanceMap.remove(this.hashCode());
 	}
-	
+
 	public LivraisonCell findInstance(String classId) {
 		return instanceMap.get(Integer.parseInt(classId));
 	}
@@ -222,19 +142,23 @@ public class LivraisonCell extends ListCell<Livraison> {
 		titleMsg.setManaged(false);
 
 		if (livraison instanceof Entrepot) {
-			titleText.setText(
-					"Entrepôt - départ à " + PlageHoraire.timeToString(((Entrepot) livraison).getHeureDepart()));
+			titleText.setText("Entrepôt");
+			titleText2.setText("- départ à " + PlageHoraire.timeToString(((Entrepot) livraison).getHeureDepart()));
 			subText.setText("départ à " + PlageHoraire.timeToString(((Entrepot) livraison).getHeureDepart()));
 			icon.getStyleClass().clear();
 			icon.getStyleClass().add("iconHome");
 			editButton.setDisable(true);
 			deleteButton.setDisable(true);
 		} else if (livraison instanceof Livraison) {
+			if (livraisonIndex != -1)
+				titleText.setText("Livraison " + livraisonIndex);
+			else
+				titleText.setText("Livraison");
 
 			if (livraison.getHeureArrivee() != null) {
-				titleText.setText("Livraison - arrivée à " + PlageHoraire.timeToString(livraison.getHeureArrivee()));
+				titleText2.setText("- arrivée à " + PlageHoraire.timeToString(livraison.getHeureArrivee()));
 			} else {
-				titleText.setText("Livraison");
+				titleText2.setText("");
 			}
 
 			String livraison_s = "";
@@ -300,7 +224,7 @@ public class LivraisonCell extends ListCell<Livraison> {
 				icon.getStyleClass().add("iconOk");
 			}
 		}
-		
+
 		this.setGraphic(grid);
 	}
 
@@ -315,33 +239,140 @@ public class LivraisonCell extends ListCell<Livraison> {
 		deleteButton.setManaged(editMode);
 		bonusMsg.setManaged(bonusMsg.getText() != null && editMode);
 	}
-	
+
+	public void setLivraisonIndex(int index) {
+		livraisonIndex = index;
+		titleText.setText("Livraison " + livraisonIndex);
+	}
+
 	public void enableAddHint() {
 		this.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				if(thisCell.getItem() instanceof Livraison) {
-					((ListDisplay)getListView().getParent()).placeAddHintAt(thisCell.getBoundsInParent().getMinY(), thisCell.getWidth());
+				if (thisCell.getItem() instanceof Livraison && !(thisCell.getItem() instanceof Entrepot)) {
+					((ListDisplay) getListView().getParent()).placeAddHintAt(thisCell.getBoundsInParent().getMinY(),
+							thisCell.getWidth());
 				}
 			}
 		});
 		this.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				if(thisCell.getItem() instanceof Livraison) {
-					((ListDisplay)getListView().getParent()).hideHint();					
+				if (thisCell.getItem() instanceof Livraison && !(thisCell.getItem() instanceof Entrepot)) {
+					((ListDisplay) getListView().getParent()).hideHint();
 				}
 			}
 		});
 	}
-	
+
 	public void disableAddHint() {
-		((ListDisplay)getListView().getParent()).hideHint();
+		((ListDisplay) getListView().getParent()).hideHint();
 		this.setOnMouseEntered(null);
 		this.setOnMouseExited(null);
 	}
-	
-	public static HashMap<Integer, LivraisonCell> getInstanceMap(){
+
+	public void enableMove() {
+		//////////////////////////////////
+		//// DRAG AND DROP MANAGEMENT ////
+		//////////////////////////////////
+
+		setOnDragDetected(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				if (getItem() == null) {
+					return;
+				}
+				((ListDisplay) getListView().getParent()).useMoveNotifier();
+
+				Dragboard dragboard = startDragAndDrop(TransferMode.MOVE);
+				ClipboardContent content = new ClipboardContent();
+				content.putString(Integer.toString(this.hashCode()));
+
+				SnapshotParameters snapshotParams = new SnapshotParameters();
+				WritableImage image = thisCell.snapshot(snapshotParams, null);
+
+				dragboard.setDragView(image, event.getX(), 0);
+				dragboard.setContent(content);
+
+				setOpacity(0.3);
+
+				event.consume();
+
+			}
+		});
+
+		setOnDragOver(new EventHandler<DragEvent>() {
+			@Override
+			public void handle(DragEvent event) {
+				if (!(thisCell.getItem() instanceof Entrepot) && event.getGestureSource() != thisCell
+						&& event.getDragboard().hasString()) {
+					event.acceptTransferModes(TransferMode.MOVE);
+				}
+
+				event.consume();
+			}
+		});
+
+		setOnDragEntered(new EventHandler<DragEvent>() {
+			@Override
+			public void handle(DragEvent event) {
+				if (!(thisCell.getItem() instanceof Entrepot) && event.getGestureSource() != thisCell
+						&& event.getDragboard().hasString()) {
+					((ListDisplay) getListView().getParent()).placeAddHintAt(thisCell.getBoundsInParent().getMinY(),
+							thisCell.getWidth());
+				}
+			}
+		});
+
+		setOnDragExited(new EventHandler<DragEvent>() {
+			@Override
+			public void handle(DragEvent event) {
+				if (!(thisCell.getItem() instanceof Entrepot) && event.getGestureSource() != thisCell
+						&& event.getDragboard().hasString()) {
+					((ListDisplay) getListView().getParent()).hideHint();
+				}
+			}
+		});
+
+		setOnDragDropped(new EventHandler<DragEvent>() {
+			@Override
+			public void handle(DragEvent event) {
+				if (getItem() == null) {
+					return;
+				}
+				if(event.getGestureSource() instanceof LivraisonCell) {
+					LivraisonCell source = (LivraisonCell)event.getGestureSource();
+					if(source.livraisonIndex != -1 && thisCell.livraisonIndex != -1) {
+						((ListDisplay) getListView().getParent()).livraisonMoved(source.getItem(), thisCell.livraisonIndex);
+					}
+				}
+
+				event.consume();
+			}
+		});
+
+		setOnDragDone(new EventHandler<DragEvent>() {
+			@Override
+			public void handle(DragEvent event) {
+				if (event.getDragboard().hasString()) {
+					thisCell.setOpacity(1);
+				}
+
+				event.consume();
+			}
+		});
+	}
+
+	public void disableMove() {
+		setOnDragDetected(null);
+		setOnDragOver(null);
+		setOnDragEntered(null);
+		setOnDragExited(null);
+		setOnDragDropped(null);
+		setOnDragDone(null);
+	}
+
+	public static HashMap<Integer, LivraisonCell> getInstanceMap() {
 		return instanceMap;
 	}
 }

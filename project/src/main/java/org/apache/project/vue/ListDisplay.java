@@ -6,6 +6,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import org.apache.project.modele.DemandeDeLivraison;
+import org.apache.project.modele.Entrepot;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.Tournee;
 
@@ -93,6 +94,15 @@ public class ListDisplay extends Pane implements Observer {
 		for (int i = 0; i < livraisons.size() - 1; i++) {
 			liste.getItems().add(livraisons.get(i));
 		}
+		
+		HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
+		this.useAddNotifier();
+		for(LivraisonCell lc : map.values()) {
+			if(lc.getItem() != null && !(lc.getItem() instanceof Entrepot)) {
+				int idx = livraisons.indexOf(lc.getItem());
+				lc.setLivraisonIndex(idx);
+			}
+		}
 	}
 
 	public void clearList() {
@@ -122,6 +132,26 @@ public class ListDisplay extends Pane implements Observer {
 		for(LivraisonCell lc : map.values()) {
 			lc.disableAddHint();
 		}
+	}
+	
+	public void enableMoveLivraison() {
+		HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
+		this.useAddNotifier();
+		for(LivraisonCell lc : map.values()) {
+			lc.enableMove();
+		}
+	}
+	
+	public void disableMoveLivraison() {
+		HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
+		this.useAddNotifier();
+		for(LivraisonCell lc : map.values()) {
+			lc.disableMove();
+		}
+	}
+	
+	public void livraisonMoved(Livraison livraisonMoved, int newIndex) {
+		ecouteurDeListe.onMoveLivraison(livraisonMoved, newIndex);
 	}
 
 	public void setEcouteurDeListe(EcouteurDeListe edc) {
