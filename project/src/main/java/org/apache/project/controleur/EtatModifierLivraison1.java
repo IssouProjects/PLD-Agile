@@ -15,10 +15,20 @@ public class EtatModifierLivraison1 extends EtatDefaut {
 	public void validerModificationLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee, Time heureDeb, Time heureFin,
 			ListeDeCommandes commandes) {
 		
-		if(heureDeb != null && heureFin != null) {
-			commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin));
+		// treating the case where there are no modifications:
+		if(livraison.getPlageHoraire() == null) {
+			if(heureDeb == null || heureFin == null) {
+				// do nothing
+			} else {
+				commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin));
+			}
 		} else {
-			commandes.ajouteCommande(new CdeModifierLivraison(livraison, null, null));
+			if(heureDeb.toString().equals(livraison.getPlageHoraire().getDebut().toString())
+					&& heureFin.toString().equals(livraison.getPlageHoraire().getFin().toString())) {
+				// do nothing
+			} else {
+				commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin));
+			}
 		}
 		
 		tournee.calculerDureeTotale();
