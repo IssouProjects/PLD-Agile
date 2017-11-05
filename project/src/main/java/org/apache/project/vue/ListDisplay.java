@@ -10,6 +10,7 @@ import org.apache.project.modele.Entrepot;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.Tournee;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Bounds;
@@ -32,6 +33,8 @@ public class ListDisplay extends Pane implements Observer {
 
 	private GridPane addNotifier = new GridPane();
 	Pane notifierCircle = new Pane();
+	
+	private List<Livraison> livraisonsTmp = null;
 	
 	private long lastAutoscrollTime = 0l;
 
@@ -90,19 +93,22 @@ public class ListDisplay extends Pane implements Observer {
 
 	public void afficherTexteLivraisonsOrdonnees(Tournee tournee) {
 		clearList();
-		List<Livraison> livraisons = tournee.getLivraisonsOrdonnees();
-		for (int i = 0; i < livraisons.size() - 1; i++) {
-			liste.getItems().add(livraisons.get(i));
+		livraisonsTmp = tournee.getLivraisonsOrdonnees();
+		for (int i = 0; i < livraisonsTmp.size() - 1; i++) {
+			liste.getItems().add(livraisonsTmp.get(i));
 		}
 		
-		HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
-		this.useAddNotifier();
-		for(LivraisonCell lc : map.values()) {
-			if(lc.getItem() != null && !(lc.getItem() instanceof Entrepot)) {
-				int idx = livraisons.indexOf(lc.getItem());
-				lc.setLivraisonIndex(idx);
-			}
-		}
+		Platform.runLater(new Runnable() {
+		    @Override public void run() {
+		    	HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
+				for(LivraisonCell lc : map.values()) {
+					if(lc.getItem() != null && !(lc.getItem() instanceof Entrepot)) {
+						int idx = livraisonsTmp.indexOf(lc.getItem());
+						lc.setLivraisonIndex(idx);
+					}
+				}
+		    }
+		});
 	}
 
 	public void clearList() {
