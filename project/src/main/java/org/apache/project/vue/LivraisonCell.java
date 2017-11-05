@@ -311,8 +311,17 @@ public class LivraisonCell extends ListCell<Livraison> {
 			public void handle(DragEvent event) {
 				if (!(thisCell.getItem() instanceof Entrepot) && event.getGestureSource() != thisCell
 						&& event.getDragboard().hasString()) {
-					((ListDisplay) getListView().getParent()).placeAddHintAt(thisCell.getBoundsInParent().getMinY(),
-							thisCell.getWidth());
+					if(event.getGestureSource() instanceof LivraisonCell) {
+						LivraisonCell source = (LivraisonCell)event.getGestureSource();
+						if(source.getItem().getPositionDansTournee() > thisCell.getItem().getPositionDansTournee()) {
+							((ListDisplay) getListView().getParent()).placeAddHintAt(thisCell.getBoundsInParent().getMinY(),
+									thisCell.getWidth());
+						} else {
+							((ListDisplay) getListView().getParent()).placeAddHintAt(thisCell.getBoundsInParent().getMinY()+thisCell.getHeight(),
+									thisCell.getWidth());
+						}
+					}
+					
 				}
 			}
 		});
