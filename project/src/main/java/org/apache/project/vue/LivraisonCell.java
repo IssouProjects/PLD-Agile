@@ -131,6 +131,8 @@ public class LivraisonCell extends ListCell<Livraison> {
 
 	public void addContent(Livraison livraison) {
 		clearContent();
+		
+		livraisonIndex = -1;
 
 		EcouteurDeBouton edb = ((ListDisplay) this.getListView().getParent()).getEcouteurDeBouton();
 		deleteButton.setOnAction(edb);
