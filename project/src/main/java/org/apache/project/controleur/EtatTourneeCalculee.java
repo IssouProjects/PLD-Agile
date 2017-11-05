@@ -96,7 +96,6 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		Livraison livraisonSelectionnee = fenetrePrincipale.getSelectedLivraison();
 		
 		commandes.ajouteCommande(new CdeEchangerLivraison(planDeVille, tournee, livraisonSelectionnee, nouveauIndex));
-		//tournee.deplacerLivraison(planDeVille, livraisonSelectionnee, nouveauIndex);
 		
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
