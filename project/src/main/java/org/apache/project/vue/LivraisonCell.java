@@ -213,6 +213,12 @@ public class LivraisonCell extends ListCell<Livraison> {
 					bonusMsg.getStyleClass().add("bonusMsgNice");
 					icon.getStyleClass().clear();
 					icon.getStyleClass().add("iconOk");
+				} else if(heureArriveeAsSeconds + livraison.getDuree() > plageHoraireFinAsSeconds){
+					bonusMsg.setText("Pas assez de temps sur place");
+					bonusMsg.getStyleClass().clear();
+					bonusMsg.getStyleClass().add("bonusMsgWarning");
+					icon.getStyleClass().clear();
+					icon.getStyleClass().add("iconWarning");
 				} else {
 					icon.getStyleClass().clear();
 					icon.getStyleClass().add("iconOk");
