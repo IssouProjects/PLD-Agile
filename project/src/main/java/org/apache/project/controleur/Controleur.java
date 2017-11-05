@@ -99,7 +99,7 @@ public class Controleur {
 	}
 	
 	public void validerModificationLivraison(Time heureDeb, Time heureFin) {
-		etatCourant.validerModificationLivraison(this, fenetrePrincipale, tournee, heureDeb, heureFin);
+		etatCourant.validerModificationLivraison(this, fenetrePrincipale, tournee, heureDeb, heureFin, commandes);
 	}
 	
 	public void echangerLivraison(int nouveauIndex) {
@@ -136,12 +136,14 @@ public class Controleur {
 	
 	public void undo() {
 		etatCourant.undo(commandes);
+		tournee.calculerDureeTotale();
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
 	}
 	
 	public void redo() {
 		etatCourant.redo(commandes);
+		tournee.calculerDureeTotale();
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
 	}
