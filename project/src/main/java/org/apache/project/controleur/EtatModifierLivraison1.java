@@ -25,7 +25,9 @@ public class EtatModifierLivraison1 extends EtatDefaut {
 				commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin));
 			}
 		} else {
-			commandes.ajouteCommande(new CdeModifierLivraison(livraison, null, null));
+			if(livraison.getPlageHoraire() != null) {
+				commandes.ajouteCommande(new CdeModifierLivraison(livraison, null, null));
+			}
 		}
 		
 		tournee.calculerDureeTotale();
