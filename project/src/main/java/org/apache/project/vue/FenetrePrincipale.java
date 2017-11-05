@@ -356,6 +356,10 @@ public class FenetrePrincipale extends Application {
     	mapContainer.getMapDisplay().resetAndHighlight(I);
     }
     
+    public ListDisplay getListDisplay() {
+    	return listeLivraisons;
+    }
+    
     public Livraison getSelectedLivraison() {
     	return listeLivraisons.getSelectedLivraison();
     }
