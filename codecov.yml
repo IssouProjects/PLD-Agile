@@ -7,3 +7,15 @@ coverage:
   status:
       project: no
       patch: no
+      controleur: no
+      modele:
+        flags: modele
+
+flags:
+  controleur:
+    paths: 
+      - "project/src/main/java/org/apache/project/controleur"
+
+  modele:
+    paths:
+      - "project/src/main/java/org/apache/project/modele"
