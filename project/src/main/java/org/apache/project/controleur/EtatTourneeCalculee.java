@@ -54,6 +54,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		fenetrePrincipale.setVisibleRecalculerButton(false);
 		fenetrePrincipale.getMapContainer().setSelectionMode(SelectionMode.Intersection);
 		fenetrePrincipale.afficherInfo("Veuillez cliquer sur une intersection de la carte");
+		fenetrePrincipale.setVisibleAnnulerButton(true);
 	}
 	
 	@Override

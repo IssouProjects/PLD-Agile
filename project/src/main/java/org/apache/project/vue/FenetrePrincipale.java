@@ -202,7 +202,7 @@ public class FenetrePrincipale extends Application {
 		supprLivraisonButton.setDisable(true);
 		annulerBouton = new Button(ANNULER);
 		annulerBouton.setUserData(ANNULER_ID);
-		annulerBouton.setDisable(true);
+		annulerBouton.setVisible(false);
 		recalculerBouton = new Button(RECALCULER);
 		recalculerBouton.setUserData(RECALCULER_ID);
 		recalculerBouton.setVisible(false);
@@ -318,7 +318,6 @@ public class FenetrePrincipale extends Application {
 		loadLivraisonButton.setDisable(false);
 		calculerTourneeButton.setDisable(true);
 		ajouterLivraisonButton.setDisable(true);
-		annulerBouton.setDisable(true);
 	}
 
 	public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
@@ -328,7 +327,6 @@ public class FenetrePrincipale extends Application {
 		loadLivraisonButton.setDisable(false);
 		calculerTourneeButton.setDisable(false);
 		ajouterLivraisonButton.setDisable(true);
-		annulerBouton.setDisable(true);
 	}
 
 	public void afficherTournee(Tournee tournee) {
@@ -340,7 +338,6 @@ public class FenetrePrincipale extends Application {
 		calculerTourneeButton.setDisable(true);
 		ajouterLivraisonButton.setDisable(false);
 		supprLivraisonButton.setDisable(false);
-		annulerBouton.setDisable(false);
 	}
 
 	public void clearPlanDeVille() {
@@ -473,6 +470,10 @@ public class FenetrePrincipale extends Application {
     
     public void setVisibleRecalculerButton(boolean visible) {
     	recalculerBouton.setVisible(visible);
+    }
+    
+    public void setVisibleAnnulerButton(boolean visible) {
+    	annulerBouton.setVisible(visible);
     }
     
     public void afficherLoading() {
