@@ -399,6 +399,8 @@ public class MapDisplay extends Pane {
     		}
     	}
     	
+    	// ici, ajouter la méthode pour superposer les troncons
+    	
     	// we show the Livraisons
     	final List<Livraison> livraisons = tournee.getLivraisonsOrdonnees();
     	
