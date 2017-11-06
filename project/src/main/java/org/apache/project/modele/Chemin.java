@@ -47,6 +47,15 @@ public class Chemin {
 	public List<Troncon> getTroncons() {
 		return listeTroncons;
 	}
+	
+	public List<String> getListeRues() {
+		List<String> listeRues = null;
+		for(int i=0; i<listeTroncons.size(); i++) {
+			listeRues.add(listeTroncons.get(i).getNomRue());
+		}
+		return listeRues;
+	}
+
 
 	@Override
 	public String toString() {
