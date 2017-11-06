@@ -33,6 +33,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.ImageView;
 
 public class FenetrePrincipale extends Application {
 	
@@ -52,6 +53,8 @@ public class FenetrePrincipale extends Application {
 	Button supprLivraisonButton;
 	Button annulerBouton;
 	Button recalculerBouton;
+	
+	ImageView imageView;
 
 	ListDisplay listeLivraisons;
 	
@@ -159,6 +162,7 @@ public class FenetrePrincipale extends Application {
 		layout.add(mapContainer, 0, 1);
 		layout.add(mapButtonsLayout, 0, 2);
 		
+		imageView = new ImageView();
 
 		//////////////////////////////////////
 		///// CREATING THE DELIVERY LIST /////
@@ -459,5 +463,24 @@ public class FenetrePrincipale extends Application {
     
     public void setVisibleRecalculerButton(boolean visible) {
     	recalculerBouton.setVisible(visible);
+    }
+    
+    public void afficherLoading() {
+    	
+    	imageView.setImage(new Image(getClass().getResource("loading.gif").toExternalForm()));
+    	opaqueLayer = new Region();
+ 		opaqueLayer.setStyle("-fx-background-color: #00000088;");
+ 		opaqueLayer.setVisible(true);
+ 		
+ 		stack.getChildren().add(opaqueLayer);
+    	stack.getChildren().add(imageView);
+    }
+    
+    public void removeLoading() {
+    	stack.getChildren().remove(imageView);
+		stack.getChildren().remove(opaqueLayer);
+		
+		imageView = null;
+		opaqueLayer = null;
     }
 }
