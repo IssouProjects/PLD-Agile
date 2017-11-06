@@ -8,6 +8,7 @@ import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.Tournee;
+import org.apache.project.modele.Troncon;
 import org.apache.project.vue.FenetrePrincipale;
 
 public class Controleur {
@@ -123,6 +124,10 @@ public class Controleur {
 	
 	public void livraisonClicked(Livraison livraison) {
 		etatCourant.livraisonClicked(this, fenetrePrincipale, planDeVille, tournee, livraison, commandes);
+	}
+	
+	public void tronconClicked(Troncon troncon) {
+		etatCourant.tronconClicked(this, fenetrePrincipale, planDeVille, troncon, commandes);
 	}
 	
 	public void calculerCheminsNouvelleLivraison(Integer duree, Time heureDeb, Time heureFin) {

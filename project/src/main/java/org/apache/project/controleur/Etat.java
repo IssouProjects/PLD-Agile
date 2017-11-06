@@ -8,6 +8,7 @@ import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
+import org.apache.project.modele.Troncon;
 import org.apache.project.vue.FenetrePrincipale;
 
 public interface Etat {
@@ -189,6 +190,17 @@ public interface Etat {
 	 */
 	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, 
 			Tournee tournee, Livraison livraison, ListeDeCommandes commandes);
+	
+	/**
+	 * Methode appelee apres un clic sur un troncon
+	 * @param controleur
+	 * @param fenetrePrincipale
+	 * @param plan
+	 * @param troncon
+	 * @param commandes
+	 */
+	public void tronconClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, 
+			Troncon troncon, ListeDeCommandes commandes);
 	
 	/**
 	 * Methode appelee pour annuler derniere action entreprise

@@ -2,6 +2,7 @@ package org.apache.project.controleur;
 
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
+import org.apache.project.modele.Troncon;
 import org.apache.project.vue.FenetrePrincipale;
 
 import java.io.File;
@@ -31,6 +32,8 @@ public abstract class EtatDefaut implements Etat {
 	public void intersectionClicked(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Intersection intersection) {}
 	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, 
 			Tournee tournee, Livraison livraison, ListeDeCommandes commandes) {}
+	public void tronconClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, 
+			Troncon troncon, ListeDeCommandes commandes) {}
 	public void undo(ListeDeCommandes commandes) {}
 	public void redo(ListeDeCommandes commandes) {}
 	public void afficherFenetreTimeout(Controleur controleur, FenetrePrincipale fenetrePrincipale) {}

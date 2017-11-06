@@ -7,7 +7,9 @@ import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
+import org.apache.project.modele.Troncon;
 import org.apache.project.vue.FenetrePrincipale;
+import org.apache.project.vue.MapGestures.SelectionMode;
 
 public class EtatTourneeCalculee extends EtatDefaut{
 	
@@ -49,19 +51,21 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	public void ajouterLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		controleur.setEtatCourant(controleur.etatAjoutLivraison1);
 		fenetrePrincipale.setVisibleRecalculerButton(false);
+		fenetrePrincipale.getMapContainer().setSelectionMode(SelectionMode.Intersection);
 		fenetrePrincipale.afficherInfo("Veuillez cliquer sur une intersection de la carte");
 	}
 	
-  @Override
-	public void intersectionClicked (Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Intersection intersection) {
-		fenetrePrincipale.highlightIntersection(intersection);
+	@Override
+	public void tronconClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, 
+			Troncon troncon, ListeDeCommandes commandes) {
+		fenetrePrincipale.highlightTroncon(troncon);
 	}
 	
-  @Override
+	@Override
 	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, Tournee tournee,
 			Livraison livraisonPrecedente, ListeDeCommandes commandes) {
 		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
-  }
+  	}
 
 	@Override 
 	public void supprimerLivraison( Controleur controleur, Tournee tournee,  PlanDeVille planDeVille,  FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes) {

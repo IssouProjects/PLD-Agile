@@ -18,6 +18,13 @@ public class MapGestures {
 	private static final double MAX_SCALE = 10.0d;
     private static final double MIN_SCALE = .001d;
     private static final double CLIC_COLLISION_RADIUS = 2000; 
+    
+    public enum SelectionMode{
+		Troncon,
+		Intersection
+	}
+    
+    private SelectionMode selectionMode = SelectionMode.Intersection;
 
     private DragContext sceneDragContext = new DragContext();
 
@@ -82,14 +89,23 @@ public class MapGestures {
 		            	troncon = target;
 		            }
 	        	}
+	        	
+	        	switch(selectionMode) {
+	        	case Intersection:	        		
+		        	if(livraison != null)
+		        		handleClickedNode(livraison);
+		        	else if (intersection != null)
+		        		handleClickedNode(intersection);
+		        	break;
+	        	case Troncon:
+	        		if(livraison != null)
+	        			handleClickedNode(livraison);
+	        		else if(troncon != null)
+	        			handleClickedNode(troncon);
+	        		break;
+	        	}
 	            
-	        	// we handle them in the correct order
-	        	if(livraison != null)
-	        		handleClickedNode(livraison);
-	        	else if (intersection != null)
-	        		handleClickedNode(intersection);
-	        	else if (troncon != null)
-	        		handleClickedNode(troncon);
+	        	
             }
             
 
@@ -303,6 +319,10 @@ public class MapGestures {
 		map.getChildren().remove(circle);
 	
 		return closestLines;
+	}
+	
+	public void setSelectionMode(SelectionMode mode) {
+		selectionMode = mode;
 	}
 }
 

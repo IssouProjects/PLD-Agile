@@ -14,6 +14,13 @@
     -fx-background-color: linear-gradient(from 0px 0px to 0px 5px, darkgrey, silver);
 }
 
+.streetDisplay{
+	-fx-background-color: #000000AA;
+	-fx-text-fill: white;
+	-fx-padding: 10px;
+	-fx-background-radius: 5px;
+}
+
 
 .undoButton{
 	-fx-pref-height: 32px;
