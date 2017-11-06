@@ -346,5 +346,17 @@ public class Tournee extends Observable {
 			livraisonsOrdonnees.get(i).setPositionDansTournee(i);
 		}
 	}
+	
+	public String exporterRoute(){
+		String feuille = "";
+		for(int i = 0; i<chemins.size(); ++i) {
+			feuille += livraisonsOrdonnees.get(i).toString();
+			feuille += "\n\n";
+			for(String rue : chemins.get(i).getListeRues())
+				feuille +=rue + "\n";
+			feuille += "\n";
+		}
+		return feuille;
+	}
 
 }

@@ -51,13 +51,30 @@ public class Chemin {
 	
 	public List<String> getListeRues() {
 		List<String> listeRues = new ArrayList<String>();
-		for(int i=0; i<listeTroncons.size(); i++) {
-			listeRues.add(listeTroncons.get(i).getNomRue());
+		int distancePrecedente = (int)listeTroncons.get(0).getLongueur();
+		String ruePrecedente  = listeTroncons.get(0).getNomRue();
+		
+		for(int i=1; i<listeTroncons.size(); i++) {	
+			String rueActuelle = listeTroncons.get(i).getNomRue();
+			int distanceActuelle = (int)listeTroncons.get(i).getLongueur();
+			
+			if(rueActuelle.equals(ruePrecedente)) {
+				distancePrecedente += distanceActuelle;
+			}else {
+				listeRues.add(ruePrecedente + " sur " + distancePrecedente +"m.");
+				distancePrecedente = distanceActuelle;
+			}
+			ruePrecedente = rueActuelle;
 		}
+		
+		listeRues.add(ruePrecedente + " sur " + distancePrecedente +"m.");
+		
+		
 		return listeRues;
 	}
-
-
+	
+	
+	
 	@Override
 	public String toString() {
 		String chemin_s = "De " + debut.getIdNoeud() + " à " + fin.getIdNoeud();

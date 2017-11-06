@@ -53,6 +53,7 @@ public class FenetrePrincipale extends Application {
 	Button supprLivraisonButton;
 	Button annulerBouton;
 	Button recalculerBouton;
+	Button exporterBoutton;
 	
 	ImageView imageView;
 
@@ -90,6 +91,8 @@ public class FenetrePrincipale extends Application {
 	public static final String REDO_ID = "RedoButton";
 	public static final String RECALCULER = "Recalculer tournée";
 	public static final String RECALCULER_ID = "RecalculerTourneeButton";
+	public static final String EXPORTER = "Exporter feuille";
+	public static final String EXPORTER_ID = "ExporterTourneeButton";
 
 	public static final String PDV_FILE_DESCRIPTION = "Fichier de plan de ville";
 	public static final String PDV_FILEDIALOG_DESCRIPTION = "Ouvrir un plan de ville";
@@ -206,6 +209,10 @@ public class FenetrePrincipale extends Application {
 		recalculerBouton = new Button(RECALCULER);
 		recalculerBouton.setUserData(RECALCULER_ID);
 		recalculerBouton.setVisible(false);
+		exporterBoutton = new Button(EXPORTER);
+		exporterBoutton.setUserData(EXPORTER_ID);
+		exporterBoutton.setDisable(true);
+		
 
 		// list
 		listeLivraisons = new ListDisplay();
@@ -215,6 +222,7 @@ public class FenetrePrincipale extends Application {
 		listeButtonsLayout1.getChildren().add(calculerTourneeButton);
 		listeButtonsLayout1.getChildren().add(ajouterLivraisonButton);
 		listeButtonsLayout1.getChildren().add(annulerBouton);
+		listeButtonsLayout1.getChildren().add(exporterBoutton);
 
 		layout.add(listeButtonsLayout1, 1, 2);
 
@@ -329,6 +337,7 @@ public class FenetrePrincipale extends Application {
 		calculerTourneeButton.setDisable(false);
 		ajouterLivraisonButton.setDisable(true);
 		annulerBouton.setDisable(true);
+		
 	}
 
 	public void afficherTournee(Tournee tournee) {
@@ -341,6 +350,7 @@ public class FenetrePrincipale extends Application {
 		ajouterLivraisonButton.setDisable(false);
 		supprLivraisonButton.setDisable(false);
 		annulerBouton.setDisable(false);
+		exporterBoutton.setDisable(false);
 	}
 
 	public void clearPlanDeVille() {
@@ -434,7 +444,7 @@ public class FenetrePrincipale extends Application {
 		listeLivraisons.selectLivraison(null);
 		mapContainer.getMapDisplay().resetAndHighlight(t);
 		streetDisplay.setVisible(true);
-		streetLabel.setText(t.getNomRue());
+		streetLabel.setText(t.getNomRue()+" "+ (int)t.getLongueur());
 	}
 
 	public ListDisplay getListDisplay() {
