@@ -1,6 +1,7 @@
 package org.apache.project.modele;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * La classe <tt>Chemin</tt> représente le chemin qu'il faut parcourir pour
@@ -49,7 +50,7 @@ public class Chemin {
 	}
 	
 	public List<String> getListeRues() {
-		List<String> listeRues = null;
+		List<String> listeRues = new ArrayList<String>();
 		for(int i=0; i<listeTroncons.size(); i++) {
 			listeRues.add(listeTroncons.get(i).getNomRue());
 		}
