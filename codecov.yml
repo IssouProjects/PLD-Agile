@@ -8,8 +8,7 @@ coverage:
       project: no
       patch: no
       controleur: no
-      modele:
-        flags: modele
+      modele: no
 
 flags:
   controleur:
