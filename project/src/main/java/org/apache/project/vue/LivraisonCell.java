@@ -173,7 +173,7 @@ public class LivraisonCell extends ListCell<Livraison> {
 				livraison_s += "Horaire libre";
 			}
 			livraison_s += "\n";
-			livraison_s += "Duree sur place: "
+			livraison_s += "Durée sur place: "
 					+ PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(livraison.getDuree() * 1000);
 			subText.setText(livraison_s);
 			editButton.setDisable(false);
@@ -216,7 +216,7 @@ public class LivraisonCell extends ListCell<Livraison> {
 					icon.getStyleClass().clear();
 					icon.getStyleClass().add("iconOk");
 				} else if (heureArriveeAsSeconds + livraison.getDuree() > plageHoraireFinAsSeconds) {
-					bonusMsg.setText("Pas assez de temps sur place");
+					bonusMsg.setText("Pas assez de temps pour livrer.");
 					bonusMsg.getStyleClass().clear();
 					bonusMsg.getStyleClass().add("bonusMsgWarning");
 					icon.getStyleClass().clear();
