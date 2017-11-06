@@ -47,18 +47,6 @@ public class Chemin {
 	public List<Troncon> getTroncons() {
 		return listeTroncons;
 	}
-
-
-	/**
-	 * Ajoute un <tt>Troncon</tt> à la fin de la <tt>List(Troncon)</tt> constituant
-	 * un chemin
-	 * 
-	 * @param unTroncon
-	 *            <tt>Troncon</tt> à ajouter à la listeTroncons du <tt>Chemin</tt>
-	 */
-	public void ajouterTroncon(Troncon unTroncon) {
-		this.listeTroncons.add(unTroncon);
-	}
 	
 	public List<String> getListeRues() {
 		List<String> listeRues = null;
