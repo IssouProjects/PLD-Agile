@@ -48,7 +48,7 @@ public class TestDeserialisateur {
 	public void testChargerDemandeDeLivraison()
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		File xml = new File("src/test/java/org/apache/modele/fichiers/DLmoyen5TW1.xml");
-		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonMoyen.xml");
 		PlanDeVille plan = new PlanDeVille();
 		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
 		DemandeDeLivraison demande = new DemandeDeLivraison();
@@ -56,29 +56,29 @@ public class TestDeserialisateur {
 	}
 
 	@Test(timeout = 8000)
-	public void testChargerGrandeDemandeDeLivraison()
+	public void testChargerMoyenneDemandeDeLivraison()
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		File xml = new File("src/test/java/org/apache/modele/fichiers/DLmoyen5TW1.xml");
-		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonMoyen.xml");
 		PlanDeVille plan = new PlanDeVille();
 		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
 		DemandeDeLivraison demande = new DemandeDeLivraison();
 		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
 
 		// L'adresse de l'entrepot est bien la bonne
-		assertEquals(1682387619, (long) demande.getListeLivraison().get(0).getLieuDeLivraison().getIdNoeud());
+		assertEquals(25932613, (long) demande.getListeLivraison().get(0).getLieuDeLivraison().getIdNoeud());
 
 		// Heure de depart ok
 		assertEquals("08:00:00", demande.getEntrepot().getHeureDepart().toString());
 
 		// Verification des livraisons
 		assertEquals(300, demande.getListeLivraison().get(1).getDuree());
-		assertEquals(1383027249, (long) demande.getListeLivraison().get(1).getLieuDeLivraison().getIdNoeud());
+		assertEquals(55447015, (long) demande.getListeLivraison().get(1).getLieuDeLivraison().getIdNoeud());
 		assertEquals("10:00:00", demande.getListeLivraison().get(1).getPlageHoraire().getDebut().toString());
 		assertEquals("12:00:00", demande.getListeLivraison().get(1).getPlageHoraire().getFin().toString());
 
 		assertEquals(600, demande.getListeLivraison().get(2).getDuree());
-		assertEquals(2129259180, (long) demande.getListeLivraison().get(2).getLieuDeLivraison().getIdNoeud());
+		assertEquals(1678996810, (long) demande.getListeLivraison().get(2).getLieuDeLivraison().getIdNoeud());
 		assertNull(demande.getListeLivraison().get(2).getPlageHoraire());
 	}
 
