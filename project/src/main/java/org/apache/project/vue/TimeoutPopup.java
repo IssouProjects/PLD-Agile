@@ -77,10 +77,6 @@ public class TimeoutPopup extends VBox {
 		getChildren().add(buttonLayout);
 
 		setAlignment(Pos.CENTER);
-		
-		ColumnConstraints cc1 = new ColumnConstraints();
-		cc1.setPercentWidth(50d);
-		mainLayout.getColumnConstraints().add(cc1);
 
 		boutonValider.setOnAction(edb);
 		boutonAnnuler.setOnAction(edb);
