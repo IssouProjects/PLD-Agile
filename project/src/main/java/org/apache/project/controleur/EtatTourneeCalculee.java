@@ -25,6 +25,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		controleur.clearTournee();
 		controleur.clearDemandeDeLivraison();
 		controleur.chargerPlanDeVille(file);
+		fenetrePrincipale.getListDisplay().disableMoveLivraison();
 	}
 	
 	@Override
@@ -41,6 +42,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		controleur.clearDemandeDeLivraison();
 		controleur.clearTournee();
 		controleur.chargerDemandeDeLivraison(file);
+		fenetrePrincipale.getListDisplay().disableMoveLivraison();
 	}
 	
 	@Override
@@ -92,6 +94,16 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		fenetrePrincipale.afficherFenetreModifierLivraison(livraisonSelectionnee);	
 		controleur.etatModifierLivraison1.actionEntreeEtatModifierLivraison1(livraisonSelectionnee);
 		controleur.setEtatCourant(controleur.etatModifierLivraison1);
+	}
+	
+	@Override
+	public void echangerLivraison(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, Tournee tournee, int nouveauIndex, ListeDeCommandes commandes) {
+		Livraison livraisonSelectionnee = fenetrePrincipale.getSelectedLivraison();
+		
+		commandes.ajouteCommande(new CdeEchangerLivraison(planDeVille, tournee, livraisonSelectionnee, nouveauIndex));
+		
+		fenetrePrincipale.clearTournee();
+		fenetrePrincipale.afficherTournee(tournee);
 	}
 	
 	public void undo(ListeDeCommandes commandes) {

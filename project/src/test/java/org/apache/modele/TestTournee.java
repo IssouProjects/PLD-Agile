@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Time;
-
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.project.modele.Chemin;
@@ -322,4 +320,41 @@ public class TestTournee {
 		
 		assertEquals("[De 25321357 à 1860559399, De 1860559399 à 26155540, De 26155540 à 29003879, De 29003879 à 25321357]", tournee.getChemins().toString());
 	}
+	
+	@Test
+	public void TestDeplacerLivraison() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+		// Creation d'une tournee
+		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
+		PlanDeVille plan = new PlanDeVille();
+		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+		DemandeDeLivraison demande = new DemandeDeLivraison();
+		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+
+		// Calcul tournee
+		Tournee tournee = new Tournee();
+		tournee.setEntrepot(demande.getEntrepot());
+		tournee.calculerTournee(plan, demande);
+		
+		// Etat de la tournee avant suppression
+		int dureeAncienneTournee = tournee.getDureeTourneeSecondes();
+		
+		// Verification de l'ordre et des intersection a livrer
+		assertEquals(25321357, (long) tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud());
+		assertEquals(1860559399, (long) tournee.getLivraisonsOrdonnees().get(1).getLieuDeLivraison().getIdNoeud());
+		assertEquals(25303807, (long) tournee.getLivraisonsOrdonnees().get(2).getLieuDeLivraison().getIdNoeud());
+		assertEquals(26155540, (long) tournee.getLivraisonsOrdonnees().get(3).getLieuDeLivraison().getIdNoeud());
+		assertEquals(29003879, (long) tournee.getLivraisonsOrdonnees().get(4).getLieuDeLivraison().getIdNoeud());
+		
+		// On deplace la 2e livraison en 1ere position
+		tournee.deplacerLivraison(plan, tournee.getLivraison(2), 1);
+		
+		// Verification
+		assertEquals(25321357, (long) tournee.getLivraisonsOrdonnees().get(0).getLieuDeLivraison().getIdNoeud());
+		assertEquals(25303807, (long)tournee.getLivraisonsOrdonnees().get(1).getLieuDeLivraison().getIdNoeud());
+		assertEquals(1860559399, (long)tournee.getLivraisonsOrdonnees().get(2).getLieuDeLivraison().getIdNoeud());
+		assertEquals(26155540, (long) tournee.getLivraisonsOrdonnees().get(3).getLieuDeLivraison().getIdNoeud());
+		assertEquals(29003879, (long) tournee.getLivraisonsOrdonnees().get(4).getLieuDeLivraison().getIdNoeud());
+	}
+	
 }

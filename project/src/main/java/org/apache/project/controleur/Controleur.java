@@ -4,8 +4,6 @@ import org.apache.project.modele.PlanDeVille;
 
 import java.io.File;
 import java.sql.Time;
-import java.util.List;
-
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
@@ -104,7 +102,11 @@ public class Controleur {
 	}
 	
 	public void validerModificationLivraison(Time heureDeb, Time heureFin) {
-		etatCourant.validerModificationLivraison(this, fenetrePrincipale, tournee, heureDeb, heureFin);
+		etatCourant.validerModificationLivraison(this, fenetrePrincipale, tournee, heureDeb, heureFin, commandes);
+	}
+	
+	public void echangerLivraison(int nouveauIndex) {
+		etatCourant.echangerLivraison(this, planDeVille, fenetrePrincipale, tournee, nouveauIndex, commandes);
 	}
 	
 	public void annuler() {
@@ -141,12 +143,14 @@ public class Controleur {
 	
 	public void undo() {
 		etatCourant.undo(commandes);
+		tournee.calculerDureeTotale();
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
 	}
 	
 	public void redo() {
 		etatCourant.redo(commandes);
+		tournee.calculerDureeTotale();
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
 	}

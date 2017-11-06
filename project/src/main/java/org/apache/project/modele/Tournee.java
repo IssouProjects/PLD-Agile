@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import org.apache.project.modele.tsp.TSP2;
+import org.apache.project.modele.tsp.TSP3;
 
 /**
  * La classe <tt>Tournee</tt> représente une tournée constituée d'un ensemble de
@@ -16,6 +16,7 @@ public class Tournee extends Observable {
 	private List<Livraison> livraisonsOrdonnees;
 	private List<Chemin> chemins;
 	private int dureeTourneeSecondes;
+	private boolean respectPlageHoraire;
 
 	/**
 	 * Construit une tournée vide, c'est à dire sans aucune livraison, entrepôt et
@@ -41,6 +42,10 @@ public class Tournee extends Observable {
 
 	public int getDureeTourneeSecondes() {
 		return dureeTourneeSecondes;
+	}
+	
+	public boolean getRespectPlageHoraire() {
+		return respectPlageHoraire;
 	}
 
 	/**
@@ -125,11 +130,21 @@ public class Tournee extends Observable {
 		long[] conversion = new long[nombreLivraison];
 
 		int[] duree = new int[nombreLivraison];
-
+		int[] tempsMini = new int[nombreLivraison];
+		int[] tempsMax = new int[nombreLivraison];
+		
 		// Ajout des intersections de livraisons
 		for (int i = 0; i < nombreLivraison; i++) {
 			conversion[i] = demande.getListeLivraison().get(i).getLieuDeLivraison().getIdNoeud();
 			duree[i] = demande.getListeLivraison().get(i).getDuree();
+			if(demande.getListeLivraison().get(i).getPlageHoraire() == null)
+			{
+				tempsMini[i] = 0;
+				tempsMax[i] = Integer.MAX_VALUE;
+			} else {
+				tempsMini[i] = (int) ((demande.getListeLivraison().get(i).getPlageHoraire().getDebut().getTime() - entrepot.getHeureDepart().getTime())/1000);
+				tempsMax[i] = (int) ((demande.getListeLivraison().get(i).getPlageHoraire().getFin().getTime() - entrepot.getHeureDepart().getTime())/1000);
+			}
 		}
 
 		int[][] cout = new int[nombreLivraison][nombreLivraison];
@@ -156,10 +171,18 @@ public class Tournee extends Observable {
 			}
 			cout[convertOrigine][convertDestination] = graphe.get(i).getDuree();
 		}
-		TSP2 tspSolut = new TSP2();
-		tspSolut.chercheSolution(tempsLimite, nombreLivraison, cout, duree);
-		boolean tempsLimiteAtteint = tspSolut.getTempsLimiteAtteint();
 		
+		TSP3 tspSolut = new TSP3();
+		tspSolut.chercheSolution(tempsLimite, nombreLivraison, cout, duree, tempsMini, tempsMax);
+		//On test s il y a un resultat, sinon c est surement a cause de la prise en compte des plages horaires
+		if(tspSolut.getMeilleureSolution(0) == null)
+		{
+			respectPlageHoraire = false;
+			tspSolut.chercheSolution(tempsLimite, nombreLivraison, cout, duree);
+		} else {
+			respectPlageHoraire = true;
+		}
+    
 		// Definit les parametres entrepots et la liste des intersections ordonnées
 		long idIntersection = 0;
 		long idIntersectionSuivante = 0;
@@ -205,7 +228,9 @@ public class Tournee extends Observable {
 				}
 			}
 		}
-		
+    
+		updatePositionsDansTournee();
+
 		return tempsLimiteAtteint;
 	}
 
@@ -269,6 +294,7 @@ public class Tournee extends Observable {
 
 			dureeTourneeSecondes += chemins.get(i).getDuree();
 		}
+		updatePositionsDansTournee();
 	}
 	
 	public void ajouterNouvelleLivraison(PlanDeVille planDeVille, Livraison nouvelleLivraison, Livraison livraisonPrecedente) {
@@ -303,6 +329,15 @@ public class Tournee extends Observable {
 		this.calculerDureeTotale();
 	}
 	
+	public void deplacerLivraison(PlanDeVille planDeVille, Livraison livraisonADeplacer, int nouveauIndex) {
+		this.supprimerLivraison(planDeVille, this.getLivraisonsOrdonnees().indexOf(livraisonADeplacer));
+		this.ajouterNouvelleLivraison(planDeVille, livraisonADeplacer, this.getLivraisonsOrdonnees().get(nouveauIndex-1));
+	}
 	
+	public void updatePositionsDansTournee() {
+		for(int i=0; i<livraisonsOrdonnees.size(); i++) {
+			livraisonsOrdonnees.get(i).setPositionDansTournee(i);
+		}
+	}
 
 }

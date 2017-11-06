@@ -23,6 +23,7 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		boolean tempsLimiteAtteint = tournee.calculerTournee(planDeVille, demandeDeLivraison, tempsLimite);
 		tournee.ajouterListeLivraison(demandeDeLivraison.getEntrepot());
 		fenetrePrincipale.afficherTournee(tournee);
+		fenetrePrincipale.getListDisplay().enableMoveLivraison();
 		fenetrePrincipale.afficherInfo("Vous êtes libre de toute action");
 		
 		if(tempsLimiteAtteint) {
