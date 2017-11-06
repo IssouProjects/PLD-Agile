@@ -3,25 +3,59 @@ package org.apache.project.controleur;
 import java.io.File;
 
 import org.apache.project.modele.DemandeDeLivraison;
-import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
 import org.apache.project.modele.Troncon;
 import org.apache.project.vue.FenetrePrincipale;
 
-import com.sun.javafx.util.TempState;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
+
 
 public class EtatDemandeLivraisonCharge extends EtatDefaut {
+	
+	private Thread thread;
+	
 	@Override
-	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison,
-			Tournee tournee, FenetrePrincipale fenetrePrincipale, int tempsLimite) {
+	public void calculerTournee(final Controleur controleur,final PlanDeVille planDeVille,final DemandeDeLivraison demandeDeLivraison,
+			final Tournee tournee,final FenetrePrincipale fenetrePrincipale, final int tempsLimite) {
 		
 		controleur.clearTournee();
 		
 		tournee.setEntrepot(demandeDeLivraison.getEntrepot());
 		
-		boolean tempsLimiteAtteint = tournee.calculerTournee(planDeVille, demandeDeLivraison, tempsLimite);
+		
+		Task <Void> t = new Task <Void> () {
+
+	        @Override
+	        protected Void call() throws Exception {
+	        	tournee.calculerTournee(planDeVille, demandeDeLivraison, tempsLimite);
+	        	
+	        	Platform.runLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						afterCalculation(controleur, fenetrePrincipale, demandeDeLivraison, tournee);
+						
+					}
+				});	        	
+	        	return null;
+	        }
+	      };
+		
+		thread = new Thread(t);
+		thread.start();
+		
+		fenetrePrincipale.afficherLoading();
+	}
+	
+	private void afterCalculation(Controleur controleur, FenetrePrincipale fenetrePrincipale, DemandeDeLivraison demandeDeLivraison, Tournee tournee) {
+
+		fenetrePrincipale.removeLoading();
+					
+		//TODO getter
+		boolean tempsLimiteAtteint = false;
 		tournee.ajouterListeLivraison(demandeDeLivraison.getEntrepot());
 		fenetrePrincipale.afficherTournee(tournee);
 		fenetrePrincipale.getListDisplay().enableMoveLivraison();
@@ -35,6 +69,7 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		}
 			
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
+		
 	}
 	
 	@Override
