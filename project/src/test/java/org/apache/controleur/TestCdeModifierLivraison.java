@@ -17,9 +17,15 @@ import org.junit.Test;
 
 public class TestCdeModifierLivraison {
 
+	private PlanDeVille plan;
+	private Tournee tourneeAvantCommande;
+	private Tournee tourneeModifiee;
+	private Tournee tourneeApresCommande;
+	private ListeDeCommandes commandes;
+
 	@SuppressWarnings("deprecation")
-	@Test
-	public void TestModifierLivraison() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		// Creation d'une tournee
 		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5.xml");
 		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
@@ -35,23 +41,27 @@ public class TestCdeModifierLivraison {
 		DemandeDeLivraison demande3 = new DemandeDeLivraison();
 		Deserialisateur.chargerDemandeLivraisonFichier(demande3, plan, xml);
 		
-		ListeDeCommandes commandes = new ListeDeCommandes();
+		this.plan = plan;
+		this.commandes = new ListeDeCommandes();
 
 		// Tournee originale sans modification
-		Tournee tourneeAvantCommande = new Tournee();
-		tourneeAvantCommande.setEntrepot(demande1.getEntrepot());
-		tourneeAvantCommande.calculerTournee(plan, demande1);
+		this.tourneeAvantCommande = new Tournee();
+		this.tourneeAvantCommande.setEntrepot(demande1.getEntrepot());
+		this.tourneeAvantCommande.calculerTournee(plan, demande1);
 		
 		// Tournee qui sera manipulee avec les commandes
-		Tournee tourneeModifiee = new Tournee();
-		tourneeModifiee.setEntrepot(demande2.getEntrepot());
-		tourneeModifiee.calculerTournee(plan, demande2);
+		this.tourneeModifiee = new Tournee();
+		this.tourneeModifiee.setEntrepot(demande2.getEntrepot());
+		this.tourneeModifiee.calculerTournee(plan, demande2);
 		
 		// Tournee apres execution commande
-		Tournee tourneeApresCommande = new Tournee();
-		tourneeApresCommande.setEntrepot(demande3.getEntrepot());
-		tourneeApresCommande.calculerTournee(plan, demande3);
-		
+		this.tourneeApresCommande = new Tournee();
+		this.tourneeApresCommande.setEntrepot(demande3.getEntrepot());
+		this.tourneeApresCommande.calculerTournee(plan, demande3);
+	}
+
+	@Test
+	public void TestUndoRedoCommande() {	
 		// Modification de la plage horaire de la livraison pour comparer apres redo 
 		tourneeApresCommande.getLivraison(2).setPlageHoraire(new PlageHoraire(new Time(10,30,0), new Time(11,0,0)));
 		
