@@ -4,13 +4,11 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.project.modele.Chemin;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.PlanDeVille;

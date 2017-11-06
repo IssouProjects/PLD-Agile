@@ -23,12 +23,6 @@ import org.xml.sax.SAXException;
 
 public class Deserialisateur {
 
-	public static void chargerPlanVille(PlanDeVille plan)
-			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
-		File xml = OuvreurXML.getInstance().ouvreFichier(true);
-		chargerPlanDeVilleFichier(plan, xml);
-	}
-
 	public static void chargerPlanDeVilleFichier(PlanDeVille plan, File xml)
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 
@@ -43,12 +37,6 @@ public class Deserialisateur {
 			construirePlanVille(racine, plan);
 		} else
 			throw new ExceptionXML("Document non conforme");
-	}
-
-	public static void chargerDemandeLivraison(DemandeDeLivraison demande, PlanDeVille plan)
-			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
-		File xml = OuvreurXML.getInstance().ouvreFichier(true);
-		chargerDemandeLivraisonFichier(demande, plan, xml);
 	}
 
 	public static void chargerDemandeLivraisonFichier(DemandeDeLivraison demande, PlanDeVille plan, File xml)
