@@ -252,5 +252,14 @@ public interface Etat {
 	 * @param fenetrePrincipale
 	 */
 	public void afficherFenetreTimeout(Controleur controleur, FenetrePrincipale fenetrePrincipale);
+	
+	/**
+	 * Methode appelee par controleur apres un clic sur le bouton "exporter
+	 * tournee"
+	 * @param controleur
+	 * @param fenetrePrincipale
+	 * @param tournee
+	 */
+	public void exporterFeuilleDeRoute(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee);
 
 }

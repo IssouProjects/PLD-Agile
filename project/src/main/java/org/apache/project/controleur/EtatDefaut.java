@@ -108,4 +108,8 @@ public abstract class EtatDefaut implements Etat {
 	@Override
 	public void afficherFenetreTimeout(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 	}
+	
+	@Override
+	public void exporterFeuilleDeRoute(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee) {
+	}
 }

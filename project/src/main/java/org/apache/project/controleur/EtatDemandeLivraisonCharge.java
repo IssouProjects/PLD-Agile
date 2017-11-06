@@ -71,9 +71,6 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		}
 
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
-		//TODO DELETE THIS
-		fenetrePrincipale.afficherPopupInfo(tournee.exporterRoute());
-		
 	}
 
 	@Override

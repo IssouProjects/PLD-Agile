@@ -169,4 +169,8 @@ public class Controleur {
 	public void afficherFenetreTimeout() {
 		etatCourant.afficherFenetreTimeout(this, fenetrePrincipale);
 	}
+	
+	public void exporterFeuilleDeRoute() {
+		etatCourant.exporterFeuilleDeRoute(this, fenetrePrincipale, tournee);
+	}
 }

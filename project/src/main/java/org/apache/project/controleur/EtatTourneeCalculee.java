@@ -126,5 +126,11 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		fenetrePrincipale.afficherFenetreTimeout();
 		controleur.setEtatCourant(controleur.etatDemandeLivraisonCharge);
 	}
+	
+	@Override
+	public void exporterFeuilleDeRoute(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee) {
+		String feuille = tournee.exporterRoute();
+		//TODO Appeler popup
+	}
 
 }
