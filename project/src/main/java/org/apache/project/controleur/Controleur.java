@@ -18,6 +18,7 @@ public class Controleur {
 	private FenetrePrincipale fenetrePrincipale;
 	private Tournee tournee;
 	private Etat etatCourant;
+	private int tempsLimite = 10000;
 	// Instances associees a chaque etat possible du controleur
 	protected final EtatInit etatInit = new EtatInit();
 	protected final EtatPlanCharge etatPlanCharge = new EtatPlanCharge();
@@ -82,7 +83,11 @@ public class Controleur {
 	}
 	
 	public void calculerTournee() {
-		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale);
+		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale, tempsLimite);
+	}
+	
+	public void calculerTournee(int nouveauTempsLimite) {
+		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale, nouveauTempsLimite);
 	}
 	
 	public void ajouterLivraison() {
@@ -107,6 +112,10 @@ public class Controleur {
 	
 	public void annuler() {
 		etatCourant.annuler(this, fenetrePrincipale);
+	}
+	
+	public void annulerRecalcul() {
+		etatCourant.annulerRecalcul(this, fenetrePrincipale, tournee);
 	}
 	
 	public void intersectionClicked(Intersection intersection) {
@@ -149,5 +158,9 @@ public class Controleur {
 		tournee.calculerDureeTotale();
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
+	}
+	
+	public void afficherFenetreTimeout() {
+		etatCourant.afficherFenetreTimeout(this, fenetrePrincipale);
 	}
 }

@@ -19,9 +19,10 @@ public abstract class EtatDefaut implements Etat {
 	public void chargerPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, File fichier) {}
 	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDelivraison, FenetrePrincipale fenetrePrincipale){}
 	public void chargerDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDelivraison, FenetrePrincipale fenetrePrincipale, File fichier) {}
-	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale) {}
+	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, int tempsLimite) {}
 	public void calculerCheminsNouvelleLivraison(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale, Integer duree, Time heureDeb, Time heureFin, ListeDeCommandes commandes) {}
 	public void calculerCheminSupprLivraison(Controleur controleur, PlanDeVille planDeVille, Tournee tournee, FenetrePrincipale fenetrePrincipale) {}
+	public void annulerRecalcul(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee) {}
 	public void annuler(Controleur controleur, FenetrePrincipale fenetrePrincipale) {}
 	public void ajouterLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale) {}
 	public void supprimerLivraison(Controleur controleur, Tournee tournee, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes) {}
@@ -35,4 +36,5 @@ public abstract class EtatDefaut implements Etat {
 			Troncon troncon, ListeDeCommandes commandes) {}
 	public void undo(ListeDeCommandes commandes) {}
 	public void redo(ListeDeCommandes commandes) {}
+	public void afficherFenetreTimeout(Controleur controleur, FenetrePrincipale fenetrePrincipale) {}
 }

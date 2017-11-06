@@ -47,17 +47,17 @@ public class TestCdeModifierLivraison {
 		// Tournee originale sans modification
 		this.tourneeAvantCommande = new Tournee();
 		this.tourneeAvantCommande.setEntrepot(demande1.getEntrepot());
-		this.tourneeAvantCommande.calculerTournee(plan, demande1);
+		this.tourneeAvantCommande.calculerTournee(plan, demande1, 10000);
 		
 		// Tournee qui sera manipulee avec les commandes
 		this.tourneeModifiee = new Tournee();
 		this.tourneeModifiee.setEntrepot(demande2.getEntrepot());
-		this.tourneeModifiee.calculerTournee(plan, demande2);
+		this.tourneeModifiee.calculerTournee(plan, demande2, 10000);
 		
 		// Tournee apres execution commande
 		this.tourneeApresCommande = new Tournee();
 		this.tourneeApresCommande.setEntrepot(demande3.getEntrepot());
-		this.tourneeApresCommande.calculerTournee(plan, demande3);
+		this.tourneeApresCommande.calculerTournee(plan, demande3, 10000);
 	}
 
 	@Test

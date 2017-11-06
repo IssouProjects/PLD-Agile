@@ -86,11 +86,20 @@ public interface Etat {
 	 * @param demandeDeLivraison
 	 * @param tournee
 	 * @param fenetrePrincipale
+	 * @param tempsLimite
 	 */
 	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison,
-			Tournee tournee, FenetrePrincipale fenetrePrincipale);
+			Tournee tournee, FenetrePrincipale fenetrePrincipale, int tempsLimite);
 
-  /**
+	/**
+	 * Methode appelee par controleur apres avoir annule le recalcul d'une tournee
+	 * @param controleur
+	 * @param fenetrePrincipale
+	 * @param tournee
+	 */
+	public void annulerRecalcul(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee);
+	
+    /**
 	 * Methode appelee par controleur pour annuler une action
 	 * @param controleur
 	 * @param fenetrePrincipale
@@ -204,5 +213,12 @@ public interface Etat {
 	 * @param commandes
 	 */
 	public void redo(ListeDeCommandes commandes);
+	
+	/**
+	 * Methode appelee par controleur apres un clic sur le bouton "Recalculer tournee"
+	 * @param controleur
+	 * @param fenetrePrincipale
+	 */
+	public void afficherFenetreTimeout(Controleur controleur, FenetrePrincipale fenetrePrincipale);
 
 }
