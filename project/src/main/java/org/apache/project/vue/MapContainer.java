@@ -1,5 +1,7 @@
 package org.apache.project.vue;
 
+import org.apache.project.vue.MapGestures.SelectionMode;
+
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
@@ -34,6 +36,8 @@ public class MapContainer extends Pane {
 		this.addEventFilter(MouseEvent.MOUSE_PRESSED, mapGestures.getOnMousePressedEventHandler());
 		this.addEventFilter(MouseEvent.MOUSE_DRAGGED, mapGestures.getOnMouseDraggedEventHandler());
 		this.addEventFilter(ScrollEvent.ANY, mapGestures.getOnScrollEventHandler());
+		
+		mapGestures.setSelectionMode(SelectionMode.Troncon);
 
 	}
 
@@ -66,5 +70,16 @@ public class MapContainer extends Pane {
 	
 	public void setEcouteurDeMap(EcouteurDeMap edm) {
 		mapGestures.setEcouteurDeMap(edm);
+	}
+	
+	public void setSelectionMode(SelectionMode mode) {
+		switch(mode) {
+		case Intersection:
+			mapGestures.setSelectionMode(mode);
+			break;
+		case Troncon:
+			mapGestures.setSelectionMode(mode);
+			break;
+		}
 	}
 }

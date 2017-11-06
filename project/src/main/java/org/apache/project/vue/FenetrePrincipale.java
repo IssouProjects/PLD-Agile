@@ -9,11 +9,13 @@ import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlageHoraire;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
+import org.apache.project.modele.Troncon;
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
@@ -27,6 +29,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -60,6 +63,9 @@ public class FenetrePrincipale extends Application {
 
 	private Label listLabel;
 	private Label mapLabel;
+	
+	private VBox streetDisplay;
+	private Label streetLabel;
 
 	// String appearing in the user interface
 	public static final String LOAD_MAP = "Charger plan";
@@ -113,6 +119,17 @@ public class FenetrePrincipale extends Application {
 		// layout for the map and its controls buttons
 
 		HBox mapButtonsLayout = new HBox();
+		
+		// displaying the street's name
+		streetDisplay = new VBox();
+		streetDisplay.getStylesheets().add(getClass().getResource("main.css").toExternalForm());
+		streetLabel = new Label("");
+		streetDisplay.getChildren().add(streetLabel);
+		streetDisplay.setMouseTransparent(true);
+		VBox.setMargin(streetLabel, new Insets(60, 0, 0, 20));
+		streetLabel.getStyleClass().add("streetDisplay");
+		stack.getChildren().add(streetDisplay);
+		streetDisplay.setVisible(false);
 
 		// buttons
 		fitMapButton = new Button("Recentrer plan");
@@ -136,6 +153,7 @@ public class FenetrePrincipale extends Application {
 		
 		layout.add(mapContainer, 0, 1);
 		layout.add(mapButtonsLayout, 0, 2);
+		
 
 		//////////////////////////////////////
 		///// CREATING THE DELIVERY LIST /////
@@ -348,16 +366,29 @@ public class FenetrePrincipale extends Application {
     
     public void highlightLivraison(Livraison l) {
     	mapContainer.getMapDisplay().resetAndHighlight(l);
+    	streetDisplay.setVisible(false);
     	listeLivraisons.selectLivraison(l);
     }
     
     public void highlightIntersection(Intersection I) {
     	listeLivraisons.selectLivraison(null);
     	mapContainer.getMapDisplay().resetAndHighlight(I);
+    	streetDisplay.setVisible(false);
+    }
+    
+    public void highlightTroncon(Troncon t) {
+    	listeLivraisons.selectLivraison(null);
+    	mapContainer.getMapDisplay().resetAndHighlight(t);
+    	streetDisplay.setVisible(true);
+    	streetLabel.setText(t.getNomRue());
     }
     
     public ListDisplay getListDisplay() {
     	return listeLivraisons;
+    }
+    
+    public MapContainer getMapContainer() {
+    	return mapContainer;
     }
     
     public Livraison getSelectedLivraison() {

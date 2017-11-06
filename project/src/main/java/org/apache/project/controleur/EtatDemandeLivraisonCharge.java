@@ -7,6 +7,7 @@ import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
+import org.apache.project.modele.Troncon;
 import org.apache.project.vue.FenetrePrincipale;
 
 public class EtatDemandeLivraisonCharge extends EtatDefaut {
@@ -50,8 +51,9 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 	}
 	
 	@Override
-	public void intersectionClicked (Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Intersection intersection) {
-		fenetrePrincipale.highlightIntersection(intersection);
+	public void tronconClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, 
+			Troncon troncon, ListeDeCommandes commandes) {
+	  fenetrePrincipale.highlightTroncon(troncon);
 	}
 	
 	@Override
