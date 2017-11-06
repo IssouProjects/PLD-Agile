@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Time;
-
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.project.modele.Chemin;

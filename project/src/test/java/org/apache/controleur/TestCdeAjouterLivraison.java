@@ -14,7 +14,6 @@ import org.apache.project.modele.PlageHoraire;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
 import org.apache.project.xml.Deserialisateur;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 

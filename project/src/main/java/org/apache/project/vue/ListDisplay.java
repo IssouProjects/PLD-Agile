@@ -6,11 +6,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import org.apache.project.modele.DemandeDeLivraison;
-import org.apache.project.modele.Entrepot;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.Tournee;
 
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;

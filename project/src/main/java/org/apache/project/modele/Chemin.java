@@ -1,6 +1,5 @@
 package org.apache.project.modele;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

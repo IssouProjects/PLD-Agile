@@ -3,7 +3,6 @@ package org.apache.project.controleur;
 import java.sql.Time;
 
 import org.apache.project.modele.Livraison;
-import org.apache.project.modele.PlageHoraire;
 import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
 
