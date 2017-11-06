@@ -88,6 +88,14 @@ public class Chemin {
 	public void ajouterTroncon(Troncon unTroncon) {
 		this.listeTroncons.add(unTroncon);
 	}
+	
+	public List<String> getListeRues() {
+		List<String> listeRues = null;
+		for(int i=0; i<listeTroncons.size(); i++) {
+			listeRues.add(listeTroncons.get(i).getNomRue());
+		}
+		return listeRues;
+	}
 
 	@Override
 	public String toString() {
