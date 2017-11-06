@@ -75,7 +75,7 @@ public class Controleur {
 	}
 	
 	public void ouvrirDemandeDeLivraison() {
-		etatCourant.ouvrirDemandeDeLivraison(this, planDeVille, demandeDeLivraison, fenetrePrincipale);
+		etatCourant.ouvrirDemandeDeLivraison(this, planDeVille, demandeDeLivraison, fenetrePrincipale, commandes);
 	}
 	
 	public void chargerDemandeDeLivraison(File fichier) {
