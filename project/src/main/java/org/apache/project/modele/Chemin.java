@@ -1,6 +1,7 @@
 package org.apache.project.modele;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * La classe <tt>Chemin</tt> représente le chemin qu'il faut parcourir pour
