@@ -43,31 +43,15 @@ public class Troncon {
 		return longueur;
 	}
 
-	public void setLongueur(Long longueur) {
-		this.longueur = longueur;
-	}
-
 	public String getNomRue() {
 		return nomRue;
-	}
-
-	public void setNomRue(String nomRue) {
-		this.nomRue = nomRue;
 	}
 
 	public Intersection getIntersectionDepart() {
 		return IntersectionDepart;
 	}
 
-	public void setIntersectionDepart(Intersection IntersectionDepart) {
-		this.IntersectionDepart = IntersectionDepart;
-	}
-
 	public Intersection getIntersectionArrivee() {
 		return IntersectionArrivee;
-	}
-
-	public void setIntersectionArrivee(Intersection IntersectionArrivee) {
-		this.IntersectionArrivee = IntersectionArrivee;
 	}
 }
