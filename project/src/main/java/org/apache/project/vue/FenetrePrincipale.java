@@ -162,6 +162,7 @@ public class FenetrePrincipale extends Application {
 		layout.add(mapButtonsLayout, 0, 2);
 		
 		imageView = new ImageView();
+		imageView.setImage(new Image(getClass().getResource("loading.gif").toExternalForm()));
 
 		//////////////////////////////////////
 		///// CREATING THE DELIVERY LIST /////
@@ -315,6 +316,9 @@ public class FenetrePrincipale extends Application {
 		loadMapButton.setDisable(false);
 		fitMapButton.setDisable(false);
 		loadLivraisonButton.setDisable(false);
+		calculerTourneeButton.setDisable(true);
+		ajouterLivraisonButton.setDisable(true);
+		annulerBouton.setDisable(true);
 	}
 
 	public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
@@ -323,6 +327,8 @@ public class FenetrePrincipale extends Application {
 
 		loadLivraisonButton.setDisable(false);
 		calculerTourneeButton.setDisable(false);
+		ajouterLivraisonButton.setDisable(true);
+		annulerBouton.setDisable(true);
 	}
 
 	public void afficherTournee(Tournee tournee) {
@@ -471,7 +477,6 @@ public class FenetrePrincipale extends Application {
     
     public void afficherLoading() {
     	
-    	imageView.setImage(new Image(getClass().getResource("loading.gif").toExternalForm()));
     	opaqueLayer = new Region();
  		opaqueLayer.setStyle("-fx-background-color: #00000088;");
  		opaqueLayer.setVisible(true);
@@ -484,7 +489,6 @@ public class FenetrePrincipale extends Application {
     	stack.getChildren().remove(imageView);
 		stack.getChildren().remove(opaqueLayer);
 		
-		imageView = null;
 		opaqueLayer = null;
     }
 }
