@@ -14,7 +14,6 @@ public class Intersection {
 	private Long coordX;
 	private Long coordY;
 	private List<Troncon> tronconsPartants;
-	private Boolean estSelectionnee;
 
 	/**
 	 * Crée une intersection aux coordonnées (<tt>x</tt>,<tt>y</tt>) avec une id
@@ -33,7 +32,6 @@ public class Intersection {
 		this.setIdNoeud(id);
 		this.setCoordX(x);
 		this.setCoordY(y);
-		this.estSelectionnee = false;
 		this.tronconsPartants = new ArrayList<Troncon>();
 	}
 
@@ -59,14 +57,6 @@ public class Intersection {
 
 	public void setCoordY(Long coordY) {
 		this.coordY = coordY;
-	}
-
-	public Boolean getEstSelectionnee() {
-		return estSelectionnee;
-	}
-
-	public void setEstSelectionnee(Boolean estSelectionnee) {
-		this.estSelectionnee = estSelectionnee;
 	}
 
 	/**

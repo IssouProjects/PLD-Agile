@@ -21,7 +21,7 @@ public class EcouteurDeMap {
 	}
 	
 	public void onTronconClicked(Troncon troncon) {
-		//TODO
+		controleur.tronconClicked(troncon);
 	}
 	
 	public void onLivraisonClicked(Livraison livraison) {

@@ -8,6 +8,7 @@ import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.Tournee;
+import org.apache.project.modele.Troncon;
 import org.apache.project.vue.FenetrePrincipale;
 
 public class Controleur {
@@ -17,6 +18,7 @@ public class Controleur {
 	private FenetrePrincipale fenetrePrincipale;
 	private Tournee tournee;
 	private Etat etatCourant;
+	private int tempsLimite = 10000;
 	// Instances associees a chaque etat possible du controleur
 	protected final EtatInit etatInit = new EtatInit();
 	protected final EtatPlanCharge etatPlanCharge = new EtatPlanCharge();
@@ -83,7 +85,12 @@ public class Controleur {
 	}
 
 	public void calculerTournee() {
-		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale);
+		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale, tempsLimite);
+	}
+
+	public void calculerTournee(int nouveauTempsLimite) {
+		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale,
+				nouveauTempsLimite);
 	}
 
 	public void ajouterLivraison() {
@@ -111,6 +118,10 @@ public class Controleur {
 		etatCourant.annuler(this, fenetrePrincipale);
 	}
 
+	public void annulerRecalcul() {
+		etatCourant.annulerRecalcul(this, fenetrePrincipale, tournee);
+	}
+
 	public void intersectionClicked(Intersection intersection) {
 		etatCourant.intersectionClicked(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale,
 				intersection);
@@ -118,6 +129,10 @@ public class Controleur {
 
 	public void livraisonClicked(Livraison livraison) {
 		etatCourant.livraisonClicked(this, fenetrePrincipale, planDeVille, tournee, livraison, commandes);
+	}
+
+	public void tronconClicked(Troncon troncon) {
+		etatCourant.tronconClicked(this, fenetrePrincipale, planDeVille, troncon, commandes);
 	}
 
 	public void calculerCheminsNouvelleLivraison(Integer duree, Time heureDeb, Time heureFin) {
@@ -149,5 +164,9 @@ public class Controleur {
 		tournee.calculerDureeTotale();
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
+	}
+
+	public void afficherFenetreTimeout() {
+		etatCourant.afficherFenetreTimeout(this, fenetrePrincipale);
 	}
 }

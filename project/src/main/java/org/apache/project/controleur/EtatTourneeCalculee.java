@@ -3,11 +3,12 @@ package org.apache.project.controleur;
 import java.io.File;
 
 import org.apache.project.modele.DemandeDeLivraison;
-import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
+import org.apache.project.modele.Troncon;
 import org.apache.project.vue.FenetrePrincipale;
+import org.apache.project.vue.MapGestures.SelectionMode;
 
 public class EtatTourneeCalculee extends EtatDefaut{
 	
@@ -35,6 +36,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		if(file == null) {
 			return;
 		}
+		fenetrePrincipale.setVisibleRecalculerButton(false);
 		controleur.setEtatCourant(controleur.etatPlanCharge);
 		fenetrePrincipale.clearLivraison();
 		fenetrePrincipale.clearTournee();
@@ -47,22 +49,27 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	@Override
 	public void ajouterLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		controleur.setEtatCourant(controleur.etatAjoutLivraison1);
+		fenetrePrincipale.setVisibleRecalculerButton(false);
+		fenetrePrincipale.getMapContainer().setSelectionMode(SelectionMode.Intersection);
 		fenetrePrincipale.afficherInfo("Veuillez cliquer sur une intersection de la carte");
 	}
 	
-  @Override
-	public void intersectionClicked (Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Intersection intersection) {
-		fenetrePrincipale.highlightIntersection(intersection);
+	@Override
+	public void tronconClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, 
+			Troncon troncon, ListeDeCommandes commandes) {
+		fenetrePrincipale.highlightTroncon(troncon);
 	}
 	
-  @Override
+	@Override
 	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, Tournee tournee,
 			Livraison livraisonPrecedente, ListeDeCommandes commandes) {
 		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
-  }
+  	}
 
 	@Override 
 	public void supprimerLivraison( Controleur controleur, Tournee tournee,  PlanDeVille planDeVille,  FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes) {
+		
+		fenetrePrincipale.setVisibleRecalculerButton(false);
 		
 		Livraison livraisonASupprimer = fenetrePrincipale.getSelectedLivraison();
 		
@@ -85,6 +92,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	
 	@Override
 	public void modifierLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
+		fenetrePrincipale.setVisibleRecalculerButton(false);
 		Livraison livraisonSelectionnee = fenetrePrincipale.getSelectedLivraison();
 		fenetrePrincipale.afficherFenetreModifierLivraison(livraisonSelectionnee);	
 		controleur.etatModifierLivraison1.actionEntreeEtatModifierLivraison1(livraisonSelectionnee);
@@ -101,12 +109,20 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		fenetrePrincipale.afficherTournee(tournee);
 	}
 	
+	@Override
 	public void undo(ListeDeCommandes commandes) {
 		commandes.undo();
 	}
 	
+	@Override
 	public void redo(ListeDeCommandes commandes) {
 		commandes.redo();
+	}
+	
+	@Override
+	public void afficherFenetreTimeout(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
+		fenetrePrincipale.afficherFenetreTimeout();
+		controleur.setEtatCourant(controleur.etatDemandeLivraisonCharge);
 	}
 
 }

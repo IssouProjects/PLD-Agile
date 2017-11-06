@@ -8,6 +8,7 @@ import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
+import org.apache.project.modele.Troncon;
 import org.apache.project.vue.FenetrePrincipale;
 
 public interface Etat {
@@ -87,9 +88,19 @@ public interface Etat {
 	 * @param demandeDeLivraison
 	 * @param tournee
 	 * @param fenetrePrincipale
+	 * @param tempsLimite
 	 */
 	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison,
-			Tournee tournee, FenetrePrincipale fenetrePrincipale);
+			Tournee tournee, FenetrePrincipale fenetrePrincipale, int tempsLimite);
+
+	/**
+	 * Methode appelee par controleur apres avoir annule le recalcul d'une tournee
+	 * 
+	 * @param controleur
+	 * @param fenetrePrincipale
+	 * @param tournee
+	 */
+	public void annulerRecalcul(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee);
 
 	/**
 	 * Methode appelee par controleur pour annuler une action
@@ -206,6 +217,18 @@ public interface Etat {
 			Tournee tournee, Livraison livraison, ListeDeCommandes commandes);
 
 	/**
+	 * Methode appelee apres un clic sur un troncon
+	 * 
+	 * @param controleur
+	 * @param fenetrePrincipale
+	 * @param plan
+	 * @param troncon
+	 * @param commandes
+	 */
+	public void tronconClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan,
+			Troncon troncon, ListeDeCommandes commandes);
+
+	/**
 	 * Methode appelee pour annuler derniere action entreprise
 	 * 
 	 * @param commandes
@@ -218,5 +241,14 @@ public interface Etat {
 	 * @param commandes
 	 */
 	public void redo(ListeDeCommandes commandes);
+
+	/**
+	 * Methode appelee par controleur apres un clic sur le bouton "Recalculer
+	 * tournee"
+	 * 
+	 * @param controleur
+	 * @param fenetrePrincipale
+	 */
+	public void afficherFenetreTimeout(Controleur controleur, FenetrePrincipale fenetrePrincipale);
 
 }

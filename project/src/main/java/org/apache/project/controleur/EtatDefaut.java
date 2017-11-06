@@ -2,6 +2,7 @@ package org.apache.project.controleur;
 
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
+import org.apache.project.modele.Troncon;
 import org.apache.project.vue.FenetrePrincipale;
 
 import java.io.File;
@@ -30,11 +31,6 @@ public abstract class EtatDefaut implements Etat {
 	@Override
 	public void chargerDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille,
 			DemandeDeLivraison demandeDelivraison, FenetrePrincipale fenetrePrincipale, File fichier) {
-	}
-
-	@Override
-	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison,
-			Tournee tournee, FenetrePrincipale fenetrePrincipale) {
 	}
 
 	@Override
@@ -87,10 +83,28 @@ public abstract class EtatDefaut implements Etat {
 	}
 
 	@Override
+	public void tronconClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan,
+			Troncon troncon, ListeDeCommandes commandes) {
+	}
+
+	@Override
 	public void undo(ListeDeCommandes commandes) {
 	}
 
 	@Override
 	public void redo(ListeDeCommandes commandes) {
+	}
+
+	@Override
+	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison,
+			Tournee tournee, FenetrePrincipale fenetrePrincipale, int tempsLimite) {
+	}
+
+	@Override
+	public void annulerRecalcul(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee) {
+	}
+
+	@Override
+	public void afficherFenetreTimeout(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 	}
 }
