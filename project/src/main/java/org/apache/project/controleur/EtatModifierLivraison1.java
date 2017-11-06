@@ -12,21 +12,21 @@ public class EtatModifierLivraison1 extends EtatDefaut {
 
 	@Override
 	public void validerModificationLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale,
-			Tournee tournee, Time heureDeb, Time heureFin, ListeDeCommandes commandes) {
+			Tournee tournee, Time heureDeb, Time heureFin, Integer duree, ListeDeCommandes commandes) {
 
 		// treating the case where there are no modifications:
 		if (livraison.getPlageHoraire() == null) {
 			if (heureDeb == null || heureFin == null) {
 				// do nothing
 			} else {
-				commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin));
+				commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin, duree));
 			}
 		} else {
 			if (heureDeb.toString().equals(livraison.getPlageHoraire().getDebut().toString())
 					&& heureFin.toString().equals(livraison.getPlageHoraire().getFin().toString())) {
 				// do nothing
 			} else {
-				commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin));
+				commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin, duree));
 			}
 		}
 
