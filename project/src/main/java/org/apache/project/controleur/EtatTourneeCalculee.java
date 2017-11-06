@@ -3,7 +3,6 @@ package org.apache.project.controleur;
 import java.io.File;
 
 import org.apache.project.modele.DemandeDeLivraison;
-import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
@@ -14,11 +13,12 @@ import org.apache.project.vue.MapGestures.SelectionMode;
 public class EtatTourneeCalculee extends EtatDefaut{
 	
 	@Override
-	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale){
+	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes){
 		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.PDV_FILE_DESCRIPTION, 
 				FenetrePrincipale.PDV_FILE_EXTENSION, FenetrePrincipale.PDV_FILEDIALOG_DESCRIPTION);
 		if(file == null)
 			return;
+		commandes.clearCommandes();
 		controleur.setEtatCourant(controleur.etatInit);
 		fenetrePrincipale.clearPlanDeVille();
 		fenetrePrincipale.clearLivraison();
@@ -31,12 +31,13 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	}
 	
 	@Override
-	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale){
+	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes){
 		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.DDL_FILE_DESCRIPTION,
 				FenetrePrincipale.DDL_FILE_EXTENSION, FenetrePrincipale.DDL_FILEDIALOG_DESCRIPTION);
 		if(file == null) {
 			return;
 		}
+		commandes.clearCommandes();
 		fenetrePrincipale.setVisibleRecalculerButton(false);
 		controleur.setEtatCourant(controleur.etatPlanCharge);
 		fenetrePrincipale.clearLivraison();
@@ -110,10 +111,12 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		fenetrePrincipale.afficherTournee(tournee);
 	}
 	
+	@Override
 	public void undo(ListeDeCommandes commandes) {
 		commandes.undo();
 	}
 	
+	@Override
 	public void redo(ListeDeCommandes commandes) {
 		commandes.redo();
 	}

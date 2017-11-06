@@ -26,6 +26,7 @@ public class TestCdeAjouterLivraison {
 	private Livraison nouvelleLivraison;
 	private ListeDeCommandes commandes;
 
+	@SuppressWarnings("deprecation")
 	@Before
 	public void setUp() throws Exception {
 		// Creation d'une tournee

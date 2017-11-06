@@ -20,10 +20,8 @@ import org.xml.sax.SAXException;
 
 public class TestRetardTSP3 {
 
-
-	@SuppressWarnings("deprecation")
 	@Test(timeout = 1000)
-	public void testRetardTSP3() throws ParserConfigurationException, SAXException, IOException, ExceptionXML{
+	public void testRetardTSP3() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		// Creation des objets plan et demande
 		File xml = new File("src/test/java/org/apache/modele/fichiers/DLmoyen5TW4.xml");
 		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonMoyen.xml");
@@ -31,26 +29,23 @@ public class TestRetardTSP3 {
 		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
 		DemandeDeLivraison demande = new DemandeDeLivraison();
 		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
-		
+
 		// Calcul tournee
 		Tournee tournee = new Tournee();
-		
+
 		tournee.setEntrepot(demande.getEntrepot());
-		
-		//execution TSP3
 		tournee.calculerTournee(plan, demande, 10000);
 		List<Livraison> livraisons = new ArrayList<Livraison>();
 		livraisons = tournee.getLivraisonsOrdonnees();
-		
-		for(Livraison livraison: livraisons)
-		{
-			if(livraison.getPlageHoraire() != null)
-			{
-				//On verifie uniquement si l on arrive avant la fin de la plage horaire
-				assertTrue((livraison.getHeureArrivee().getTime() + (long) (livraison.getDuree()*1000)) <= livraison.getPlageHoraire().getFin().getTime());
+
+		for (Livraison livraison : livraisons) {
+			if (livraison.getPlageHoraire() != null) {
+				// On verifie uniquement si l on arrive avant la fin de la plage horaire
+				assertTrue((livraison.getHeureArrivee().getTime() + livraison.getDuree() * 1000) <= livraison
+						.getPlageHoraire().getFin().getTime());
 			}
 		}
-		
+
 	}
 
 }

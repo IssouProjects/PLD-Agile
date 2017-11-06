@@ -6,9 +6,7 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.project.modele.DemandeDeLivraison;
-import org.apache.project.modele.Intersection;
 import org.apache.project.modele.PlanDeVille;
-import org.apache.project.modele.Tournee;
 import org.apache.project.modele.Troncon;
 import org.apache.project.vue.FenetrePrincipale;
 import org.apache.project.xml.Deserialisateur;
@@ -18,7 +16,7 @@ import org.xml.sax.SAXException;
 public class EtatPlanCharge extends EtatDefaut {
 
 	@Override
-	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale){
+	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes){
 		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.DDL_FILE_DESCRIPTION,
 				FenetrePrincipale.DDL_FILE_EXTENSION, FenetrePrincipale.DDL_FILEDIALOG_DESCRIPTION);
 		if(file == null) {
@@ -43,7 +41,7 @@ public class EtatPlanCharge extends EtatDefaut {
 	}
 	
 	@Override
-	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale){
+	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes){
 		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.PDV_FILE_DESCRIPTION, 
 				FenetrePrincipale.PDV_FILE_EXTENSION, FenetrePrincipale.PDV_FILEDIALOG_DESCRIPTION);
 		if(file == null)

@@ -43,7 +43,7 @@ public class Tournee extends Observable {
 	public int getDureeTourneeSecondes() {
 		return dureeTourneeSecondes;
 	}
-	
+
 	public boolean getRespectPlageHoraire() {
 		return respectPlageHoraire;
 	}
@@ -59,11 +59,12 @@ public class Tournee extends Observable {
 	public void ajouterListeLivraison(Livraison livraison, int index) {
 		livraisonsOrdonnees.add(index, livraison);
 	}
-	
+
 	/**
 	 * Retire la livraison a l'index donne
+	 * 
 	 * @param index
-	 * 			 l'index
+	 *            l'index
 	 */
 	public void retireListeLivraison(int index) {
 		livraisonsOrdonnees.remove(index);
@@ -112,15 +113,16 @@ public class Tournee extends Observable {
 	/**
 	 * La méthode calcule l'ordre et les horaires de passages des livraisons dans
 	 * une tournée à partir de la demande de livraisons, ainsi que du plan de la
-	 * ville où ont lieu lesdites livraisons.
-	 * Retourne vrai si le temps limite a été atteint
+	 * ville où ont lieu lesdites livraisons. Retourne vrai si le temps limite a été
+	 * atteint
 	 * 
 	 * @param plan
 	 *            plan de la ville/agglomération où se déroule la tournée.
 	 * @param demande
 	 *            demande de livraison à partir de laquelle on construit la tournée.
 	 * @param tempsLimite
-	 * 			  le temps laissé à l'algorithme pour trouver une solution en millisecondes
+	 *            le temps laissé à l'algorithme pour trouver une solution en
+	 *            millisecondes
 	 */
 	public boolean calculerTournee(PlanDeVille plan, DemandeDeLivraison demande, int tempsLimite) {
 
@@ -132,18 +134,19 @@ public class Tournee extends Observable {
 		int[] duree = new int[nombreLivraison];
 		int[] tempsMini = new int[nombreLivraison];
 		int[] tempsMax = new int[nombreLivraison];
-		
+
 		// Ajout des intersections de livraisons
 		for (int i = 0; i < nombreLivraison; i++) {
 			conversion[i] = demande.getListeLivraison().get(i).getLieuDeLivraison().getIdNoeud();
 			duree[i] = demande.getListeLivraison().get(i).getDuree();
-			if(demande.getListeLivraison().get(i).getPlageHoraire() == null)
-			{
+			if (demande.getListeLivraison().get(i).getPlageHoraire() == null) {
 				tempsMini[i] = 0;
 				tempsMax[i] = Integer.MAX_VALUE;
 			} else {
-				tempsMini[i] = (int) ((demande.getListeLivraison().get(i).getPlageHoraire().getDebut().getTime() - entrepot.getHeureDepart().getTime())/1000);
-				tempsMax[i] = (int) ((demande.getListeLivraison().get(i).getPlageHoraire().getFin().getTime() - entrepot.getHeureDepart().getTime())/1000);
+				tempsMini[i] = (int) ((demande.getListeLivraison().get(i).getPlageHoraire().getDebut().getTime()
+						- entrepot.getHeureDepart().getTime()) / 1000);
+				tempsMax[i] = (int) ((demande.getListeLivraison().get(i).getPlageHoraire().getFin().getTime()
+						- entrepot.getHeureDepart().getTime()) / 1000);
 			}
 		}
 
@@ -171,18 +174,18 @@ public class Tournee extends Observable {
 			}
 			cout[convertOrigine][convertDestination] = graphe.get(i).getDuree();
 		}
-		
+
 		TSP3 tspSolut = new TSP3();
 		tspSolut.chercheSolution(tempsLimite, nombreLivraison, cout, duree, tempsMini, tempsMax);
-		//On test s il y a un resultat, sinon c est surement a cause de la prise en compte des plages horaires
-		if(tspSolut.getMeilleureSolution(0) == null)
-		{
+		// On test s'il y a un résultat, sinon l'échec est sûrement lié à la prise en
+		// compte des plages horaires.
+		if (tspSolut.getMeilleureSolution(0) == null) {
 			respectPlageHoraire = false;
 			tspSolut.chercheSolution(tempsLimite, nombreLivraison, cout, duree);
 		} else {
 			respectPlageHoraire = true;
 		}
-    
+
 		// Definit les parametres entrepots et la liste des intersections ordonnées
 		long idIntersection = 0;
 		long idIntersectionSuivante = 0;
@@ -228,26 +231,25 @@ public class Tournee extends Observable {
 				}
 			}
 		}
-    
+
 		boolean tempsLimiteAtteint = tspSolut.getTempsLimiteAtteint();
-		
 		updatePositionsDansTournee();
 
 		return tempsLimiteAtteint;
 	}
 
 	/**
-	 * Calcul le nouveau chemin pour aller de l'intersectionPre a l'intersectionSuiv
-	 * @param plan 
-	 * 				plan de la ville/agglomeration où se déroule la tournee.
+	 * Calcul le nouveau chemin pour aller de l'intersectionPre à l'intersectionSuiv
+	 * 
+	 * @param plan
+	 *            plan de la ville/agglomération où se déroule la tournee.
 	 * @param intersectionPre
-	 * 						Intersection d'origine
+	 *            Intersection d'origine
 	 * @param intersectionSuiv
-	 * 						Intersection d'arrivee
+	 *            Intersection d'arrivée
 	 * @return
 	 */
-	public Chemin calculerNouveauChemin(PlanDeVille plan, Intersection intersectionPre,
-			 Intersection intersectionSuiv) {
+	public Chemin calculerNouveauChemin(PlanDeVille plan, Intersection intersectionPre, Intersection intersectionSuiv) {
 
 		return Dijkstra.principalDijkstra(plan, intersectionPre, intersectionSuiv);
 	}
@@ -278,8 +280,8 @@ public class Tournee extends Observable {
 			// Mettre les intersections ordonnees (une a une)
 			Livraison livraisonActuelle = livraisonsOrdonnees.get(i);
 
-				livraisonActuelle.setHeureArrivee(
-						PlageHoraire.calculerHeureArrivee(entrepot.getHeureDepart(), dureeTourneeSecondes));
+			livraisonActuelle.setHeureArrivee(
+					PlageHoraire.calculerHeureArrivee(entrepot.getHeureDepart(), dureeTourneeSecondes));
 
 			if (livraisonActuelle.getPlageHoraire() != null) {
 				// Ajout dans le temps de livraison le temps d attente
@@ -291,53 +293,56 @@ public class Tournee extends Observable {
 			}
 
 			dureeTourneeSecondes += livraisonActuelle.getDuree();
-			
+
 			// Mettre a jour les heures pour chaque chemin
 
 			dureeTourneeSecondes += chemins.get(i).getDuree();
 		}
 		updatePositionsDansTournee();
 	}
-	
-	public void ajouterNouvelleLivraison(PlanDeVille planDeVille, Livraison nouvelleLivraison, Livraison livraisonPrecedente) {
-		
+
+	public void ajouterNouvelleLivraison(PlanDeVille planDeVille, Livraison nouvelleLivraison,
+			Livraison livraisonPrecedente) {
+
 		int indexPre = this.livraisonsOrdonnees.indexOf(livraisonPrecedente);
 		Livraison livraisonSuiv = this.getLivraison(indexPre + 1);
-		
+
 		Chemin chemin1 = this.calculerNouveauChemin(planDeVille, livraisonPrecedente.getLieuDeLivraison(),
 				nouvelleLivraison.getLieuDeLivraison());
 		Chemin chemin2 = this.calculerNouveauChemin(planDeVille, nouvelleLivraison.getLieuDeLivraison(),
 				livraisonSuiv.getLieuDeLivraison());
-		
+
 		this.ajouterListeLivraison(nouvelleLivraison, indexPre + 1);
 		this.supprimerChemin(indexPre);
 		this.ajouterChemin(chemin1, indexPre);
 		this.ajouterChemin(chemin2, indexPre + 1);
-		
+
 		this.calculerDureeTotale();
 	}
-	
+
 	public void supprimerLivraison(PlanDeVille planDeVille, int indexLivSuppr) {
 		Livraison livraisonPre = this.getLivraison(indexLivSuppr - 1);
 		Livraison livraisonSuiv = this.getLivraison(indexLivSuppr + 1);
-		Chemin chemin = this.calculerNouveauChemin(planDeVille, livraisonPre.getLieuDeLivraison(), livraisonSuiv.getLieuDeLivraison());
-		
+		Chemin chemin = this.calculerNouveauChemin(planDeVille, livraisonPre.getLieuDeLivraison(),
+				livraisonSuiv.getLieuDeLivraison());
+
 		this.retireListeLivraison(indexLivSuppr);
-		this.supprimerChemin(indexLivSuppr-1);
-		this.supprimerChemin(indexLivSuppr-1);
-	
-		this.ajouterChemin(chemin, indexLivSuppr-1);
-		
+		this.supprimerChemin(indexLivSuppr - 1);
+		this.supprimerChemin(indexLivSuppr - 1);
+
+		this.ajouterChemin(chemin, indexLivSuppr - 1);
+
 		this.calculerDureeTotale();
 	}
-	
+
 	public void deplacerLivraison(PlanDeVille planDeVille, Livraison livraisonADeplacer, int nouveauIndex) {
 		this.supprimerLivraison(planDeVille, this.getLivraisonsOrdonnees().indexOf(livraisonADeplacer));
-		this.ajouterNouvelleLivraison(planDeVille, livraisonADeplacer, this.getLivraisonsOrdonnees().get(nouveauIndex-1));
+		this.ajouterNouvelleLivraison(planDeVille, livraisonADeplacer,
+				this.getLivraisonsOrdonnees().get(nouveauIndex - 1));
 	}
-	
+
 	public void updatePositionsDansTournee() {
-		for(int i=0; i<livraisonsOrdonnees.size(); i++) {
+		for (int i = 0; i < livraisonsOrdonnees.size(); i++) {
 			livraisonsOrdonnees.get(i).setPositionDansTournee(i);
 		}
 	}
