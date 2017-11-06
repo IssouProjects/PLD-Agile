@@ -32,7 +32,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class FenetrePrincipale extends Application {
-	
+
 	private Stage stage;
 
 	MapContainer mapContainer;
@@ -50,9 +50,9 @@ public class FenetrePrincipale extends Application {
 	Button annulerBouton;
 
 	ListDisplay listeLivraisons;
-	
+
 	private UndoRedoWidget undoRedoWidget;
-	
+
 	private LivraisonPopup popup = null;
 	private Region opaqueLayer;
 
@@ -71,17 +71,17 @@ public class FenetrePrincipale extends Application {
 	public static final String ADD_LIVRAISON = "Ajouter livraison";
 	public static final String ADD_LIVRAISON_ID = "addLivraisonButton";
 	public static final String SUPPR_LIVRAISON = "Supprimer livraison";
-	public static final String SUPPR_LIVRAISON_ID = "supprLivraisonButton";	
+	public static final String SUPPR_LIVRAISON_ID = "supprLivraisonButton";
 	public static final String ANNULER = "Annuler";
 	public static final String ANNULER_ID = "AnnulerButton";
 	public static final String EDIT_LIVRAISON_ID = "EditerLivraisonButton";;
 	public static final String UNDO_ID = "UndoButton";
 	public static final String REDO_ID = "RedoButton";
-	
+
 	public static final String PDV_FILE_DESCRIPTION = "Fichier de plan de ville";
 	public static final String PDV_FILEDIALOG_DESCRIPTION = "Ouvrir un plan de ville";
 	public static final String PDV_FILE_EXTENSION = "*.xml";
-	
+
 	public static final String DDL_FILE_DESCRIPTION = "Fichier de demande de livraison";
 	public static final String DDL_FILEDIALOG_DESCRIPTION = "Ouvrir une demande de livraison";
 	public static final String DDL_FILE_EXTENSION = "*.xml";
@@ -92,7 +92,7 @@ public class FenetrePrincipale extends Application {
 
 	@Override
 	public void start(Stage stage) {
-		
+
 		this.stage = stage;
 
 		stage.setTitle("Salty delivery");
@@ -100,9 +100,9 @@ public class FenetrePrincipale extends Application {
 
 		// layout for the full window
 		GridPane layout = new GridPane();
-		
+
 		layout.getStylesheets().add(getClass().getResource("main.css").toExternalForm());
-		
+
 		stack = new StackPane(layout);
 		Scene scene = new Scene(stack, 1050, 576);
 
@@ -133,7 +133,7 @@ public class FenetrePrincipale extends Application {
 		GridPane.setValignment(mapLabel, VPos.BOTTOM);
 
 		mapContainer = new MapContainer(2000, 2000);
-		
+
 		layout.add(mapContainer, 0, 1);
 		layout.add(mapButtonsLayout, 0, 2);
 
@@ -144,9 +144,9 @@ public class FenetrePrincipale extends Application {
 		GridPane undoRedoLayout = new GridPane();
 		listLabel = new Label("Livraisons :");
 		GridPane.setValignment(listLabel, VPos.BOTTOM);
-		
+
 		undoRedoWidget = new UndoRedoWidget(edb);
-		
+
 		undoRedoLayout.setAlignment(Pos.CENTER_LEFT);
 		undoRedoLayout.setHgap(5);
 		HBox.setHgrow(listLabel, Priority.ALWAYS);
@@ -155,7 +155,7 @@ public class FenetrePrincipale extends Application {
 		ColumnConstraints labelCC = new ColumnConstraints();
 		labelCC.setHgrow(Priority.ALWAYS);
 		undoRedoLayout.getColumnConstraints().add(labelCC);
-		
+
 		layout.add(undoRedoLayout, 1, 0);
 		HBox listeButtonsLayout1 = new HBox();
 		listeButtonsLayout1.setSpacing(10);
@@ -185,14 +185,13 @@ public class FenetrePrincipale extends Application {
 		listeButtonsLayout1.getChildren().add(calculerTourneeButton);
 		listeButtonsLayout1.getChildren().add(ajouterLivraisonButton);
 		listeButtonsLayout1.getChildren().add(annulerBouton);
-		
 
 		layout.add(listeButtonsLayout1, 1, 2);
 
 		///////////////////////////
 		////// LAYOUT STYLE ///////
 		///////////////////////////
-		
+
 		layout.setStyle("-fx-padding: 10;");
 		layout.setHgap(10);
 		layout.setVgap(10);
@@ -204,21 +203,20 @@ public class FenetrePrincipale extends Application {
 
 		ColumnConstraints ListCC = new ColumnConstraints();
 		ListCC.setPercentWidth(50.0);
-		//ListCC.setHgrow(Priority.ALWAYS);
+		// ListCC.setHgrow(Priority.ALWAYS);
 		layout.getColumnConstraints().add(ListCC);
-		
+
 		RowConstraints LabelRC = new RowConstraints();
 		layout.getRowConstraints().add(LabelRC);
-		
+
 		RowConstraints MapListRC = new RowConstraints();
 		MapListRC.setVgrow(Priority.ALWAYS);
 		layout.getRowConstraints().add(LabelRC);
-		
 
 		//////////////////////////////////////////
 		///// MAPPING CONTROLS AND LISTENERS /////
 		//////////////////////////////////////////
-		
+
 		controleur = Controleur.getInstance();
 		controleur.setFenetre(this);
 
@@ -243,12 +241,12 @@ public class FenetrePrincipale extends Application {
 		// map listener
 		edm = new EcouteurDeMap(controleur, mapContainer);
 		mapContainer.setEcouteurDeMap(edm);
-		
+
 		// list listener
-		edl = new EcouteurDeListe(controleur, listeLivraisons);
+		edl = new EcouteurDeListe(controleur);
 		listeLivraisons.setEcouteurDeListe(edl);
 		listeLivraisons.setEcouteurDeBouton(edb);
-		
+
 		// we can now show the window
 		stage.setScene(scene);
 		stage.show();
@@ -268,11 +266,12 @@ public class FenetrePrincipale extends Application {
 
 	public void afficherPlanDeVille(PlanDeVille plan) {
 		mapContainer.getMapDisplay().afficherPlanDeVille(plan);
-		
+
 		Platform.runLater(new Runnable() {
-		    @Override public void run() {
-		    	mapContainer.fitMapInView();
-		    }
+			@Override
+			public void run() {
+				mapContainer.fitMapInView();
+			}
 		});
 
 		loadMapButton.setDisable(false);
@@ -317,9 +316,9 @@ public class FenetrePrincipale extends Application {
 		listeLivraisons.clearList();
 		listLabel.setText("Livraisons:");
 	}
-	
+
 	public void afficherFenetreAjouterLivraison(Livraison l) {
-		if(popup != null)
+		if (popup != null)
 			return;
 		popup = new LivraisonPopup(l, edb);
 		opaqueLayer = new Region();
@@ -329,47 +328,49 @@ public class FenetrePrincipale extends Application {
 		stack.getChildren().add(opaqueLayer);
 		stack.getChildren().add(popup);
 	}
-	
-	public LivraisonPopup getFenetreAjouterLivraison(){
+
+	public LivraisonPopup getFenetreAjouterLivraison() {
 		return popup;
 	}
-	
+
 	public void masquerFenetreAjouterLivraison() {
 		stack.getChildren().remove(popup);
 		stack.getChildren().remove(opaqueLayer);
-		
+
 		popup = null;
 		opaqueLayer = null;
 	}
-	
+
 	public void afficherFenetreModifierLivraison(Livraison l) {
 		new ModificationPopup(l, stack, edb);
 	}
-    
-    public void highlightLivraison(Livraison l) {
-    	mapContainer.getMapDisplay().resetAndHighlight(l);
-    	listeLivraisons.selectLivraison(l);
-    }
-    
-    public void highlightIntersection(Intersection I) {
-    	listeLivraisons.selectLivraison(null);
-    	mapContainer.getMapDisplay().resetAndHighlight(I);
-    }
-    
-    public ListDisplay getListDisplay() {
-    	return listeLivraisons;
-    }
-    
-    public Livraison getSelectedLivraison() {
-    	return listeLivraisons.getSelectedLivraison();
-    }
-    
-    public UndoRedoWidget getUndoRedoWidget() {
-    	return undoRedoWidget;
-    }
-    
-    /**
-	 * Affiche une boite de dialogue pour ouvrir un fichier. Cette méthode est bloquante : on n'en sors pas tant que l'utilisateur n'a pas choisi un fichier ou annulé l'opération.
+
+	public void highlightLivraison(Livraison l) {
+		mapContainer.getMapDisplay().resetAndHighlight(l);
+		listeLivraisons.selectLivraison(l);
+	}
+
+	public void highlightIntersection(Intersection I) {
+		listeLivraisons.selectLivraison(null);
+		mapContainer.getMapDisplay().resetAndHighlight(I);
+	}
+
+	public ListDisplay getListDisplay() {
+		return listeLivraisons;
+	}
+
+	public Livraison getSelectedLivraison() {
+		return listeLivraisons.getSelectedLivraison();
+	}
+
+	public UndoRedoWidget getUndoRedoWidget() {
+		return undoRedoWidget;
+	}
+
+	/**
+	 * Affiche une boite de dialogue pour ouvrir un fichier. Cette méthode est
+	 * bloquante : on n'en sors pas tant que l'utilisateur n'a pas choisi un fichier
+	 * ou annulé l'opération.
 	 * 
 	 * @param fileDescription
 	 *            Description du fichier (exemple : fichier de plan XML)
@@ -380,7 +381,7 @@ public class FenetrePrincipale extends Application {
 	 * 
 	 * @return Le fichier, ou null si l'utilisateur à annulé l'opération
 	 */
-    public File ouvrirFichierXml(String fileDescription, String fileExtension, String windowTitle) {
-    	return FileOpener.ouvrirFichier(stage, fileDescription, fileExtension, windowTitle);
-    }
+	public File ouvrirFichierXml(String fileDescription, String fileExtension, String windowTitle) {
+		return FileOpener.ouvrirFichier(stage, fileDescription, fileExtension, windowTitle);
+	}
 }

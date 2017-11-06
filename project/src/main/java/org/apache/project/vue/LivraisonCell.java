@@ -100,6 +100,7 @@ public class LivraisonCell extends ListCell<Livraison> {
 		});
 	}
 
+	@Override
 	public void finalize() {
 		instanceMap.remove(this.hashCode());
 	}
@@ -127,6 +128,7 @@ public class LivraisonCell extends ListCell<Livraison> {
 		setGraphic(null);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void addContent(Livraison livraison) {
 		clearContent();
 
@@ -213,7 +215,7 @@ public class LivraisonCell extends ListCell<Livraison> {
 					bonusMsg.getStyleClass().add("bonusMsgNice");
 					icon.getStyleClass().clear();
 					icon.getStyleClass().add("iconOk");
-				} else if(heureArriveeAsSeconds + livraison.getDuree() > plageHoraireFinAsSeconds){
+				} else if (heureArriveeAsSeconds + livraison.getDuree() > plageHoraireFinAsSeconds) {
 					bonusMsg.setText("Pas assez de temps sur place");
 					bonusMsg.getStyleClass().clear();
 					bonusMsg.getStyleClass().add("bonusMsgWarning");
