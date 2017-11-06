@@ -31,13 +31,13 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 
 	        @Override
 	        protected Void call() throws Exception {
-	        	tournee.calculerTournee(planDeVille, demandeDeLivraison, tempsLimite);
+	        	boolean tempsLimiteAtteint = tournee.calculerTournee(planDeVille, demandeDeLivraison, tempsLimite);
 	        	
 	        	Platform.runLater(new Runnable() {
 					
 					@Override
 					public void run() {
-						afterCalculation(controleur, fenetrePrincipale, demandeDeLivraison, tournee);
+						afterCalculation(controleur, fenetrePrincipale, demandeDeLivraison, tournee, tempsLimiteAtteint);
 						
 					}
 				});	        	
@@ -51,12 +51,10 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		fenetrePrincipale.afficherLoading();
 	}
 	
-	private void afterCalculation(Controleur controleur, FenetrePrincipale fenetrePrincipale, DemandeDeLivraison demandeDeLivraison, Tournee tournee) {
+	private void afterCalculation(Controleur controleur, FenetrePrincipale fenetrePrincipale, DemandeDeLivraison demandeDeLivraison, Tournee tournee, boolean tempsLimiteAtteint) {
 
 		fenetrePrincipale.removeLoading();
 					
-		//TODO getter
-		boolean tempsLimiteAtteint = false;
 		tournee.ajouterListeLivraison(demandeDeLivraison.getEntrepot());
 		fenetrePrincipale.afficherTournee(tournee);
 		fenetrePrincipale.getListDisplay().enableMoveLivraison();
