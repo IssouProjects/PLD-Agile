@@ -83,7 +83,7 @@ public class FenetrePrincipale extends Application {
 	public static final String ADD_LIVRAISON_ID = "addLivraisonButton";
 	public static final String SUPPR_LIVRAISON = "Supprimer livraison";
 	public static final String SUPPR_LIVRAISON_ID = "supprLivraisonButton";
-	public static final String ANNULER = "Annuler";
+	public static final String ANNULER = "Annuler l'ajout";
 	public static final String ANNULER_ID = "AnnulerButton";
 	public static final String EDIT_LIVRAISON_ID = "EditerLivraisonButton";;
 	public static final String UNDO_ID = "UndoButton";
