@@ -13,7 +13,6 @@ public class Livraison {
 	private int duree;
 	private PlageHoraire plageHoraire;
 	private Time heureArrivee;
-	private Boolean estSelectionnee;
 	
 	private int positionDansTournee = -1;
 
@@ -33,7 +32,6 @@ public class Livraison {
 		this.duree = dureeLivraison;
 		this.plageHoraire = plageHoraire;
 		this.heureArrivee = null;
-		this.setEstSelectionnee(false);
 	}
 
 	/**
@@ -50,7 +48,6 @@ public class Livraison {
 		this.duree = dureeLivraison;
 		this.plageHoraire = null;
 		this.heureArrivee = null;
-		this.setEstSelectionnee(false);
 	}
 
 	/**
@@ -64,15 +61,10 @@ public class Livraison {
 		this.lieuDeLivraison = lieuDeLivraison;
 		this.duree = 0;
 		this.plageHoraire = null;
-		this.setEstSelectionnee(false);
 	}
 
 	public Intersection getLieuDeLivraison() {
 		return lieuDeLivraison;
-	}
-
-	public void setLieuDeLivraison(Intersection lieuDeLivraison) {
-		this.lieuDeLivraison = lieuDeLivraison;
 	}
 
 	public int getDuree() {
@@ -97,14 +89,6 @@ public class Livraison {
 
 	public void setHeureArrivee(Time heureArrivee) {
 		this.heureArrivee = heureArrivee;
-	}
-
-	public Boolean getEstSelectionnee() {
-		return estSelectionnee;
-	}
-
-	public void setEstSelectionnee(Boolean estSelectionnee) {
-		this.estSelectionnee = estSelectionnee;
 	}
 	
 	public void setPositionDansTournee(int positionDansTournee) {

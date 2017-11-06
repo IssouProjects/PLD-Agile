@@ -95,7 +95,7 @@ public class TestDijkstra {
 
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.calculerTournee(plan, demande);
+		tournee.calculerTournee(plan, demande, 10000);
 
 		// Comparaison avec le calcul par Dijkstra entre deux livraisons
 		Livraison depart = tournee.getLivraisonsOrdonnees().get(2);
