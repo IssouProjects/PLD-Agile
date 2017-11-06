@@ -7,6 +7,7 @@ import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
+import org.apache.project.modele.Troncon;
 import org.apache.project.vue.FenetrePrincipale;
 
 public class EtatDemandeLivraisonCharge extends EtatDefaut {
@@ -49,8 +50,10 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		controleur.chargerPlanDeVille(file);
 	}
 	
-	public void intersectionClicked (Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Intersection intersection) {
-		fenetrePrincipale.highlightIntersection(intersection);
+	@Override
+	public void tronconClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, 
+			Troncon troncon, ListeDeCommandes commandes) {
+		fenetrePrincipale.highlightTroncon(troncon);
 	}
 	
 	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {

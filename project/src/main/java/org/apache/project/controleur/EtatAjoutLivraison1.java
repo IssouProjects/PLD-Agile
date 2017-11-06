@@ -5,6 +5,7 @@ import org.apache.project.modele.Intersection;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
+import org.apache.project.vue.MapGestures.SelectionMode;
 
 public class EtatAjoutLivraison1 extends EtatDefaut {
 
@@ -29,5 +30,6 @@ public class EtatAjoutLivraison1 extends EtatDefaut {
 	public void annuler(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
 		fenetrePrincipale.afficherInfo("Ajout annulé, vous êtes libre");
+		fenetrePrincipale.getMapContainer().setSelectionMode(SelectionMode.Troncon);
 	}
 }

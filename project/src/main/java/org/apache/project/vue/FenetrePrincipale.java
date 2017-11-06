@@ -9,6 +9,7 @@ import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlageHoraire;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
+import org.apache.project.modele.Troncon;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -356,8 +357,17 @@ public class FenetrePrincipale extends Application {
     	mapContainer.getMapDisplay().resetAndHighlight(I);
     }
     
+    public void highlightTroncon(Troncon t) {
+    	listeLivraisons.selectLivraison(null);
+    	mapContainer.getMapDisplay().resetAndHighlight(t);
+    }
+    
     public ListDisplay getListDisplay() {
     	return listeLivraisons;
+    }
+    
+    public MapContainer getMapContainer() {
+    	return mapContainer;
     }
     
     public Livraison getSelectedLivraison() {
