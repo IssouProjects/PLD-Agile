@@ -1,5 +1,7 @@
 package org.apache.project.vue;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.project.controleur.Controleur;
 
 import javafx.event.ActionEvent;
@@ -50,6 +52,9 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 			case FenetrePrincipale.REDO_ID:
 				controleur.redo();
 				break;
+			case FenetrePrincipale.RECALCULER_ID:
+				controleur.afficherFenetreTimeout();
+				break;
 			case LivraisonPopup.VALIDATE_ID:
 				LivraisonPopup popup = fenetrePrincipale.getFenetreAjouterLivraison();
 				if(popup != null) {
@@ -80,6 +85,20 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 					controleur.annuler();
 					modificationPopup.selfDestruct();
 					modificationPopup = null;
+				}
+				break;
+			case TimeoutPopup.VALIDATE_ID:
+				TimeoutPopup timeoutPopup = fenetrePrincipale.getFenetreTimeoutPopup();
+				if(timeoutPopup != null) {
+					fenetrePrincipale.masquerFenetreTimeoutPopup();
+					controleur.calculerTournee(timeoutPopup.getNewDuree()*1000);
+				}
+				break;
+			case TimeoutPopup.CANCEL_ID:
+				TimeoutPopup timeoutPopup2 = fenetrePrincipale.getFenetreTimeoutPopup();
+				if(timeoutPopup2 != null) {
+					controleur.annulerRecalcul();	
+					fenetrePrincipale.masquerFenetreTimeoutPopup();
 				}
 				break;
 			default:

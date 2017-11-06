@@ -2,12 +2,12 @@ package org.apache.project.controleur;
 
 import java.sql.Time;
 
-import org.apache.project.modele.Chemin;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlageHoraire;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
+import org.apache.project.vue.MapGestures.SelectionMode;
 
 public class EtatAjoutLivraison3 extends EtatDefaut {
 
@@ -25,7 +25,7 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 		
 		//tournee.ajouterNouvelleLivraison(planDeVille, nouvelleLivraison, livraisonPrecedente);
 		commandes.ajouteCommande(new CdeAjouterLivraison(planDeVille, tournee, nouvelleLivraison, livraisonPrecedente));
-		
+		fenetrePrincipale.getMapContainer().setSelectionMode(SelectionMode.Troncon);
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
 		fenetrePrincipale.afficherInfo("Vous êtes libre");
@@ -41,5 +41,6 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 	public void annuler(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
 		fenetrePrincipale.afficherInfo("Ajout annulé, vous êtes libre");
+		fenetrePrincipale.getMapContainer().setSelectionMode(SelectionMode.Troncon);
 	}
 }

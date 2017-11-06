@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import org.apache.project.modele.tsp.TSP2;
 import org.apache.project.modele.tsp.TSP3;
 
 /**
@@ -114,13 +113,16 @@ public class Tournee extends Observable {
 	 * La méthode calcule l'ordre et les horaires de passages des livraisons dans
 	 * une tournée à partir de la demande de livraisons, ainsi que du plan de la
 	 * ville où ont lieu lesdites livraisons.
+	 * Retourne vrai si le temps limite a été atteint
 	 * 
 	 * @param plan
 	 *            plan de la ville/agglomération où se déroule la tournée.
 	 * @param demande
 	 *            demande de livraison à partir de laquelle on construit la tournée.
+	 * @param tempsLimite
+	 * 			  le temps laissé à l'algorithme pour trouver une solution en millisecondes
 	 */
-	public void calculerTournee(PlanDeVille plan, DemandeDeLivraison demande) {
+	public boolean calculerTournee(PlanDeVille plan, DemandeDeLivraison demande, int tempsLimite) {
 
 		List<Chemin> graphe = Dijkstra.principalDijkstra(plan, demande);
 
@@ -171,16 +173,16 @@ public class Tournee extends Observable {
 		}
 		
 		TSP3 tspSolut = new TSP3();
-		tspSolut.chercheSolution(10000, nombreLivraison, cout, duree, tempsMini, tempsMax);
+		tspSolut.chercheSolution(tempsLimite, nombreLivraison, cout, duree, tempsMini, tempsMax);
 		//On test s il y a un resultat, sinon c est surement a cause de la prise en compte des plages horaires
 		if(tspSolut.getMeilleureSolution(0) == null)
 		{
 			respectPlageHoraire = false;
-			tspSolut.chercheSolution(10000, nombreLivraison, cout, duree);
+			tspSolut.chercheSolution(tempsLimite, nombreLivraison, cout, duree);
 		} else {
 			respectPlageHoraire = true;
 		}
-
+    
 		// Definit les parametres entrepots et la liste des intersections ordonnées
 		long idIntersection = 0;
 		long idIntersectionSuivante = 0;
@@ -226,8 +228,12 @@ public class Tournee extends Observable {
 				}
 			}
 		}
+    
+		boolean tempsLimiteAtteint = tspSolut.getTempsLimiteAtteint();
 		
 		updatePositionsDansTournee();
+
+		return tempsLimiteAtteint;
 	}
 
 	/**

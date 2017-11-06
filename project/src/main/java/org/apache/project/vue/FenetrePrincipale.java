@@ -9,11 +9,13 @@ import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlageHoraire;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
+import org.apache.project.modele.Troncon;
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
@@ -27,6 +29,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -48,18 +51,23 @@ public class FenetrePrincipale extends Application {
 	Button ajouterLivraisonButton;
 	Button supprLivraisonButton;
 	Button annulerBouton;
+	Button recalculerBouton;
 
 	ListDisplay listeLivraisons;
 	
 	private UndoRedoWidget undoRedoWidget;
 	
-	private LivraisonPopup popup = null;
+	private LivraisonPopup livraisonPopup = null;
+	private TimeoutPopup timeoutPopup = null;
 	private Region opaqueLayer;
 
 	private StackPane stack;
 
 	private Label listLabel;
 	private Label mapLabel;
+	
+	private VBox streetDisplay;
+	private Label streetLabel;
 
 	// String appearing in the user interface
 	public static final String LOAD_MAP = "Charger plan";
@@ -77,6 +85,9 @@ public class FenetrePrincipale extends Application {
 	public static final String EDIT_LIVRAISON_ID = "EditerLivraisonButton";;
 	public static final String UNDO_ID = "UndoButton";
 	public static final String REDO_ID = "RedoButton";
+	public static final String RECALCULER = "Recalculer tournée";
+	public static final String RECALCULER_ID = "RecalculerTourneeButton";
+	
 	
 	public static final String PDV_FILE_DESCRIPTION = "Fichier de plan de ville";
 	public static final String PDV_FILEDIALOG_DESCRIPTION = "Ouvrir un plan de ville";
@@ -113,6 +124,17 @@ public class FenetrePrincipale extends Application {
 		// layout for the map and its controls buttons
 
 		HBox mapButtonsLayout = new HBox();
+		
+		// displaying the street's name
+		streetDisplay = new VBox();
+		streetDisplay.getStylesheets().add(getClass().getResource("main.css").toExternalForm());
+		streetLabel = new Label("");
+		streetDisplay.getChildren().add(streetLabel);
+		streetDisplay.setMouseTransparent(true);
+		VBox.setMargin(streetLabel, new Insets(60, 0, 0, 20));
+		streetLabel.getStyleClass().add("streetDisplay");
+		stack.getChildren().add(streetDisplay);
+		streetDisplay.setVisible(false);
 
 		// buttons
 		fitMapButton = new Button("Recentrer plan");
@@ -136,30 +158,12 @@ public class FenetrePrincipale extends Application {
 		
 		layout.add(mapContainer, 0, 1);
 		layout.add(mapButtonsLayout, 0, 2);
+		
 
 		//////////////////////////////////////
 		///// CREATING THE DELIVERY LIST /////
 		//////////////////////////////////////
-
-		GridPane undoRedoLayout = new GridPane();
-		listLabel = new Label("Livraisons :");
-		GridPane.setValignment(listLabel, VPos.BOTTOM);
 		
-		undoRedoWidget = new UndoRedoWidget(edb);
-		
-		undoRedoLayout.setAlignment(Pos.CENTER_LEFT);
-		undoRedoLayout.setHgap(5);
-		HBox.setHgrow(listLabel, Priority.ALWAYS);
-		undoRedoLayout.add(listLabel, 0, 0);
-		undoRedoLayout.add(undoRedoWidget, 1, 0);
-		ColumnConstraints labelCC = new ColumnConstraints();
-		labelCC.setHgrow(Priority.ALWAYS);
-		undoRedoLayout.getColumnConstraints().add(labelCC);
-		
-		layout.add(undoRedoLayout, 1, 0);
-		HBox listeButtonsLayout1 = new HBox();
-		listeButtonsLayout1.setSpacing(10);
-
 		// buttons
 		loadLivraisonButton = new Button(LOAD_LIVRAISON);
 		loadLivraisonButton.setUserData(LOAD_LIVRAISON_ID);
@@ -176,6 +180,29 @@ public class FenetrePrincipale extends Application {
 		annulerBouton = new Button(ANNULER);
 		annulerBouton.setUserData(ANNULER_ID);
 		annulerBouton.setDisable(true);
+		recalculerBouton = new Button(RECALCULER);
+		recalculerBouton.setUserData(RECALCULER_ID);
+		recalculerBouton.setVisible(false);
+		
+		GridPane undoRedoLayout = new GridPane();
+		listLabel = new Label("Livraisons :");
+		GridPane.setValignment(listLabel, VPos.BOTTOM);
+		
+		undoRedoWidget = new UndoRedoWidget(edb);
+		
+		undoRedoLayout.setAlignment(Pos.CENTER_LEFT);
+		undoRedoLayout.setHgap(5);
+		HBox.setHgrow(listLabel, Priority.ALWAYS);
+		undoRedoLayout.add(listLabel, 0, 0);
+		undoRedoLayout.add(recalculerBouton, 1, 0);
+		undoRedoLayout.add(undoRedoWidget, 2, 0);
+		ColumnConstraints labelCC = new ColumnConstraints();
+		labelCC.setHgrow(Priority.ALWAYS);
+		undoRedoLayout.getColumnConstraints().add(labelCC);
+		
+		layout.add(undoRedoLayout, 1, 0);
+		HBox listeButtonsLayout1 = new HBox();
+		listeButtonsLayout1.setSpacing(10);
 
 		// list
 		listeLivraisons = new ListDisplay();
@@ -239,6 +266,7 @@ public class FenetrePrincipale extends Application {
 		supprLivraisonButton.setOnAction(edb);
 		annulerBouton.setOnAction(edb);
 		undoRedoWidget.setEcouteurDeBouton(edb);
+		recalculerBouton.setOnAction(edb);
 
 		// map listener
 		edm = new EcouteurDeMap(controleur, mapContainer);
@@ -261,12 +289,21 @@ public class FenetrePrincipale extends Application {
 		alert.setContentText(message);
 		alert.showAndWait();
 	}
+	
+	public void afficherPopupInfo(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Erreur");
+		alert.setHeaderText("Une erreur a eu lieu");
+		alert.setContentText(message);
+		alert.showAndWait();
+	}
 
 	public void afficherInfo(String message) {
 		mapLabel.setText("Action à réaliser: " + message);
 	}
 
 	public void afficherPlanDeVille(PlanDeVille plan) {
+		mapContainer.getMapDisplay().unhighlight();
 		mapContainer.getMapDisplay().afficherPlanDeVille(plan);
 		
 		Platform.runLater(new Runnable() {
@@ -281,6 +318,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
+		mapContainer.getMapDisplay().unhighlight();
 		mapContainer.getMapDisplay().afficherDemandeDeLivraison(livraison);
 		listeLivraisons.afficherTexteLivraisons(livraison);
 
@@ -289,6 +327,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	public void afficherTournee(Tournee tournee) {
+		mapContainer.getMapDisplay().unhighlight();
 		mapContainer.getMapDisplay().afficherTournee(tournee);
 		listeLivraisons.afficherTexteLivraisonsOrdonnees(tournee);
 		double duree_min = tournee.getDureeTourneeSecondes();
@@ -319,26 +358,50 @@ public class FenetrePrincipale extends Application {
 	}
 	
 	public void afficherFenetreAjouterLivraison(Livraison l) {
-		if(popup != null)
+		if(livraisonPopup != null)
 			return;
-		popup = new LivraisonPopup(l, edb);
+		livraisonPopup = new LivraisonPopup(l, edb);
 		opaqueLayer = new Region();
 		opaqueLayer.setStyle("-fx-background-color: #00000088;");
 		opaqueLayer.setVisible(true);
 
 		stack.getChildren().add(opaqueLayer);
-		stack.getChildren().add(popup);
+		stack.getChildren().add(livraisonPopup);
 	}
 	
 	public LivraisonPopup getFenetreAjouterLivraison(){
-		return popup;
+		return livraisonPopup;
 	}
 	
 	public void masquerFenetreAjouterLivraison() {
-		stack.getChildren().remove(popup);
+		stack.getChildren().remove(livraisonPopup);
 		stack.getChildren().remove(opaqueLayer);
 		
-		popup = null;
+		livraisonPopup = null;
+		opaqueLayer = null;
+	}
+	
+	public void afficherFenetreTimeout() {
+		if(timeoutPopup != null)
+			return;
+		timeoutPopup = new TimeoutPopup(edb);
+		opaqueLayer = new Region();
+		opaqueLayer.setStyle("-fx-background-color: #00000088;");
+		opaqueLayer.setVisible(true);
+
+		stack.getChildren().add(opaqueLayer);
+		stack.getChildren().add(timeoutPopup);
+	}
+	
+	public TimeoutPopup getFenetreTimeoutPopup(){
+		return timeoutPopup;
+	}
+	
+	public void masquerFenetreTimeoutPopup() {
+		stack.getChildren().remove(timeoutPopup);
+		stack.getChildren().remove(opaqueLayer);
+		
+		timeoutPopup = null;
 		opaqueLayer = null;
 	}
 	
@@ -348,16 +411,29 @@ public class FenetrePrincipale extends Application {
     
     public void highlightLivraison(Livraison l) {
     	mapContainer.getMapDisplay().resetAndHighlight(l);
+    	streetDisplay.setVisible(false);
     	listeLivraisons.selectLivraison(l);
     }
     
     public void highlightIntersection(Intersection I) {
     	listeLivraisons.selectLivraison(null);
     	mapContainer.getMapDisplay().resetAndHighlight(I);
+    	streetDisplay.setVisible(false);
+    }
+    
+    public void highlightTroncon(Troncon t) {
+    	listeLivraisons.selectLivraison(null);
+    	mapContainer.getMapDisplay().resetAndHighlight(t);
+    	streetDisplay.setVisible(true);
+    	streetLabel.setText(t.getNomRue());
     }
     
     public ListDisplay getListDisplay() {
     	return listeLivraisons;
+    }
+    
+    public MapContainer getMapContainer() {
+    	return mapContainer;
     }
     
     public Livraison getSelectedLivraison() {
@@ -382,5 +458,9 @@ public class FenetrePrincipale extends Application {
 	 */
     public File ouvrirFichierXml(String fileDescription, String fileExtension, String windowTitle) {
     	return FileOpener.ouvrirFichier(stage, fileDescription, fileExtension, windowTitle);
+    }
+    
+    public void setVisibleRecalculerButton(boolean visible) {
+    	recalculerBouton.setVisible(visible);
     }
 }
