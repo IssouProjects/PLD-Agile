@@ -56,4 +56,11 @@ public class ListeDeCommandes extends Observable{
 		}
 		return null;
 	}	
+	
+	public void clearCommandes() {
+		i = -1;
+		liste.clear();
+		setChanged();
+        notifyObservers();
+	}
 }
