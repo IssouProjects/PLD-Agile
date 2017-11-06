@@ -52,10 +52,10 @@ public class TestCdeModifierLivraison {
 		tourneeApresCommande.setEntrepot(demande3.getEntrepot());
 		tourneeApresCommande.calculerTournee(plan, demande3);
 		
-		// Ajout classique de la nouvelle livraison pour comparer apres redo 
+		// Modification de la plage horaire de la livraison pour comparer apres redo 
 		tourneeApresCommande.getLivraison(2).setPlageHoraire(new PlageHoraire(new Time(10,30,0), new Time(11,0,0)));
 		
-		// Ajout de cette nouvelle livraison a la tournee
+		// Modification de la livraison avec la commande
 		commandes.ajouteCommande(new CdeModifierLivraison(tourneeModifiee.getLivraison(2), new Time(10,30,0), new Time(11,0,0)));
 		
 		// La commande s'est bien executee
@@ -65,13 +65,13 @@ public class TestCdeModifierLivraison {
 		// On undo cette action
 		commandes.undo();
 		
-		// On verifie que l'on est bien revenu a l'etat avant l'ajout de la livraison
+		// On verifie que l'on est bien revenu a l'etat avant la modification de la livraison
 		assertNull(tourneeModifiee.getLivraison(2).getPlageHoraire());
 		
 		// On refait cette action
 		commandes.redo();
 		
-		// On verifie que l'on est bien revenu a l'etat avec la nouvelle livraison
+		// On verifie que l'on est bien revenu a l'etat avec la plage horaire
 		assertEquals("10:30:00", tourneeModifiee.getLivraison(2).getPlageHoraire().getDebut().toString());
 		assertEquals("11:00:00", tourneeModifiee.getLivraison(2).getPlageHoraire().getFin().toString());
 	}
