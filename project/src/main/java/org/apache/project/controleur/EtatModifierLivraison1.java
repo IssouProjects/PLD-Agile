@@ -3,7 +3,6 @@ package org.apache.project.controleur;
 import java.sql.Time;
 
 import org.apache.project.modele.Livraison;
-import org.apache.project.modele.PlageHoraire;
 import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
 
@@ -15,13 +14,20 @@ public class EtatModifierLivraison1 extends EtatDefaut {
 	public void validerModificationLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee, Time heureDeb, Time heureFin,
 			ListeDeCommandes commandes) {
 		
-		PlageHoraire plageHoraire;
-		if(livraison.getPlageHoraire()==null) {
-			plageHoraire = new PlageHoraire(heureDeb, heureFin);
-			commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin));
-		}else {
-			plageHoraire = new PlageHoraire(heureDeb, heureFin);
-			commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin));
+		// treating the case where there are no modifications:
+		if(livraison.getPlageHoraire() == null) {
+			if(heureDeb == null || heureFin == null) {
+				// do nothing
+			} else {
+				commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin));
+			}
+		} else {
+			if(heureDeb.toString().equals(livraison.getPlageHoraire().getDebut().toString())
+					&& heureFin.toString().equals(livraison.getPlageHoraire().getFin().toString())) {
+				// do nothing
+			} else {
+				commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin));
+			}
 		}
 		
 		tournee.calculerDureeTotale();

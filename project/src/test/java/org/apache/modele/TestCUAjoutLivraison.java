@@ -35,7 +35,7 @@ public class TestCUAjoutLivraison {
 		// Calcul tournee
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.calculerTournee(plan, demande);
+		tournee.calculerTournee(plan, demande, 10000);
 
 		// Copie des chemins initiaux
 		List<Chemin> anciensChemins = new ArrayList<Chemin>();
@@ -105,7 +105,7 @@ public class TestCUAjoutLivraison {
 		// Calcul tournee
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.calculerTournee(plan, demande);
+		tournee.calculerTournee(plan, demande, 10000);
 
 		// Copie des chemins initiaux
 		List<Chemin> anciensChemins = new ArrayList<Chemin>();
@@ -163,7 +163,7 @@ public class TestCUAjoutLivraison {
 		// Calcul tournee
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.calculerTournee(plan, demande);
+		tournee.calculerTournee(plan, demande, 10000);
 
 		// Copie des chemins initiaux
 		List<Chemin> anciensChemins = new ArrayList<Chemin>();
@@ -221,7 +221,7 @@ public class TestCUAjoutLivraison {
 		// Calcul tournee
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.calculerTournee(plan, demande);
+		tournee.calculerTournee(plan, demande, 10000);
 
 		// Copie des chemins initiaux
 		List<Chemin> anciensChemins = new ArrayList<Chemin>();
