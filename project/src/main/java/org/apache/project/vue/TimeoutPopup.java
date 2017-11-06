@@ -31,13 +31,12 @@ public class TimeoutPopup extends VBox {
 	public static final String CANCEL_ID = "annulerRecalculTourneeButton";
 	
 	public TimeoutPopup(EcouteurDeBouton edb) {
-		this.setTranslateX(200);
 		this.setMaxSize(400, 200);
 		this.setSpacing(40);
 		this.setPadding(new Insets(20,40,20,40));
 		setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
 		
-		Label title = new Label("Timeout\nvoulez vous changer la durée? ");
+		Label title = new Label("Nouveau timeout");
 		title.setStyle("-fx-font-weight: bold; -fx-font-size: 24;");
 		this.getChildren().add(title);
 		
@@ -58,11 +57,11 @@ public class TimeoutPopup extends VBox {
         // bidi-bind the values
         valueFactory.valueProperty().bindBidirectional(formatter.valueProperty());
 
-		mainLayout.setAlignment(Pos.CENTER_LEFT);
-		Label dureeLabel = new Label("Nouvelle durée du timeout;");
+		mainLayout.setAlignment(Pos.CENTER);
+		Label dureeLabel = new Label("Nouvelle durée en secondes");
 		
 		mainLayout.add(dureeLabel, 0, 0);
-		mainLayout.add(dureeSpinner, 1, 0);
+		mainLayout.add(dureeSpinner, 0, 1);
 
 		HBox buttonLayout = new HBox();
 		boutonAnnuler = new Button(CANCEL);

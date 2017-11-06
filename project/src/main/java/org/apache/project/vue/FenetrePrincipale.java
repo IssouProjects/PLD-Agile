@@ -364,6 +364,11 @@ public class FenetrePrincipale extends Application {
 		if(timeoutPopup != null)
 			return;
 		timeoutPopup = new TimeoutPopup(edb);
+		opaqueLayer = new Region();
+		opaqueLayer.setStyle("-fx-background-color: #00000088;");
+		opaqueLayer.setVisible(true);
+
+		stack.getChildren().add(opaqueLayer);
 		stack.getChildren().add(timeoutPopup);
 	}
 	
