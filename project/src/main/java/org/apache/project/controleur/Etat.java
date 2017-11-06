@@ -92,7 +92,7 @@ public interface Etat {
 			Tournee tournee, FenetrePrincipale fenetrePrincipale, int tempsLimite);
 
 	/**
-	 * Methode appelee par controleur apres avoir annuler le recalcul d'une tournee
+	 * Methode appelee par controleur apres avoir annule le recalcul d'une tournee
 	 * @param controleur
 	 * @param fenetrePrincipale
 	 * @param tournee
