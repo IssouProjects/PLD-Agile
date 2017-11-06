@@ -36,6 +36,7 @@ public class ModificationPopup extends VBox {
 	private TimeSpinner heureFinSpinner;
 	private CheckBox checkBox;
 
+	private Label dureeInvalideLabel;
 	private Label invalidLabel;
 
 	private GridPane mainLayout;
@@ -66,10 +67,15 @@ public class ModificationPopup extends VBox {
 		mainLayout.setVgap(10);
 		mainLayout.setAlignment(Pos.CENTER_LEFT);
 
+		dureeInvalideLabel = new Label("Durée invalide");
+		dureeInvalideLabel.setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
+		dureeInvalideLabel.setVisible(false);
+		mainLayout.add(dureeInvalideLabel, 1, 0);
+
 		Label dureeLabel = new Label("Durée sur place :");
 		dureeSpinner = new TimeSpinner(PlageHoraire.secondesEnLocalTime(livraison.getDuree()));
-		mainLayout.add(dureeLabel, 0, 0);
-		mainLayout.add(dureeSpinner, 1, 0);
+		mainLayout.add(dureeLabel, 0, 1);
+		mainLayout.add(dureeSpinner, 1, 1);
 
 		checkBox = new CheckBox();
 		checkBox.setText("Plage horaire");
@@ -171,6 +177,9 @@ public class ModificationPopup extends VBox {
 	}
 
 	public boolean checkTimeOk() {
+		if (!checkBox.isSelected())
+			return true;
+
 		LocalTime debut = heureDebSpinner.getValue();
 		LocalTime fin = heureFinSpinner.getValue();
 		if (fin.isBefore(debut)) {
@@ -188,11 +197,12 @@ public class ModificationPopup extends VBox {
 			dureePlageHoraire = LocalTime.of(fin.getHour() - debut.getHour(), diff);
 		}
 		if (dureePlageHoraire.compareTo(dureeSpinner.getValue()) < 0) {
-			setInvalid(true);
+			setDureeInvalide(true);
 			return false;
 		}
 
 		setInvalid(false);
+		setDureeInvalide(false);
 		return true;
 	}
 
@@ -205,6 +215,24 @@ public class ModificationPopup extends VBox {
 		} else {
 			heureDebSpinner.setStyle("");
 			heureFinSpinner.setStyle("");
+		}
+	}
+
+	/**
+	 * Affiche un message d'erreur si la durée de déchargement est supérieure à la
+	 * longueur de la plage horaire
+	 * 
+	 * @param invalid
+	 *            validité de la durée de déchargement
+	 */
+	public void setDureeInvalide(boolean invalid) {
+		dureeInvalideLabel.setVisible(invalid);
+		if (invalid) {
+			dureeSpinner.setStyle("-fx-effect: dropshadow(three-pass-box, #FF0000, 10, 0, 0, 0);");
+			dureeSpinner.setStyle("-fx-effect: dropshadow(three-pass-box, #FF0000, 10, 0, 0, 0);");
+		} else {
+			dureeSpinner.setStyle("");
+			dureeSpinner.setStyle("");
 		}
 	}
 

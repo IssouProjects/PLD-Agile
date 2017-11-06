@@ -30,6 +30,7 @@ public class LivraisonPopup extends VBox {
 	private CheckBox checkBox;
 
 	private Label invalidLabel;
+	private Label dureeInvalideLabel;
 
 	private GridPane mainLayout;
 
@@ -53,8 +54,13 @@ public class LivraisonPopup extends VBox {
 		mainLayout = new GridPane();
 		mainLayout.setHgap(10);
 		mainLayout.setVgap(10);
-
 		mainLayout.setAlignment(Pos.CENTER_LEFT);
+
+		dureeInvalideLabel = new Label("Durée invalide");
+		dureeInvalideLabel.setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
+		dureeInvalideLabel.setVisible(false);
+		mainLayout.add(dureeInvalideLabel, 1, 0);
+
 		Label dureeLabel = new Label("Durée sur place :");
 		dureeSpinner = new TimeSpinner(LocalTime.of(0, 5, 0));
 		mainLayout.add(dureeLabel, 0, 0);
@@ -147,13 +153,31 @@ public class LivraisonPopup extends VBox {
 		if (!checkBox.isSelected())
 			return true;
 
-		if (heureFinSpinner.getValue().isBefore(heureDebSpinner.getValue())) {
+		LocalTime debut = heureDebSpinner.getValue();
+		LocalTime fin = heureFinSpinner.getValue();
+		if (fin.isBefore(debut)) {
 			setInvalid(true);
 			return false;
 		}
 
+		// On vérifie que la durée de livraison est inférieure à la longueur de la plage
+		// horaire
+		LocalTime dureePlageHoraire;
+		int diff = fin.getMinute() - debut.getMinute();
+		if (diff < 0) {
+			dureePlageHoraire = LocalTime.of(fin.getHour() - debut.getHour() - 1, -diff);
+		} else {
+			dureePlageHoraire = LocalTime.of(fin.getHour() - debut.getHour(), diff);
+		}
+		if (dureePlageHoraire.compareTo(dureeSpinner.getValue()) < 0) {
+			setDureeInvalide(true);
+			return false;
+		}
+
 		setInvalid(false);
+		setDureeInvalide(false);
 		return true;
+
 	}
 
 	public void setInvalid(boolean invalid) {
@@ -165,6 +189,24 @@ public class LivraisonPopup extends VBox {
 		} else {
 			heureDebSpinner.setStyle("");
 			heureFinSpinner.setStyle("");
+		}
+	}
+
+	/**
+	 * Affiche un message d'erreur si la durée de déchargement est supérieure à la
+	 * longueur de la plage horaire
+	 * 
+	 * @param invalid
+	 *            validité de la durée de déchargement
+	 */
+	public void setDureeInvalide(boolean invalid) {
+		dureeInvalideLabel.setVisible(invalid);
+		if (invalid) {
+			dureeSpinner.setStyle("-fx-effect: dropshadow(three-pass-box, #FF0000, 10, 0, 0, 0);");
+			dureeSpinner.setStyle("-fx-effect: dropshadow(three-pass-box, #FF0000, 10, 0, 0, 0);");
+		} else {
+			dureeSpinner.setStyle("");
+			dureeSpinner.setStyle("");
 		}
 	}
 }
