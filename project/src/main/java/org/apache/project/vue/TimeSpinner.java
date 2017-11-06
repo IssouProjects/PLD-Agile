@@ -78,7 +78,7 @@ public class TimeSpinner extends Spinner<LocalTime> {
 
 			@Override
 			public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
-				if (!getEditor().getText().matches("[0-9]{0,2}:[0-9]{0,2}:[0-9]{0,2}")) {
+				if (!getEditor().getText().matches("[0-9]{0,2}:[0-9]{0,2}")) {
 					updateText(); // we reset the previous text
 				}
 			}
@@ -89,8 +89,10 @@ public class TimeSpinner extends Spinner<LocalTime> {
 
 			@Override
 			public void handle(KeyEvent event) {
-				if (event.getCode() == KeyCode.ENTER)
+				if (event.getCode() == KeyCode.ENTER) {
 					factory.setValue(stringToTime(getEditor().getText()));
+					updateText();
+				}
 			}
 		});
 
@@ -101,11 +103,10 @@ public class TimeSpinner extends Spinner<LocalTime> {
 
 				int caretPos = getEditor().getCaretPosition();
 				int hrIndex = getEditor().getText().indexOf(':');
-				// int minIndex = getEditor().getText().indexOf(':', hrIndex + 1);
 
 				if (caretPos <= hrIndex) {
 					mode.set(EditMode.HOURS);
-				} else {// if (caretPos <= minIndex) {
+				} else {
 					mode.set(EditMode.MINUTES);
 				}
 			}
@@ -143,18 +144,20 @@ public class TimeSpinner extends Spinner<LocalTime> {
 
 	private LocalTime stringToTime(String string) {
 		String[] tokens = string.split(":");
-		int hours = secureParseInt(tokens[0]);
-		int minutes = secureParseInt(tokens[1]);
-		int seconds = secureParseInt(tokens[2]);
-		int totalSeconds = (hours * 60 + minutes) * 60 + seconds;
-		return LocalTime.of((totalSeconds / 3600) % 24, (totalSeconds / 60) % 60, seconds % 60);
+		int hours = secureParseInt(tokens, 0);
+		int minutes = secureParseInt(tokens, 1);
+		int totalSeconds = (hours * 60 + minutes) * 60;
+		return LocalTime.of((totalSeconds / 3600) % 24, (totalSeconds / 60) % 60);
 	}
 
-	private int secureParseInt(String string) {
-		if (string != null && string.isEmpty()) {
+	private int secureParseInt(String[] string, int index) {
+		if (string.length <= index) {
 			return 0;
 		}
-		return Integer.parseInt(string);
+		if (string[index] != null && string[index].isEmpty()) {
+			return 0;
+		}
+		return Integer.parseInt(string[index]);
 	}
 
 	public TimeSpinner() {
