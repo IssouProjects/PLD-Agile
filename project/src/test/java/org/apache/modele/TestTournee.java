@@ -98,6 +98,39 @@ public class TestTournee {
 		assertEquals(14040, tournee.getDureeTourneeSecondes());
 	}
 	
+	@Test
+	public void testNomRue()throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+		// Creation des objets plan et demande
+		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit4.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planPetit.xml");
+		PlanDeVille plan = new PlanDeVille();
+		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+		DemandeDeLivraison demande = new DemandeDeLivraison();
+		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+				
+		// Calcul tournee
+		Tournee tournee = new Tournee();
+				
+		tournee.setEntrepot(demande.getEntrepot());
+		
+		tournee.calculerTournee(plan, demande);
+		List<Chemin> chemins = new ArrayList<Chemin>();
+		chemins = tournee.getChemins();
+		
+		assertEquals("Rue du Docteur Bonhomme", chemins.get(0).getListeRues().get(0));
+		assertEquals("Rue Maryse Bastié", chemins.get(0).getListeRues().get(1));
+		
+		assertEquals("Avenue des Frères Lumière", chemins.get(1).getListeRues().get(0));
+		
+		assertEquals("Rue Maryse Bastié", chemins.get(2).getListeRues().get(0));
+		assertEquals("Cours Albert Thomas", chemins.get(2).getListeRues().get(1));
+		assertEquals("Rue Charles Richard", chemins.get(2).getListeRues().get(2));
+		
+		assertEquals("Place du Château", chemins.get(3).getListeRues().get(0));
+		assertEquals("", chemins.get(3).getListeRues().get(1));
+		assertEquals("Cours Albert Thomas", chemins.get(3).getListeRues().get(2));
+		assertEquals("", chemins.get(3).getListeRues().get(3));
+	}
 	
 	@Test(timeout = 1000)
 	public void testCalculerTourneeDonnee() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
