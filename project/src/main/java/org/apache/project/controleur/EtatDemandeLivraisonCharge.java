@@ -18,8 +18,8 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 	private Thread thread;
 	
 	@Override
-	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison,
-			Tournee tournee, FenetrePrincipale fenetrePrincipale, int tempsLimite) {
+	public void calculerTournee(final Controleur controleur,final PlanDeVille planDeVille,final DemandeDeLivraison demandeDeLivraison,
+			final Tournee tournee,final FenetrePrincipale fenetrePrincipale, final int tempsLimite) {
 		
 		controleur.clearTournee();
 		
