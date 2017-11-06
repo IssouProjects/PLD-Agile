@@ -18,8 +18,12 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Stop;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.CycleMethod;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -50,19 +54,19 @@ public class MapDisplay extends Pane {
 	final Color defaultTronconColor = Color.WHITE;
 
 	// default livraison display
-	final int livraisonIntersectionRadius = 200;
+	final int livraisonIntersectionRadius = 300;
 	final Color defaultLivraisonColor = Color.web("#425087");
 	final Color defaultEntrepotColor = Color.BLACK;
 
 	// highlighted livraison display
-	final int livraisonIntersectionRadiusHL = 400;
+	final int livraisonIntersectionRadiusHL = 600;
 	final Color defaultLivraisonColorHL = Color.web("#FAA12D");
 	final Color defaultEntrepotColorHL = Color.BLACK;
 
 	// default tournee display
 	final int tourneeIntersectionRadius = 50;
-	final int tourneeTronconWidth = 150;
-	final Color defaultTourneeTronconColor = Color.web("#3399ff");
+	final int tourneeTronconWidth = 300;
+	final Color defaultTourneeTronconColors[] = {Color.web("#3399ff"), Color.web("#33ffbe"), Color.web("#44ff33"), Color.web("e0ff33"), Color.web("ff8133")};
 	final Color defaultTourneeIntersectionColor = Color.web("#3399ff");
 	final Color defaultTourneeLivraisonColor = Color.web("#425087");
 
@@ -70,7 +74,7 @@ public class MapDisplay extends Pane {
 	Long maximalX = 0l;
 	Long minimalY = Long.MAX_VALUE;
 	Long maximalY = 0l;	
-
+	
     public MapDisplay(int height, int width) {
         setPrefSize(height, width);
         setStyle("-fx-background-color: #b2b2b2;");        
@@ -270,20 +274,28 @@ public class MapDisplay extends Pane {
     	
     	final List<Chemin> chemins = tournee.getChemins();
     	
+    	int nombreTotalTronconsTournee = 0;
+    	for(Chemin c : chemins) {
+    		nombreTotalTronconsTournee += c.getTroncons().size();
+    	}
+    	
     	// we show the Tournee
+    	int positionTronconDansTournee = 0;
     	for(Chemin c : chemins) {
     		
     		final List<Troncon> troncons = c.getTroncons();
     		
     		for(Troncon t : troncons){
-    			Circle circle = this.creerVueIntersection(t.getIntersectionArrivee(), defaultTourneeIntersectionColor, tourneeIntersectionRadius);
+    			Circle circle = this.creerVueIntersection(t.getIntersectionArrivee(), getColorGradientPoint(positionTronconDansTournee, nombreTotalTronconsTournee), tourneeIntersectionRadius);
                 tourneeInter.add(circle);
                 getChildren().add(circle);
                 mapIntersections.put(t.getIntersectionArrivee(), circle);
                 
-                Line line = this.creerVueTroncon(t, defaultTourneeTronconColor, tourneeTronconWidth);
+                Line line = this.creerVueTroncon(t, getColorGradientPoint(positionTronconDansTournee, nombreTotalTronconsTournee), tourneeTronconWidth);
                 tourneeTroncons.add(line);
                 getChildren().add(line);
+                
+                positionTronconDansTournee++;
     		}
     	}
     	
@@ -405,5 +417,11 @@ public class MapDisplay extends Pane {
 
 	public double getTransformedY(double coordX) {
 		return getPrefHeight() - (coordX - minimalX);
+	}
+	
+	private Color getColorGradientPoint(int positionTroncon, int nombreTroncons) {
+		double percentage = (double)positionTroncon/(double)nombreTroncons;
+		Color colorGradientPoint = defaultTourneeTronconColors[0].interpolate(defaultTourneeTronconColors[1], percentage);
+		return colorGradientPoint;
 	}
 }
