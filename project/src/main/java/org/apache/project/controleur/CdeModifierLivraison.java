@@ -13,7 +13,14 @@ public class CdeModifierLivraison implements Commande {
 	
 	public CdeModifierLivraison(Livraison livraison, Time heureDebut, Time heureFin) {
 		this.livraison = livraison;
-		this.nouvellePlage = new PlageHoraire(heureDebut, heureFin);
+		
+		if(heureDebut == null || heureFin == null) {
+			this.nouvellePlage = null;
+		}
+		else {
+			this.nouvellePlage = new PlageHoraire(heureDebut, heureFin);
+		}
+		
 		if(livraison.getPlageHoraire() == null) {
 			this.anciennePlage = null;
 		}
@@ -28,19 +35,29 @@ public class CdeModifierLivraison implements Commande {
 			livraison.setPlageHoraire(nouvellePlage);
 		}
 		else {
-			livraison.getPlageHoraire().setDebut(nouvellePlage.getDebut());
-			livraison.getPlageHoraire().setFin(nouvellePlage.getFin());
+			if(nouvellePlage == null) {
+				livraison.setPlageHoraire(null);
+			}
+			else {
+				livraison.getPlageHoraire().setDebut(nouvellePlage.getDebut());
+				livraison.getPlageHoraire().setFin(nouvellePlage.getFin());
+			}
 		}
 	}
 
 	@Override
 	public void undoCommande() {
 		if(anciennePlage == null) {
-			livraison.setPlageHoraire(anciennePlage);
+			livraison.setPlageHoraire(null);
 		}
 		else {
-			livraison.getPlageHoraire().setDebut(anciennePlage.getDebut());
-			livraison.getPlageHoraire().setFin(anciennePlage.getFin());
+			if(livraison.getPlageHoraire() == null) {
+				livraison.setPlageHoraire(anciennePlage);
+			}
+			else {
+				livraison.getPlageHoraire().setDebut(anciennePlage.getDebut());
+				livraison.getPlageHoraire().setFin(anciennePlage.getFin());
+			}
 		}
 	}
 
