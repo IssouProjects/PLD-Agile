@@ -192,5 +192,12 @@ public interface Etat {
 	 * @param commandes
 	 */
 	public void redo(ListeDeCommandes commandes);
+	
+	/**
+	 * Methode appelee par controleur apres un clic sur le bouton "Recalculer tournee"
+	 * @param controleur
+	 * @param fenetrePrincipale
+	 */
+	public void afficherFenetreTimeout(Controleur controleur, FenetrePrincipale fenetrePrincipale);
 
 }

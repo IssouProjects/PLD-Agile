@@ -52,6 +52,9 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 			case FenetrePrincipale.REDO_ID:
 				controleur.redo();
 				break;
+			case FenetrePrincipale.RECALCULER_ID:
+				controleur.afficherFenetreTimeout();
+				break;
 			case LivraisonPopup.VALIDATE_ID:
 				LivraisonPopup popup = fenetrePrincipale.getFenetreAjouterLivraison();
 				if(popup != null) {

@@ -34,6 +34,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		if(file == null) {
 			return;
 		}
+		fenetrePrincipale.setVisibleRecalculerButton(false);
 		controleur.setEtatCourant(controleur.etatPlanCharge);
 		fenetrePrincipale.clearLivraison();
 		fenetrePrincipale.clearTournee();
@@ -45,6 +46,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	@Override
 	public void ajouterLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		controleur.setEtatCourant(controleur.etatAjoutLivraison1);
+		fenetrePrincipale.setVisibleRecalculerButton(false);
 		fenetrePrincipale.afficherInfo("Veuillez cliquer sur une intersection de la carte");
 	}
 	
@@ -61,6 +63,8 @@ public class EtatTourneeCalculee extends EtatDefaut{
 
 	@Override 
 	public void supprimerLivraison( Controleur controleur, Tournee tournee,  PlanDeVille planDeVille,  FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes) {
+		
+		fenetrePrincipale.setVisibleRecalculerButton(false);
 		
 		Livraison livraisonASupprimer = fenetrePrincipale.getSelectedLivraison();
 		
@@ -83,6 +87,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	
 	@Override
 	public void modifierLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
+		fenetrePrincipale.setVisibleRecalculerButton(false);
 		Livraison livraisonSelectionnee = fenetrePrincipale.getSelectedLivraison();
 		fenetrePrincipale.afficherFenetreModifierLivraison(livraisonSelectionnee);	
 		controleur.etatModifierLivraison1.actionEntreeEtatModifierLivraison1(livraisonSelectionnee);
@@ -95,6 +100,12 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	
 	public void redo(ListeDeCommandes commandes) {
 		commandes.redo();
+	}
+	
+	@Override
+	public void afficherFenetreTimeout(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
+		fenetrePrincipale.afficherFenetreTimeout();
+		controleur.setEtatCourant(controleur.etatDemandeLivraisonCharge);
 	}
 
 }

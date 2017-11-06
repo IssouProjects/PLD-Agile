@@ -15,6 +15,9 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 	@Override
 	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison,
 			Tournee tournee, FenetrePrincipale fenetrePrincipale, int tempsLimite) {
+		
+		controleur.clearTournee();
+		
 		tournee.setEntrepot(demandeDeLivraison.getEntrepot());
 		
 		boolean tempsLimiteAtteint = tournee.calculerTournee(planDeVille, demandeDeLivraison, tempsLimite);
@@ -23,13 +26,15 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		fenetrePrincipale.afficherInfo("Vous êtes libre de toute action");
 		
 		if(tempsLimiteAtteint) {
-			fenetrePrincipale.afficherFenetreTimeout();
-			controleur.setEtatCourant(controleur.etatTempsLimiteAtteint);
+			fenetrePrincipale.setVisibleRecalculerButton(true);
+			fenetrePrincipale.afficherPopupInfo("Le calcul de tournée s'est terminé avec un timeout. Vous pouvez recalculer la tournée en modifiant la durée");
 		}else {
-			controleur.setEtatCourant(controleur.etatTourneeCalculee);
+			fenetrePrincipale.setVisibleRecalculerButton(false);
 		}
+			
+		controleur.setEtatCourant(controleur.etatTourneeCalculee);
 	}
-
+	
 	@Override
 	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille,
 			DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale) {
@@ -63,5 +68,12 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 	
 	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {
 		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
+	}
+	
+	@Override
+	public void annulerRecalcul(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee) {
+		fenetrePrincipale.afficherTournee(tournee);
+		fenetrePrincipale.afficherInfo("Vous êtes libre de toute action");
+		controleur.setEtatCourant(controleur.etatTourneeCalculee);
 	}
 }

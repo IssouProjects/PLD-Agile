@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -50,6 +51,12 @@ public class TimeoutPopup extends VBox {
 		 // Value factory.
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(10, 600, initialValue);
         dureeSpinner.setValueFactory(valueFactory);
+        dureeSpinner.setValueFactory(valueFactory);
+        
+        TextFormatter formatter = new TextFormatter(valueFactory.getConverter(), valueFactory.getValue());
+        dureeSpinner.getEditor().setTextFormatter(formatter);
+        // bidi-bind the values
+        valueFactory.valueProperty().bindBidirectional(formatter.valueProperty());
 
 		mainLayout.setAlignment(Pos.CENTER_LEFT);
 		Label dureeLabel = new Label("Nouvelle durée du timeout;");

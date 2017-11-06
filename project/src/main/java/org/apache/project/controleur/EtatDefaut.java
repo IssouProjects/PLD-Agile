@@ -32,4 +32,5 @@ public abstract class EtatDefaut implements Etat {
 			Tournee tournee, Livraison livraison, ListeDeCommandes commandes) {}
 	public void undo(ListeDeCommandes commandes) {}
 	public void redo(ListeDeCommandes commandes) {}
+	public void afficherFenetreTimeout(Controleur controleur, FenetrePrincipale fenetrePrincipale) {}
 }

@@ -48,6 +48,7 @@ public class FenetrePrincipale extends Application {
 	Button ajouterLivraisonButton;
 	Button supprLivraisonButton;
 	Button annulerBouton;
+	Button recalculerBouton;
 
 	ListDisplay listeLivraisons;
 	
@@ -78,6 +79,9 @@ public class FenetrePrincipale extends Application {
 	public static final String EDIT_LIVRAISON_ID = "EditerLivraisonButton";;
 	public static final String UNDO_ID = "UndoButton";
 	public static final String REDO_ID = "RedoButton";
+	public static final String RECALCULER = "Recalculer tournée";
+	public static final String RECALCULER_ID = "RecalculerTourneeButton";
+	
 	
 	public static final String PDV_FILE_DESCRIPTION = "Fichier de plan de ville";
 	public static final String PDV_FILEDIALOG_DESCRIPTION = "Ouvrir un plan de ville";
@@ -141,26 +145,7 @@ public class FenetrePrincipale extends Application {
 		//////////////////////////////////////
 		///// CREATING THE DELIVERY LIST /////
 		//////////////////////////////////////
-
-		GridPane undoRedoLayout = new GridPane();
-		listLabel = new Label("Livraisons :");
-		GridPane.setValignment(listLabel, VPos.BOTTOM);
 		
-		undoRedoWidget = new UndoRedoWidget(edb);
-		
-		undoRedoLayout.setAlignment(Pos.CENTER_LEFT);
-		undoRedoLayout.setHgap(5);
-		HBox.setHgrow(listLabel, Priority.ALWAYS);
-		undoRedoLayout.add(listLabel, 0, 0);
-		undoRedoLayout.add(undoRedoWidget, 1, 0);
-		ColumnConstraints labelCC = new ColumnConstraints();
-		labelCC.setHgrow(Priority.ALWAYS);
-		undoRedoLayout.getColumnConstraints().add(labelCC);
-		
-		layout.add(undoRedoLayout, 1, 0);
-		HBox listeButtonsLayout1 = new HBox();
-		listeButtonsLayout1.setSpacing(10);
-
 		// buttons
 		loadLivraisonButton = new Button(LOAD_LIVRAISON);
 		loadLivraisonButton.setUserData(LOAD_LIVRAISON_ID);
@@ -177,6 +162,29 @@ public class FenetrePrincipale extends Application {
 		annulerBouton = new Button(ANNULER);
 		annulerBouton.setUserData(ANNULER_ID);
 		annulerBouton.setDisable(true);
+		recalculerBouton = new Button(RECALCULER);
+		recalculerBouton.setUserData(RECALCULER_ID);
+		recalculerBouton.setVisible(false);
+		
+		GridPane undoRedoLayout = new GridPane();
+		listLabel = new Label("Livraisons :");
+		GridPane.setValignment(listLabel, VPos.BOTTOM);
+		
+		undoRedoWidget = new UndoRedoWidget(edb);
+		
+		undoRedoLayout.setAlignment(Pos.CENTER_LEFT);
+		undoRedoLayout.setHgap(5);
+		HBox.setHgrow(listLabel, Priority.ALWAYS);
+		undoRedoLayout.add(listLabel, 0, 0);
+		undoRedoLayout.add(recalculerBouton, 1, 0);
+		undoRedoLayout.add(undoRedoWidget, 2, 0);
+		ColumnConstraints labelCC = new ColumnConstraints();
+		labelCC.setHgrow(Priority.ALWAYS);
+		undoRedoLayout.getColumnConstraints().add(labelCC);
+		
+		layout.add(undoRedoLayout, 1, 0);
+		HBox listeButtonsLayout1 = new HBox();
+		listeButtonsLayout1.setSpacing(10);
 
 		// list
 		listeLivraisons = new ListDisplay();
@@ -240,6 +248,7 @@ public class FenetrePrincipale extends Application {
 		supprLivraisonButton.setOnAction(edb);
 		annulerBouton.setOnAction(edb);
 		undoRedoWidget.setEcouteurDeBouton(edb);
+		recalculerBouton.setOnAction(edb);
 
 		// map listener
 		edm = new EcouteurDeMap(controleur, mapContainer);
@@ -257,6 +266,14 @@ public class FenetrePrincipale extends Application {
 
 	public void afficherPopupError(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Erreur");
+		alert.setHeaderText("Une erreur a eu lieu");
+		alert.setContentText(message);
+		alert.showAndWait();
+	}
+	
+	public void afficherPopupInfo(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Erreur");
 		alert.setHeaderText("Une erreur a eu lieu");
 		alert.setContentText(message);
@@ -398,5 +415,9 @@ public class FenetrePrincipale extends Application {
 	 */
     public File ouvrirFichierXml(String fileDescription, String fileExtension, String windowTitle) {
     	return FileOpener.ouvrirFichier(stage, fileDescription, fileExtension, windowTitle);
+    }
+    
+    public void setVisibleRecalculerButton(boolean visible) {
+    	recalculerBouton.setVisible(visible);
     }
 }
