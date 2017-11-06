@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import org.apache.project.modele.tsp.TSP2;
 import org.apache.project.modele.tsp.TSP3;
 
 /**

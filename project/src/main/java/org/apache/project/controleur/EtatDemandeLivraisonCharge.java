@@ -53,10 +53,12 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 	@Override
 	public void tronconClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, 
 			Troncon troncon, ListeDeCommandes commandes) {
-		fenetrePrincipale.highlightTroncon(troncon);
+	  fenetrePrincipale.highlightTroncon(troncon);
 	}
 	
-	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {
+	@Override
+	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, Tournee tournee,
+			Livraison livraisonPrecedente, ListeDeCommandes commandes) {
 		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
-	}
+  }
 }
