@@ -49,11 +49,14 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		controleur.chargerPlanDeVille(file);
 	}
 	
+	@Override
 	public void intersectionClicked (Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale, Intersection intersection) {
 		fenetrePrincipale.highlightIntersection(intersection);
 	}
 	
-	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, Livraison livraisonPrecedente) {
+	@Override
+	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, Tournee tournee,
+			Livraison livraisonPrecedente, ListeDeCommandes commandes) {
 		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
-	}
+  }
 }
