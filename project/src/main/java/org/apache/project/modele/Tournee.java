@@ -177,8 +177,8 @@ public class Tournee extends Observable {
 
 		TSP3 tspSolut = new TSP3();
 		tspSolut.chercheSolution(tempsLimite, nombreLivraison, cout, duree, tempsMini, tempsMax);
-		// On test s il y a un resultat, sinon c est surement a cause de la prise en
-		// compte des plages horaires
+		// On test s'il y a un résultat, sinon l'échec est sûrement lié à la prise en
+		// compte des plages horaires.
 		if (tspSolut.getMeilleureSolution(0) == null) {
 			respectPlageHoraire = false;
 			tspSolut.chercheSolution(tempsLimite, nombreLivraison, cout, duree);
@@ -239,14 +239,14 @@ public class Tournee extends Observable {
 	}
 
 	/**
-	 * Calcul le nouveau chemin pour aller de l'intersectionPre a l'intersectionSuiv
+	 * Calcul le nouveau chemin pour aller de l'intersectionPre à l'intersectionSuiv
 	 * 
 	 * @param plan
-	 *            plan de la ville/agglomeration où se déroule la tournee.
+	 *            plan de la ville/agglomération où se déroule la tournee.
 	 * @param intersectionPre
 	 *            Intersection d'origine
 	 * @param intersectionSuiv
-	 *            Intersection d'arrivee
+	 *            Intersection d'arrivée
 	 * @return
 	 */
 	public Chemin calculerNouveauChemin(PlanDeVille plan, Intersection intersectionPre, Intersection intersectionSuiv) {
