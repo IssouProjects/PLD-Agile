@@ -16,14 +16,15 @@ public class EtatModifierLivraison1 extends EtatDefaut {
 
 		// treating the case where there are no modifications:
 		if (livraison.getPlageHoraire() == null) {
-			if (heureDeb == null || heureFin == null) {
+			if ((heureDeb == null || heureFin == null) && duree == livraison.getDuree()) {
 				// do nothing
 			} else {
 				commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin, duree));
 			}
 		} else {
 			if (heureDeb.toString().equals(livraison.getPlageHoraire().getDebut().toString())
-					&& heureFin.toString().equals(livraison.getPlageHoraire().getFin().toString())) {
+					&& heureFin.toString().equals(livraison.getPlageHoraire().getFin().toString())
+					&& duree == livraison.getDuree()) {
 				// do nothing
 			} else {
 				commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin, duree));
