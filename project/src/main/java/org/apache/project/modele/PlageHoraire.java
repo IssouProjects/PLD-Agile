@@ -1,6 +1,7 @@
 package org.apache.project.modele;
 
 import java.sql.Time;
+import java.time.LocalTime;
 
 /**
  * La classe <tt>PlageHoraire</tt> représente une plage horaire, avec une heure
@@ -97,5 +98,16 @@ public class PlageHoraire {
 		}
 		result += minutes + "min";
 		return result;
+	}
+
+	public static LocalTime secondesEnLocalTime(double duree) {
+		int secondes = (int) duree % 60;
+		int minutes = (int) duree / 60;
+		int heures = minutes / 60;
+		minutes = minutes - (heures * 60);
+		if (heures > 23) {
+			heures = heures % 23;
+		}
+		return LocalTime.of(heures, minutes, secondes);
 	}
 }

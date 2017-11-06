@@ -3,7 +3,6 @@ package org.apache.project.controleur;
 import java.io.File;
 
 import org.apache.project.modele.DemandeDeLivraison;
-import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
@@ -112,10 +111,12 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		fenetrePrincipale.afficherTournee(tournee);
 	}
 	
+	@Override
 	public void undo(ListeDeCommandes commandes) {
 		commandes.undo();
 	}
 	
+	@Override
 	public void redo(ListeDeCommandes commandes) {
 		commandes.redo();
 	}

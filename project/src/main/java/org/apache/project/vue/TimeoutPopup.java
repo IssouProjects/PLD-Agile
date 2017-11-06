@@ -1,7 +1,5 @@
 package org.apache.project.vue;
 
-import java.time.LocalTime;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -9,10 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class TimeoutPopup extends VBox {
@@ -52,7 +48,8 @@ public class TimeoutPopup extends VBox {
         dureeSpinner.setValueFactory(valueFactory);
         dureeSpinner.setValueFactory(valueFactory);
         
-        TextFormatter formatter = new TextFormatter(valueFactory.getConverter(), valueFactory.getValue());
+		TextFormatter<Integer> formatter = new TextFormatter<Integer>(valueFactory.getConverter(),
+				valueFactory.getValue());
         dureeSpinner.getEditor().setTextFormatter(formatter);
         // bidi-bind the values
         valueFactory.valueProperty().bindBidirectional(formatter.valueProperty());

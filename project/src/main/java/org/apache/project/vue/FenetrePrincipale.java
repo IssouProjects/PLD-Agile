@@ -36,7 +36,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 
 public class FenetrePrincipale extends Application {
-	
+
 	private Stage stage;
 
 	MapContainer mapContainer;
@@ -57,9 +57,9 @@ public class FenetrePrincipale extends Application {
 	ImageView imageView;
 
 	ListDisplay listeLivraisons;
-	
+
 	private UndoRedoWidget undoRedoWidget;
-	
+
 	private LivraisonPopup livraisonPopup = null;
 	private TimeoutPopup timeoutPopup = null;
 	private Region opaqueLayer;
@@ -68,7 +68,7 @@ public class FenetrePrincipale extends Application {
 
 	private Label listLabel;
 	private Label mapLabel;
-	
+
 	private VBox streetDisplay;
 	private Label streetLabel;
 
@@ -82,7 +82,7 @@ public class FenetrePrincipale extends Application {
 	public static final String ADD_LIVRAISON = "Ajouter livraison";
 	public static final String ADD_LIVRAISON_ID = "addLivraisonButton";
 	public static final String SUPPR_LIVRAISON = "Supprimer livraison";
-	public static final String SUPPR_LIVRAISON_ID = "supprLivraisonButton";	
+	public static final String SUPPR_LIVRAISON_ID = "supprLivraisonButton";
 	public static final String ANNULER = "Annuler";
 	public static final String ANNULER_ID = "AnnulerButton";
 	public static final String EDIT_LIVRAISON_ID = "EditerLivraisonButton";;
@@ -90,12 +90,11 @@ public class FenetrePrincipale extends Application {
 	public static final String REDO_ID = "RedoButton";
 	public static final String RECALCULER = "Recalculer tournée";
 	public static final String RECALCULER_ID = "RecalculerTourneeButton";
-	
-	
+
 	public static final String PDV_FILE_DESCRIPTION = "Fichier de plan de ville";
 	public static final String PDV_FILEDIALOG_DESCRIPTION = "Ouvrir un plan de ville";
 	public static final String PDV_FILE_EXTENSION = "*.xml";
-	
+
 	public static final String DDL_FILE_DESCRIPTION = "Fichier de demande de livraison";
 	public static final String DDL_FILEDIALOG_DESCRIPTION = "Ouvrir une demande de livraison";
 	public static final String DDL_FILE_EXTENSION = "*.xml";
@@ -106,7 +105,7 @@ public class FenetrePrincipale extends Application {
 
 	@Override
 	public void start(Stage stage) {
-		
+
 		this.stage = stage;
 
 		stage.setTitle("Salty delivery");
@@ -114,9 +113,9 @@ public class FenetrePrincipale extends Application {
 
 		// layout for the full window
 		GridPane layout = new GridPane();
-		
+
 		layout.getStylesheets().add(getClass().getResource("main.css").toExternalForm());
-		
+
 		stack = new StackPane(layout);
 		Scene scene = new Scene(stack, 1050, 576);
 
@@ -127,7 +126,7 @@ public class FenetrePrincipale extends Application {
 		// layout for the map and its controls buttons
 
 		HBox mapButtonsLayout = new HBox();
-		
+
 		// displaying the street's name
 		streetDisplay = new VBox();
 		streetDisplay.getStylesheets().add(getClass().getResource("main.css").toExternalForm());
@@ -158,7 +157,7 @@ public class FenetrePrincipale extends Application {
 		GridPane.setValignment(mapLabel, VPos.BOTTOM);
 
 		mapContainer = new MapContainer(2000, 2000);
-		
+
 		layout.add(mapContainer, 0, 1);
 		layout.add(mapButtonsLayout, 0, 2);
 		
@@ -167,7 +166,26 @@ public class FenetrePrincipale extends Application {
 		//////////////////////////////////////
 		///// CREATING THE DELIVERY LIST /////
 		//////////////////////////////////////
-		
+
+		GridPane undoRedoLayout = new GridPane();
+		listLabel = new Label("Livraisons :");
+		GridPane.setValignment(listLabel, VPos.BOTTOM);
+
+		undoRedoWidget = new UndoRedoWidget(edb);
+
+		undoRedoLayout.setAlignment(Pos.CENTER_LEFT);
+		undoRedoLayout.setHgap(5);
+		HBox.setHgrow(listLabel, Priority.ALWAYS);
+		undoRedoLayout.add(listLabel, 0, 0);
+		undoRedoLayout.add(undoRedoWidget, 1, 0);
+		ColumnConstraints labelCC = new ColumnConstraints();
+		labelCC.setHgrow(Priority.ALWAYS);
+		undoRedoLayout.getColumnConstraints().add(labelCC);
+
+		layout.add(undoRedoLayout, 1, 0);
+		HBox listeButtonsLayout1 = new HBox();
+		listeButtonsLayout1.setSpacing(10);
+
 		// buttons
 		loadLivraisonButton = new Button(LOAD_LIVRAISON);
 		loadLivraisonButton.setUserData(LOAD_LIVRAISON_ID);
@@ -187,26 +205,6 @@ public class FenetrePrincipale extends Application {
 		recalculerBouton = new Button(RECALCULER);
 		recalculerBouton.setUserData(RECALCULER_ID);
 		recalculerBouton.setVisible(false);
-		
-		GridPane undoRedoLayout = new GridPane();
-		listLabel = new Label("Livraisons :");
-		GridPane.setValignment(listLabel, VPos.BOTTOM);
-		
-		undoRedoWidget = new UndoRedoWidget(edb);
-		
-		undoRedoLayout.setAlignment(Pos.CENTER_LEFT);
-		undoRedoLayout.setHgap(5);
-		HBox.setHgrow(listLabel, Priority.ALWAYS);
-		undoRedoLayout.add(listLabel, 0, 0);
-		undoRedoLayout.add(recalculerBouton, 1, 0);
-		undoRedoLayout.add(undoRedoWidget, 2, 0);
-		ColumnConstraints labelCC = new ColumnConstraints();
-		labelCC.setHgrow(Priority.ALWAYS);
-		undoRedoLayout.getColumnConstraints().add(labelCC);
-		
-		layout.add(undoRedoLayout, 1, 0);
-		HBox listeButtonsLayout1 = new HBox();
-		listeButtonsLayout1.setSpacing(10);
 
 		// list
 		listeLivraisons = new ListDisplay();
@@ -216,14 +214,13 @@ public class FenetrePrincipale extends Application {
 		listeButtonsLayout1.getChildren().add(calculerTourneeButton);
 		listeButtonsLayout1.getChildren().add(ajouterLivraisonButton);
 		listeButtonsLayout1.getChildren().add(annulerBouton);
-		
 
 		layout.add(listeButtonsLayout1, 1, 2);
 
 		///////////////////////////
 		////// LAYOUT STYLE ///////
 		///////////////////////////
-		
+
 		layout.setStyle("-fx-padding: 10;");
 		layout.setHgap(10);
 		layout.setVgap(10);
@@ -235,21 +232,20 @@ public class FenetrePrincipale extends Application {
 
 		ColumnConstraints ListCC = new ColumnConstraints();
 		ListCC.setPercentWidth(50.0);
-		//ListCC.setHgrow(Priority.ALWAYS);
+		// ListCC.setHgrow(Priority.ALWAYS);
 		layout.getColumnConstraints().add(ListCC);
-		
+
 		RowConstraints LabelRC = new RowConstraints();
 		layout.getRowConstraints().add(LabelRC);
-		
+
 		RowConstraints MapListRC = new RowConstraints();
 		MapListRC.setVgrow(Priority.ALWAYS);
 		layout.getRowConstraints().add(LabelRC);
-		
 
 		//////////////////////////////////////////
 		///// MAPPING CONTROLS AND LISTENERS /////
 		//////////////////////////////////////////
-		
+
 		controleur = Controleur.getInstance();
 		controleur.setFenetre(this);
 
@@ -275,12 +271,12 @@ public class FenetrePrincipale extends Application {
 		// map listener
 		edm = new EcouteurDeMap(controleur, mapContainer);
 		mapContainer.setEcouteurDeMap(edm);
-		
+
 		// list listener
-		edl = new EcouteurDeListe(controleur, listeLivraisons);
+		edl = new EcouteurDeListe(controleur);
 		listeLivraisons.setEcouteurDeListe(edl);
 		listeLivraisons.setEcouteurDeBouton(edb);
-		
+
 		// we can now show the window
 		stage.setScene(scene);
 		stage.show();
@@ -293,7 +289,7 @@ public class FenetrePrincipale extends Application {
 		alert.setContentText(message);
 		alert.showAndWait();
 	}
-	
+
 	public void afficherPopupInfo(String message) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Erreur");
@@ -308,11 +304,12 @@ public class FenetrePrincipale extends Application {
 
 	public void afficherPlanDeVille(PlanDeVille plan) {
 		mapContainer.getMapDisplay().afficherPlanDeVille(plan);
-		
+
 		Platform.runLater(new Runnable() {
-		    @Override public void run() {
-		    	mapContainer.fitMapInView();
-		    }
+			@Override
+			public void run() {
+				mapContainer.fitMapInView();
+			}
 		});
 
 		loadMapButton.setDisable(false);
@@ -357,9 +354,9 @@ public class FenetrePrincipale extends Application {
 		listeLivraisons.clearList();
 		listLabel.setText("Livraisons:");
 	}
-	
+
 	public void afficherFenetreAjouterLivraison(Livraison l) {
-		if(livraisonPopup != null)
+		if (livraisonPopup != null)
 			return;
 		livraisonPopup = new LivraisonPopup(l, edb);
 		opaqueLayer = new Region();
@@ -369,21 +366,21 @@ public class FenetrePrincipale extends Application {
 		stack.getChildren().add(opaqueLayer);
 		stack.getChildren().add(livraisonPopup);
 	}
-	
-	public LivraisonPopup getFenetreAjouterLivraison(){
+
+	public LivraisonPopup getFenetreAjouterLivraison() {
 		return livraisonPopup;
 	}
-	
+
 	public void masquerFenetreAjouterLivraison() {
 		stack.getChildren().remove(livraisonPopup);
 		stack.getChildren().remove(opaqueLayer);
-		
+
 		livraisonPopup = null;
 		opaqueLayer = null;
 	}
-	
+
 	public void afficherFenetreTimeout() {
-		if(timeoutPopup != null)
+		if (timeoutPopup != null)
 			return;
 		timeoutPopup = new TimeoutPopup(edb);
 		opaqueLayer = new Region();
@@ -393,60 +390,67 @@ public class FenetrePrincipale extends Application {
 		stack.getChildren().add(opaqueLayer);
 		stack.getChildren().add(timeoutPopup);
 	}
-	
-	public TimeoutPopup getFenetreTimeoutPopup(){
+
+	public TimeoutPopup getFenetreTimeoutPopup() {
 		return timeoutPopup;
 	}
-	
+
 	public void masquerFenetreTimeoutPopup() {
 		stack.getChildren().remove(timeoutPopup);
 		stack.getChildren().remove(opaqueLayer);
-		
 		timeoutPopup = null;
 		opaqueLayer = null;
 	}
-	
+
 	public void afficherFenetreModifierLivraison(Livraison l) {
 		new ModificationPopup(l, stack, edb);
 	}
-    
-    public void highlightLivraison(Livraison l) {
-    	mapContainer.getMapDisplay().resetAndHighlight(l);
-    	streetDisplay.setVisible(false);
-    	listeLivraisons.selectLivraison(l);
-    }
-    
-    public void highlightIntersection(Intersection I) {
-    	listeLivraisons.selectLivraison(null);
-    	mapContainer.getMapDisplay().resetAndHighlight(I);
-    	streetDisplay.setVisible(false);
-    }
-    
-    public void highlightTroncon(Troncon t) {
-    	listeLivraisons.selectLivraison(null);
-    	mapContainer.getMapDisplay().resetAndHighlight(t);
-    	streetDisplay.setVisible(true);
-    	streetLabel.setText(t.getNomRue());
-    }
-    
-    public ListDisplay getListDisplay() {
-    	return listeLivraisons;
-    }
-    
-    public MapContainer getMapContainer() {
-    	return mapContainer;
-    }
-    
-    public Livraison getSelectedLivraison() {
-    	return listeLivraisons.getSelectedLivraison();
-    }
-    
-    public UndoRedoWidget getUndoRedoWidget() {
-    	return undoRedoWidget;
-    }
-    
-    /**
-	 * Affiche une boite de dialogue pour ouvrir un fichier. Cette méthode est bloquante : on n'en sors pas tant que l'utilisateur n'a pas choisi un fichier ou annulé l'opération.
+
+	/**
+	 * Affiche une boite de dialogue pour ouvrir un fichier. Cette méthode est
+	 * bloquante : on n'en sors pas tant que l'utilisateur n'a pas choisi un fichier
+	 * ou annulé l'opération.
+	 */
+
+	public void highlightLivraison(Livraison l) {
+		mapContainer.getMapDisplay().resetAndHighlight(l);
+		streetDisplay.setVisible(false);
+		listeLivraisons.selectLivraison(l);
+	}
+
+	public void highlightIntersection(Intersection I) {
+		listeLivraisons.selectLivraison(null);
+		mapContainer.getMapDisplay().resetAndHighlight(I);
+		streetDisplay.setVisible(false);
+	}
+
+	public void highlightTroncon(Troncon t) {
+		listeLivraisons.selectLivraison(null);
+		mapContainer.getMapDisplay().resetAndHighlight(t);
+		streetDisplay.setVisible(true);
+		streetLabel.setText(t.getNomRue());
+	}
+
+	public ListDisplay getListDisplay() {
+		return listeLivraisons;
+	}
+
+	public MapContainer getMapContainer() {
+		return mapContainer;
+	}
+
+	public Livraison getSelectedLivraison() {
+		return listeLivraisons.getSelectedLivraison();
+	}
+
+	public UndoRedoWidget getUndoRedoWidget() {
+		return undoRedoWidget;
+	}
+
+	/**
+	 * Affiche une boite de dialogue pour ouvrir un fichier. Cette méthode est
+	 * bloquante : on n'en sors pas tant que l'utilisateur n'a pas choisi un fichier
+	 * ou annulé l'opération. >>>>>>> master
 	 * 
 	 * @param fileDescription
 	 *            Description du fichier (exemple : fichier de plan XML)

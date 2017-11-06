@@ -13,7 +13,6 @@ public class Livraison {
 	private int duree;
 	private PlageHoraire plageHoraire;
 	private Time heureArrivee;
-	
 	private int positionDansTournee = -1;
 
 	/**
@@ -23,7 +22,7 @@ public class Livraison {
 	 * @param lieuDeLivraison
 	 *            intersection où se déroule la livraison.
 	 * @param dureeLivraison
-	 *            temps de déchargement des produits livrés.
+	 *            temps de déchargement des produits livrés en secondes.
 	 * @param plageHoraire
 	 *            plage horaire où se déroule la livraison.
 	 */
@@ -41,7 +40,7 @@ public class Livraison {
 	 * @param lieuDeLivraison
 	 *            intersection où se déroule la livraison.
 	 * @param dureeLivraison
-	 *            temps de déchargement des produits livrés.
+	 *            temps de déchargement des produits livrés en secondes.
 	 */
 	public Livraison(Intersection lieuDeLivraison, int dureeLivraison) {
 		this.lieuDeLivraison = lieuDeLivraison;
@@ -67,6 +66,16 @@ public class Livraison {
 		return lieuDeLivraison;
 	}
 
+	public void setLieuDeLivraison(Intersection lieuDeLivraison) {
+		this.lieuDeLivraison = lieuDeLivraison;
+	}
+
+	/**
+	 * Renvoie le temps de déchargement de la livraison en secondes
+	 * 
+	 * @return durée de déchargement de la livraison en secondes.
+	 */
+
 	public int getDuree() {
 		return duree;
 	}
@@ -90,11 +99,11 @@ public class Livraison {
 	public void setHeureArrivee(Time heureArrivee) {
 		this.heureArrivee = heureArrivee;
 	}
-	
+
 	public void setPositionDansTournee(int positionDansTournee) {
 		this.positionDansTournee = positionDansTournee;
 	}
-	
+
 	public int getPositionDansTournee() {
 		return this.positionDansTournee;
 	}

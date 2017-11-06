@@ -18,11 +18,12 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 	private Thread thread;
 	
 	@Override
+
 	public void calculerTournee(final Controleur controleur,final PlanDeVille planDeVille,final DemandeDeLivraison demandeDeLivraison,
 			final Tournee tournee,final FenetrePrincipale fenetrePrincipale, final int tempsLimite) {
 		
 		controleur.clearTournee();
-		
+
 		tournee.setEntrepot(demandeDeLivraison.getEntrepot());
 		
 		
@@ -60,24 +61,25 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		fenetrePrincipale.afficherTournee(tournee);
 		fenetrePrincipale.getListDisplay().enableMoveLivraison();
 		fenetrePrincipale.afficherInfo("Vous êtes libre de toute action");
-		
-		if(tempsLimiteAtteint) {
+
+		if (tempsLimiteAtteint) {
 			fenetrePrincipale.setVisibleRecalculerButton(true);
-			fenetrePrincipale.afficherPopupInfo("Le calcul de tournée s'est terminé avec un timeout. Vous pouvez recalculer la tournée en modifiant la durée");
-		}else {
+			fenetrePrincipale.afficherPopupInfo(
+					"Le calcul de tournée s'est terminé avec un timeout. Vous pouvez recalculer la tournée en modifiant la durée");
+		} else {
 			fenetrePrincipale.setVisibleRecalculerButton(false);
 		}
-			
+
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
 		
 	}
-	
+
 	@Override
 	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille,
 			DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes) {
 		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.DDL_FILE_DESCRIPTION,
 				FenetrePrincipale.DDL_FILE_EXTENSION, FenetrePrincipale.DDL_FILEDIALOG_DESCRIPTION);
-		if(file == null) {
+		if (file == null) {
 			return;
 		}
 		controleur.setEtatCourant(controleur.etatPlanCharge);
@@ -90,7 +92,7 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes) {
 		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.PDV_FILE_DESCRIPTION, 
 				FenetrePrincipale.PDV_FILE_EXTENSION, FenetrePrincipale.PDV_FILEDIALOG_DESCRIPTION);
-		if(file == null)
+		if (file == null)
 			return;
 		controleur.setEtatCourant(controleur.etatInit);
 		fenetrePrincipale.clearPlanDeVille();
@@ -98,19 +100,19 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		controleur.clearDemandeDeLivraison();
 		controleur.chargerPlanDeVille(file);
 	}
-	
+
 	@Override
-	public void tronconClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, 
+	public void tronconClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan,
 			Troncon troncon, ListeDeCommandes commandes) {
-	  fenetrePrincipale.highlightTroncon(troncon);
+		fenetrePrincipale.highlightTroncon(troncon);
 	}
-	
+
 	@Override
-	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, Tournee tournee,
-			Livraison livraisonPrecedente, ListeDeCommandes commandes) {
+	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan,
+			Tournee tournee, Livraison livraisonPrecedente, ListeDeCommandes commandes) {
 		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
 	}
-	
+
 	@Override
 	public void annulerRecalcul(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee) {
 		fenetrePrincipale.afficherTournee(tournee);

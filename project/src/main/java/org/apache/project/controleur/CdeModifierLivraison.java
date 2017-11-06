@@ -10,55 +10,57 @@ public class CdeModifierLivraison implements Commande {
 	private Livraison livraison;
 	private PlageHoraire nouvellePlage;
 	private PlageHoraire anciennePlage;
-	
-	public CdeModifierLivraison(Livraison livraison, Time heureDebut, Time heureFin) {
+	private int ancienneDuree;
+	private int nouvelleDuree;
+
+	public CdeModifierLivraison(Livraison livraison, Time heureDebut, Time heureFin, Integer duree) {
 		this.livraison = livraison;
-		
-		if(heureDebut == null || heureFin == null) {
+
+		if (heureDebut == null || heureFin == null) {
 			this.nouvellePlage = null;
-		}
-		else {
+		} else {
 			this.nouvellePlage = new PlageHoraire(heureDebut, heureFin);
 		}
-		
-		if(livraison.getPlageHoraire() == null) {
+
+		if (livraison.getPlageHoraire() == null) {
 			this.anciennePlage = null;
+		} else {
+			this.anciennePlage = new PlageHoraire(livraison.getPlageHoraire().getDebut(),
+					livraison.getPlageHoraire().getFin());
 		}
-		else {
-			this.anciennePlage = new PlageHoraire(livraison.getPlageHoraire().getDebut(), livraison.getPlageHoraire().getFin());
-		}
+
+		this.ancienneDuree = livraison.getDuree();
+		this.nouvelleDuree = duree;
 	}
-	
+
 	@Override
 	public void doCommande() {
-		if(livraison.getPlageHoraire() == null) { 
+		if (livraison.getPlageHoraire() == null) {
 			livraison.setPlageHoraire(nouvellePlage);
-		}
-		else {
-			if(nouvellePlage == null) {
+		} else {
+			if (nouvellePlage == null) {
 				livraison.setPlageHoraire(null);
-			}
-			else {
+			} else {
 				livraison.getPlageHoraire().setDebut(nouvellePlage.getDebut());
 				livraison.getPlageHoraire().setFin(nouvellePlage.getFin());
 			}
 		}
+		livraison.setDuree(nouvelleDuree);
 	}
 
 	@Override
 	public void undoCommande() {
-		if(anciennePlage == null) {
+		if (anciennePlage == null) {
 			livraison.setPlageHoraire(null);
-		}
-		else {
-			if(livraison.getPlageHoraire() == null) {
+		} else {
+			if (livraison.getPlageHoraire() == null) {
 				livraison.setPlageHoraire(anciennePlage);
-			}
-			else {
+			} else {
 				livraison.getPlageHoraire().setDebut(anciennePlage.getDebut());
 				livraison.getPlageHoraire().setFin(anciennePlage.getFin());
 			}
 		}
+		livraison.setDuree(ancienneDuree);
 	}
 
 }

@@ -6,9 +6,7 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.project.modele.DemandeDeLivraison;
-import org.apache.project.modele.Intersection;
 import org.apache.project.modele.PlanDeVille;
-import org.apache.project.modele.Tournee;
 import org.apache.project.modele.Troncon;
 import org.apache.project.vue.FenetrePrincipale;
 import org.apache.project.xml.Deserialisateur;
