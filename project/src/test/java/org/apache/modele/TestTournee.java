@@ -111,7 +111,7 @@ public class TestTournee {
 				
 		tournee.setEntrepot(demande.getEntrepot());
 		
-		tournee.calculerTournee(plan, demande);
+		tournee.calculerTournee(plan, demande, 10000);
 		List<Chemin> chemins = new ArrayList<Chemin>();
 		chemins = tournee.getChemins();
 		
