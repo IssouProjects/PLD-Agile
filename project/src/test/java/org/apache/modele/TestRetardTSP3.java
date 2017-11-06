@@ -38,7 +38,7 @@ public class TestRetardTSP3 {
 		tournee.setEntrepot(demande.getEntrepot());
 		
 		//execution TSP3
-		tournee.calculerTournee(plan, demande);
+		tournee.calculerTournee(plan, demande, 10000);
 		List<Livraison> livraisons = new ArrayList<Livraison>();
 		livraisons = tournee.getLivraisonsOrdonnees();
 		

@@ -36,17 +36,17 @@ public class TestCdeSupprimerLivraison {
 		// Tournee originale sans modification
 		this.tourneeAvantCommande = new Tournee();
 		this.tourneeAvantCommande.setEntrepot(demande.getEntrepot());
-		this.tourneeAvantCommande.calculerTournee(plan, demande);
+		this.tourneeAvantCommande.calculerTournee(plan, demande, 10000);
 		
 		// Tournee qui sera manipulee avec les commandes
 		this.tourneeModifiee = new Tournee();
 		this.tourneeModifiee.setEntrepot(demande.getEntrepot());
-		this.tourneeModifiee.calculerTournee(plan, demande);
+		this.tourneeModifiee.calculerTournee(plan, demande, 10000);
 		
 		// Tournee apres execution commande
 		this.tourneeApresCommande = new Tournee();
 		this.tourneeApresCommande.setEntrepot(demande.getEntrepot());
-		this.tourneeApresCommande.calculerTournee(plan, demande);
+		this.tourneeApresCommande.calculerTournee(plan, demande, 10000);
 		
 		// Suppression classique de la livraison pour comparer apres redo 
 		tourneeApresCommande.supprimerLivraison(plan, 2);

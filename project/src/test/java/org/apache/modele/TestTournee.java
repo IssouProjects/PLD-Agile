@@ -334,7 +334,7 @@ public class TestTournee {
 		// Calcul tournee
 		Tournee tournee = new Tournee();
 		tournee.setEntrepot(demande.getEntrepot());
-		tournee.calculerTournee(plan, demande);
+		tournee.calculerTournee(plan, demande, 10000);
 		
 		// Etat de la tournee avant suppression
 		int dureeAncienneTournee = tournee.getDureeTourneeSecondes();

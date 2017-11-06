@@ -229,6 +229,8 @@ public class Tournee extends Observable {
 			}
 		}
     
+		boolean tempsLimiteAtteint = tspSolut.getTempsLimiteAtteint();
+		
 		updatePositionsDansTournee();
 
 		return tempsLimiteAtteint;
