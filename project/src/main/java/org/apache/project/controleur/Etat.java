@@ -23,7 +23,7 @@ public interface Etat {
 	 * @param fenetrePrincipale
 	 *            la fenêtre principale de l'application.
 	 */
-	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale);
+	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes);
 	
 
 	/**

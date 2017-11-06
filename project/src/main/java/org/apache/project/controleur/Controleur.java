@@ -67,7 +67,7 @@ public class Controleur {
 	}
 	
 	public void ouvrirPlanDeVille() {
-		etatCourant.ouvrirPlanDeVille(this, planDeVille, fenetrePrincipale);
+		etatCourant.ouvrirPlanDeVille(this, planDeVille, fenetrePrincipale, commandes);
 	}
 	
 	public void chargerPlanDeVille(File fichier) {
