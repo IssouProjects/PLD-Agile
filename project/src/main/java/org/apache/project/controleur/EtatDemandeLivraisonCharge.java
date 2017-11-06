@@ -9,16 +9,54 @@ import org.apache.project.modele.Tournee;
 import org.apache.project.modele.Troncon;
 import org.apache.project.vue.FenetrePrincipale;
 
-public class EtatDemandeLivraisonCharge extends EtatDefaut {
-	@Override
-	public void calculerTournee(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison,
-			Tournee tournee, FenetrePrincipale fenetrePrincipale, int tempsLimite) {
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 
+
+public class EtatDemandeLivraisonCharge extends EtatDefaut {
+	
+	private Thread thread;
+	
+	@Override
+
+	public void calculerTournee(final Controleur controleur,final PlanDeVille planDeVille,final DemandeDeLivraison demandeDeLivraison,
+			final Tournee tournee,final FenetrePrincipale fenetrePrincipale, final int tempsLimite) {
+		
 		controleur.clearTournee();
 
 		tournee.setEntrepot(demandeDeLivraison.getEntrepot());
+		
+		
+		Task <Void> t = new Task <Void> () {
 
-		boolean tempsLimiteAtteint = tournee.calculerTournee(planDeVille, demandeDeLivraison, tempsLimite);
+	        @Override
+	        protected Void call() throws Exception {
+	        	tournee.calculerTournee(planDeVille, demandeDeLivraison, tempsLimite);
+	        	
+	        	Platform.runLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						afterCalculation(controleur, fenetrePrincipale, demandeDeLivraison, tournee);
+						
+					}
+				});	        	
+	        	return null;
+	        }
+	      };
+		
+		thread = new Thread(t);
+		thread.start();
+		
+		fenetrePrincipale.afficherLoading();
+	}
+	
+	private void afterCalculation(Controleur controleur, FenetrePrincipale fenetrePrincipale, DemandeDeLivraison demandeDeLivraison, Tournee tournee) {
+
+		fenetrePrincipale.removeLoading();
+					
+		//TODO getter
+		boolean tempsLimiteAtteint = false;
 		tournee.ajouterListeLivraison(demandeDeLivraison.getEntrepot());
 		fenetrePrincipale.afficherTournee(tournee);
 		fenetrePrincipale.getListDisplay().enableMoveLivraison();
@@ -33,11 +71,12 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		}
 
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
+		
 	}
 
 	@Override
 	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille,
-			DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale) {
+			DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes) {
 		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.DDL_FILE_DESCRIPTION,
 				FenetrePrincipale.DDL_FILE_EXTENSION, FenetrePrincipale.DDL_FILEDIALOG_DESCRIPTION);
 		if (file == null) {
@@ -50,8 +89,8 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 	}
 
 	@Override
-	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale) {
-		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.PDV_FILE_DESCRIPTION,
+	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes) {
+		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.PDV_FILE_DESCRIPTION, 
 				FenetrePrincipale.PDV_FILE_EXTENSION, FenetrePrincipale.PDV_FILEDIALOG_DESCRIPTION);
 		if (file == null)
 			return;

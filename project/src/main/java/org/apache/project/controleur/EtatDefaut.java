@@ -15,17 +15,18 @@ import org.apache.project.modele.Livraison;
 public abstract class EtatDefaut implements Etat {
 
 	@Override
-	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale) {
-	}
-
-	@Override
 	public void chargerPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale,
 			File fichier) {
 	}
 
 	@Override
+	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale,
+			ListeDeCommandes commandes) {
+	}
+
+	@Override
 	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille,
-			DemandeDeLivraison demandeDelivraison, FenetrePrincipale fenetrePrincipale) {
+			DemandeDeLivraison demandeDelivraison, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes) {
 	}
 
 	@Override
