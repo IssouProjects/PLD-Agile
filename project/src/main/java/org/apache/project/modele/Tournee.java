@@ -1,5 +1,6 @@
 package org.apache.project.modele;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -16,6 +17,7 @@ public class Tournee extends Observable {
 	private List<Livraison> livraisonsOrdonnees;
 	private List<Chemin> chemins;
 	private int dureeTourneeSecondes;
+	private Time heureDeFin;
 	private boolean respectPlageHoraire;
 
 	/**
@@ -111,6 +113,17 @@ public class Tournee extends Observable {
 	}
 
 	/**
+	 * Renvoie l'heure de fin de la tournée si elle a été calculée, null si ce n'est
+	 * pas le cas.
+	 * 
+	 * @return heureDeFin l'heure de fin de la tournée si elle a été calculée, null
+	 *         sinon
+	 */
+	public Time getHeureDeFin() {
+		return heureDeFin;
+	}
+
+	/**
 	 * La méthode calcule l'ordre et les horaires de passages des livraisons dans
 	 * une tournée à partir de la demande de livraisons, ainsi que du plan de la
 	 * ville où ont lieu lesdites livraisons. Retourne vrai si le temps limite a été
@@ -190,8 +203,8 @@ public class Tournee extends Observable {
 		long idIntersection = 0;
 		long idIntersectionSuivante = 0;
 
-		// adresseEntrepot = demande.getAdresseEntrepot();
-
+		// Calcul horaires de livraison et de la durée et de l'heure de fin de la
+		// tournée
 		for (int i = 0; i < nombreLivraison; i++) {
 			idIntersection = conversion[tspSolut.getMeilleureSolution(i)];
 			if (i != nombreLivraison - 1) {
@@ -232,9 +245,9 @@ public class Tournee extends Observable {
 			}
 		}
 
+		heureDeFin = PlageHoraire.calculerHeureArrivee(entrepot.getHeureDepart(), dureeTourneeSecondes);
 		boolean tempsLimiteAtteint = tspSolut.getTempsLimiteAtteint();
 		updatePositionsDansTournee();
-
 		return tempsLimiteAtteint;
 	}
 
@@ -363,5 +376,4 @@ public class Tournee extends Observable {
 		}
 		return feuille;
 	}
-
 }
