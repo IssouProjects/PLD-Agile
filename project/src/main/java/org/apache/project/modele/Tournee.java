@@ -348,6 +348,7 @@ public class Tournee extends Observable {
 	}
 	
 	public String exporterRoute(){
+		updatePositionsDansTournee();
 		String feuille = "";
 		for(int i = 0; i<chemins.size(); ++i) {
 			feuille += livraisonsOrdonnees.get(i).toString();

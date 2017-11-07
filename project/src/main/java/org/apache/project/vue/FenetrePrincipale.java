@@ -183,7 +183,7 @@ public class FenetrePrincipale extends Application {
 		supprLivraisonButton.setDisable(true);
 		annulerButton = new Button(ANNULER);
 		annulerButton.setUserData(ANNULER_ID);
-		annulerButton.setVisible(false);
+		setVisibleAnnulerButton(false);
 		recalculerButton = new Button(RECALCULER);
 		recalculerButton.setUserData(RECALCULER_ID);
 		recalculerButton.setVisible(false);
@@ -503,10 +503,12 @@ public class FenetrePrincipale extends Application {
     
     public void setVisibleRecalculerButton(boolean visible) {
     	recalculerButton.setVisible(visible);
+    	recalculerButton.setManaged(visible);
     }
     
     public void setVisibleAnnulerButton(boolean visible) {
     	annulerButton.setVisible(visible);
+    	annulerButton.setManaged(visible);
     }
     
     public void afficherLoading() {
