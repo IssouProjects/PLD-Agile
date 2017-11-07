@@ -1,6 +1,9 @@
 ignore:
   - "project/src/test"  
   - "project/src/main/java/org/apache/project/vue"
+  - "project/src/main/java/org/apache/project/modele/tsp/TSP1.java"
+  - "project/src/main/java/org/apache/project/modele/tsp/TSP2.java"
+  - "project/src/main/java/org/apache/project/modele/tsp/TSP3.java"
 
 coverage:
   range: 30..75
