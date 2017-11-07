@@ -149,7 +149,6 @@ public class LivraisonCell extends ListCell<Livraison> {
 				titleText2String += " - retour à " + PlageHoraire.timeToString(((Entrepot) livraison).getHeureDeFin());
 			}
 			titleText2.setText(titleText2String);
-			subText.setText("départ à " + PlageHoraire.timeToString(((Entrepot) livraison).getHeureDepart()));
 			icon.getStyleClass().clear();
 			icon.getStyleClass().add("iconHome");
 			editButton.setDisable(true);
