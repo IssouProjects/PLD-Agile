@@ -316,6 +316,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	public void afficherPlanDeVille(PlanDeVille plan) {
+		mapContainer.getMapDisplay().unhighlight();
 		mapContainer.getMapDisplay().afficherPlanDeVille(plan);
 
 		Platform.runLater(new Runnable() {
@@ -333,6 +334,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
+		mapContainer.getMapDisplay().unhighlight();
 		mapContainer.getMapDisplay().afficherDemandeDeLivraison(livraison);
 		listeLivraisons.afficherTexteLivraisons(livraison);
 
@@ -342,6 +344,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	public void afficherTournee(Tournee tournee) {
+		mapContainer.getMapDisplay().unhighlight();
 		mapContainer.getMapDisplay().afficherTournee(tournee);
 		listeLivraisons.afficherTexteLivraisonsOrdonnees(tournee);
 		double duree_min = tournee.getDureeTourneeSecondes();
