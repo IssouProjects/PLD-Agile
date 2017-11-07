@@ -66,10 +66,6 @@ public class Livraison {
 		return lieuDeLivraison;
 	}
 
-	public void setLieuDeLivraison(Intersection lieuDeLivraison) {
-		this.lieuDeLivraison = lieuDeLivraison;
-	}
-
 	/**
 	 * Renvoie le temps de déchargement de la livraison en secondes
 	 * 

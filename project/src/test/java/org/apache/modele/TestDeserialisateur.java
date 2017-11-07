@@ -34,6 +34,8 @@ public class TestDeserialisateur {
 
 		// Verification quelques troncons
 		assertEquals("Rue Montvert", plan.getAllTroncons().get(105).getNomRue());
+		assertEquals((long)564766082, (long)plan.getAllTroncons().get(105).getIntersectionDepart().getIdNoeud());
+		assertEquals(Long.valueOf("2512682814"), (Long)plan.getAllTroncons().get(105).getIntersectionArrivee().getIdNoeud());
 	}
 
 	@Test(timeout = 9000)
