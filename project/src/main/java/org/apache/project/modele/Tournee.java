@@ -173,7 +173,7 @@ public class Tournee extends Observable {
 		
 		TSP4 tspSolut = new TSP4();
 		long tempsADiff = System.currentTimeMillis();
-		tspSolut.chercheSolution(1200000, nombreLivraison, cout, duree, tempsMini, tempsMax);
+		tspSolut.chercheSolution(10000, nombreLivraison, cout, duree, tempsMini, tempsMax);
 		System.out.println(System.currentTimeMillis() - tempsADiff);
 		//On test s il y a un resultat, sinon c est surement a cause de la prise en compte des plages horaires
 		if(tspSolut.getMeilleureSolution(0) == null)
