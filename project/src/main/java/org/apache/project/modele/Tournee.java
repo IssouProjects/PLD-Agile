@@ -6,6 +6,7 @@ import java.util.Observable;
 
 import org.apache.project.modele.tsp.TSP2;
 import org.apache.project.modele.tsp.TSP3;
+import org.apache.project.modele.tsp.TSP4;
 
 /**
  * La classe <tt>Tournee</tt> représente une tournée constituée d'un ensemble de
@@ -170,8 +171,10 @@ public class Tournee extends Observable {
 			cout[convertOrigine][convertDestination] = graphe.get(i).getDuree();
 		}
 		
-		TSP3 tspSolut = new TSP3();
-		tspSolut.chercheSolution(10000, nombreLivraison, cout, duree, tempsMini, tempsMax);
+		TSP4 tspSolut = new TSP4();
+		long tempsADiff = System.currentTimeMillis();
+		tspSolut.chercheSolution(1200000, nombreLivraison, cout, duree, tempsMini, tempsMax);
+		System.out.println(System.currentTimeMillis() - tempsADiff);
 		//On test s il y a un resultat, sinon c est surement a cause de la prise en compte des plages horaires
 		if(tspSolut.getMeilleureSolution(0) == null)
 		{
