@@ -381,8 +381,13 @@ public class MapDisplay extends Pane {
     	for(Chemin c : chemins) {
     		
     		final List<Troncon> troncons = c.getTroncons();
+    		Map<Intersection, Map<Intersection, Troncon>> mapArriveesTronconsParDepart = new HashMap<Intersection, Map<Intersection, Troncon>>();
     		
     		for(Troncon t : troncons){
+    			Map<Intersection, Troncon> mapArriveesTronconsInitiale = new HashMap<Intersection, Troncon>();
+    			mapArriveesTronconsInitiale.put(t.getIntersectionArrivee(), t);
+    			mapArriveesTronconsParDepart.put(t.getIntersectionDepart(), mapArriveesTronconsInitiale);
+    			
     			Color couleurTroncon = getColorGradientPoint(positionTronconDansTournee, nombreTotalTronconsTournee);
     			Circle circle = this.creerVueIntersection(t.getIntersectionArrivee(), couleurTroncon, tourneeIntersectionRadius);
                 tourneeInter.add(circle);
@@ -391,15 +396,28 @@ public class MapDisplay extends Pane {
                 
                 Line line = mapTourneeTroncons.get(t);
                 if(line == null) {
-	                line = this.creerVueTroncon(t, couleurTroncon, tourneeTronconWidth);
-
-	                mapTourneeTroncons.put(t,line);
-	                getChildren().add(line);
-	                tronconCount.put(t, new Integer(1));
-	                
-	                List<Color> listColorInitiale = new ArrayList<Color>();
-	                listColorInitiale.add(couleurTroncon);
-	                tronconColors.put(t, listColorInitiale);
+                	if(mapArriveesTronconsParDepart.containsKey(t.getIntersectionArrivee())) {
+                		if(mapArriveesTronconsParDepart.get(t.getIntersectionArrivee()).containsKey(t.getIntersectionDepart())) {
+                			Troncon tronconAIncrementer = mapArriveesTronconsParDepart.get(t.getIntersectionArrivee()).get(t.getIntersectionDepart());
+                			Integer i = tronconCount.get(tronconAIncrementer);
+                        	i++;
+                        	tronconCount.put(tronconAIncrementer, i);
+                        	
+                        	List<Color> updatedListColor = tronconColors.get(tronconAIncrementer);
+                        	updatedListColor.add(couleurTroncon);
+                        	tronconColors.put(tronconAIncrementer, updatedListColor);
+                		}
+                	} else {
+		                line = this.creerVueTroncon(t, couleurTroncon, tourneeTronconWidth);
+	
+		                mapTourneeTroncons.put(t,line);
+		                getChildren().add(line);
+		                tronconCount.put(t, new Integer(1));
+		                
+		                List<Color> listColorInitiale = new ArrayList<Color>();
+		                listColorInitiale.add(couleurTroncon);
+		                tronconColors.put(t, listColorInitiale);
+                	}
                 } else {
                 	Integer i = tronconCount.get(t);
                 	i++;
