@@ -19,11 +19,14 @@ public class ListeDeCommandes extends Observable{
             liste.remove(temp);
         }
         i++;
-        liste.add(i, commande);
         int retour = commande.doCommande();
-        setChanged();
-        notifyObservers();
-        
+        if(retour == 0) {
+        	liste.add(i, commande);
+        	setChanged();
+            notifyObservers(); 
+        } else {
+        	i--;
+        }
         return retour;
 	}
 	
