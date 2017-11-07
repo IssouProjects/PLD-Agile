@@ -345,6 +345,23 @@ public class Tournee extends Observable {
 		for (int i = 0; i < livraisonsOrdonnees.size(); i++) {
 			livraisonsOrdonnees.get(i).setPositionDansTournee(i);
 		}
+		if(livraisonsOrdonnees.get(livraisonsOrdonnees.size()-1)==entrepot){
+			entrepot.setPositionDansTournee(0);
+		}
+	}
+	
+	public String exporterRoute(){
+		updatePositionsDansTournee();
+		String feuille = "";
+		for(int i = 0; i<chemins.size(); ++i) {
+			feuille += livraisonsOrdonnees.get(i).toString();
+			feuille += "\n\n";
+			for(String rue : chemins.get(i).getListeRues())
+				
+				feuille +=rue + "\n";
+			feuille += "\n";
+		}
+		return feuille;
 	}
 
 }

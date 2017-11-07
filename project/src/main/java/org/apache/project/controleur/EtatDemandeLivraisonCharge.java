@@ -69,7 +69,6 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		}
 
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
-		
 	}
 
 	@Override
