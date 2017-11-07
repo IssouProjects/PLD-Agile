@@ -294,8 +294,8 @@ public class FenetrePrincipale extends Application {
 
 	public void afficherPopupInfo(String message) {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Erreur");
-		alert.setHeaderText("Une erreur a eu lieu");
+		alert.setTitle("Information");
+		alert.setHeaderText("Information");
 		alert.setContentText(message);
 		alert.showAndWait();
 	}
