@@ -22,11 +22,11 @@ public class ListeDeCommandes extends Observable{
         int retour = commande.doCommande();
         if(retour == 0) {
         	liste.add(i, commande);
-        	setChanged();
-            notifyObservers(); 
         } else {
         	i--;
         }
+        setChanged();
+        notifyObservers();
         return retour;
 	}
 	
