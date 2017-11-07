@@ -20,8 +20,10 @@ public class EtatPlanCharge extends EtatDefaut {
 		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.DDL_FILE_DESCRIPTION,
 				FenetrePrincipale.DDL_FILE_EXTENSION, FenetrePrincipale.DDL_FILEDIALOG_DESCRIPTION);
 		if(file == null) {
+			fenetrePrincipale.afficherPlanDeVille(planDeVille);
 			return;
 		}
+		controleur.clearDemandeDeLivraison();
 		controleur.chargerDemandeDeLivraison(file);
 	}
 	
@@ -36,6 +38,7 @@ public class EtatPlanCharge extends EtatDefaut {
 		} catch (SAXException e) {
 		} catch (IOException e) {
 		} catch (ExceptionXML e) {
+			fenetrePrincipale.afficherPlanDeVille(planDeVille);
 			fenetrePrincipale.afficherPopupError(e.getMessage()+ "\nChargement de demande de livraison annulée.");
 		}
 	}

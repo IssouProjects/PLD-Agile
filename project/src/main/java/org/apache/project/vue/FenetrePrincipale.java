@@ -331,12 +331,19 @@ public class FenetrePrincipale extends Application {
 		loadLivraisonButton.setDisable(false);
 		calculerTourneeButton.setDisable(true);
 		ajouterLivraisonButton.setDisable(true);
+		exporterButton.setDisable(true);
 	}
 
 	public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
 		mapContainer.getMapDisplay().unhighlight();
 		mapContainer.getMapDisplay().afficherDemandeDeLivraison(livraison);
 		listeLivraisons.afficherTexteLivraisons(livraison);
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				listeLivraisons.disableEdit(true);
+			}
+		});
 
 		loadLivraisonButton.setDisable(false);
 		calculerTourneeButton.setDisable(false);
@@ -348,6 +355,7 @@ public class FenetrePrincipale extends Application {
 		mapContainer.getMapDisplay().unhighlight();
 		mapContainer.getMapDisplay().afficherTournee(tournee);
 		listeLivraisons.afficherTexteLivraisonsOrdonnees(tournee);
+		listeLivraisons.disableEdit(false);
 		double duree_min = tournee.getDureeTourneeSecondes();
 		listLabel.setText(
 				"Durée de la tournée: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(duree_min * 1000));

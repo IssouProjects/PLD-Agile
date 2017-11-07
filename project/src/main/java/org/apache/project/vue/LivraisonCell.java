@@ -127,6 +127,13 @@ public class LivraisonCell extends ListCell<Livraison> {
 		bonusMsg.setText(null);
 		setGraphic(null);
 	}
+	
+	public void setEditDisabled(boolean disabled) {
+		if(!(getItem() instanceof Entrepot)) {
+			editButton.setDisable(disabled);
+			deleteButton.setDisable(disabled);
+		}
+	}
 
 	@SuppressWarnings("deprecation")
 	public void addContent(Livraison livraison) {

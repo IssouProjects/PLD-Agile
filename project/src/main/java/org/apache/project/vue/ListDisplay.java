@@ -150,6 +150,14 @@ public class ListDisplay extends Pane implements Observer {
 			lc.disableMove();
 		}
 	}
+	
+	public void disableEdit(boolean disable) {
+		HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
+		this.useAddNotifier();
+		for (LivraisonCell lc : map.values()) {
+			lc.setEditDisabled(disable);
+		}
+	}
 
 	public void livraisonMoved(Livraison livraisonMoved, int newIndex) {
 		ecouteurDeListe.onMoveLivraison(livraisonMoved, newIndex);
