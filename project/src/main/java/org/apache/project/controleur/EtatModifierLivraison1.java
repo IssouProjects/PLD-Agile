@@ -36,13 +36,13 @@ public class EtatModifierLivraison1 extends EtatDefaut {
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
-		fenetrePrincipale.afficherInfo("done");
+		fenetrePrincipale.afficherInfo("Action libre");
 	}
 
 	@Override
 	public void annuler(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
-		fenetrePrincipale.afficherInfo("Ajout annulé, vous êtes libre");
+		fenetrePrincipale.afficherInfo("Ajout annulé. Action libre");
 	}
 
 	protected void actionEntreeEtatModifierLivraison1(Livraison livraison) {

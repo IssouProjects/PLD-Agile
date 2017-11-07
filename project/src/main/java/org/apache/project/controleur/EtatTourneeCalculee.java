@@ -54,7 +54,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		controleur.setEtatCourant(controleur.etatAjoutLivraison1);
 		fenetrePrincipale.setVisibleRecalculerButton(false);
 		fenetrePrincipale.getMapContainer().setSelectionMode(SelectionMode.Intersection);
-		fenetrePrincipale.afficherInfo("Veuillez cliquer sur une intersection de la carte");
+		fenetrePrincipale.afficherInfo("Cliquer sur intersection de la nouvelle livraison");
 		fenetrePrincipale.setVisibleAnnulerButton(true);
 	}
 	
