@@ -22,10 +22,10 @@ public class TSP4 extends TemplateTSP {
 		branchAndBound(0, nonVus, vus, 0, cout, duree, System.currentTimeMillis(), tpsLimite, tempsMini, tempsMax);
 	}
 	
-	boolean branchAndBound(int sommetCrt, ArrayList<Integer> nonVus, ArrayList<Integer> vus, int coutVus, int[][] cout, int[] duree, long tpsDebut, int tpsLimite, int[] tempsMini, int[] tempsMax){
+	void branchAndBound(int sommetCrt, ArrayList<Integer> nonVus, ArrayList<Integer> vus, int coutVus, int[][] cout, int[] duree, long tpsDebut, int tpsLimite, int[] tempsMini, int[] tempsMax){
 		 if (System.currentTimeMillis() - tpsDebut > tpsLimite){
 			 tempsLimiteAtteint = true;
-			 return true;
+			 return;
 		 }
 	    if (nonVus.size() == 0){ // tous les sommets ont ete visites
 	    	coutVus += cout[sommetCrt][0];
@@ -41,23 +41,17 @@ public class TSP4 extends TemplateTSP {
 				if(coutVus + cout[sommetCrt][prochainSommet] + duree[prochainSommet] > tempsMax[prochainSommet])
 				{
 					//Ce point est plus possible, on a depasse la limite max, donc cette branche n est plus possible, puisqu il s agit forcemment du chemin le plus court actuel pour y parvenir
-					return false;
+					break;
 				} else 
 				{
 		        	vus.add(prochainSommet);
 		        	nonVus.remove(prochainSommet);
-		        	if(!branchAndBound(prochainSommet, nonVus, vus, Math.max(tempsMini[prochainSommet], coutVus + cout[sommetCrt][prochainSommet]) + duree[prochainSommet], cout, duree, tpsDebut, tpsLimite, tempsMini, tempsMax))
-		        	{
-			        	vus.remove(prochainSommet);
-			        	nonVus.add(prochainSommet);
-		        		return true;
-		        	}
+		        	branchAndBound(prochainSommet, nonVus, vus, Math.max(tempsMini[prochainSommet], coutVus + cout[sommetCrt][prochainSommet]) + duree[prochainSommet], cout, duree, tpsDebut, tpsLimite, tempsMini, tempsMax);
 		        	vus.remove(prochainSommet);
 		        	nonVus.add(prochainSommet);
 				}
 	        }	    
 	    }
-	    return true;
 	}
 	
 	//Juste pour heritage, a suppr
