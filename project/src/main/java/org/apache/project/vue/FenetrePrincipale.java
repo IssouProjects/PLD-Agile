@@ -331,6 +331,7 @@ public class FenetrePrincipale extends Application {
 		loadLivraisonButton.setDisable(false);
 		calculerTourneeButton.setDisable(true);
 		ajouterLivraisonButton.setDisable(true);
+		exporterButton.setDisable(true);
 	}
 
 	public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
@@ -340,7 +341,7 @@ public class FenetrePrincipale extends Application {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-		listeLivraisons.disableEdit(true);
+				listeLivraisons.disableEdit(true);
 			}
 		});
 
