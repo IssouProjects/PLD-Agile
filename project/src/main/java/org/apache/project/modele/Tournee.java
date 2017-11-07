@@ -16,7 +16,6 @@ public class Tournee extends Observable {
 	private List<Livraison> livraisonsOrdonnees;
 	private List<Chemin> chemins;
 	private int dureeTourneeSecondes;
-	private boolean respectPlageHoraire;
 
 	/**
 	 * Construit une tournée vide, c'est à dire sans aucune livraison, entrepôt et
@@ -42,10 +41,6 @@ public class Tournee extends Observable {
 
 	public int getDureeTourneeSecondes() {
 		return dureeTourneeSecondes;
-	}
-
-	public boolean getRespectPlageHoraire() {
-		return respectPlageHoraire;
 	}
 
 	/**
@@ -176,10 +171,7 @@ public class Tournee extends Observable {
 		// On test s'il y a un résultat, sinon l'échec est sûrement lié à la prise en
 		// compte des plages horaires.
 		if (tspSolut.getMeilleureSolution(0) == null) {
-			respectPlageHoraire = false;
 			tspSolut.chercheSolution(tempsLimite, nombreLivraison, cout, duree);
-		} else {
-			respectPlageHoraire = true;
 		}
 
 		// Definit les parametres entrepots et la liste des intersections ordonnées
