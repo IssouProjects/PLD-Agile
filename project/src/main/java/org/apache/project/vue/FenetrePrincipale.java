@@ -162,29 +162,7 @@ public class FenetrePrincipale extends Application {
 		layout.add(mapButtonsLayout, 0, 2);
 		
 		imageView = new ImageView();
-
-		//////////////////////////////////////
-		///// CREATING THE DELIVERY LIST /////
-		//////////////////////////////////////
-
-		GridPane undoRedoLayout = new GridPane();
-		listLabel = new Label("Livraisons :");
-		GridPane.setValignment(listLabel, VPos.BOTTOM);
-
-		undoRedoWidget = new UndoRedoWidget(edb);
-
-		undoRedoLayout.setAlignment(Pos.CENTER_LEFT);
-		undoRedoLayout.setHgap(5);
-		HBox.setHgrow(listLabel, Priority.ALWAYS);
-		undoRedoLayout.add(listLabel, 0, 0);
-		undoRedoLayout.add(undoRedoWidget, 1, 0);
-		ColumnConstraints labelCC = new ColumnConstraints();
-		labelCC.setHgrow(Priority.ALWAYS);
-		undoRedoLayout.getColumnConstraints().add(labelCC);
-
-		layout.add(undoRedoLayout, 1, 0);
-		HBox listeButtonsLayout1 = new HBox();
-		listeButtonsLayout1.setSpacing(10);
+		imageView.setImage(new Image(getClass().getResource("loading.gif").toExternalForm()));
 
 		// buttons
 		loadLivraisonButton = new Button(LOAD_LIVRAISON);
@@ -205,6 +183,30 @@ public class FenetrePrincipale extends Application {
 		recalculerBouton = new Button(RECALCULER);
 		recalculerBouton.setUserData(RECALCULER_ID);
 		recalculerBouton.setVisible(false);
+		
+		//////////////////////////////////////
+		///// CREATING THE DELIVERY LIST /////
+		//////////////////////////////////////
+
+		GridPane undoRedoLayout = new GridPane();
+		listLabel = new Label("Livraisons :");
+		GridPane.setValignment(listLabel, VPos.BOTTOM);
+
+		undoRedoWidget = new UndoRedoWidget(edb);
+
+		undoRedoLayout.setAlignment(Pos.CENTER_LEFT);
+		undoRedoLayout.setHgap(5);
+		HBox.setHgrow(listLabel, Priority.ALWAYS);
+		undoRedoLayout.add(listLabel, 0, 0);
+		undoRedoLayout.add(recalculerBouton, 1, 0);
+		undoRedoLayout.add(undoRedoWidget, 2, 0);
+		ColumnConstraints labelCC = new ColumnConstraints();
+		labelCC.setHgrow(Priority.ALWAYS);
+		undoRedoLayout.getColumnConstraints().add(labelCC);
+
+		layout.add(undoRedoLayout, 1, 0);
+		HBox listeButtonsLayout1 = new HBox();
+		listeButtonsLayout1.setSpacing(10);
 
 		// list
 		listeLivraisons = new ListDisplay();
@@ -292,8 +294,8 @@ public class FenetrePrincipale extends Application {
 
 	public void afficherPopupInfo(String message) {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Erreur");
-		alert.setHeaderText("Une erreur a eu lieu");
+		alert.setTitle("Information");
+		alert.setHeaderText("Information");
 		alert.setContentText(message);
 		alert.showAndWait();
 	}
@@ -315,6 +317,9 @@ public class FenetrePrincipale extends Application {
 		loadMapButton.setDisable(false);
 		fitMapButton.setDisable(false);
 		loadLivraisonButton.setDisable(false);
+		calculerTourneeButton.setDisable(true);
+		ajouterLivraisonButton.setDisable(true);
+		annulerBouton.setDisable(true);
 	}
 
 	public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
@@ -323,6 +328,8 @@ public class FenetrePrincipale extends Application {
 
 		loadLivraisonButton.setDisable(false);
 		calculerTourneeButton.setDisable(false);
+		ajouterLivraisonButton.setDisable(true);
+		annulerBouton.setDisable(true);
 	}
 
 	public void afficherTournee(Tournee tournee) {
@@ -471,7 +478,6 @@ public class FenetrePrincipale extends Application {
     
     public void afficherLoading() {
     	
-    	imageView.setImage(new Image(getClass().getResource("loading.gif").toExternalForm()));
     	opaqueLayer = new Region();
  		opaqueLayer.setStyle("-fx-background-color: #00000088;");
  		opaqueLayer.setVisible(true);
@@ -484,7 +490,6 @@ public class FenetrePrincipale extends Application {
     	stack.getChildren().remove(imageView);
 		stack.getChildren().remove(opaqueLayer);
 		
-		imageView = null;
 		opaqueLayer = null;
     }
 }
