@@ -19,9 +19,13 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Paint;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -69,7 +73,7 @@ public class MapDisplay extends Pane {
 	// default tournee display
 	final int tourneeIntersectionRadius = 50;
 	final int tourneeTronconWidth = 300;
-	final Color defaultTourneeTronconColors[] = {Color.web("#3399ff"), Color.web("#33ffbe"), Color.web("#44ff33"), Color.web("e0ff33"), Color.web("ff8133")};
+	final Color defaultTourneeTronconColors[] = {Color.web("#003300"), Color.web("#33cc33")};
 	final Color defaultTourneeIntersectionColor = Color.web("#3399ff");
 	final Color defaultTourneeLivraisonColor = Color.web("#425087");
 
@@ -370,6 +374,7 @@ public class MapDisplay extends Pane {
     	}
     	
     	Map<Troncon, Integer> tronconCount = new HashMap<Troncon, Integer>();
+    	Map<Troncon, List<Color>> tronconColors = new HashMap<Troncon, List<Color>>();
     	
     	// we show the Tournee
     	int positionTronconDansTournee = 0;
@@ -378,28 +383,46 @@ public class MapDisplay extends Pane {
     		final List<Troncon> troncons = c.getTroncons();
     		
     		for(Troncon t : troncons){
-    			Circle circle = this.creerVueIntersection(t.getIntersectionArrivee(), getColorGradientPoint(positionTronconDansTournee, nombreTotalTronconsTournee), tourneeIntersectionRadius);
+    			Color couleurTroncon = getColorGradientPoint(positionTronconDansTournee, nombreTotalTronconsTournee);
+    			Circle circle = this.creerVueIntersection(t.getIntersectionArrivee(), couleurTroncon, tourneeIntersectionRadius);
                 tourneeInter.add(circle);
                 getChildren().add(circle);
                 mapIntersections.put(t.getIntersectionArrivee(), circle);
-               
+                
                 Line line = mapTourneeTroncons.get(t);
                 if(line == null) {
-	                line = this.creerVueTroncon(t, getColorGradientPoint(positionTronconDansTournee, nombreTotalTronconsTournee), tourneeTronconWidth);
+	                line = this.creerVueTroncon(t, couleurTroncon, tourneeTronconWidth);
+
 	                mapTourneeTroncons.put(t,line);
 	                getChildren().add(line);
 	                tronconCount.put(t, new Integer(1));
+	                
+	                List<Color> listColorInitiale = new ArrayList<Color>();
+	                listColorInitiale.add(couleurTroncon);
+	                tronconColors.put(t, listColorInitiale);
                 } else {
                 	Integer i = tronconCount.get(t);
                 	i++;
                 	tronconCount.put(t, i);
+                	
+                	List<Color> updatedListColor = tronconColors.get(t);
+                	updatedListColor.add(couleurTroncon);
+                	tronconColors.put(t, updatedListColor);
                 }
 
                 positionTronconDansTournee++;
     		}
     	}
     	
-    	// ici, ajouter la méthode pour superposer les troncons
+    	for(Map.Entry<Troncon, Integer> entry : tronconCount.entrySet()) {
+    		if(entry.getValue()>1) {
+    			List<Color> listeCouleurs = tronconColors.get(entry.getKey());
+    			Line line = mapTourneeTroncons.get(entry.getKey());
+    			String style = this.getColorGradientPoint(listeCouleurs, line);
+    			line.setStyle(style);
+    			System.out.println(style);
+    		}
+    	}
     	
     	// we show the Livraisons
     	final List<Livraison> livraisons = tournee.getLivraisonsOrdonnees();
@@ -483,7 +506,7 @@ public class MapDisplay extends Pane {
         return circle;
     }
     
-    public Line creerVueTroncon(Troncon tronc, Color color) {
+    public Line creerVueTroncon(Troncon tronc, Paint color) {
     	Line line = new Line();
     	
     	line.setUserData(tronc);
@@ -500,9 +523,10 @@ public class MapDisplay extends Pane {
 		return line;
 	}
 
-	public Line creerVueTroncon(Troncon tronc, Color color, int width) {
+	public Line creerVueTroncon(Troncon tronc, Paint color, int width) {
 		Line line = creerVueTroncon(tronc, color);
 		line.setStrokeWidth(width);
+		line.setStrokeLineCap(StrokeLineCap.ROUND);
 
 		return line;
 	}
@@ -526,5 +550,45 @@ public class MapDisplay extends Pane {
 		double percentage = (double)positionTroncon/(double)nombreTroncons;
 		Color colorGradientPoint = defaultTourneeTronconColors[0].interpolate(defaultTourneeTronconColors[1], percentage);
 		return colorGradientPoint;
+	}
+	
+	private String getColorGradientPoint(List<Color> colors, Line line) {
+		if(!colors.isEmpty() && line != null) {
+			int x1 = (int)line.getStartX();
+            int x2 = (int)line.getEndX();
+            
+            int y1 = (int)line.getStartY();
+            int y2 = (int)line.getEndY();
+            
+            int cx = (x1+x2)/2;
+            int cy = (y1+y2)/2;
+            
+            x1-=cx; y1-=cy;
+            x2-=cx; y2-=cy;
+            
+            //rotate both points
+            int xtemp = x1; int ytemp = y1;
+            x1=-ytemp; y1=xtemp; 
+
+            xtemp = x2; ytemp = y2;
+            x2=-ytemp; y2=xtemp; 
+
+            //move the center point back to where it was
+            x1+=cx; y1+=cy;
+            x2+=cx; y2+=cy;
+            
+            String style = "-fx-stroke: linear-gradient(from " + x1 + " " + y1 + " to " + x2 + " " + y2;
+            
+            int size = colors.size();
+            int i=0;
+            
+            for(Color c : colors) {
+            	style += ",#" + Integer.toHexString(c.hashCode()).substring(0,6) + " " + (int)((double)i/(double)size*105) + '%';
+            	i++;
+            	style += ",#" + Integer.toHexString(c.hashCode()).substring(0,6) + " " + (int)((double)i/(double)size*95) + '%';
+            }
+            return style + ");";
+		}
+		return "";
 	}
 }
