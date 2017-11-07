@@ -342,7 +342,7 @@ public class Tournee extends Observable {
 	}
 
 	public void updatePositionsDansTournee() {
-		for (int i = 0; i < livraisonsOrdonnees.size(); i++) {
+		for (int i = 0; i < livraisonsOrdonnees.size()-1; i++) {
 			livraisonsOrdonnees.get(i).setPositionDansTournee(i);
 		}
 	}
