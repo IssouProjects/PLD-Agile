@@ -34,7 +34,7 @@ public class CdeModifierLivraison implements Commande {
 	}
 
 	@Override
-	public void doCommande() {
+	public int doCommande() {
 		if (livraison.getPlageHoraire() == null) {
 			livraison.setPlageHoraire(nouvellePlage);
 		} else {
@@ -46,6 +46,8 @@ public class CdeModifierLivraison implements Commande {
 			}
 		}
 		livraison.setDuree(nouvelleDuree);
+		
+		return 0;
 	}
 
 	@Override

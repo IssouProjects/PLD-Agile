@@ -24,7 +24,12 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 			nouvelleLivraison.setPlageHoraire(new PlageHoraire(heureDeb, heureFin));
 		}
 
-		commandes.ajouteCommande(new CdeAjouterLivraison(planDeVille, tournee, nouvelleLivraison, livraisonPrecedente));
+		int retour = commandes.ajouteCommande(new CdeAjouterLivraison(planDeVille, tournee, nouvelleLivraison, livraisonPrecedente));
+		
+		if(retour == 2) {
+			fenetrePrincipale.afficherPopupError("Impossible de parcourir le chemin entre les deux livraisons avec le plan donné");
+		}
+		
 		fenetrePrincipale.getMapContainer().setSelectionMode(SelectionMode.Troncon);
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);

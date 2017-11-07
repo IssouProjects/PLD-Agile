@@ -21,8 +21,9 @@ public class CdeEchangerLivraison implements Commande {
 	}
 	
 	@Override
-	public void doCommande() {
+	public int doCommande() {
 		tournee.deplacerLivraison(plan, livraison, nouvelIndex);
+		return 0;
 	}
 
 	@Override

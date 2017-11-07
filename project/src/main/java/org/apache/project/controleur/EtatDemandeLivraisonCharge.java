@@ -31,13 +31,13 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 
 	        @Override
 	        protected Void call() throws Exception {
-	        	final boolean tempsLimiteAtteint = tournee.calculerTournee(planDeVille, demandeDeLivraison, tempsLimite);
+	        	final int retour = tournee.calculerTournee(planDeVille, demandeDeLivraison, tempsLimite);
 	        	
 	        	Platform.runLater(new Runnable() {
 					
 					@Override
 					public void run() {
-						afterCalculation(controleur, fenetrePrincipale, demandeDeLivraison, tournee, tempsLimiteAtteint);
+						afterCalculation(controleur, fenetrePrincipale, demandeDeLivraison, tournee, retour);
 					
 					}
 				});	        	
@@ -51,7 +51,7 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		fenetrePrincipale.afficherLoading();
 	}
 	
-	private void afterCalculation(Controleur controleur, FenetrePrincipale fenetrePrincipale, DemandeDeLivraison demandeDeLivraison, Tournee tournee, boolean tempsLimiteAtteint) {
+	private void afterCalculation(Controleur controleur, FenetrePrincipale fenetrePrincipale, DemandeDeLivraison demandeDeLivraison, Tournee tournee, int retour) {
 
 		fenetrePrincipale.removeLoading();
 					
@@ -59,16 +59,25 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		fenetrePrincipale.afficherTournee(tournee);
 		fenetrePrincipale.getListDisplay().enableMoveLivraison();
 		fenetrePrincipale.afficherInfo("Action libre");
-
-		if (tempsLimiteAtteint) {
+		switch(retour){
+		case 0 : 
+			fenetrePrincipale.setVisibleRecalculerButton(false);
+			controleur.setEtatCourant(controleur.etatTourneeCalculee);
+			break;
+		case 1 :
 			fenetrePrincipale.setVisibleRecalculerButton(true);
+			controleur.setEtatCourant(controleur.etatTourneeCalculee);
 			fenetrePrincipale.afficherPopupInfo(
 					"Le calcul de tournée s'est terminé avec un timeout. Vous pouvez recalculer la tournée en modifiant la durée");
-		} else {
+			break;
+		case 2 :
+			fenetrePrincipale.clearTournee();
 			fenetrePrincipale.setVisibleRecalculerButton(false);
+			fenetrePrincipale.afficherDemandeDeLivraison(demandeDeLivraison);
+			controleur.setEtatCourant(controleur.etatDemandeLivraisonCharge);
+			fenetrePrincipale.afficherPopupError("Impossible de realiser le chemin entre deux livraisons avec les fichiers d'entrés");
+			break;
 		}
-
-		controleur.setEtatCourant(controleur.etatTourneeCalculee);
 	}
 
 	@Override
