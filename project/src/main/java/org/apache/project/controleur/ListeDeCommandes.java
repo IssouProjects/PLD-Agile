@@ -13,16 +13,18 @@ public class ListeDeCommandes extends Observable{
 		i=-1;
 	}
 	
-	public void ajouteCommande(Commande commande) {
+	public int ajouteCommande(Commande commande) {
 		int temp = i+1;
         while(temp<liste.size()){
             liste.remove(temp);
         }
         i++;
         liste.add(i, commande);
-        commande.doCommande();
+        int retour = commande.doCommande();
         setChanged();
         notifyObservers();
+        
+        return retour;
 	}
 	
 	public void undo() {

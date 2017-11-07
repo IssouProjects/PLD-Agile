@@ -317,25 +317,20 @@ public class Tournee extends Observable {
 		
 		this.ajouterListeLivraison(nouvelleLivraison, indexPre + 1);
 		this.supprimerChemin(indexPre);
-		this.ajouterChemin(chemin1, indexPre);
-		this.ajouterChemin(chemin2, indexPre + 1);
+		ajouterChemin(chemin1, indexPre);
+		ajouterChemin(chemin2, indexPre + 1);
 
 		this.calculerDureeTotale();
 		
 		return 0;
 	}
 
-	public int supprimerLivraison(PlanDeVille planDeVille, int indexLivSuppr) {
+	public void supprimerLivraison(PlanDeVille planDeVille, int indexLivSuppr) {
 		Livraison livraisonPre = this.getLivraison(indexLivSuppr - 1);
 		Livraison livraisonSuiv = this.getLivraison(indexLivSuppr + 1);
 		Chemin chemin = this.calculerNouveauChemin(planDeVille, livraisonPre.getLieuDeLivraison(),
 				livraisonSuiv.getLieuDeLivraison());
 		
-		if(chemin == null)
-		{
-			return 2;
-		}
-
 		this.retireListeLivraison(indexLivSuppr);
 		this.supprimerChemin(indexLivSuppr - 1);
 		this.supprimerChemin(indexLivSuppr - 1);
@@ -344,11 +339,11 @@ public class Tournee extends Observable {
 
 		this.calculerDureeTotale();
 		
-		return 0;
 	}
 
 	public void deplacerLivraison(PlanDeVille planDeVille, Livraison livraisonADeplacer, int nouveauIndex) {
 		this.supprimerLivraison(planDeVille, this.getLivraisonsOrdonnees().indexOf(livraisonADeplacer));
+		
 		this.ajouterNouvelleLivraison(planDeVille, livraisonADeplacer,
 				this.getLivraisonsOrdonnees().get(nouveauIndex - 1));
 	}

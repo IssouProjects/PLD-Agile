@@ -20,9 +20,11 @@ public class CdeSupprimerLivraison implements Commande {
 	}
 	
 	@Override
-	public void doCommande() {
+	public int doCommande() {
 		int index = tournee.getLivraisonsOrdonnees().indexOf(livraison);
 		tournee.supprimerLivraison(plan, index);
+		
+		return 0;
 	}
 
 	@Override

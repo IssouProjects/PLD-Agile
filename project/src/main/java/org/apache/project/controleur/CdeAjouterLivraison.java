@@ -19,8 +19,9 @@ public class CdeAjouterLivraison implements Commande {
 	}
 	
 	@Override
-	public void doCommande() {
-		tournee.ajouterNouvelleLivraison(plan, livraison, livraisonPrecedente);
+	public int doCommande() {
+		int retour = tournee.ajouterNouvelleLivraison(plan, livraison, livraisonPrecedente);
+		return retour;
 	}
 
 	@Override
