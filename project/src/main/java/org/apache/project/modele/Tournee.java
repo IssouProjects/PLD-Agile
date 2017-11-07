@@ -167,11 +167,11 @@ public class Tournee extends Observable {
 		}
 		
 		TSP4 tspSolut = new TSP4();
-		tspSolut.chercheSolution(10000, nombreLivraison, cout, duree, tempsMini, tempsMax);
+		tspSolut.chercheSolution(tempsLimite, nombreLivraison, cout, duree, tempsMini, tempsMax);
 		//On test s il y a un resultat, sinon c est surement a cause de la prise en compte des plages horaires
 		if(tspSolut.getMeilleureSolution(0) == null)
 		{
-			tspSolut.chercheSolution(10000, nombreLivraison, cout, duree);
+			tspSolut.chercheSolution(tempsLimite, nombreLivraison, cout, duree);
 		}
 
 		// Definit les parametres entrepots et la liste des intersections ordonnées
