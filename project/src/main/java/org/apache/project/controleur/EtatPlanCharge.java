@@ -22,6 +22,7 @@ public class EtatPlanCharge extends EtatDefaut {
 		if(file == null) {
 			return;
 		}
+		controleur.clearDemandeDeLivraison();
 		controleur.chargerDemandeDeLivraison(file);
 	}
 	
