@@ -339,6 +339,7 @@ public class FenetrePrincipale extends Application {
 		loadLivraisonButton.setDisable(false);
 		calculerTourneeButton.setDisable(false);
 		ajouterLivraisonButton.setDisable(true);
+		exporterButton.setDisable(true);
 	}
 
 	public void afficherTournee(Tournee tournee) {

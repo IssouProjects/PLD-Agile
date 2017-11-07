@@ -25,6 +25,7 @@ public class Dijkstra {
 	static Map<Long, noeud> listeFermee = new HashMap<Long, noeud>();
 
 	public static List<Chemin> principalDijkstra(PlanDeVille plan, DemandeDeLivraison demande) {
+		
 		// Liste des intersections correspondants aux lieux a livrer
 		List<Intersection> interLivraisons = new ArrayList<Intersection>();
 		//interLivraisons.add(demande.getAdresseEntrepot());
@@ -44,6 +45,7 @@ public class Dijkstra {
 	}
 	
 	public static Chemin principalDijkstra(PlanDeVille plan, Intersection depart, Intersection arrivee) {
+		
 		// Liste des intersections correspondants aux lieux a livrer
 		List<Intersection> interLivraisons = new ArrayList<Intersection>();
 		interLivraisons.add(depart);
@@ -59,6 +61,9 @@ public class Dijkstra {
 		
 		List<Chemin> chemins = new ArrayList<Chemin>();
 		chemins = Dijkstra.calculDijkstra(interPlan, interLivraisons);
+		if(chemins == null) {
+			return null;
+		}
 		return chemins.get(0);
 	}
 	
@@ -87,7 +92,12 @@ public class Dijkstra {
 				ajouterNoeudAdjacent(noeudCourant);
 			}
 
+			
 			resCheminIntermediaire = ajouteChemin(origine, livraison_inter);
+			if(resCheminIntermediaire == null)
+			{
+				return null;
+			}
 
 			for (int k = 0; k < resCheminIntermediaire.size(); k++) {
 				ensembleChemins.add(resCheminIntermediaire.get(k));
@@ -112,6 +122,10 @@ public class Dijkstra {
 
 		for (int i = 0; i < nombreDestination; i++) {
 			Intersection intersectionCourante = LivraisonInter.get(i);
+			if(!listeFermee.containsKey(intersectionCourante.getIdNoeud()))
+			{
+				return null;
+			}
 			Intersection intersectionDestination = intersectionCourante;
 			listTronconInverse = new ArrayList<Troncon>();
 			listTroncon = new ArrayList<Troncon>();
