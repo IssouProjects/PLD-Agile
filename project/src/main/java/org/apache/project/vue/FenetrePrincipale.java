@@ -179,7 +179,7 @@ public class FenetrePrincipale extends Application {
 		supprLivraisonButton.setDisable(true);
 		annulerBouton = new Button(ANNULER);
 		annulerBouton.setUserData(ANNULER_ID);
-		annulerBouton.setDisable(true);
+		annulerBouton.setVisible(false);
 		recalculerBouton = new Button(RECALCULER);
 		recalculerBouton.setUserData(RECALCULER_ID);
 		recalculerBouton.setVisible(false);
