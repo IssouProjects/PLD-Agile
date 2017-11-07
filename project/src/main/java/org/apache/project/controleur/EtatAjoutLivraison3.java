@@ -27,7 +27,7 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 		int retour = commandes.ajouteCommande(new CdeAjouterLivraison(planDeVille, tournee, nouvelleLivraison, livraisonPrecedente));
 		
 		if(retour == 2) {
-			fenetrePrincipale.afficherPopupError("Impossible de realiser le chemin entre deux livraisons avec les fichiers d'entrés");
+			fenetrePrincipale.afficherPopupError("Impossible de parcourir le chemin entre les deux livraisons avec le plan donné");
 		}
 		
 		fenetrePrincipale.getMapContainer().setSelectionMode(SelectionMode.Troncon);
