@@ -31,7 +31,7 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 
 	        @Override
 	        protected Void call() throws Exception {
-	        	boolean tempsLimiteAtteint = tournee.calculerTournee(planDeVille, demandeDeLivraison, tempsLimite);
+	        	final boolean tempsLimiteAtteint = tournee.calculerTournee(planDeVille, demandeDeLivraison, tempsLimite);
 	        	
 	        	Platform.runLater(new Runnable() {
 					
