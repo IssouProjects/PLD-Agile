@@ -40,7 +40,17 @@ public class UndoRedoWidget extends HBox implements Observer{
 		
 		this.setSpacing(5d);
 	}
-
+	
+	public boolean isUndoDisable()
+    {
+        return undoButton.isDisable();
+    }
+	
+	public boolean isRedoDisable()
+    {
+        return redoButton.isDisable();
+    }
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o instanceof ListeDeCommandes) {

@@ -34,6 +34,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 
 public class FenetrePrincipale extends Application {
 
@@ -260,6 +261,8 @@ public class FenetrePrincipale extends Application {
 
 		controleur = Controleur.getInstance();
 		controleur.setFenetre(this);
+		
+		scene.addEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
 
 		// button listener
 		edb = new EcouteurDeBouton(controleur, this);
@@ -294,6 +297,22 @@ public class FenetrePrincipale extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
+	
+	/**
+     * "Key Pressed" handler for Ctrl+Z, to undo changes
+     */
+    private EventHandler<KeyEvent> keyPressedEventHandler = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent event) {
+        	
+        	if(event.isControlDown()&&event.getText().equals("z")&& !undoRedoWidget.isUndoDisable()) {
+        		controleur.undo();
+        	}
+        	if(event.isControlDown()&&event.getText().equals("y")&& !undoRedoWidget.isRedoDisable()) {
+        		controleur.redo();
+        	}
+        }
+    };
 
 	public void afficherPopupError(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
