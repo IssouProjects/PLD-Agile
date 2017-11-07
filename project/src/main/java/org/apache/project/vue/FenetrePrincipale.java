@@ -206,7 +206,7 @@ public class FenetrePrincipale extends Application {
 		undoRedoLayout.setHgap(5);
 		HBox.setHgrow(listLabel, Priority.ALWAYS);
 		undoRedoLayout.add(listLabel, 0, 0);
-		undoRedoLayout.add(recalculerBouton, 1, 0);
+		undoRedoLayout.add(recalculerButton, 1, 0);
 		undoRedoLayout.add(undoRedoWidget, 2, 0);
 		ColumnConstraints labelCC = new ColumnConstraints();
 		labelCC.setHgrow(Priority.ALWAYS);
@@ -506,7 +506,7 @@ public class FenetrePrincipale extends Application {
     }
     
     public void setVisibleAnnulerButton(boolean visible) {
-    	annulerBouton.setVisible(visible);
+    	annulerButton.setVisible(visible);
     }
     
     public void afficherLoading() {
