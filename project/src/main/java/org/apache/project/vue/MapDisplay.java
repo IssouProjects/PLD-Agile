@@ -382,10 +382,7 @@ public class MapDisplay extends Pane {
     		
     		for(Troncon t : troncons){
     			Color couleurTroncon = getColorGradientPoint(positionTronconDansTournee, nombreTotalTronconsTournee);
-    			Circle circle = this.creerVueIntersection(t.getIntersectionArrivee(), couleurTroncon, tourneeIntersectionRadius);
-                getChildren().add(circle);
-                mapIntersections.put(t.getIntersectionArrivee(), circle);
-                
+    			
                 Line line = mapTourneeTroncons.get(t);
                 if(line == null) {
 	                line = this.creerVueTroncon(t, couleurTroncon, tourneeTronconWidth);
