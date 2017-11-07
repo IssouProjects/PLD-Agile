@@ -312,7 +312,7 @@ public class FenetrePrincipale extends Application {
 	}
 	
 	public void afficherInfo(String message) {
-		mapLabel.setText("Action à réaliser: " + message);
+		mapLabel.setText("Action à réaliser : " + message);
 	}
 
 	public void afficherPlanDeVille(PlanDeVille plan) {

@@ -58,7 +58,7 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		tournee.ajouterListeLivraison(demandeDeLivraison.getEntrepot());
 		fenetrePrincipale.afficherTournee(tournee);
 		fenetrePrincipale.getListDisplay().enableMoveLivraison();
-		fenetrePrincipale.afficherInfo("Vous êtes libre de toute action");
+		fenetrePrincipale.afficherInfo("Action libre");
 
 		if (tempsLimiteAtteint) {
 			fenetrePrincipale.setVisibleRecalculerButton(true);
@@ -113,7 +113,7 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 	@Override
 	public void annulerRecalcul(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee) {
 		fenetrePrincipale.afficherTournee(tournee);
-		fenetrePrincipale.afficherInfo("Vous êtes libre de toute action");
+		fenetrePrincipale.afficherInfo("Action libre");
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
 	}
 }
