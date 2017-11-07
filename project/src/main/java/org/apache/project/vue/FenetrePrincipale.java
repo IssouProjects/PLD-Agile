@@ -346,8 +346,7 @@ public class FenetrePrincipale extends Application {
 		listeLivraisons.afficherTexteLivraisonsOrdonnees(tournee);
 		double duree_min = tournee.getDureeTourneeSecondes();
 		listLabel.setText(
-				"Durée de la tournée: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(duree_min * 1000)
-						+ " - Heure de fin: " + PlageHoraire.timeToString(tournee.getHeureDeFin()));
+				"Durée de la tournée: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(duree_min * 1000));
 		calculerTourneeButton.setDisable(true);
 		ajouterLivraisonButton.setDisable(false);
 		supprLivraisonButton.setDisable(false);

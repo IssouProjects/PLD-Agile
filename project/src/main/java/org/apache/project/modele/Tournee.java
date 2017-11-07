@@ -1,6 +1,5 @@
 package org.apache.project.modele;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -17,7 +16,6 @@ public class Tournee extends Observable {
 	private List<Livraison> livraisonsOrdonnees;
 	private List<Chemin> chemins;
 	private int dureeTourneeSecondes;
-	private Time heureDeFin;
 	private boolean respectPlageHoraire;
 
 	/**
@@ -110,17 +108,6 @@ public class Tournee extends Observable {
 
 	public int getLivraisonsSize() {
 		return livraisonsOrdonnees.size();
-	}
-
-	/**
-	 * Renvoie l'heure de fin de la tournée si elle a été calculée, null si ce n'est
-	 * pas le cas.
-	 * 
-	 * @return heureDeFin l'heure de fin de la tournée si elle a été calculée, null
-	 *         sinon
-	 */
-	public Time getHeureDeFin() {
-		return heureDeFin;
 	}
 
 	/**
@@ -242,7 +229,7 @@ public class Tournee extends Observable {
 			}
 		}
 
-		heureDeFin = PlageHoraire.calculerHeureArrivee(entrepot.getHeureDepart(), dureeTourneeSecondes);
+		entrepot.setHeureDeFin(PlageHoraire.calculerHeureArrivee(entrepot.getHeureDepart(), dureeTourneeSecondes));
 		boolean tempsLimiteAtteint = tspSolut.getTempsLimiteAtteint();
 		updatePositionsDansTournee();
 		return tempsLimiteAtteint;
@@ -302,7 +289,7 @@ public class Tournee extends Observable {
 			// Ajout de la durée du chemin
 			dureeTourneeSecondes += chemins.get(i).getDuree();
 		}
-		heureDeFin = PlageHoraire.calculerHeureArrivee(entrepot.getHeureDepart(), dureeTourneeSecondes);
+		entrepot.setHeureDeFin(PlageHoraire.calculerHeureArrivee(entrepot.getHeureDepart(), dureeTourneeSecondes));
 		updatePositionsDansTournee();
 	}
 
@@ -357,15 +344,22 @@ public class Tournee extends Observable {
 	
 	public String exporterRoute(){
 		updatePositionsDansTournee();
-		String feuille = "";
-		for(int i = 0; i<chemins.size(); ++i) {
-			feuille += livraisonsOrdonnees.get(i).toString();
+		String feuille = "Durée de la tournée: "
+				+ PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(this.getDureeTourneeSecondes() * 1000) + "\n";
+		feuille += this.entrepot.toString() + "\n";
+		feuille += "Retour à l'entrepôt: " + PlageHoraire.timeToString(this.entrepot.getHeureDeFin());
+
+		for (int i = 0; i < chemins.size(); ++i) {
+			if (i != 0) {
+				feuille += livraisonsOrdonnees.get(i).toString();
+			}
 			feuille += "\n\n";
-			for(String rue : chemins.get(i).getListeRues())
-				
+			for (String rue : chemins.get(i).getListeRues()) {
 				feuille +=rue + "\n";
+			}
 			feuille += "\n";
 		}
+		feuille += "Retour à l'entrepôt: " + PlageHoraire.timeToString(this.entrepot.getHeureDeFin());
 		return feuille;
 	}
 }
