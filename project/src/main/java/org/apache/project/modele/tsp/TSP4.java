@@ -42,19 +42,13 @@ public class TSP4 extends TemplateTSP {
 				{
 					//Ce point est plus possible, on a depasse la limite max, donc cette branche n est plus possible, puisqu il s agit forcemment du chemin le plus court actuel pour y parvenir
 					break;
-				} else if (coutVus + cout[sommetCrt][prochainSommet] < tempsMini[prochainSommet])
+				} else 
 				{
 		        	vus.add(prochainSommet);
 		        	nonVus.remove(prochainSommet);
-		        	branchAndBound(prochainSommet, nonVus, vus, tempsMini[prochainSommet] + duree[prochainSommet], cout, duree, tpsDebut, tpsLimite, tempsMini, tempsMax);
+		        	branchAndBound(prochainSommet, nonVus, vus, Math.max(tempsMini[prochainSommet], coutVus + cout[sommetCrt][prochainSommet]) + duree[prochainSommet], cout, duree, tpsDebut, tpsLimite, tempsMini, tempsMax);
 		        	vus.remove(prochainSommet);
 		        	nonVus.add(prochainSommet);
-				} else {
-					vus.add(prochainSommet);
-	        		nonVus.remove(prochainSommet);
-	        		branchAndBound(prochainSommet, nonVus, vus, coutVus + cout[sommetCrt][prochainSommet] + duree[prochainSommet], cout, duree, tpsDebut, tpsLimite, tempsMini, tempsMax);
-	        		vus.remove(prochainSommet);
-	        		nonVus.add(prochainSommet);
 				}
 	        }	    
 	    }
