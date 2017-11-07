@@ -400,5 +400,71 @@ public class TestTournee {
 		assertEquals(26155540, (long) tournee.getLivraisonsOrdonnees().get(3).getLieuDeLivraison().getIdNoeud());
 		assertEquals(29003879, (long) tournee.getLivraisonsOrdonnees().get(4).getLieuDeLivraison().getIdNoeud());
 	}
+	
+	@Test
+	public void TestExporterRoute() throws NumberFormatException, ParserConfigurationException, SAXException, IOException, ExceptionXML {
+		// Creation d'une tournee
+		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit5.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonPetit.xml");
+		PlanDeVille plan = new PlanDeVille();
+		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+		DemandeDeLivraison demande = new DemandeDeLivraison();
+		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+
+		// Calcul tournee
+		Tournee tournee = new Tournee();
+		tournee.setEntrepot(demande.getEntrepot());
+		tournee.calculerTournee(plan, demande, 10000);
+		
+		assertEquals("Depart de l'entrepot: 08:00\n" + 
+				"\n" + 
+				"Rue Guilloud sur 129m.\n" + 
+				"Rue du Docteur Rebatel sur 154m.\n" + 
+				"Place Ambroise Courtois sur 177m.\n" + 
+				"Avenue des Frères Lumière sur 300m.\n" + 
+				"Rue Maryse Bastié sur 120m.\n" + 
+				"Rue Feuillat sur 357m.\n" + 
+				"Impasse Gazagnon sur 84m.\n" + 
+				"\n" + 
+				"Livraison 1\n" + 
+				"	Heure d'arrivée: 08:05\n" + 
+				"	Pas de plage horaire\n" + 
+				"	Duree sur place: 15min\n" + 
+				"\n" + 
+				"Impasse Gazagnon sur 84m.\n" + 
+				"Rue Feuillat sur 246m.\n" + 
+				"Avenue Lacassagne sur 628m.\n" + 
+				"\n" + 
+				"Livraison 2\n" + 
+				"	Heure d'arrivée: 08:24\n" + 
+				"	Pas de plage horaire\n" + 
+				"	Duree sur place: 5min\n" + 
+				"\n" + 
+				"Avenue Lacassagne sur 159m.\n" + 
+				"\n" + 
+				"Livraison 3\n" + 
+				"	Heure d'arrivée: 08:29\n" + 
+				"	Pas de plage horaire\n" + 
+				"	Duree sur place: 15min\n" + 
+				"\n" + 
+				"Avenue Lacassagne sur 228m.\n" + 
+				"Cours Eugénie sur 47m.\n" + 
+				"Rue Trarieux sur 141m.\n" + 
+				"Rue Viala sur 79m.\n" + 
+				"\n" + 
+				"Livraison 4\n" + 
+				"	Heure d'arrivée: 08:46\n" + 
+				"	Pas de plage horaire\n" + 
+				"	Duree sur place: 15min\n" + 
+				"\n" + 
+				"Rue Coignet sur 25m.\n" + 
+				"Rue Viala sur 79m.\n" + 
+				"Rue Trarieux sur 536m.\n" + 
+				"Rue du Professeur Florence sur 173m.\n" + 
+				"Cours Albert Thomas sur 751m.\n" + 
+				"Rue Jeanne Koehler sur 139m.\n" + 
+				"\n" + 
+				"", tournee.exporterRoute());
+	}
 
 }
