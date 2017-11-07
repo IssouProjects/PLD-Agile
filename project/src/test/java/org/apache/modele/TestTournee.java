@@ -100,8 +100,6 @@ public class TestTournee {
 		assertEquals(14040, tournee.getDureeTourneeSecondes());
 	}
 	
-	//TODO A REFAIRE
-	/*
 	@Test
 	public void testNomRue()throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		// Creation des objets plan et demande
@@ -121,20 +119,20 @@ public class TestTournee {
 		List<Chemin> chemins = new ArrayList<Chemin>();
 		chemins = tournee.getChemins();
 		
-		assertEquals("Rue du Docteur Bonhomme", chemins.get(0).getListeRues().get(0));
-		assertEquals("Rue Maryse Bastié", chemins.get(0).getListeRues().get(1));
+		assertEquals("Rue du Docteur Bonhomme sur 1000m.", chemins.get(0).getListeRues().get(0));
+		assertEquals("Rue Maryse Bastié sur 1000m.", chemins.get(0).getListeRues().get(1));
 		
-		assertEquals("Avenue des Frères Lumière", chemins.get(1).getListeRues().get(0));
+		assertEquals("Avenue des Frères Lumière sur 2000m.", chemins.get(1).getListeRues().get(0));
 		
-		assertEquals("Rue Maryse Bastié", chemins.get(2).getListeRues().get(0));
-		assertEquals("Cours Albert Thomas", chemins.get(2).getListeRues().get(1));
-		assertEquals("Rue Charles Richard", chemins.get(2).getListeRues().get(2));
+		assertEquals("Rue Maryse Bastié sur 5000m.", chemins.get(2).getListeRues().get(0));
+		assertEquals("Cours Albert Thomas sur 5000m.", chemins.get(2).getListeRues().get(1));
+		assertEquals("Rue Charles Richard sur 5000m.", chemins.get(2).getListeRues().get(2));
 		
-		assertEquals("Place du Château", chemins.get(3).getListeRues().get(0));
-		assertEquals("", chemins.get(3).getListeRues().get(1));
-		assertEquals("Cours Albert Thomas", chemins.get(3).getListeRues().get(2));
-		assertEquals("", chemins.get(3).getListeRues().get(3));
-	}*/
+		assertEquals("Place du Château sur 4000m.", chemins.get(3).getListeRues().get(0));
+		assertEquals("Rue Inconnue sur 5000m.", chemins.get(3).getListeRues().get(1));
+		assertEquals("Cours Albert Thomas sur 1000m.", chemins.get(3).getListeRues().get(2));
+		assertEquals("Rue Inconnue sur 1500m.", chemins.get(3).getListeRues().get(3));
+	}
 	
 	@Test(timeout = 1000)
 	public void testCalculerTourneeDonnee()
