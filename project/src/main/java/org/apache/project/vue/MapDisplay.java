@@ -38,7 +38,6 @@ public class MapDisplay extends Pane {
 	Map<Troncon, Line> mapTroncons;
 
 	Map<Livraison, Circle> mapLivraisons;
-	List<Circle> tourneeInter;
 	Map<Troncon, Line> mapTourneeTroncons;
 
 	List<Label> numerosLivraisons;
@@ -93,7 +92,6 @@ public class MapDisplay extends Pane {
         mapLivraisons = new HashMap<Livraison, Circle>();
         mapIntersections = new HashMap<Intersection, Circle>();
         mapTroncons = new HashMap<Troncon, Line>();
-        tourneeInter = new ArrayList<Circle>();
         mapTourneeTroncons = new HashMap<Troncon, Line>();
         numerosLivraisons = new ArrayList<Label>();
     }
@@ -385,7 +383,6 @@ public class MapDisplay extends Pane {
     		for(Troncon t : troncons){
     			Color couleurTroncon = getColorGradientPoint(positionTronconDansTournee, nombreTotalTronconsTournee);
     			Circle circle = this.creerVueIntersection(t.getIntersectionArrivee(), couleurTroncon, tourneeIntersectionRadius);
-                tourneeInter.add(circle);
                 getChildren().add(circle);
                 mapIntersections.put(t.getIntersectionArrivee(), circle);
                 
@@ -420,7 +417,6 @@ public class MapDisplay extends Pane {
     			Line line = mapTourneeTroncons.get(entry.getKey());
     			String style = this.getColorGradientPoint(listeCouleurs, line);
     			line.setStyle(style);
-    			System.out.println(style);
     		}
     	}
     	
@@ -445,13 +441,7 @@ public class MapDisplay extends Pane {
     }
     
     public void clearTournee() {
-    	if(!tourneeInter.isEmpty()) {
-    		getChildren().removeAll(tourneeInter);
-    		for(Circle i : tourneeInter) {
-    			mapIntersections.remove(i.getUserData());
-    		}
-    		tourneeInter.clear();
-    		
+    	if(!mapTourneeTroncons.isEmpty()) {
     		for(Entry<Troncon, Line> entry : mapTourneeTroncons.entrySet())
     			getChildren().remove(entry.getValue());
     		mapTourneeTroncons.clear();
@@ -583,9 +573,13 @@ public class MapDisplay extends Pane {
             int i=0;
             
             for(Color c : colors) {
-            	style += ",#" + Integer.toHexString(c.hashCode()).substring(0,6) + " " + (int)((double)i/(double)size*105) + '%';
+            	String hexColor = String.format( "#%02X%02X%02X",
+                        (int)( c.getRed() * 255 ),
+                        (int)( c.getGreen() * 255 ),
+                        (int)( c.getBlue() * 255 ) );
+            	style += "," + hexColor + " " + (int)((double)i/(double)size*105) + '%';
             	i++;
-            	style += ",#" + Integer.toHexString(c.hashCode()).substring(0,6) + " " + (int)((double)i/(double)size*95) + '%';
+            	style += "," + hexColor + " " + (int)((double)i/(double)size*95) + '%';
             }
             return style + ");";
 		}
