@@ -118,7 +118,8 @@ public class Deserialisateur {
 		double longueur = Double.parseDouble(element.getAttribute("longueur"));
 		String nomRue = element.getAttribute("nomRue");
 		Long origine = Long.parseLong(element.getAttribute("origine"));
-		plan.ajouterTroncon(longueur, origine, destination, nomRue);
+		if (plan.ajouterTroncon(longueur, origine, destination, nomRue) == false)
+			throw new ExceptionXML("Document mal forme");
 	}
 
 	private static void construireLivraison(Element element, DemandeDeLivraison demande, PlanDeVille plan)

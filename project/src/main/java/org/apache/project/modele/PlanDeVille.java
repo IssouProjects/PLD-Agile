@@ -49,10 +49,15 @@ public class PlanDeVille extends Observable {
 	 * @param nomRue
 	 *            nom usuel du tronçon (exemple: "Boulevard Roger Salengro")
 	 */
-	public void ajouterTroncon(double longueur, Long numDepart, Long numArrivee, String nomRue) {
+	public boolean ajouterTroncon(double longueur, Long numDepart, Long numArrivee, String nomRue) {
+		if(intersections.get(numDepart) == null || intersections.get(numArrivee) == null)
+		{
+			return false;
+		}
 		Troncon troncon = new Troncon(longueur, intersections.get(numDepart), intersections.get(numArrivee), nomRue);
 		intersections.get(numDepart).ajouterTronconPartant(troncon);
 		troncons.add(troncon);
+		return true;
 	}
 
 	/**
