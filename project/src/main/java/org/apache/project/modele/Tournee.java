@@ -70,10 +70,6 @@ public class Tournee extends Observable {
 		livraisonsOrdonnees.remove(index);
 	}
 
-	public void ajouterChemin(Chemin chemin) {
-		chemins.add(chemin);
-	}
-
 	/**
 	 * Ajoute un chemin à un endroit (donné en paramètre) de la tournée.
 	 * 
