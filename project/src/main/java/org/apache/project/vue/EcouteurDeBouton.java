@@ -101,6 +101,12 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 					fenetrePrincipale.masquerFenetreTimeoutPopup();
 				}
 				break;
+			case FenetrePrincipale.EXPORTER_ID:
+				controleur.exporterFeuilleDeRoute();
+				break;
+			case FeuilleDeRoutePopup.OK_ID:
+				controleur.fermerFeuilleDeRoute();
+				break;
 			default:
 				System.out.println("Unmapped Button");
 			}
