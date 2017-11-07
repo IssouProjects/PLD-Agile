@@ -51,9 +51,9 @@ public class FenetrePrincipale extends Application {
 	Button loadLivraisonButton;
 	Button ajouterLivraisonButton;
 	Button supprLivraisonButton;
-	Button annulerBouton;
-	Button recalculerBouton;
-	Button exporterBoutton;
+	Button annulerButton;
+	Button recalculerButton;
+	Button exporterButton;
 	
 	ImageView imageView;
 
@@ -204,15 +204,15 @@ public class FenetrePrincipale extends Application {
 		supprLivraisonButton = new Button(SUPPR_LIVRAISON);
 		supprLivraisonButton.setUserData(SUPPR_LIVRAISON_ID);
 		supprLivraisonButton.setDisable(true);
-		annulerBouton = new Button(ANNULER);
-		annulerBouton.setUserData(ANNULER_ID);
-		annulerBouton.setDisable(true);
-		recalculerBouton = new Button(RECALCULER);
-		recalculerBouton.setUserData(RECALCULER_ID);
-		recalculerBouton.setVisible(false);
-		exporterBoutton = new Button(EXPORTER);
-		exporterBoutton.setUserData(EXPORTER_ID);
-		exporterBoutton.setDisable(true);
+		annulerButton = new Button(ANNULER);
+		annulerButton.setUserData(ANNULER_ID);
+		annulerButton.setDisable(true);
+		recalculerButton = new Button(RECALCULER);
+		recalculerButton.setUserData(RECALCULER_ID);
+		recalculerButton.setVisible(false);
+		exporterButton = new Button(EXPORTER);
+		exporterButton.setUserData(EXPORTER_ID);
+		exporterButton.setDisable(true);
 		
 
 		// list
@@ -222,8 +222,9 @@ public class FenetrePrincipale extends Application {
 		listeButtonsLayout1.getChildren().add(loadLivraisonButton);
 		listeButtonsLayout1.getChildren().add(calculerTourneeButton);
 		listeButtonsLayout1.getChildren().add(ajouterLivraisonButton);
-		listeButtonsLayout1.getChildren().add(annulerBouton);
-		listeButtonsLayout1.getChildren().add(exporterBoutton);
+		listeButtonsLayout1.getChildren().add(annulerButton);
+		listeButtonsLayout1.getChildren().add(exporterButton);
+		listeButtonsLayout1.setAlignment(Pos.CENTER);
 
 		layout.add(listeButtonsLayout1, 1, 2);
 
@@ -274,10 +275,10 @@ public class FenetrePrincipale extends Application {
 		calculerTourneeButton.setOnAction(edb);
 		ajouterLivraisonButton.setOnAction(edb);
 		supprLivraisonButton.setOnAction(edb);
-		annulerBouton.setOnAction(edb);
+		annulerButton.setOnAction(edb);
 		undoRedoWidget.setEcouteurDeBouton(edb);
-		recalculerBouton.setOnAction(edb);
-		exporterBoutton.setOnAction(edb);
+		recalculerButton.setOnAction(edb);
+		exporterButton.setOnAction(edb);
 
 		// map listener
 		edm = new EcouteurDeMap(controleur, mapContainer);
@@ -328,7 +329,7 @@ public class FenetrePrincipale extends Application {
 		loadLivraisonButton.setDisable(false);
 		calculerTourneeButton.setDisable(true);
 		ajouterLivraisonButton.setDisable(true);
-		annulerBouton.setDisable(true);
+		annulerButton.setDisable(true);
 	}
 
 	public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
@@ -338,7 +339,7 @@ public class FenetrePrincipale extends Application {
 		loadLivraisonButton.setDisable(false);
 		calculerTourneeButton.setDisable(false);
 		ajouterLivraisonButton.setDisable(true);
-		annulerBouton.setDisable(true);
+		annulerButton.setDisable(true);
 		
 	}
 
@@ -351,8 +352,8 @@ public class FenetrePrincipale extends Application {
 		calculerTourneeButton.setDisable(true);
 		ajouterLivraisonButton.setDisable(false);
 		supprLivraisonButton.setDisable(false);
-		annulerBouton.setDisable(false);
-		exporterBoutton.setDisable(false);
+		annulerButton.setDisable(false);
+		exporterButton.setDisable(false);
 	}
 
 	public void clearPlanDeVille() {
@@ -466,7 +467,7 @@ public class FenetrePrincipale extends Application {
 		listeLivraisons.selectLivraison(null);
 		mapContainer.getMapDisplay().resetAndHighlight(t);
 		streetDisplay.setVisible(true);
-		streetLabel.setText(t.getNomRue()+" "+ (int)t.getLongueur());
+		streetLabel.setText(t.getNomRue());
 	}
 
 	public ListDisplay getListDisplay() {
@@ -504,7 +505,7 @@ public class FenetrePrincipale extends Application {
     }
     
     public void setVisibleRecalculerButton(boolean visible) {
-    	recalculerBouton.setVisible(visible);
+    	recalculerButton.setVisible(visible);
     }
     
     public void afficherLoading() {
