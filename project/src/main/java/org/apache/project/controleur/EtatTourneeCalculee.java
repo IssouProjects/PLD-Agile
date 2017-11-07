@@ -130,7 +130,9 @@ public class EtatTourneeCalculee extends EtatDefaut{
 	@Override
 	public void exporterFeuilleDeRoute(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee) {
 		String feuille = tournee.exporterRoute();
-		//TODO Appeler popup
+		
+		fenetrePrincipale.afficherFenetreFeuilleDeRoute(feuille);
+		controleur.setEtatCourant(controleur.etatFeuilleDeRoute);
 	}
 
 }

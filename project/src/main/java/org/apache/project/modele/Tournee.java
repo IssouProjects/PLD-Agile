@@ -353,6 +353,7 @@ public class Tournee extends Observable {
 			feuille += livraisonsOrdonnees.get(i).toString();
 			feuille += "\n\n";
 			for(String rue : chemins.get(i).getListeRues())
+				
 				feuille +=rue + "\n";
 			feuille += "\n";
 		}

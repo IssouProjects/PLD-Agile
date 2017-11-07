@@ -261,5 +261,14 @@ public interface Etat {
 	 * @param tournee
 	 */
 	public void exporterFeuilleDeRoute(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee);
+	
+	
+	/**
+	 * Methode appelee par controleur apres un clic sur le bouton "ok" dans la fenetre d'affichage de la feuille de route
+	 * tournee"
+	 * @param controleur
+	 * @param fenetrePrincipale
+	 */
+	public void fermerFeuilleDeRoute(Controleur controleur, FenetrePrincipale fenetrePrincipale);
 
 }

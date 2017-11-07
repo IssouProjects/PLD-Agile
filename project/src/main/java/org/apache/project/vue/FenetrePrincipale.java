@@ -63,6 +63,7 @@ public class FenetrePrincipale extends Application {
 
 	private LivraisonPopup livraisonPopup = null;
 	private TimeoutPopup timeoutPopup = null;
+	private FeuilleDeRoutePopup feuilleDeRoutePopup = null;
 	private Region opaqueLayer;
 
 	private StackPane stack;
@@ -276,6 +277,7 @@ public class FenetrePrincipale extends Application {
 		annulerBouton.setOnAction(edb);
 		undoRedoWidget.setEcouteurDeBouton(edb);
 		recalculerBouton.setOnAction(edb);
+		exporterBoutton.setOnAction(edb);
 
 		// map listener
 		edm = new EcouteurDeMap(controleur, mapContainer);
@@ -306,7 +308,7 @@ public class FenetrePrincipale extends Application {
 		alert.setContentText(message);
 		alert.showAndWait();
 	}
-
+	
 	public void afficherInfo(String message) {
 		mapLabel.setText("Action à réaliser: " + message);
 	}
@@ -394,7 +396,27 @@ public class FenetrePrincipale extends Application {
 		livraisonPopup = null;
 		opaqueLayer = null;
 	}
+	
+	public void afficherFenetreFeuilleDeRoute(String feuilleDeRoute) {
+		if (livraisonPopup != null)
+			return;
+		feuilleDeRoutePopup = new FeuilleDeRoutePopup(feuilleDeRoute, edb);
+		opaqueLayer = new Region();
+		opaqueLayer.setStyle("-fx-background-color: #00000088;");
+		opaqueLayer.setVisible(true);
 
+		stack.getChildren().add(opaqueLayer);
+		stack.getChildren().add(feuilleDeRoutePopup);
+	}
+	
+	public void masquerFenetreFeuilleDeRoute() {
+		stack.getChildren().remove(feuilleDeRoutePopup);
+		stack.getChildren().remove(opaqueLayer);
+		
+		feuilleDeRoutePopup = null;
+		opaqueLayer = null;
+	}
+	
 	public void afficherFenetreTimeout() {
 		if (timeoutPopup != null)
 			return;

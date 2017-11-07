@@ -112,4 +112,8 @@ public abstract class EtatDefaut implements Etat {
 	@Override
 	public void exporterFeuilleDeRoute(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee) {
 	}
+	
+	@Override
+	public void fermerFeuilleDeRoute(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
+	}
 }

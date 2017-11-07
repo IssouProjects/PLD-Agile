@@ -58,6 +58,10 @@ public class Chemin {
 			String rueActuelle = listeTroncons.get(i).getNomRue();
 			int distanceActuelle = (int)listeTroncons.get(i).getLongueur();
 			
+			if(rueActuelle.isEmpty()) {
+				rueActuelle = "Rue Inconnue";
+			}
+			
 			if(rueActuelle.equals(ruePrecedente)) {
 				distancePrecedente += distanceActuelle;
 			}else {

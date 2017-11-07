@@ -29,6 +29,7 @@ public class Controleur {
 	protected final EtatAjoutLivraison3 etatAjoutLivraison3 = new EtatAjoutLivraison3();
 	protected final EtatSupprLivraison1 etatSupprLivraison1 = new EtatSupprLivraison1();
 	protected final EtatModifierLivraison1 etatModifierLivraison1 = new EtatModifierLivraison1();
+	protected final EtatFeuilleDeRoute etatFeuilleDeRoute = new EtatFeuilleDeRoute();
 
 	private ListeDeCommandes commandes;
 
@@ -133,6 +134,10 @@ public class Controleur {
 
 	public void tronconClicked(Troncon troncon) {
 		etatCourant.tronconClicked(this, fenetrePrincipale, planDeVille, troncon, commandes);
+	}
+	
+	public void fermerFeuilleDeRoute() {
+		etatCourant.fermerFeuilleDeRoute(this, fenetrePrincipale);
 	}
 
 	public void calculerCheminsNouvelleLivraison(Integer duree, Time heureDeb, Time heureFin) {
