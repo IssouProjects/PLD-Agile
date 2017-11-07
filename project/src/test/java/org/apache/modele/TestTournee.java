@@ -308,22 +308,22 @@ public class TestTournee {
 		assertEquals("ID: 26155368 X:23009 Y:33904", tournee.getChemin(2).getDebut().toString());
 		assertEquals("ID: 25303807 X:19933 Y:32576", tournee.getChemin(2).getFin().toString());
 
-		assertEquals("[Depart de l'entrepot: 08:00, Livraison 1\n" +
+		assertEquals("[Départ de l'entrepôt: 08:00, Livraison 1\n" +
 		          	"	Heure d'arrivée: 08:05\n" +
 		        	"	Pas de plage horaire\n" +
-		        	"	Duree sur place: 15min, Livraison 2\n" +
+				"	Durée sur place: 15min, Livraison 2\n" +
 		        	"	Heure d'arrivée: 08:26\n" +
 		        	"	Plage horaire: 08:00 - 08:30\n" + 
-		        	"	Duree sur place: 1min, Livraison 3\n" +
+				"	Durée sur place: 1min, Livraison 3\n" +
 		        	"	Heure d'arrivée: 08:29\n" +
 		        	"	Pas de plage horaire\n" +
-		        	"	Duree sur place: 5min, Livraison 4\n" +
+				"	Durée sur place: 5min, Livraison 4\n" +
 		        	"	Heure d'arrivée: 08:35\n" +
 		        	"	Pas de plage horaire\n" +
-		        	"	Duree sur place: 15min, Livraison 5\n" +
+				"	Durée sur place: 15min, Livraison 5\n" +
 		        	"	Heure d'arrivée: 08:52\n" + 
 		        	"	Pas de plage horaire\n" + 
-		        	"	Duree sur place: 15min]", tournee.getLivraisonsOrdonnees().toString());
+				"	Durée sur place: 15min]", tournee.getLivraisonsOrdonnees().toString());
 	}
 
 	@Test
@@ -352,16 +352,16 @@ public class TestTournee {
 		assertTrue(tournee.getDureeTourneeSecondes() < dureeAncienneTournee);
 		assertEquals(3818, tournee.getDureeTourneeSecondes());
 
-		assertEquals("[Depart de l'entrepot: 08:00, Livraison 1\n"
+		assertEquals("[Départ de l'entrepôt: 08:00, Livraison 1\n"
 				+ "	Heure d'arrivée: 08:05\n" 
 				+ "	Pas de plage horaire\n"
-				+ "	Duree sur place: 15min, Livraison 2\n"
+				+ "	Durée sur place: 15min, Livraison 2\n"
 				+ "	Heure d'arrivée: 08:24\n" 
 				+ "	Pas de plage horaire\n"
-				+ "	Duree sur place: 15min, Livraison 3\n"
+				+ "	Durée sur place: 15min, Livraison 3\n"
 				+ "	Heure d'arrivée: 08:41\n"
 				+ "	Pas de plage horaire\n"
-				+ "	Duree sur place: 15min]", tournee.getLivraisonsOrdonnees().toString());
+				+ "	Durée sur place: 15min]", tournee.getLivraisonsOrdonnees().toString());
 
 		assertEquals(
 				"[De 25321357 à 1860559399, De 1860559399 à 26155540, De 26155540 à 29003879, De 29003879 à 25321357]",
@@ -416,9 +416,10 @@ public class TestTournee {
 		tournee.setEntrepot(demande.getEntrepot());
 		tournee.calculerTournee(plan, demande, 10000);
 		
-		assertEquals("Depart de l'entrepot: 08:00\n" + 
-				"\n" + 
-				"Rue Guilloud sur 129m.\n" + 
+		assertEquals(
+				"Durée de la tournée: 1h 8min\n" + "Départ de l'entrepôt: 08:00\n" + "Retour à l'entrepôt: 09:08\n"
+						+
+						"\n" + "Rue Guilloud sur 129m.\n" + 
 				"Rue du Docteur Rebatel sur 154m.\n" + 
 				"Place Ambroise Courtois sur 177m.\n" + 
 				"Avenue des Frères Lumière sur 300m.\n" + 
@@ -429,7 +430,7 @@ public class TestTournee {
 				"Livraison 1\n" + 
 				"	Heure d'arrivée: 08:05\n" + 
 				"	Pas de plage horaire\n" + 
-				"	Duree sur place: 15min\n" + 
+						"	Durée sur place: 15min\n" +
 				"\n" + 
 				"Impasse Gazagnon sur 84m.\n" + 
 				"Rue Feuillat sur 246m.\n" + 
@@ -438,14 +439,14 @@ public class TestTournee {
 				"Livraison 2\n" + 
 				"	Heure d'arrivée: 08:24\n" + 
 				"	Pas de plage horaire\n" + 
-				"	Duree sur place: 5min\n" + 
+						"	Durée sur place: 5min\n" +
 				"\n" + 
 				"Avenue Lacassagne sur 159m.\n" + 
 				"\n" + 
 				"Livraison 3\n" + 
 				"	Heure d'arrivée: 08:29\n" + 
 				"	Pas de plage horaire\n" + 
-				"	Duree sur place: 15min\n" + 
+						"	Durée sur place: 15min\n" +
 				"\n" + 
 				"Avenue Lacassagne sur 228m.\n" + 
 				"Cours Eugénie sur 47m.\n" + 
@@ -455,7 +456,7 @@ public class TestTournee {
 				"Livraison 4\n" + 
 				"	Heure d'arrivée: 08:46\n" + 
 				"	Pas de plage horaire\n" + 
-				"	Duree sur place: 15min\n" + 
+						"	Durée sur place: 15min\n" + 
 				"\n" + 
 				"Rue Coignet sur 25m.\n" + 
 				"Rue Viala sur 79m.\n" + 
@@ -464,7 +465,8 @@ public class TestTournee {
 				"Cours Albert Thomas sur 751m.\n" + 
 				"Rue Jeanne Koehler sur 139m.\n" + 
 				"\n" + 
-				"", tournee.exporterRoute());
+						"Retour à l'entrepôt: 09:08",
+				tournee.exporterRoute());
 	}
 	
 	@Test(timeout = 1000)

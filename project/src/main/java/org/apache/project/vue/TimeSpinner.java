@@ -20,7 +20,7 @@ public class TimeSpinner extends Spinner<LocalTime> {
 		HOURS, MINUTES
 	}
 
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH'h'mm");
 
 	private final ObjectProperty<EditMode> mode = new SimpleObjectProperty<>(EditMode.MINUTES);
 
@@ -78,7 +78,7 @@ public class TimeSpinner extends Spinner<LocalTime> {
 
 			@Override
 			public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
-				if (!getEditor().getText().matches("[0-9]{0,2}:[0-9]{0,2}")) {
+				if (!getEditor().getText().matches("[0-9]{0,2}h[0-9]{0,2}")) {
 					updateText(); // we reset the previous text
 				}
 			}
@@ -102,7 +102,7 @@ public class TimeSpinner extends Spinner<LocalTime> {
 			public void handle(InputEvent event) {
 
 				int caretPos = getEditor().getCaretPosition();
-				int hrIndex = getEditor().getText().indexOf(':');
+				int hrIndex = getEditor().getText().indexOf('h');
 
 				if (caretPos <= hrIndex) {
 					mode.set(EditMode.HOURS);
@@ -127,7 +127,7 @@ public class TimeSpinner extends Spinner<LocalTime> {
 	}
 
 	private void selectText() {
-		int hrIndex = getEditor().getText().indexOf(':');
+		int hrIndex = getEditor().getText().indexOf('h');
 		// int minIndex = getEditor().getText().indexOf(':', hrIndex + 1);
 
 		getEditor().deselect();
@@ -143,7 +143,7 @@ public class TimeSpinner extends Spinner<LocalTime> {
 	}
 
 	private LocalTime stringToTime(String string) {
-		String[] tokens = string.split(":");
+		String[] tokens = string.split("h");
 		int hours = secureParseInt(tokens, 0);
 		int minutes = secureParseInt(tokens, 1);
 		int totalSeconds = (hours * 60 + minutes) * 60;

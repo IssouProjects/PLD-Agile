@@ -19,8 +19,10 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -33,13 +35,13 @@ public class MapDisplay extends Pane {
 	Map<Troncon, Line> mapTroncons;
 
 	Map<Livraison, Circle> mapLivraisons;
-	List<Circle> tourneeInter;
 	Map<Troncon, Line> mapTourneeTroncons;
 
 	List<Label> numerosLivraisons;
 
 	// highlight management
 	Object highlightedObject = null;
+	Paint oldColor = null;
 
 	// default map display
 	final int defaultFontSize = 1000;
@@ -55,19 +57,19 @@ public class MapDisplay extends Pane {
 	final Color defaultTronconColorHL = Color.web("#007B02");
 
 	// default livraison display
-	final int livraisonIntersectionRadius = 200;
+	final int livraisonIntersectionRadius = 300;
 	final Color defaultLivraisonColor = Color.web("#425087");
 	final Color defaultEntrepotColor = Color.BLACK;
 
 	// highlighted livraison display
-	final int livraisonIntersectionRadiusHL = 400;
+	final int livraisonIntersectionRadiusHL = 600;
 	final Color defaultLivraisonColorHL = Color.web("#FAA12D");
 	final Color defaultEntrepotColorHL = Color.BLACK;
 
 	// default tournee display
 	final int tourneeIntersectionRadius = 50;
-	final int tourneeTronconWidth = 150;
-	final Color defaultTourneeTronconColor = Color.web("#3399ff");
+	final int tourneeTronconWidth = 300;
+	final Color defaultTourneeTronconColors[] = {Color.web("#003300"), Color.web("#33cc33")};
 	final Color defaultTourneeIntersectionColor = Color.web("#3399ff");
 	final Color defaultTourneeLivraisonColor = Color.web("#425087");
 
@@ -75,7 +77,7 @@ public class MapDisplay extends Pane {
 	Long maximalX = 0l;
 	Long minimalY = Long.MAX_VALUE;
 	Long maximalY = 0l;	
-
+	
     public MapDisplay(int height, int width) {
         setPrefSize(height, width);
         setStyle("-fx-background-color: #b2b2b2;");        
@@ -87,7 +89,6 @@ public class MapDisplay extends Pane {
         mapLivraisons = new HashMap<Livraison, Circle>();
         mapIntersections = new HashMap<Intersection, Circle>();
         mapTroncons = new HashMap<Troncon, Line>();
-        tourneeInter = new ArrayList<Circle>();
         mapTourneeTroncons = new HashMap<Troncon, Line>();
         numerosLivraisons = new ArrayList<Label>();
     }
@@ -180,22 +181,32 @@ public class MapDisplay extends Pane {
     }
     
     public void resetAndHighlight(Object obj) {
-    	if(highlightedObject != null)
-			unHighlight(highlightedObject);
+    	unhighlight();
 		
 		if(highlight(obj)) {
 			highlightedObject = obj;
 		}
     }
     
+    public void unhighlight() {
+    	if(highlightedObject != null)
+			unHighlight(highlightedObject);
+    }
+    
     public boolean highlight(Object obj) {
+    	boolean found = false;
     	if(obj instanceof Livraison) {
-    		return highlightLivraison((Livraison)obj);
+    		found = highlightLivraison((Livraison)obj);
     	}else if(obj instanceof Intersection) {
-    		return highlightIntersection((Intersection)obj);
+    		found = highlightIntersection((Intersection)obj);
     	}else if(obj instanceof Troncon) {
-    		return highlightTroncon((Troncon)obj);
+    		found = highlightTroncon((Troncon)obj);
     	}
+    	
+    	if(found) {
+    		highlightedObject = obj;
+    	}
+    	
     	return false;
     }
     
@@ -207,6 +218,7 @@ public class MapDisplay extends Pane {
     	}else if(obj instanceof Troncon) {
     		return unHighlightTroncon((Troncon)obj);
     	}
+    	highlightedObject = null;
     	return false;
     }
     
@@ -215,6 +227,7 @@ public class MapDisplay extends Pane {
     	
     	if(circle != null) {
     		circle.setRadius(livraisonIntersectionRadiusHL);
+    		oldColor = circle.getFill();
     		circle.setStyle("-fx-effect: dropshadow(three-pass-box, #FFFFFFAA, 8000, 0.5, 0, 0);");
     		return true;
     	}
@@ -226,6 +239,10 @@ public class MapDisplay extends Pane {
     	
     	if(circle != null) {
     		circle.setRadius(livraisonIntersectionRadius);
+    		if(oldColor != null) {
+    			circle.setFill(oldColor);
+    			oldColor = null;
+    		}
     		circle.setStyle("");
     		return true;
     	}
@@ -237,6 +254,7 @@ public class MapDisplay extends Pane {
     	
     	if(circle != null) {
     		circle.setRadius(defaultIntersectionRadiusHL);
+    		oldColor = circle.getFill();
     		circle.setFill(defaultIntersectionColorHL);
     		circle.setStyle("-fx-effect: dropshadow(three-pass-box, #FFFFFFAA, 8000, 0.5, 0, 0);");
     		return true;
@@ -249,7 +267,12 @@ public class MapDisplay extends Pane {
     	
     	if(circle != null) {
     		circle.setRadius(defaultIntersectionRadius);
-    		circle.setFill(defaultIntersectionColor);
+    		if(oldColor != null) {
+    			circle.setFill(oldColor);
+    			oldColor = null;
+    		} else {
+    			circle.setFill(defaultIntersectionColor);
+    		}
     		circle.setStyle("");
     		return true;
     	}
@@ -264,6 +287,7 @@ public class MapDisplay extends Pane {
     	
     	if(line != null) {
     		line.toFront();
+    		oldColor = line.getStroke();
     		line.setStroke(defaultTronconColorHL);
     		line.setStrokeWidth(defaultTronconWidthHL);
     		line.setStyle("-fx-effect: dropshadow(three-pass-box, #FFFFFFAA, 8000, 0.5, 0, 0);");
@@ -279,15 +303,24 @@ public class MapDisplay extends Pane {
     	if(line1 == null) {
     		line2 = mapTroncons.get(troncon);
     	}
-    	
     	if(line1 != null) {
-    		line1.setStroke(defaultTourneeTronconColor);
+    		if(oldColor != null) {
+    			line1.setStroke(oldColor);
+    			oldColor = null;
+    		} else {
+    			line1.setStroke(this.defaultTronconColor);
+    		}
     		line1.setStrokeWidth(tourneeTronconWidth);
     		line1.setStyle("");
     		livraisonToFront();
     		return true;
     	}else if(line2 != null) {
-    		line2.setStroke(this.defaultTronconColor);
+    		if(oldColor != null) {
+    			line2.setStroke(oldColor);
+    			oldColor = null;
+    		} else {
+    			line2.setStroke(this.defaultTronconColor);
+    		}
     		line2.setStrokeWidth(defaultTronconWidth);
     		line2.setStyle("");
     		line2.toBack();
@@ -330,20 +363,54 @@ public class MapDisplay extends Pane {
     	
     	final List<Chemin> chemins = tournee.getChemins();
     	
+    	int nombreTotalTronconsTournee = 0;
+    	for(Chemin c : chemins) {
+    		nombreTotalTronconsTournee += c.getTroncons().size();
+    	}
+    	
+    	Map<Troncon, Integer> tronconCount = new HashMap<Troncon, Integer>();
+    	Map<Troncon, List<Color>> tronconColors = new HashMap<Troncon, List<Color>>();
+    	
     	// we show the Tournee
+    	int positionTronconDansTournee = 0;
     	for(Chemin c : chemins) {
     		
     		final List<Troncon> troncons = c.getTroncons();
     		
     		for(Troncon t : troncons){
-    			Circle circle = this.creerVueIntersection(t.getIntersectionArrivee(), defaultTourneeIntersectionColor, tourneeIntersectionRadius);
-                tourneeInter.add(circle);
-                getChildren().add(circle);
-                mapIntersections.put(t.getIntersectionArrivee(), circle);
-                
-                Line line = this.creerVueTroncon(t, defaultTourneeTronconColor, tourneeTronconWidth);
-                mapTourneeTroncons.put(t, line);
-                getChildren().add(line);
+    			Color couleurTroncon = getColorGradientPoint(positionTronconDansTournee, nombreTotalTronconsTournee);
+    			
+                Line line = mapTourneeTroncons.get(t);
+                if(line == null) {
+	                line = this.creerVueTroncon(t, couleurTroncon, tourneeTronconWidth);
+
+	                mapTourneeTroncons.put(t,line);
+	                getChildren().add(line);
+	                tronconCount.put(t, new Integer(1));
+	                
+	                List<Color> listColorInitiale = new ArrayList<Color>();
+	                listColorInitiale.add(couleurTroncon);
+	                tronconColors.put(t, listColorInitiale);
+                } else {
+                	Integer i = tronconCount.get(t);
+                	i++;
+                	tronconCount.put(t, i);
+                	
+                	List<Color> updatedListColor = tronconColors.get(t);
+                	updatedListColor.add(couleurTroncon);
+                	tronconColors.put(t, updatedListColor);
+                }
+
+                positionTronconDansTournee++;
+    		}
+    	}
+    	
+    	for(Map.Entry<Troncon, Integer> entry : tronconCount.entrySet()) {
+    		if(entry.getValue()>1) {
+    			List<Color> listeCouleurs = tronconColors.get(entry.getKey());
+    			Line line = mapTourneeTroncons.get(entry.getKey());
+    			String style = this.getColorGradientPoint(listeCouleurs, line);
+    			line.setStyle(style);
     		}
     	}
     	
@@ -368,13 +435,7 @@ public class MapDisplay extends Pane {
     }
     
     public void clearTournee() {
-    	if(!tourneeInter.isEmpty()) {
-    		getChildren().removeAll(tourneeInter);
-    		for(Circle i : tourneeInter) {
-    			mapIntersections.remove(i.getUserData());
-    		}
-    		tourneeInter.clear();
-    		
+    	if(!mapTourneeTroncons.isEmpty()) {
     		for(Entry<Troncon, Line> entry : mapTourneeTroncons.entrySet())
     			getChildren().remove(entry.getValue());
     		mapTourneeTroncons.clear();
@@ -429,7 +490,7 @@ public class MapDisplay extends Pane {
         return circle;
     }
     
-    public Line creerVueTroncon(Troncon tronc, Color color) {
+    public Line creerVueTroncon(Troncon tronc, Paint color) {
     	Line line = new Line();
     	
     	line.setUserData(tronc);
@@ -446,9 +507,10 @@ public class MapDisplay extends Pane {
 		return line;
 	}
 
-	public Line creerVueTroncon(Troncon tronc, Color color, int width) {
+	public Line creerVueTroncon(Troncon tronc, Paint color, int width) {
 		Line line = creerVueTroncon(tronc, color);
 		line.setStrokeWidth(width);
+		line.setStrokeLineCap(StrokeLineCap.ROUND);
 
 		return line;
 	}
@@ -466,5 +528,55 @@ public class MapDisplay extends Pane {
 
 	public double getTransformedY(double coordX) {
 		return getPrefHeight() - (coordX - minimalX);
+	}
+	
+	private Color getColorGradientPoint(int positionTroncon, int nombreTroncons) {
+		double percentage = (double)positionTroncon/(double)nombreTroncons;
+		Color colorGradientPoint = defaultTourneeTronconColors[0].interpolate(defaultTourneeTronconColors[1], percentage);
+		return colorGradientPoint;
+	}
+	
+	private String getColorGradientPoint(List<Color> colors, Line line) {
+		if(!colors.isEmpty() && line != null) {
+			int x1 = (int)line.getStartX();
+            int x2 = (int)line.getEndX();
+            
+            int y1 = (int)line.getStartY();
+            int y2 = (int)line.getEndY();
+            
+            int cx = (x1+x2)/2;
+            int cy = (y1+y2)/2;
+            
+            x1-=cx; y1-=cy;
+            x2-=cx; y2-=cy;
+            
+            //rotate both points
+            int xtemp = x1; int ytemp = y1;
+            x1=-ytemp; y1=xtemp; 
+
+            xtemp = x2; ytemp = y2;
+            x2=-ytemp; y2=xtemp; 
+
+            //move the center point back to where it was
+            x1+=cx; y1+=cy;
+            x2+=cx; y2+=cy;
+            
+            String style = "-fx-stroke: linear-gradient(from " + x1 + " " + y1 + " to " + x2 + " " + y2;
+            
+            int size = colors.size();
+            int i=0;
+            
+            for(Color c : colors) {
+            	String hexColor = String.format( "#%02X%02X%02X",
+                        (int)( c.getRed() * 255 ),
+                        (int)( c.getGreen() * 255 ),
+                        (int)( c.getBlue() * 255 ) );
+            	style += "," + hexColor + " " + (int)((double)i/(double)size*105) + '%';
+            	i++;
+            	style += "," + hexColor + " " + (int)((double)i/(double)size*95) + '%';
+            }
+            return style + ");";
+		}
+		return "";
 	}
 }
