@@ -106,28 +106,22 @@ public class Livraison {
 
 	@Override
 	public String toString() {
-		String livraison_s = "";
-		
-		if(positionDansTournee != 0) {
-			livraison_s += "Livraison " + positionDansTournee + "\n";
-			livraison_s += "	Heure d'arrivée: " + PlageHoraire.timeToString(heureArrivee) + "\n";
-			if (plageHoraire != null) {
-				livraison_s += "	Plage horaire: " + PlageHoraire.timeToString(plageHoraire.getDebut()) + " - "
-						+ PlageHoraire.timeToString(plageHoraire.getFin());
-				if (heureArrivee != null) {
-					long avance = plageHoraire.getDebut().getTime() - heureArrivee.getTime();
-					if (avance > 0) {
-						livraison_s += "\n" + "Avance: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(avance);
-					}
+		String livraison_s = "Livraison " + positionDansTournee + "\n";
+		livraison_s += "	Heure d'arrivée: " + PlageHoraire.timeToString(heureArrivee) + "\n";
+		if (plageHoraire != null) {
+			livraison_s += "	Plage horaire: " + PlageHoraire.timeToString(plageHoraire.getDebut()) + " - "
+					+ PlageHoraire.timeToString(plageHoraire.getFin());
+			if (heureArrivee != null) {
+				long avance = plageHoraire.getDebut().getTime() - heureArrivee.getTime();
+				if (avance > 0) {
+					livraison_s += "\n" + "Avance: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(avance);
 				}
-			} else {
-				livraison_s += "	Pas de plage horaire";
 			}
-			livraison_s += "\n";
-			livraison_s += "	Duree sur place: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(duree * 1000);
-		}else {
-			livraison_s += "Depart de l'entrepot: " + PlageHoraire.timeToString(heureArrivee);
+		} else {
+			livraison_s += "	Pas de plage horaire";
 		}
+		livraison_s += "\n";
+		livraison_s += "	Durée sur place: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(duree * 1000);
 		return livraison_s;
 	}
 

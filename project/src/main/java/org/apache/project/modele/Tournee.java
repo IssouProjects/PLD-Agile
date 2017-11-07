@@ -178,8 +178,8 @@ public class Tournee extends Observable {
 		long idIntersection = 0;
 		long idIntersectionSuivante = 0;
 
-		// adresseEntrepot = demande.getAdresseEntrepot();
-
+		// Calcul horaires de livraison et de la durée et de l'heure de fin de la
+		// tournée
 		for (int i = 0; i < nombreLivraison; i++) {
 			idIntersection = conversion[tspSolut.getMeilleureSolution(i)];
 			if (i != nombreLivraison - 1) {
@@ -188,29 +188,26 @@ public class Tournee extends Observable {
 				idIntersectionSuivante = conversion[0];
 			}
 			// Mettre les intersections ordonnees (une a une)
-			// On n ajoute pas a la liste des intersections pour l entrepot
 			for (int j = 0; j < nombreLivraison; j++) {
 				Livraison livraisonActuelle = demande.getListeLivraison().get(j);
 				if (idIntersection == livraisonActuelle.getLieuDeLivraison().getIdNoeud()) {
 					livraisonActuelle.setHeureArrivee(PlageHoraire
 							.calculerHeureArrivee(demande.getEntrepot().getHeureDepart(), dureeTourneeSecondes));
-
+					// Ajout dans le temps de livraison du temps d'attente
 					if (livraisonActuelle.getPlageHoraire() != null) {
-						// Ajout dans le temps de livraison le temps d attente
 						long avance = livraisonActuelle.getPlageHoraire().getDebut().getTime()
 								- livraisonActuelle.getHeureArrivee().getTime();
 						if (avance > 0) {
 							dureeTourneeSecondes += (int) Math.ceil(avance / 1000);
 						}
 					}
-
 					livraisonsOrdonnees.add(livraisonActuelle);
 					dureeTourneeSecondes += livraisonActuelle.getDuree();
 					break;
 				}
 			}
 
-			// Mettre les chemins ordonnees (une a une)
+			// Mettre les chemins ordonnées (un à un)
 			for (int j = 0; j < nombreChemin; j++) {
 				if (graphe.get(j).getDebut().getIdNoeud() == idIntersection
 						&& graphe.get(j).getFin().getIdNoeud() == idIntersectionSuivante) {
@@ -220,9 +217,9 @@ public class Tournee extends Observable {
 			}
 		}
 
+		entrepot.setHeureDeFin(PlageHoraire.calculerHeureArrivee(entrepot.getHeureDepart(), dureeTourneeSecondes));
 		boolean tempsLimiteAtteint = tspSolut.getTempsLimiteAtteint();
 		updatePositionsDansTournee();
-
 		return tempsLimiteAtteint;
 	}
 
@@ -260,32 +257,27 @@ public class Tournee extends Observable {
 	public void calculerDureeTotale() {
 
 		dureeTourneeSecondes = 0;
-
 		int nombreChemins = chemins.size();
 
 		for (int i = 0; i < nombreChemins; i++) {
-
-			// Mettre les intersections ordonnees (une a une)
 			Livraison livraisonActuelle = livraisonsOrdonnees.get(i);
-
+			// Calcul de l'heure d'arrivée
 			livraisonActuelle.setHeureArrivee(
 					PlageHoraire.calculerHeureArrivee(entrepot.getHeureDepart(), dureeTourneeSecondes));
-
+			// Si la livraison arrive en avance, on ajoute le temps d'attente
 			if (livraisonActuelle.getPlageHoraire() != null) {
-				// Ajout dans le temps de livraison le temps d attente
 				long avance = livraisonActuelle.getPlageHoraire().getDebut().getTime()
 						- livraisonActuelle.getHeureArrivee().getTime();
 				if (avance > 0) {
 					dureeTourneeSecondes += (int) Math.ceil(avance / 1000);
 				}
 			}
-
+			// Ajout de la durée de déchargement de la livraison
 			dureeTourneeSecondes += livraisonActuelle.getDuree();
-
-			// Mettre a jour les heures pour chaque chemin
-
+			// Ajout de la durée du chemin
 			dureeTourneeSecondes += chemins.get(i).getDuree();
 		}
+		entrepot.setHeureDeFin(PlageHoraire.calculerHeureArrivee(entrepot.getHeureDepart(), dureeTourneeSecondes));
 		updatePositionsDansTournee();
 	}
 
@@ -340,16 +332,22 @@ public class Tournee extends Observable {
 	
 	public String exporterRoute(){
 		updatePositionsDansTournee();
-		String feuille = "";
-		for(int i = 0; i<chemins.size(); ++i) {
-			feuille += livraisonsOrdonnees.get(i).toString();
+		String feuille = "Durée de la tournée: "
+				+ PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(this.getDureeTourneeSecondes() * 1000) + "\n";
+		feuille += this.entrepot.toString() + "\n";
+		feuille += "Retour à l'entrepôt: " + PlageHoraire.timeToString(this.entrepot.getHeureDeFin());
+
+		for (int i = 0; i < chemins.size(); ++i) {
+			if (i != 0) {
+				feuille += livraisonsOrdonnees.get(i).toString();
+			}
 			feuille += "\n\n";
-			for(String rue : chemins.get(i).getListeRues())
-				
+			for (String rue : chemins.get(i).getListeRues()) {
 				feuille +=rue + "\n";
+			}
 			feuille += "\n";
 		}
+		feuille += "Retour à l'entrepôt: " + PlageHoraire.timeToString(this.entrepot.getHeureDeFin());
 		return feuille;
 	}
-
 }
