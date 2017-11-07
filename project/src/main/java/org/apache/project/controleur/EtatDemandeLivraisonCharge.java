@@ -38,7 +38,7 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 					@Override
 					public void run() {
 						afterCalculation(controleur, fenetrePrincipale, demandeDeLivraison, tournee, tempsLimiteAtteint);
-						
+					
 					}
 				});	        	
 	        	return null;
