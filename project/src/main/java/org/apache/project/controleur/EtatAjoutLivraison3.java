@@ -29,6 +29,7 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
 		fenetrePrincipale.afficherInfo("Vous êtes libre");
+		fenetrePrincipale.setVisibleAnnulerButton(false);
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
 	}
 
@@ -42,5 +43,6 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
 		fenetrePrincipale.afficherInfo("Ajout annulé, vous êtes libre");
 		fenetrePrincipale.getMapContainer().setSelectionMode(SelectionMode.Troncon);
+		fenetrePrincipale.setVisibleAnnulerButton(false);
 	}
 }
