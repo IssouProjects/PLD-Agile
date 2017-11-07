@@ -32,7 +32,7 @@ public class TimeoutPopup extends VBox {
 		this.setPadding(new Insets(20,40,20,40));
 		setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
 		
-		Label title = new Label("Nouveau timeout");
+		Label title = new Label("Nouvelle durée calcul");
 		title.setStyle("-fx-font-weight: bold; -fx-font-size: 24;");
 		this.getChildren().add(title);
 		
@@ -55,7 +55,7 @@ public class TimeoutPopup extends VBox {
         valueFactory.valueProperty().bindBidirectional(formatter.valueProperty());
 
 		mainLayout.setAlignment(Pos.CENTER);
-		Label dureeLabel = new Label("Nouvelle durée en secondes");
+		Label dureeLabel = new Label("Durée en secondes");
 		
 		mainLayout.add(dureeLabel, 0, 0);
 		mainLayout.add(dureeSpinner, 0, 1);
