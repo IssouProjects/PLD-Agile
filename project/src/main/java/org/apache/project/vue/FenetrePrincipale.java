@@ -85,7 +85,7 @@ public class FenetrePrincipale extends Application {
 	public static final String ADD_LIVRAISON_ID = "addLivraisonButton";
 	public static final String SUPPR_LIVRAISON = "Supprimer livraison";
 	public static final String SUPPR_LIVRAISON_ID = "supprLivraisonButton";
-	public static final String ANNULER = "Annuler";
+	public static final String ANNULER = "Annuler l'ajout";
 	public static final String ANNULER_ID = "AnnulerButton";
 	public static final String EDIT_LIVRAISON_ID = "EditerLivraisonButton";;
 	public static final String UNDO_ID = "UndoButton";
@@ -168,29 +168,6 @@ public class FenetrePrincipale extends Application {
 		imageView = new ImageView();
 		imageView.setImage(new Image(getClass().getResource("loading.gif").toExternalForm()));
 
-		//////////////////////////////////////
-		///// CREATING THE DELIVERY LIST /////
-		//////////////////////////////////////
-
-		GridPane undoRedoLayout = new GridPane();
-		listLabel = new Label("Livraisons :");
-		GridPane.setValignment(listLabel, VPos.BOTTOM);
-
-		undoRedoWidget = new UndoRedoWidget(edb);
-
-		undoRedoLayout.setAlignment(Pos.CENTER_LEFT);
-		undoRedoLayout.setHgap(5);
-		HBox.setHgrow(listLabel, Priority.ALWAYS);
-		undoRedoLayout.add(listLabel, 0, 0);
-		undoRedoLayout.add(undoRedoWidget, 1, 0);
-		ColumnConstraints labelCC = new ColumnConstraints();
-		labelCC.setHgrow(Priority.ALWAYS);
-		undoRedoLayout.getColumnConstraints().add(labelCC);
-
-		layout.add(undoRedoLayout, 1, 0);
-		HBox listeButtonsLayout1 = new HBox();
-		listeButtonsLayout1.setSpacing(10);
-
 		// buttons
 		loadLivraisonButton = new Button(LOAD_LIVRAISON);
 		loadLivraisonButton.setUserData(LOAD_LIVRAISON_ID);
@@ -206,14 +183,38 @@ public class FenetrePrincipale extends Application {
 		supprLivraisonButton.setDisable(true);
 		annulerButton = new Button(ANNULER);
 		annulerButton.setUserData(ANNULER_ID);
-		annulerButton.setDisable(true);
+		annulerButton.setVisible(false);
 		recalculerButton = new Button(RECALCULER);
 		recalculerButton.setUserData(RECALCULER_ID);
 		recalculerButton.setVisible(false);
 		exporterButton = new Button(EXPORTER);
 		exporterButton.setUserData(EXPORTER_ID);
 		exporterButton.setDisable(true);
+    
 		
+		//////////////////////////////////////
+		///// CREATING THE DELIVERY LIST /////
+		//////////////////////////////////////
+
+		GridPane undoRedoLayout = new GridPane();
+		listLabel = new Label("Livraisons :");
+		GridPane.setValignment(listLabel, VPos.BOTTOM);
+
+		undoRedoWidget = new UndoRedoWidget(edb);
+
+		undoRedoLayout.setAlignment(Pos.CENTER_LEFT);
+		undoRedoLayout.setHgap(5);
+		HBox.setHgrow(listLabel, Priority.ALWAYS);
+		undoRedoLayout.add(listLabel, 0, 0);
+		undoRedoLayout.add(recalculerBouton, 1, 0);
+		undoRedoLayout.add(undoRedoWidget, 2, 0);
+		ColumnConstraints labelCC = new ColumnConstraints();
+		labelCC.setHgrow(Priority.ALWAYS);
+		undoRedoLayout.getColumnConstraints().add(labelCC);
+
+		layout.add(undoRedoLayout, 1, 0);
+		HBox listeButtonsLayout1 = new HBox();
+		listeButtonsLayout1.setSpacing(10);
 
 		// list
 		listeLivraisons = new ListDisplay();
@@ -304,8 +305,8 @@ public class FenetrePrincipale extends Application {
 
 	public void afficherPopupInfo(String message) {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Erreur");
-		alert.setHeaderText("Une erreur a eu lieu");
+		alert.setTitle("Information");
+		alert.setHeaderText("Information");
 		alert.setContentText(message);
 		alert.showAndWait();
 	}
@@ -329,7 +330,6 @@ public class FenetrePrincipale extends Application {
 		loadLivraisonButton.setDisable(false);
 		calculerTourneeButton.setDisable(true);
 		ajouterLivraisonButton.setDisable(true);
-		annulerButton.setDisable(true);
 	}
 
 	public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
@@ -339,8 +339,6 @@ public class FenetrePrincipale extends Application {
 		loadLivraisonButton.setDisable(false);
 		calculerTourneeButton.setDisable(false);
 		ajouterLivraisonButton.setDisable(true);
-		annulerButton.setDisable(true);
-		
 	}
 
 	public void afficherTournee(Tournee tournee) {
@@ -352,7 +350,6 @@ public class FenetrePrincipale extends Application {
 		calculerTourneeButton.setDisable(true);
 		ajouterLivraisonButton.setDisable(false);
 		supprLivraisonButton.setDisable(false);
-		annulerButton.setDisable(false);
 		exporterButton.setDisable(false);
 	}
 
@@ -506,6 +503,10 @@ public class FenetrePrincipale extends Application {
     
     public void setVisibleRecalculerButton(boolean visible) {
     	recalculerButton.setVisible(visible);
+    }
+    
+    public void setVisibleAnnulerButton(boolean visible) {
+    	annulerBouton.setVisible(visible);
     }
     
     public void afficherLoading() {

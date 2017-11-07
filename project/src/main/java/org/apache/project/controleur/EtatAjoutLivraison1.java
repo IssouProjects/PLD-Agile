@@ -31,5 +31,6 @@ public class EtatAjoutLivraison1 extends EtatDefaut {
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
 		fenetrePrincipale.afficherInfo("Ajout annulé, vous êtes libre");
 		fenetrePrincipale.getMapContainer().setSelectionMode(SelectionMode.Troncon);
+		fenetrePrincipale.setVisibleAnnulerButton(false);
 	}
 }

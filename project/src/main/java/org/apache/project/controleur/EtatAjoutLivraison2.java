@@ -47,6 +47,7 @@ public class EtatAjoutLivraison2 extends EtatDefaut {
 		fenetrePrincipale.getListDisplay().disableAddHint();
 		fenetrePrincipale.afficherInfo("Ajout annulé, vous êtes libre");
 		fenetrePrincipale.getMapContainer().setSelectionMode(SelectionMode.Troncon);
+		fenetrePrincipale.setVisibleAnnulerButton(false);
 	}
 
 	protected void actionEntreeEtatAjoutLivraison2(Intersection intersection) {

@@ -23,6 +23,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		fenetrePrincipale.clearPlanDeVille();
 		fenetrePrincipale.clearLivraison();
 		fenetrePrincipale.clearTournee();
+		fenetrePrincipale.setVisibleRecalculerButton(false);
 		controleur.clearPlanDeVille();
 		controleur.clearTournee();
 		controleur.clearDemandeDeLivraison();
@@ -38,8 +39,8 @@ public class EtatTourneeCalculee extends EtatDefaut{
 			return;
 		}
 		commandes.clearCommandes();
-		fenetrePrincipale.setVisibleRecalculerButton(false);
 		controleur.setEtatCourant(controleur.etatPlanCharge);
+		fenetrePrincipale.setVisibleRecalculerButton(false);
 		fenetrePrincipale.clearLivraison();
 		fenetrePrincipale.clearTournee();
 		controleur.clearDemandeDeLivraison();
@@ -54,6 +55,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		fenetrePrincipale.setVisibleRecalculerButton(false);
 		fenetrePrincipale.getMapContainer().setSelectionMode(SelectionMode.Intersection);
 		fenetrePrincipale.afficherInfo("Veuillez cliquer sur une intersection de la carte");
+		fenetrePrincipale.setVisibleAnnulerButton(true);
 	}
 	
 	@Override
@@ -108,6 +110,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		commandes.ajouteCommande(new CdeEchangerLivraison(planDeVille, tournee, livraisonSelectionnee, nouveauIndex));
 		
 		fenetrePrincipale.clearTournee();
+		fenetrePrincipale.setVisibleRecalculerButton(false);
 		fenetrePrincipale.afficherTournee(tournee);
 	}
 	
