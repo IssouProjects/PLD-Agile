@@ -13,8 +13,6 @@ public class Livraison {
 	private int duree;
 	private PlageHoraire plageHoraire;
 	private Time heureArrivee;
-	private Boolean estSelectionnee;
-	
 	private int positionDansTournee = -1;
 
 	/**
@@ -24,7 +22,7 @@ public class Livraison {
 	 * @param lieuDeLivraison
 	 *            intersection où se déroule la livraison.
 	 * @param dureeLivraison
-	 *            temps de déchargement des produits livrés.
+	 *            temps de déchargement des produits livrés en secondes.
 	 * @param plageHoraire
 	 *            plage horaire où se déroule la livraison.
 	 */
@@ -33,7 +31,6 @@ public class Livraison {
 		this.duree = dureeLivraison;
 		this.plageHoraire = plageHoraire;
 		this.heureArrivee = null;
-		this.setEstSelectionnee(false);
 	}
 
 	/**
@@ -43,14 +40,13 @@ public class Livraison {
 	 * @param lieuDeLivraison
 	 *            intersection où se déroule la livraison.
 	 * @param dureeLivraison
-	 *            temps de déchargement des produits livrés.
+	 *            temps de déchargement des produits livrés en secondes.
 	 */
 	public Livraison(Intersection lieuDeLivraison, int dureeLivraison) {
 		this.lieuDeLivraison = lieuDeLivraison;
 		this.duree = dureeLivraison;
 		this.plageHoraire = null;
 		this.heureArrivee = null;
-		this.setEstSelectionnee(false);
 	}
 
 	/**
@@ -64,16 +60,17 @@ public class Livraison {
 		this.lieuDeLivraison = lieuDeLivraison;
 		this.duree = 0;
 		this.plageHoraire = null;
-		this.setEstSelectionnee(false);
 	}
 
 	public Intersection getLieuDeLivraison() {
 		return lieuDeLivraison;
 	}
 
-	public void setLieuDeLivraison(Intersection lieuDeLivraison) {
-		this.lieuDeLivraison = lieuDeLivraison;
-	}
+	/**
+	 * Renvoie le temps de déchargement de la livraison en secondes
+	 * 
+	 * @return durée de déchargement de la livraison en secondes.
+	 */
 
 	public int getDuree() {
 		return duree;
@@ -99,30 +96,20 @@ public class Livraison {
 		this.heureArrivee = heureArrivee;
 	}
 
-	public Boolean getEstSelectionnee() {
-		return estSelectionnee;
-	}
-
-	public void setEstSelectionnee(Boolean estSelectionnee) {
-		this.estSelectionnee = estSelectionnee;
-	}
-	
 	public void setPositionDansTournee(int positionDansTournee) {
 		this.positionDansTournee = positionDansTournee;
 	}
-	
+
 	public int getPositionDansTournee() {
 		return this.positionDansTournee;
 	}
 
 	@Override
 	public String toString() {
-		String livraison_s = "";
-		if (heureArrivee != null) {
-			livraison_s += "Heure d'arrivée: " + PlageHoraire.timeToString(heureArrivee) + "\n";
-		}
+		String livraison_s = "Livraison " + positionDansTournee + "\n";
+		livraison_s += "	Heure d'arrivée: " + PlageHoraire.timeToString(heureArrivee) + "\n";
 		if (plageHoraire != null) {
-			livraison_s += "Plage horaire: " + PlageHoraire.timeToString(plageHoraire.getDebut()) + " - "
+			livraison_s += "	Plage horaire: " + PlageHoraire.timeToString(plageHoraire.getDebut()) + " - "
 					+ PlageHoraire.timeToString(plageHoraire.getFin());
 			if (heureArrivee != null) {
 				long avance = plageHoraire.getDebut().getTime() - heureArrivee.getTime();
@@ -131,10 +118,10 @@ public class Livraison {
 				}
 			}
 		} else {
-			livraison_s += "Pas de plage horaire";
+			livraison_s += "	Pas de plage horaire";
 		}
 		livraison_s += "\n";
-		livraison_s += "Duree sur place: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(duree * 1000);
+		livraison_s += "	Durée sur place: " + PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(duree * 1000);
 		return livraison_s;
 	}
 

@@ -6,11 +6,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import org.apache.project.modele.DemandeDeLivraison;
-import org.apache.project.modele.Entrepot;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.Tournee;
 
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -34,15 +32,15 @@ public class ListDisplay extends Pane implements Observer {
 
 	private GridPane addNotifier = new GridPane();
 	Pane notifierCircle = new Pane();
-	
+
 	private List<Livraison> livraisonsTmp = null;
-	
+
 	private long lastAutoscrollTime = 0l;
 
 	public ListDisplay() {
-		
+
 		this.getChildren().add(liste);
-		
+
 		// using custom class LivraisonCell to display cells
 		liste.setCellFactory(new Callback<ListView<Livraison>, ListCell<Livraison>>() {
 			@Override
@@ -57,7 +55,7 @@ public class ListDisplay extends Pane implements Observer {
 		liste.prefHeightProperty().bind(this.heightProperty());
 
 		// auto scroll on drag management
-		liste.addEventFilter(DragEvent.DRAG_OVER, new EventHandler<DragEvent>(){
+		liste.addEventFilter(DragEvent.DRAG_OVER, new EventHandler<DragEvent>() {
 
 			@Override
 			public void handle(DragEvent event) {
@@ -67,25 +65,25 @@ public class ListDisplay extends Pane implements Observer {
 				double dragY = event.getY();
 				double topYProximity = tableBounds.getMinY() + proximity;
 				double bottomYProximity = tableBounds.getMaxY() - proximity;
-				
+
 				long currentTime = System.currentTimeMillis();
-				
-				if(currentTime-lastAutoscrollTime > 50) {
-					
+
+				if (currentTime - lastAutoscrollTime > 50) {
+
 					lastAutoscrollTime = currentTime;
-					
+
 					if (dragY < topYProximity) {
 						if (verticalScrollBar != null) {
 							verticalScrollBar.decrement();
 						}
-		
+
 					} else if (dragY > bottomYProximity) {
 						if (verticalScrollBar != null) {
 							verticalScrollBar.increment();
 						}
 					}
 				}
-				
+
 			}
 
 		});
@@ -121,38 +119,38 @@ public class ListDisplay extends Pane implements Observer {
 	public void hideHint() {
 		addNotifier.setVisible(false);
 	}
-	
+
 	public void enableAddHint() {
 		HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
 		this.useAddNotifier();
-		for(LivraisonCell lc : map.values()) {
+		for (LivraisonCell lc : map.values()) {
 			lc.enableAddHint();
 		}
 	}
-	
+
 	public void disableAddHint() {
 		HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
-		for(LivraisonCell lc : map.values()) {
+		for (LivraisonCell lc : map.values()) {
 			lc.disableAddHint();
 		}
 	}
-	
+
 	public void enableMoveLivraison() {
 		HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
 		this.useAddNotifier();
-		for(LivraisonCell lc : map.values()) {
+		for (LivraisonCell lc : map.values()) {
 			lc.enableMove();
 		}
 	}
-	
+
 	public void disableMoveLivraison() {
 		HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
 		this.useAddNotifier();
-		for(LivraisonCell lc : map.values()) {
+		for (LivraisonCell lc : map.values()) {
 			lc.disableMove();
 		}
 	}
-	
+
 	public void livraisonMoved(Livraison livraisonMoved, int newIndex) {
 		ecouteurDeListe.onMoveLivraison(livraisonMoved, newIndex);
 	}
@@ -183,7 +181,7 @@ public class ListDisplay extends Pane implements Observer {
 	public EcouteurDeBouton getEcouteurDeBouton() {
 		return ecouteurDeBouton;
 	}
-	
+
 	private void createNotifier() {
 		this.getChildren().add(addNotifier);
 		addNotifier.setVisible(false);
@@ -202,7 +200,7 @@ public class ListDisplay extends Pane implements Observer {
 		notifierCircle.getStyleClass().clear();
 		notifierCircle.getStyleClass().add("circlePlus");
 	}
-	
+
 	public void useMoveNotifier() {
 		notifierCircle.getStyleClass().clear();
 		notifierCircle.getStyleClass().add("circleMove");

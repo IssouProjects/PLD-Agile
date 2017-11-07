@@ -5,6 +5,7 @@ import org.apache.project.modele.Intersection;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
+import org.apache.project.vue.MapGestures.SelectionMode;
 
 public class EtatAjoutLivraison1 extends EtatDefaut {
 
@@ -19,15 +20,17 @@ public class EtatAjoutLivraison1 extends EtatDefaut {
 			controleur.setEtatCourant(controleur.etatAjoutLivraison2);
 			controleur.etatAjoutLivraison2.actionEntreeEtatAjoutLivraison2(intersection);
 			fenetrePrincipale.getListDisplay().enableAddHint();
-			fenetrePrincipale.afficherInfo("Veuillez cliquer sur une livraison ou choisir une autre intersection");
+			fenetrePrincipale.afficherInfo("Sélectionner livraison précédant la nouvelle livraison, ou nouvelle intersection");
 		} else {
-			fenetrePrincipale.afficherPopupError("Veuillez cliquer sur une intersection valide");
+			fenetrePrincipale.afficherPopupError("Intersection invalide");
 		}
 	}
 
 	@Override
 	public void annuler(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
-		fenetrePrincipale.afficherInfo("Ajout annulé, vous êtes libre");
+		fenetrePrincipale.afficherInfo("Ajout annulé. Action libre");
+		fenetrePrincipale.getMapContainer().setSelectionMode(SelectionMode.Troncon);
+		fenetrePrincipale.setVisibleAnnulerButton(false);
 	}
 }
