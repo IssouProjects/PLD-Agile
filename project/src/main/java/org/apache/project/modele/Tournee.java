@@ -342,8 +342,11 @@ public class Tournee extends Observable {
 	}
 
 	public void updatePositionsDansTournee() {
-		for (int i = 0; i < livraisonsOrdonnees.size()-1; i++) {
+		for (int i = 0; i < livraisonsOrdonnees.size(); i++) {
 			livraisonsOrdonnees.get(i).setPositionDansTournee(i);
+		}
+		if(livraisonsOrdonnees.get(livraisonsOrdonnees.size()-1)==entrepot){
+			entrepot.setPositionDansTournee(0);
 		}
 	}
 	
