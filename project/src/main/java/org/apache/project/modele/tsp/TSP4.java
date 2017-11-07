@@ -22,10 +22,10 @@ public class TSP4 extends TemplateTSP {
 		branchAndBound(0, nonVus, vus, 0, cout, duree, System.currentTimeMillis(), tpsLimite, tempsMini, tempsMax);
 	}
 	
-	void branchAndBound(int sommetCrt, ArrayList<Integer> nonVus, ArrayList<Integer> vus, int coutVus, int[][] cout, int[] duree, long tpsDebut, int tpsLimite, int[] tempsMini, int[] tempsMax){
+	boolean branchAndBound(int sommetCrt, ArrayList<Integer> nonVus, ArrayList<Integer> vus, int coutVus, int[][] cout, int[] duree, long tpsDebut, int tpsLimite, int[] tempsMini, int[] tempsMax){
 		 if (System.currentTimeMillis() - tpsDebut > tpsLimite){
 			 tempsLimiteAtteint = true;
-			 return;
+			 return true;
 		 }
 	    if (nonVus.size() == 0){ // tous les sommets ont ete visites
 	    	coutVus += cout[sommetCrt][0];
@@ -41,23 +41,23 @@ public class TSP4 extends TemplateTSP {
 				if(coutVus + cout[sommetCrt][prochainSommet] + duree[prochainSommet] > tempsMax[prochainSommet])
 				{
 					//Ce point est plus possible, on a depasse la limite max, donc cette branche n est plus possible, puisqu il s agit forcemment du chemin le plus court actuel pour y parvenir
-					break;
-				} else if (coutVus + cout[sommetCrt][prochainSommet] < tempsMini[prochainSommet])
+					return false;
+				} else 
 				{
 		        	vus.add(prochainSommet);
 		        	nonVus.remove(prochainSommet);
-		        	branchAndBound(prochainSommet, nonVus, vus, tempsMini[prochainSommet] + duree[prochainSommet], cout, duree, tpsDebut, tpsLimite, tempsMini, tempsMax);
+		        	if(!branchAndBound(prochainSommet, nonVus, vus, Math.max(tempsMini[prochainSommet], coutVus + cout[sommetCrt][prochainSommet]) + duree[prochainSommet], cout, duree, tpsDebut, tpsLimite, tempsMini, tempsMax))
+		        	{
+			        	vus.remove(prochainSommet);
+			        	nonVus.add(prochainSommet);
+		        		return true;
+		        	}
 		        	vus.remove(prochainSommet);
 		        	nonVus.add(prochainSommet);
-				} else {
-					vus.add(prochainSommet);
-	        		nonVus.remove(prochainSommet);
-	        		branchAndBound(prochainSommet, nonVus, vus, coutVus + cout[sommetCrt][prochainSommet] + duree[prochainSommet], cout, duree, tpsDebut, tpsLimite, tempsMini, tempsMax);
-	        		vus.remove(prochainSommet);
-	        		nonVus.add(prochainSommet);
 				}
 	        }	    
 	    }
+	    return true;
 	}
 	
 	//Juste pour heritage, a suppr
