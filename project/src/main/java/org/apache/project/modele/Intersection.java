@@ -36,42 +36,53 @@ public class Intersection {
 	}
 
 	/**
-	 * @return
+	 * Renvoie l'Id du noeud.
+	 * 
+	 * @return id du noeud routier qu'est l'intersection
 	 */
 	public Long getIdNoeud() {
 		return idNoeud;
 	}
 
 	/**
+	 * Fixe le noeud de l'intersection.
+	 * 
 	 * @param idNoeud
+	 *            ID du noeud qu'on veut fixer.
 	 */
 	public void setIdNoeud(Long idNoeud) {
 		this.idNoeud = idNoeud;
 	}
 
 	/**
-	 * @return
+	 * @return la coordonnée x de l'intersection dans le plan
 	 */
 	public Long getCoordX() {
 		return coordX;
 	}
 
 	/**
+	 * Set la coordonnée x de l'intersection.
+	 * 
 	 * @param coordX
+	 *            valeur de x qu'on met.
 	 */
 	public void setCoordX(Long coordX) {
 		this.coordX = coordX;
 	}
 
 	/**
-	 * @return
+	 * @return la coordonnée y de l'intersection dans le plan.
 	 */
 	public Long getCoordY() {
 		return coordY;
 	}
 
 	/**
+	 * Set la coordonée y de l'intersection dans le plan.
+	 * 
 	 * @param coordY
+	 *            valeur de la coordonnée y qu'on met.
 	 */
 	public void setCoordY(Long coordY) {
 		this.coordY = coordY;
@@ -89,7 +100,7 @@ public class Intersection {
 	}
 
 	/**
-	 * @return
+	 * @return la liste des tronçons qui partent de cette intersection
 	 */
 	public List<Troncon> getTronconsPartants() {
 		return tronconsPartants;
