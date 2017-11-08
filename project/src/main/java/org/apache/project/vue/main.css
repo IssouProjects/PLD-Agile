@@ -25,7 +25,7 @@
 .undoButton{
 	-fx-pref-height: 32px;
     -fx-pref-width: 32px;
-    -fx-background-image: url('undo.png');
+    -fx-background-image: url('./images/undo.png');
     -fx-background-size: 16px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
@@ -34,7 +34,7 @@
 .redoButton{
 	-fx-pref-height: 32px;
     -fx-pref-width: 32px;
-    -fx-background-image: url('redo.png');
+    -fx-background-image: url('./images/redo.png');
     -fx-background-size: 16px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;

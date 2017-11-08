@@ -114,7 +114,7 @@ public class FenetrePrincipale extends Application {
 		this.stage = stage;
 
 		stage.setTitle("Salty delivery");
-		stage.getIcons().add(new Image(getClass().getResource("winicon.png").toExternalForm()));
+		stage.getIcons().add(new Image(getClass().getResource("./images/winicon.png").toExternalForm()));
 
 		// layout for the full window
 		GridPane layout = new GridPane();
@@ -167,7 +167,7 @@ public class FenetrePrincipale extends Application {
 		layout.add(mapButtonsLayout, 0, 2);
 		
 		imageView = new ImageView();
-		imageView.setImage(new Image(getClass().getResource("loading.gif").toExternalForm()));
+		imageView.setImage(new Image(getClass().getResource("./images/loading.gif").toExternalForm()));
 
 		// buttons
 		loadLivraisonButton = new Button(LOAD_LIVRAISON);
