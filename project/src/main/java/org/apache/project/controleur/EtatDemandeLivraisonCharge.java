@@ -67,8 +67,8 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 		case 1 :
 			fenetrePrincipale.setVisibleRecalculerButton(true);
 			controleur.setEtatCourant(controleur.etatTourneeCalculee);
-			fenetrePrincipale.afficherPopupInfo(
-					"Le calcul de tournée s'est terminé avec un timeout. Vous pouvez recalculer la tournée en modifiant la durée");
+			fenetrePrincipale.afficherPopupInfo("Le calcul de la tournée n'a pas donné de résultat optimal dans le temps imparti. "
+					+ "Vous pouvez relancer un calcul plus lent pour de meilleurs résultats");
 			break;
 		case 2 :
 			fenetrePrincipale.clearTournee();
