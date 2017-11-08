@@ -15,15 +15,23 @@ public interface Etat {
 
 	/**
 	 * Methode appelee par controleur apres un clic sur le bouton "Ouvrir un plan de
-	 * ville"
+	 * ville". Elle ouvre la fenêtre de choix de fichier.
 	 * 
+	 * @param controleur
+	 *            contrôleur de l'application.
 	 * @param planDeVille
 	 *            l'objet <tt>PlanDeVille</tt> qu'on va compléter en désérialisant
 	 *            un fichier XML.
 	 * @param fenetrePrincipale
 	 *            la fenêtre principale de l'application.
+	 * @param planDeVille
+	 *            l'objet <tt>PlanDeVille</tt> qu'on va compléter en désérialisant
+	 *            un fichier XML.
+	 * @param fenetrePrincipale
+	 *            la fenêtre principale de l'application.
+	 * @param commandes
+	 *            liste des commandes passées
 	 */
-
 	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale,
 			ListeDeCommandes commandes);
 
@@ -58,6 +66,8 @@ public interface Etat {
 	 *            désérialisant un fichier XML.
 	 * @param fenetrePrincipale
 	 *            la fenêtre principale de l'application.
+	 * @param commandes
+	 *            liste des commandes passées
 	 */
 	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille,
 			DemandeDeLivraison demandeDelivraison, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes);

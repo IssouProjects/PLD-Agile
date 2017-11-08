@@ -36,7 +36,7 @@ public class Controleur {
 
 	private ListeDeCommandes commandes;
 
-	private static Controleur instance = null;
+	private static Controleur instance;
 
 	/**
 	 * Crée le controleur de l'application
