@@ -30,6 +30,8 @@ public class ListDisplay extends Pane implements Observer {
 	private EcouteurDeListe ecouteurDeListe;
 	private EcouteurDeBouton ecouteurDeBouton;
 	private ListView<Livraison> liste = new ListView<Livraison>();
+	
+	private boolean disableEditTmp = false;
 
 	private GridPane addNotifier = new GridPane();
 	Pane notifierCircle = new Pane();
@@ -163,13 +165,14 @@ public class ListDisplay extends Pane implements Observer {
 	}
 	
 	public void disableEdit(boolean disable) {
+		disableEditTmp = disable;
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
 				HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
 				useAddNotifier();
 				for (LivraisonCell lc : map.values()) {
-					lc.setEditDisabled(disable);
+					lc.setEditDisabled(disableEditTmp);
 				}
 			}
 		});
