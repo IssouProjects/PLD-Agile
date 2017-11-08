@@ -31,20 +31,20 @@ import javafx.scene.text.FontWeight;
  */
 public class MapDisplay extends Pane {
 
-	DoubleProperty myScale = new SimpleDoubleProperty(1.0);
+	private DoubleProperty myScale = new SimpleDoubleProperty(1.0);
 
-	Map<Intersection, Circle> mapIntersections;
+	private Map<Intersection, Circle> mapIntersections;
 
-	Map<Troncon, Line> mapTroncons;
+	private Map<Troncon, Line> mapTroncons;
 
-	Map<Livraison, Circle> mapLivraisons;
-	Map<Troncon, Line> mapTourneeTroncons;
+	private Map<Livraison, Circle> mapLivraisons;
+	private Map<Troncon, Line> mapTourneeTroncons;
 
-	List<Label> numerosLivraisons;
+	private List<Label> numerosLivraisons;
 
 	// highlight management
-	Object highlightedObject = null;
-	Paint oldColor = null;
+	private Object highlightedObject = null;
+	private Paint oldColor = null;
 
 	// default map display
 	final int defaultFontSize = 1000;
@@ -76,10 +76,10 @@ public class MapDisplay extends Pane {
 	final Color defaultTourneeIntersectionColor = Color.web("#3399ff");
 	final Color defaultTourneeLivraisonColor = Color.web("#425087");
 
-	Long minimalX = Long.MAX_VALUE;
-	Long maximalX = 0l;
-	Long minimalY = Long.MAX_VALUE;
-	Long maximalY = 0l;
+	private Long minimalX = Long.MAX_VALUE;
+	private Long maximalX = 0l;
+	private Long minimalY = Long.MAX_VALUE;
+	private Long maximalY = 0l;
 
 	/**
 	 * Crée un objet <tt>MapDisplay</tt> à partir des dimensions de la zone du plan

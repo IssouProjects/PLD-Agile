@@ -173,7 +173,7 @@ public class LivraisonPopup extends VBox {
 	 * Permet de récupérer l'objet <tt>Time</tt> correspondant à l'heure de fin
 	 * sélectionnée par l'utilisateur
 	 * 
-	 * @returnl'objet Time ou null si la plage horaire est désactivée
+	 * @return l'objet Time ou null si la plage horaire est désactivée
 	 */
 	@SuppressWarnings("deprecation")
 	public Time getNewHeureFin() {
