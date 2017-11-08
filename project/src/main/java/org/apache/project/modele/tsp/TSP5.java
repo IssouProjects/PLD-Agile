@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- *
+ * TSP permettant d'effectuer un calcul de plus court chemin dans le cas du
+ * voyageur de commerce
  */
 public class TSP5 extends TemplateTSP {
 
@@ -12,7 +13,8 @@ public class TSP5 extends TemplateTSP {
 	private int indicePlageFiniPremier;
 
 	/**
-	 * 
+	 * Methode de construction ne prenant aucun paramètre en entrée, permettant
+	 * d'instancier un objet TSP5
 	 */
 	public TSP5() {
 
@@ -55,16 +57,42 @@ public class TSP5 extends TemplateTSP {
 	}
 
 	/**
+	 * 
+	 * Methode de resolution par separation et evaluation (branch and bound) du TSP
+	 * prenant en compte un système de cout minimal atteint avant chaque sommets, et
+	 * de cout maximal atteint avant chaque sommets et un système d'heuristique
+	 * cherchant toujours le sommet le plus proche en sommet suivant
+	 * 
+	 * 
 	 * @param sommetCrt
+	 *            Il s'agit du sommet sur lequel on se situe actuellement lors de
+	 *            l'évaluation de cette branche
 	 * @param nonVus
+	 *            Il s'agit de la liste des éléments actuellement non vus dans cette
+	 *            branche
 	 * @param vus
+	 *            Il s'agit de la liste des éléments actuellement vus dans cette
+	 *            branche
 	 * @param coutVus
+	 *            Il s'agit du cout de la branche actuellement évalué
 	 * @param cout
+	 *            Il s'agit d'un tableau à double entré référençant les coups
+	 *            minimaux entre chaque sommet
 	 * @param duree
+	 *            Il s'agit d'un tableau de cout lié au passage sur chaque sommet
 	 * @param tpsDebut
+	 *            Il s'agit d'un temps système correspondant au premier appel au
+	 *            branchAndBound afin de pouvoir savoir cela fait combien de temps
+	 *            que le TSP calcule
 	 * @param tpsLimite
+	 *            Il s'agit d'un temps limite d'execution, qui lorsqu'il est atteint
+	 *            met un terme à l'éxecution du TSP
 	 * @param tempsMini
+	 *            Il s'agit d'un tableau de cout minimal avant de pouvoir aller sur
+	 *            chaque sommet
 	 * @param tempsMax
+	 *            Il s'agit d'un tableau de cout maximal afin de pouvoir aller sur
+	 *            chaque sommet
 	 */
 	void branchAndBound(int sommetCrt, ArrayList<Integer> nonVus, ArrayList<Integer> vus, int coutVus, int[][] cout,
 			int[] duree, long tpsDebut, int tpsLimite, int[] tempsMini, int[] tempsMax) {
@@ -104,26 +132,77 @@ public class TSP5 extends TemplateTSP {
 	}
 
 	// Juste pour heritage, et appelle si retard inevitable
+	/**
+	 * Methode permettant de faire un itérateur sur nonVus et allant à chaque fois
+	 * sur le sommet le plus proche possible
+	 * 
+	 * @param sommetCrt
+	 *            il s'agit du sommet actuel du bout de la branche
+	 * @param nonVus
+	 *            : tableau des sommets restant a visiter
+	 * @param cout
+	 *            : cout[i][j] = duree pour aller de i a j, avec 0 <= i < nbSommets
+	 *            et 0 <= j < nbSommets
+	 * @param duree
+	 *            : duree[i] = duree pour visiter le sommet i, avec 0 <= i <
+	 *            nbSommets
+	 * @param tempsMini
+	 *            : temppsMini[i] = duree minimal avant de visiter le sommet i, avec
+	 *            0 <= i <= nbSommets
+	 * @param coutVus
+	 *            duree actuel lors de l'appel à cette méthode
+	 * @return un iterateur permettant d'iterer sur tous les sommets de nonVus
+	 */
 	@Override
 	protected Iterator<Integer> iterator(Integer sommetCrt, ArrayList<Integer> nonVus, int[][] cout, int[] duree) {
 		return new IteratorSeq(nonVus, sommetCrt, cout);
 	}
 
 	/**
+	 * Methode permettant de faire un itérateur sur nonVus et allant à chaque fois
+	 * sur le sommet le plus proche possible
+	 * 
 	 * @param sommetCrt
+	 *            il s'agit du sommet actuel du bout de la branche
 	 * @param nonVus
+	 *            : tableau des sommets restant a visiter
 	 * @param cout
+	 *            : cout[i][j] = duree pour aller de i a j, avec 0 <= i < nbSommets
+	 *            et 0 <= j < nbSommets
 	 * @param duree
+	 *            : duree[i] = duree pour visiter le sommet i, avec 0 <= i <
+	 *            nbSommets
 	 * @param tempsMini
+	 *            : temppsMini[i] = duree minimal avant de visiter le sommet i, avec
+	 *            0 <= i <= nbSommets
 	 * @param coutVus
-	 * @return
+	 *            duree actuel lors de l'appel à cette méthode
+	 * @return un iterateur permettant d'iterer sur tous les sommets de nonVus
 	 */
 	protected Iterator<Integer> iterator(Integer sommetCrt, ArrayList<Integer> nonVus, int[][] cout, int[] duree,
 			int[] tempsMini, int coutVus) {
 		return new IteratorSeq(nonVus, sommetCrt, cout, tempsMini, coutVus);
 	}
 
-	// Juste pour heritage, et appelle si retard inevitable
+	// Pour heritage surtout, et appelle si retard inevitable
+	/**
+	 * Methode renvoyant une heuristique pour le cas demandé et ne prenant pas en
+	 * compte les plages horaires
+	 * 
+	 * @param sommetCourant
+	 *            il s'agit du sommet actuel du bout de la branche
+	 * @param nonVus
+	 *            : tableau des sommets restant a visiter
+	 * @param cout
+	 *            : cout[i][j] = duree pour aller de i a j, avec 0 <= i < nbSommets
+	 *            et 0 <= j < nbSommets
+	 * @param duree
+	 *            : duree[i] = duree pour visiter le sommet i, avec 0 <= i <
+	 *            nbSommets
+	 * @return une borne inferieure du cout des permutations commencant par
+	 *         sommetCourant, contenant chaque sommet de nonVus exactement une fois
+	 *         et terminant par le sommet 0
+	 */
 	@Override
 	protected int bound(Integer sommetCourant, ArrayList<Integer> nonVus, int[][] cout, int[] duree) {
 
@@ -158,12 +237,26 @@ public class TSP5 extends TemplateTSP {
 	}
 
 	/**
+	 * 
+	 * Methode renvoyant une heuristique pour le cas demandé et ne prenant pas en
+	 * compte les plages horaires
+	 * 
 	 * @param sommetCourant
+	 *            il s'agit du sommet actuel du bout de la branche
 	 * @param nonVus
+	 *            : tableau des sommets restant a visiter
 	 * @param cout
+	 *            : cout[i][j] = duree pour aller de i a j, avec 0 <= i < nbSommets
+	 *            et 0 <= j < nbSommets
 	 * @param duree
+	 *            : duree[i] = duree pour visiter le sommet i, avec 0 <= i <
+	 *            nbSommets
 	 * @param tempsMax
-	 * @return
+	 *            tempsMax[i] = duree maximal avant de visiter le sommet i, avec 0
+	 *            <= i < nbSommets
+	 * @return une borne inferieure du cout des permutations commencant par
+	 *         sommetCourant, contenant chaque sommet de nonVus exactement une fois
+	 *         et terminant par le sommet 0
 	 */
 	protected int bound(Integer sommetCourant, ArrayList<Integer> nonVus, int[][] cout, int[] duree, int[] tempsMax) {
 

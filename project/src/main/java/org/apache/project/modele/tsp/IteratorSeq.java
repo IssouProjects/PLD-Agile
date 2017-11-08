@@ -4,7 +4,9 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- *
+ * Interator pouvant soit parcourir simplement une collection tout comme elle
+ * est déclaré, soit en triant par ordre croissant de cout à partir d'un
+ * certains sommets
  */
 public class IteratorSeq implements Iterator<Integer> {
 
@@ -16,7 +18,10 @@ public class IteratorSeq implements Iterator<Integer> {
 	 * Crée un iterateur pour itérer sur l'ensemble des sommets de nonVus.
 	 * 
 	 * @param nonVus
+	 *            Il s'agit de la Collection sur laquelle on voudra itérer
 	 * @param sommetCrt
+	 *            Il s'agit du sommet courant pour la classe appelante, ce paramètre
+	 *            n'est pas utilisé ici
 	 */
 	public IteratorSeq(Collection<Integer> nonVus, int sommetCrt) {
 		this.candidats = new Integer[nonVus.size()];
@@ -31,7 +36,13 @@ public class IteratorSeq implements Iterator<Integer> {
 	 * Cree un iterateur pour iterer sur l'ensemble des sommets de nonVus
 	 * 
 	 * @param nonVus
+	 *            Il s'agit de la Collection sur laquelle on voudra itérer
 	 * @param sommetCrt
+	 *            Il s'agit du sommet courant pour la classe appelante, ce paramètre
+	 *            n'est pas utilisé ici
+	 * @param cout
+	 *            : cout[i][j] = duree pour aller de i a j, avec 0 <= i < nbSommets
+	 *            et 0 <= j < nbSommets
 	 */
 	public IteratorSeq(Collection<Integer> nonVus, int sommetCrt, int[][] cout) {
 		this.candidats = new Integer[nonVus.size()];
@@ -43,10 +54,23 @@ public class IteratorSeq implements Iterator<Integer> {
 	}
 
 	/**
-	 * Cree un iterateur pour iterer sur l'ensemble des sommets de nonVus
+	 * Cree un iterateur pour iterer sur l'ensemble des sommets de nonVus, cet
+	 * iterateur parcourant les sommets accéssible le plus rapidement et tôt
+	 * possible
 	 * 
 	 * @param nonVus
+	 *            Il s'agit de la Collection sur laquelle on voudra itérer
 	 * @param sommetCrt
+	 *            Il s'agit du sommet courant pour la classe appelante, ce paramètre
+	 *            n'est pas utilisé ici
+	 * @param cout
+	 *            : cout[i][j] = duree pour aller de i a j, avec 0 <= i < nbSommets
+	 *            et 0 <= j < nbSommets
+	 * @param tempsMini
+	 *            : temppsMini[i] = duree minimal avant de visiter le sommet i, avec
+	 *            0 <= i <= nbSommets
+	 * @param coutVus
+	 *            duree actuel lors de l'appel à cette méthode
 	 */
 	public IteratorSeq(Collection<Integer> nonVus, int sommetCrt, int[][] cout, int[] tempsMini, int coutVus) {
 		this.candidats = new Integer[nonVus.size()];
@@ -96,6 +120,11 @@ public class IteratorSeq implements Iterator<Integer> {
 		return nbCandidats > 0;
 	}
 
+	/**
+	 * Renvoie l'élément suivant de la collection sur laquelle l'itérateur ittére,
+	 * le tout allant dans le même sens que celui de l'ajout dans l'attribut
+	 * candidats.
+	 */
 	@Override
 	public Integer next() {
 		nbCandidats--;
