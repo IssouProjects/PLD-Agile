@@ -114,6 +114,7 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 				break;
 			default:
 				System.out.println("Unmapped Button");
+				break;
 			}
 			System.out.println((String) sender.getUserData());
 		}
