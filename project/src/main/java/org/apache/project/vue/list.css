@@ -64,7 +64,7 @@
 .editButton{
 	-fx-pref-height: 38px;
     -fx-pref-width: 38px;
-    -fx-background-image: url('edit.png');
+    -fx-background-image: url('./images/edit.png');
     -fx-background-size: 24px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
@@ -73,7 +73,7 @@
 .deleteButton{
 	-fx-pref-height: 38px;
     -fx-pref-width: 38px;
-    -fx-background-image: url('bin.png');
+    -fx-background-image: url('./images/bin.png');
     -fx-background-size: 24px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
@@ -82,7 +82,7 @@
 .iconOk{
 	-fx-pref-height: 20px;
     -fx-pref-width: 20px;
-	-fx-background-image: url('ok.png');
+	-fx-background-image: url('./images/ok.png');
     -fx-background-size: 16px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 60%;
@@ -91,7 +91,7 @@
 .iconTime{
 	-fx-pref-height: 20px;
     -fx-pref-width: 40px;
-	-fx-background-image: url('clock.png');
+	-fx-background-image: url('./images/clock.png');
     -fx-background-size: 16px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: right;
@@ -100,7 +100,7 @@
 .iconWarning{
 	-fx-pref-height: 20px;
     -fx-pref-width: 40px;
-	-fx-background-image: url('warning.png');
+	-fx-background-image: url('./images/warning.png');
     -fx-background-size: 16px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 60%;
@@ -109,7 +109,7 @@
 .iconHome{
 	-fx-pref-height: 20px;
     -fx-pref-width: 20px;
-	-fx-background-image: url('home.png');
+	-fx-background-image: url('./images/home.png');
     -fx-background-size: 16px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 60%;
@@ -128,7 +128,7 @@
 	-fx-pref-width: 24px;
 	-fx-background-radius: 50%;
 	-fx-background-color: #3399ff;
-	-fx-background-image: url('arrow.png');
+	-fx-background-image: url('./images/arrow.png');
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: 50%;
 }
@@ -138,7 +138,7 @@
 	-fx-pref-width: 24px;
 	-fx-background-radius: 50%;
 	-fx-background-color: #3399ff;
-	-fx-background-image: url('plus.png');
+	-fx-background-image: url('./images/plus.png');
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: 50%;
 }
