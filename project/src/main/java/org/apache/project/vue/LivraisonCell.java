@@ -114,8 +114,10 @@ public class LivraisonCell extends ListCell<Livraison> {
 		super.updateItem(livraison, empty);
 		if (empty) {
 			clearContent();
+			instanceMap.remove(this.hashCode());
 		} else {
 			addContent(livraison);
+			instanceMap.put(this.hashCode(), this);
 		}
 	}
 
@@ -137,7 +139,7 @@ public class LivraisonCell extends ListCell<Livraison> {
 
 	@SuppressWarnings("deprecation")
 	public void addContent(Livraison livraison) {
-		clearContent();
+		clearContent();instanceMap.put(this.hashCode(), this);
 
 		EcouteurDeBouton edb = ((ListDisplay) this.getListView().getParent()).getEcouteurDeBouton();
 		deleteButton.setOnAction(edb);
@@ -284,6 +286,11 @@ public class LivraisonCell extends ListCell<Livraison> {
 	}
 
 	public void enableMove() {
+		if(this.getItem() instanceof Entrepot) {
+			disableMove();
+			return;
+		}
+		
 		//////////////////////////////////
 		//// DRAG AND DROP MANAGEMENT ////
 		//////////////////////////////////
