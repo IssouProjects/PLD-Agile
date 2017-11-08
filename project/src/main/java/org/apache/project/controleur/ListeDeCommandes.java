@@ -3,69 +3,94 @@ package org.apache.project.controleur;
 import java.util.LinkedList;
 import java.util.Observable;
 
-public class ListeDeCommandes extends Observable{
-	
-	private LinkedList<Commande> liste;
-	private int i; //pas super explicite comme nom de variable (╯°□°）╯︵ ┻━┻
+/**
+ *
+ */
+public class ListeDeCommandes extends Observable {
 
+	private LinkedList<Commande> liste;
+	private int i; // TODO pas super explicite comme nom de variable (╯°□°）╯︵ ┻━┻
+
+	/**
+	 * 
+	 */
 	public ListeDeCommandes() {
 		liste = new LinkedList<Commande>();
-		i=-1;
+		i = -1;
 	}
-	
+
+	/**
+	 * @param commande
+	 * @return
+	 */
 	public int ajouteCommande(Commande commande) {
-		int temp = i+1;
-        while(temp<liste.size()){
-            liste.remove(temp);
-        }
-        i++;
-        int retour = commande.doCommande();
-        if(retour == 0) {
-        	liste.add(i, commande);
-        } else {
-        	i--;
-        }
-        setChanged();
-        notifyObservers();
-        return retour;
+		int temp = i + 1;
+		while (temp < liste.size()) {
+			liste.remove(temp);
+		}
+		i++;
+		int retour = commande.doCommande();
+		if (retour == 0) {
+			liste.add(i, commande);
+		} else {
+			i--;
+		}
+		setChanged();
+		notifyObservers();
+		return retour;
 	}
-	
+
+	/**
+	 * 
+	 */
 	public void undo() {
-		if(!liste.isEmpty() && i>=0) {
+		if (!liste.isEmpty() && i >= 0) {
 			liste.get(i).undoCommande();
 			i--;
 			setChanged();
 			notifyObservers();
 		}
 	}
-	
+
+	/**
+	 * 
+	 */
 	public void redo() {
-		if(!liste.isEmpty() && i<liste.size()-1) {
+		if (!liste.isEmpty() && i < liste.size() - 1) {
 			i++;
 			liste.get(i).doCommande();
 			setChanged();
 			notifyObservers();
 		}
 	}
-	
+
+	/**
+	 * @return
+	 */
 	public Commande getFirstUndoableCommand() {
-		if(!liste.isEmpty() && i>=0) {
+		if (!liste.isEmpty() && i >= 0) {
 			return liste.get(i);
 		}
 		return null;
 	}
-	
+
+	/**
+	 * @return
+	 */
 	public Commande getFirstRedoableCommand() {
-		if(!liste.isEmpty() && i<liste.size()-1) {
-			return liste.get(i+1);
+		if (!liste.isEmpty() && i < liste.size() - 1) {
+			return liste.get(i + 1);
 		}
 		return null;
-	}	
-	
+	}
+
+	/**
+	 * 
+	 */
 	public void clearCommandes() {
 		i = -1;
 		liste.clear();
 		setChanged();
-        notifyObservers();
+		notifyObservers();
 	}
 }

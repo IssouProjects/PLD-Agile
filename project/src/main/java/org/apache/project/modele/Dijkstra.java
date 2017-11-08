@@ -6,13 +6,24 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *
+ */
 public class Dijkstra {
 
+	/**
+	 * 
+	 */
 	static class noeud {
 		public double coutOrigine;
 		public Long idAncetre;
 		public Intersection intersectionActuel;
 
+		/**
+		 * @param cout_origine
+		 * @param id_ancetre
+		 * @param intersection_Actuel
+		 */
 		public noeud(double cout_origine, long id_ancetre, Intersection intersection_Actuel) {
 			this.coutOrigine = cout_origine;
 			this.idAncetre = id_ancetre;
@@ -24,11 +35,16 @@ public class Dijkstra {
 	static Map<Long, noeud> listeOuverte = new HashMap<Long, noeud>();
 	static Map<Long, noeud> listeFermee = new HashMap<Long, noeud>();
 
+	/**
+	 * @param plan
+	 * @param demande
+	 * @return
+	 */
 	public static List<Chemin> principalDijkstra(PlanDeVille plan, DemandeDeLivraison demande) {
-		
+
 		// Liste des intersections correspondants aux lieux a livrer
 		List<Intersection> interLivraisons = new ArrayList<Intersection>();
-		//interLivraisons.add(demande.getAdresseEntrepot());
+		// interLivraisons.add(demande.getAdresseEntrepot());
 
 		List<Livraison> demandesLivraisons = demande.getListeLivraison();
 		for (Livraison livraison : demandesLivraisons) {
@@ -43,31 +59,39 @@ public class Dijkstra {
 
 		return Dijkstra.calculDijkstra(interPlan, interLivraisons);
 	}
-	
+
+	/**
+	 * @param plan
+	 * @param depart
+	 * @param arrivee
+	 * @return
+	 */
 	public static Chemin principalDijkstra(PlanDeVille plan, Intersection depart, Intersection arrivee) {
-		
+
 		// Liste des intersections correspondants aux lieux a livrer
 		List<Intersection> interLivraisons = new ArrayList<Intersection>();
 		interLivraisons.add(depart);
 		interLivraisons.add(arrivee);
-
-		
 
 		// Liste de toutes les intersections de la ville
 		List<Intersection> interPlan = new ArrayList<Intersection>();
 		for (Map.Entry<Long, Intersection> entry : plan.getAllIntersections().entrySet()) {
 			interPlan.add(entry.getValue());
 		}
-		
+
 		List<Chemin> chemins = new ArrayList<Chemin>();
 		chemins = Dijkstra.calculDijkstra(interPlan, interLivraisons);
-		if(chemins == null) {
+		if (chemins == null) {
 			return null;
 		}
 		return chemins.get(0);
 	}
-	
 
+	/**
+	 * @param plan_inter
+	 * @param livraison_inter
+	 * @return
+	 */
 	public static List<Chemin> calculDijkstra(List<Intersection> plan_inter, List<Intersection> livraison_inter) {
 		List<Chemin> ensembleChemins = new ArrayList<Chemin>();
 		List<Chemin> resCheminIntermediaire = new ArrayList<Chemin>();
@@ -92,10 +116,8 @@ public class Dijkstra {
 				ajouterNoeudAdjacent(noeudCourant);
 			}
 
-			
 			resCheminIntermediaire = ajouteChemin(origine, livraison_inter);
-			if(resCheminIntermediaire == null)
-			{
+			if (resCheminIntermediaire == null) {
 				return null;
 			}
 
@@ -122,8 +144,7 @@ public class Dijkstra {
 
 		for (int i = 0; i < nombreDestination; i++) {
 			Intersection intersectionCourante = LivraisonInter.get(i);
-			if(!listeFermee.containsKey(intersectionCourante.getIdNoeud()))
-			{
+			if (!listeFermee.containsKey(intersectionCourante.getIdNoeud())) {
 				return null;
 			}
 			Intersection intersectionDestination = intersectionCourante;
@@ -158,21 +179,19 @@ public class Dijkstra {
 				for (int j = tailleListe - 1; j >= 0; j--) {
 					listTroncon.add(listTronconInverse.get(j));
 					// TODO EXPLAIN THIS TO ME
-					//distanceLivraison = distanceLivraison + listTronconInverse.get(j).getLongueur();
+					// distanceLivraison = distanceLivraison +
+					// listTronconInverse.get(j).getLongueur();
 				}
 				for (Troncon inter : listTroncon) {
 					distanceLivraison = distanceLivraison + inter.getLongueur();
 				}
-				
+
 				dureeLivraison = (int) (distanceLivraison * 3.6) / 15;
 				resChemin.add(new Chemin(intersectionOrigine, intersectionDestination, dureeLivraison, listTroncon));
 			}
 		}
 
 		return resChemin;
-		// }catch(Exception e){
-
-		// }
 	}
 
 	// Renvoie une intersection de la liste fermee a partir de son id
@@ -228,11 +247,17 @@ public class Dijkstra {
 
 	}
 
+	/**
+	 * @param noeudCourant
+	 */
 	public static void ajouterListeFermee(noeud noeudCourant) {
 		listeFermee.put(noeudCourant.intersectionActuel.getIdNoeud(), noeudCourant);
 		listeOuverte.remove(noeudCourant.intersectionActuel.getIdNoeud());
 	}
 
+	/**
+	 * @return
+	 */
 	public static noeud rechercherMeilleurNoeud() {
 		noeud meilleurNoeud = new noeud(Double.MAX_VALUE, -1, new Intersection((long) -2, (long) -2, (long) -2));
 		Iterator<HashMap.Entry<Long, noeud>> it = listeOuverte.entrySet().iterator();

@@ -13,24 +13,39 @@ public class DemandeDeLivraison extends Observable {
 	private Entrepot entrepot;
 	private List<Livraison> livraisons;
 
+	/**
+	 * 
+	 */
 	public DemandeDeLivraison() {
 		this.entrepot = null;
 		this.livraisons = new ArrayList<Livraison>();
 	}
 
+	/**
+	 * @return
+	 */
 	public Entrepot getEntrepot() {
 		return entrepot;
 	}
 
+	/**
+	 * @param entrepot
+	 */
 	public void setEntrepot(Entrepot entrepot) {
 		this.entrepot = entrepot;
 		this.ajouterLivraison(entrepot);
 	}
 
+	/**
+	 * @param uneLivraison
+	 */
 	public void ajouterLivraison(Livraison uneLivraison) {
 		livraisons.add(uneLivraison);
 	}
 
+	/**
+	 * @return
+	 */
 	public List<Livraison> getListeLivraison() {
 		return livraisons;
 	}

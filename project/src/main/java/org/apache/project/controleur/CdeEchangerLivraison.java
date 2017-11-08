@@ -4,6 +4,9 @@ import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlanDeVille;
 import org.apache.project.modele.Tournee;
 
+/**
+ *
+ */
 public class CdeEchangerLivraison implements Commande {
 
 	private PlanDeVille plan;
@@ -11,7 +14,13 @@ public class CdeEchangerLivraison implements Commande {
 	private Livraison livraison;
 	private int ancienIndex;
 	private int nouvelIndex;
-	
+
+	/**
+	 * @param plan
+	 * @param tournee
+	 * @param livraison
+	 * @param nouvelIndex
+	 */
 	public CdeEchangerLivraison(PlanDeVille plan, Tournee tournee, Livraison livraison, int nouvelIndex) {
 		this.plan = plan;
 		this.tournee = tournee;
@@ -19,7 +28,7 @@ public class CdeEchangerLivraison implements Commande {
 		this.ancienIndex = tournee.getLivraisonsOrdonnees().indexOf(livraison);
 		this.nouvelIndex = nouvelIndex;
 	}
-	
+
 	@Override
 	public int doCommande() {
 		tournee.deplacerLivraison(plan, livraison, nouvelIndex);

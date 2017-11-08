@@ -16,6 +16,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ *
+ */
 public class LivraisonPopup extends VBox {
 
 	private Button boutonAnnuler;
@@ -40,6 +43,10 @@ public class LivraisonPopup extends VBox {
 	public static final String CANCEL = "Annuler";
 	public static final String CANCEL_ID = "annulerAjoutLivraisonButton";
 
+	/**
+	 * @param livraison
+	 * @param edb
+	 */
 	public LivraisonPopup(Livraison livraison, EcouteurDeBouton edb) {
 		this.setMaxSize(400, 300);
 		this.setSpacing(40);
@@ -120,6 +127,9 @@ public class LivraisonPopup extends VBox {
 		});
 	}
 
+	/**
+	 * @param disable
+	 */
 	public void disablePlageHoraire(boolean disable) {
 		heureDebLabel.setDisable(disable);
 		heureDebSpinner.setDisable(disable);
@@ -127,10 +137,16 @@ public class LivraisonPopup extends VBox {
 		heureFinSpinner.setDisable(disable);
 	}
 
+	/**
+	 * @return
+	 */
 	public Integer getNewDuree() {
 		return dureeSpinner.getValue().toSecondOfDay();
 	}
 
+	/**
+	 * @return
+	 */
 	@SuppressWarnings("deprecation")
 	public Time getNewHeureDeb() {
 		if (checkBox.isSelected()) {
@@ -140,6 +156,9 @@ public class LivraisonPopup extends VBox {
 		return null;
 	}
 
+	/**
+	 * @return
+	 */
 	@SuppressWarnings("deprecation")
 	public Time getNewHeureFin() {
 		if (checkBox.isSelected()) {
@@ -149,6 +168,9 @@ public class LivraisonPopup extends VBox {
 		return null;
 	}
 
+	/**
+	 * @return
+	 */
 	public boolean checkTimeOk() {
 		if (!checkBox.isSelected())
 			return true;
@@ -180,6 +202,9 @@ public class LivraisonPopup extends VBox {
 
 	}
 
+	/**
+	 * @param invalid
+	 */
 	public void setInvalid(boolean invalid) {
 		invalidLabel.setVisible(invalid);
 

@@ -25,7 +25,7 @@ public interface TSP {
 	 * @param duree
 	 *            : duree[i] = duree pour visiter le sommet i, avec 0 inférieur ou
 	 *            égal à i qui est inférieur à nbSommets
-	 * @return 
+	 * @return
 	 */
 	public void chercheSolution(int tpsLimite, int nbSommets, int[][] cout, int[] duree);
 
@@ -37,7 +37,7 @@ public interface TSP {
 	public Integer getMeilleureSolution(int i);
 
 	/**
-	 * @return la duree de la solution calculee par chercheSolution
+	 * @return la durée de la solution calculée par chercheSolution.
 	 */
 	public int getCoutMeilleureSolution();
 }

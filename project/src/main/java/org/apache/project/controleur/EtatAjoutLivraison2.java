@@ -8,15 +8,18 @@ import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
 import org.apache.project.vue.MapGestures.SelectionMode;
 
+/**
+ *
+ */
 public class EtatAjoutLivraison2 extends EtatDefaut {
 
 	private Intersection intersectionLivraison;
 	private Livraison nouvelleLivraison;
 
 	@Override
-	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale,
-			PlanDeVille plan, Tournee tournee, Livraison livraisonPrecedente, ListeDeCommandes commandes) {
-		
+	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan,
+			Tournee tournee, Livraison livraisonPrecedente, ListeDeCommandes commandes) {
+
 		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
 		fenetrePrincipale.getListDisplay().disableAddHint();
 		controleur.setEtatCourant(controleur.etatAjoutLivraison3);
@@ -31,11 +34,12 @@ public class EtatAjoutLivraison2 extends EtatDefaut {
 			Intersection intersection) {
 
 		fenetrePrincipale.highlightIntersection(intersection);
-		
+
 		if (intersection != null) {
 			controleur.setEtatCourant(controleur.etatAjoutLivraison2);
 			controleur.etatAjoutLivraison2.actionEntreeEtatAjoutLivraison2(intersection);
-			fenetrePrincipale.afficherInfo("Sélectionner livraison précédant la nouvelle livraison, ou nouvelle intersection");
+			fenetrePrincipale
+					.afficherInfo("Sélectionner livraison précédant la nouvelle livraison, ou nouvelle intersection");
 		} else {
 			fenetrePrincipale.afficherPopupError("Intersection invalide");
 		}
@@ -50,6 +54,9 @@ public class EtatAjoutLivraison2 extends EtatDefaut {
 		fenetrePrincipale.setVisibleAnnulerButton(false);
 	}
 
+	/**
+	 * @param intersection
+	 */
 	protected void actionEntreeEtatAjoutLivraison2(Intersection intersection) {
 		this.intersectionLivraison = intersection;
 	}

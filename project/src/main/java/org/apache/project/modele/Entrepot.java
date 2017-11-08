@@ -60,6 +60,9 @@ public class Entrepot extends Livraison {
 		return heureDeFin;
 	}
 
+	/**
+	 * @param heure
+	 */
 	public void setHeureDeFin(Time heure) {
 		this.heureDeFin = heure;
 	}

@@ -12,6 +12,9 @@ import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Intersection;
 import org.apache.project.modele.Livraison;
 
+/**
+ *
+ */
 public abstract class EtatDefaut implements Etat {
 
 	@Override
@@ -108,11 +111,11 @@ public abstract class EtatDefaut implements Etat {
 	@Override
 	public void afficherFenetreTimeout(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 	}
-	
+
 	@Override
 	public void exporterFeuilleDeRoute(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee) {
 	}
-	
+
 	@Override
 	public void fermerFeuilleDeRoute(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 	}

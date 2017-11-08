@@ -7,20 +7,24 @@ import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
 import org.apache.project.vue.MapGestures.SelectionMode;
 
+/**
+ *
+ */
 public class EtatAjoutLivraison1 extends EtatDefaut {
 
 	@Override
 	public void intersectionClicked(Controleur controleur, PlanDeVille planDeVille,
 			DemandeDeLivraison demandeDeLivraison, Tournee tournee, FenetrePrincipale fenetrePrincipale,
 			Intersection intersection) {
-		
+
 		fenetrePrincipale.highlightIntersection(intersection);
-		
-		if(intersection != null) {
+
+		if (intersection != null) {
 			controleur.setEtatCourant(controleur.etatAjoutLivraison2);
 			controleur.etatAjoutLivraison2.actionEntreeEtatAjoutLivraison2(intersection);
 			fenetrePrincipale.getListDisplay().enableAddHint();
-			fenetrePrincipale.afficherInfo("Sélectionner livraison précédant la nouvelle livraison, ou nouvelle intersection");
+			fenetrePrincipale
+					.afficherInfo("Sélectionner livraison précédant la nouvelle livraison, ou nouvelle intersection");
 		} else {
 			fenetrePrincipale.afficherPopupError("Intersection invalide");
 		}
