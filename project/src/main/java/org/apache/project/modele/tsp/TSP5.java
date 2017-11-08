@@ -20,11 +20,23 @@ public class TSP5 extends TemplateTSP {
 
 	/**
 	 * @param tpsLimite
+	 *            Il s'agit du temps d'éxecution limite (en millisecondes) que nous
+	 *            permettons à l'algorithme, pouvant être très long
 	 * @param nbSommets
+	 *            Il s'agit du nombre de sommets à visiter dans le TSP
 	 * @param cout
+	 *            Il s'agit d'un tableau de taille [nbSommets][nbSommets] comprenant
+	 *            le cout pour aller d'un sommet à un autre, le premier indice étant
+	 *            celui de départ et le deuxième celui d'arrivée
 	 * @param duree
+	 *            Il s'agit d'un tableau de taille [nbSommets] stockant un cout que
+	 *            l'on passe sur chaque sommet (que l'on retrouve par son indice)
 	 * @param tempsMini
+	 *            Il s'agit du cout minimum ayant du déjà avoir été stockée afin de
+	 *            pouvoir visiter le sommet correspondant à son indice
 	 * @param tempsMax
+	 *            Il s'agit du cout maximum pouvant avoir été stockée afin de
+	 *            pouvoir visiter chaque sommet (identifié par leurs indices)
 	 */
 	public void chercheSolution(int tpsLimite, int nbSommets, int[][] cout, int[] duree, int[] tempsMini,
 			int[] tempsMax) {
