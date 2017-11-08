@@ -7,12 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * permet de calculer le plus court chemin entre deux intersections
  */
 public class Dijkstra {
 
 	/**
-	 * 
+	 * represente le noeud du graphe qui correspond à une intersection avec
+	 * l'id de son intersection ancêtre et le cout (distance parcourue)
 	 */
 	static class noeud {
 		public double coutOrigine;
@@ -20,9 +21,13 @@ public class Dijkstra {
 		public Intersection intersectionActuel;
 
 		/**
+		 * constructeur d'un noeud
 		 * @param cout_origine
+		 * 				distance parcourue pour arriver au noeud
 		 * @param id_ancetre
+		 * 				id de l'intersection précedente dans le graphe
 		 * @param intersection_Actuel
+		 * 				intersection actuel du noeud
 		 */
 		public noeud(double cout_origine, long id_ancetre, Intersection intersection_Actuel) {
 			this.coutOrigine = cout_origine;
@@ -36,9 +41,13 @@ public class Dijkstra {
 	static Map<Long, noeud> listeFermee = new HashMap<Long, noeud>();
 
 	/**
+	 * permet d'obtenir une liste de chemins les plus court dans un plan de ville 
+	 * à partir d'une demande de livraison
 	 * @param plan
+	 * 			plan de la ville
 	 * @param demande
-	 * @return
+	 * 			Demande de livraison
+	 * @return liste de chemins les plus courts
 	 */
 	public static List<Chemin> principalDijkstra(PlanDeVille plan, DemandeDeLivraison demande) {
 
@@ -61,10 +70,14 @@ public class Dijkstra {
 	}
 
 	/**
+	 * permet d'obtenir le chemin le plus court dans un plan de ville entre deux intersections
 	 * @param plan
+	 * 			plan de la ville
 	 * @param depart
+	 * 			intersection de départ
 	 * @param arrivee
-	 * @return
+	 * 			intersection d'arrivée
+	 * @return chemin le plus court entre depart et arrivée
 	 */
 	public static Chemin principalDijkstra(PlanDeVille plan, Intersection depart, Intersection arrivee) {
 
@@ -88,9 +101,14 @@ public class Dijkstra {
 	}
 
 	/**
+	 * fait tourner l'alogorithme Dijkstra et retourne une liste des plus courts chemins 
+	 * à partir de la liste de toutes les intersections du plan et la liste des intersections
+	 * des demandes de livraison
 	 * @param plan_inter
+	 * 				liste de toutes les intersections du plan
 	 * @param livraison_inter
-	 * @return
+	 * 				liste des intersections des demandes de livraison
+	 * @return  liste des plus courts chemins
 	 */
 	public static List<Chemin> calculDijkstra(List<Intersection> plan_inter, List<Intersection> livraison_inter) {
 		List<Chemin> ensembleChemins = new ArrayList<Chemin>();
@@ -129,7 +147,15 @@ public class Dijkstra {
 		return ensembleChemins;
 	}
 
-	// Deroule les chemins a partir de la liste fermée
+	/**
+	 * Permet de dérouler les chemins de la liste fermée et les mettre
+	 * dnas la liste des chemeins les plus courts
+	 * @param intersectionOrigine
+	 * 					intersection d'origine du chemin
+	 * @param LivraisonInter
+	 * 				liste des intersections de la demande de livraison	
+	 * @return liste de chemins les plus courts
+	 */
 	public static List<Chemin> ajouteChemin(Intersection intersectionOrigine, List<Intersection> LivraisonInter) // throws
 																													// Exception
 	{
@@ -194,26 +220,38 @@ public class Dijkstra {
 		return resChemin;
 	}
 
-	// Renvoie une intersection de la liste fermee a partir de son id
+	
+	/**
+	 * Renvoie une intersection de la liste fermee a partir de son id
+	 * @param idIntersection
+	 * 				id de l'intersection recherchée
+	 * @return l'intersection recherchée
+	 */
 	public static Intersection obtenirIntersection(Long idIntersection) {
-		// Iterator <HashMap.Entry<Long, noeud>> it = listeFermee.entrySet().iterator();
 		return listeFermee.get(idIntersection).intersectionActuel;
-		/*
-		 * while(it.hasNext()) { HashMap.Entry<Long, noeud> noeudCourant = it.next();
-		 * if(noeudCourant.getValue().intersectionActuel.getIdNoeud() == idIntersection)
-		 * { return noeudCourant.getValue().intersectionActuel; } }
-		 */
-		// return null;
+	
 	}
 
-	// Verifie si l intersection est deja presente dans la liste etudie
+	
+	/**
+	 * Verifie si l intersection est deja présente dans la liste etudiée 
+	 * @param listeNoeuds
+	 * 			Liste étudiée
+	 * @param uneIntersection
+	 * 			Intersection à vérifier
+	 * @return
+	 */
 	public static boolean dejaPresent(Map<Long, noeud> listeNoeuds, Intersection uneIntersection) {
 		return listeNoeuds.containsKey(uneIntersection.getIdNoeud());
 
-	}
-
-	// Premet d ajouter les intersections adjacentes a celle actuellement etudiee
-	// parmi celles potentiellements etudies
+	} 
+	
+	/**
+	 * Premet d'ajouter les intersections adjacentes a celle actuellement etudiée
+	 * parmi celles potentiellements etudiés
+	 * @param noeudActuel
+	 * 			Intersection actuellement étudiée
+	 */
 	public static void ajouterNoeudAdjacent(noeud noeudActuel) {
 		Intersection intersectionActuel = noeudActuel.intersectionActuel;
 
@@ -248,7 +286,9 @@ public class Dijkstra {
 	}
 
 	/**
+	 * Ajoute un noeud à la liste fermée et l'enlève de liste ouverte
 	 * @param noeudCourant
+	 * 			Noeud à ajouter
 	 */
 	public static void ajouterListeFermee(noeud noeudCourant) {
 		listeFermee.put(noeudCourant.intersectionActuel.getIdNoeud(), noeudCourant);
@@ -256,7 +296,8 @@ public class Dijkstra {
 	}
 
 	/**
-	 * @return
+	 * Cherche le noeud avec le meilleur cout d'origine dans la liste ouverte
+	 * @return le meielleur noeud
 	 */
 	public static noeud rechercherMeilleurNoeud() {
 		noeud meilleurNoeud = new noeud(Double.MAX_VALUE, -1, new Intersection((long) -2, (long) -2, (long) -2));
