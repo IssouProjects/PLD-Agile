@@ -12,23 +12,39 @@ public class PlageHoraire {
 	private Time debut;
 	private Time fin;
 
+	/**
+	 * @param debut
+	 * @param fin
+	 */
 	public PlageHoraire(Time debut, Time fin) {
 		this.debut = debut;
 		this.fin = fin;
 	}
 
+	/**
+	 * @return
+	 */
 	public Time getDebut() {
 		return debut;
 	}
 
+	/**
+	 * @param debut
+	 */
 	public void setDebut(Time debut) {
 		this.debut = debut;
 	}
 
+	/**
+	 * @return
+	 */
 	public Time getFin() {
 		return fin;
 	}
 
+	/**
+	 * @param fin
+	 */
 	public void setFin(Time fin) {
 		this.fin = fin;
 	}
@@ -95,14 +111,18 @@ public class PlageHoraire {
 		String result = "";
 		if (heures > 0) {
 			result += heures + "h ";
-		} else if(minutes == 0) {
+		} else if (minutes == 0) {
 			return "<1min";
 		}
 		result += minutes + "min";
-		
+
 		return result;
 	}
 
+	/**
+	 * @param duree
+	 * @return
+	 */
 	public static LocalTime secondesEnLocalTime(double duree) {
 		int secondes = (int) duree % 60;
 		int minutes = (int) duree / 60;
