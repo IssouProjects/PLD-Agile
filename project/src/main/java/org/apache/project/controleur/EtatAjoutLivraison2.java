@@ -24,7 +24,7 @@ public class EtatAjoutLivraison2 extends EtatDefaut {
 		fenetrePrincipale.getListDisplay().disableAddHint();
 		controleur.setEtatCourant(controleur.etatAjoutLivraison3);
 		nouvelleLivraison = new Livraison(intersectionLivraison);
-		fenetrePrincipale.afficherFenetreAjouterLivraison(nouvelleLivraison);
+		fenetrePrincipale.afficherFenetreAjouterLivraison();
 		controleur.etatAjoutLivraison3.actionEntreeEtatAjoutLivraison3(livraisonPrecedente, nouvelleLivraison);
 	}
 
