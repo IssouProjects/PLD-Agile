@@ -39,18 +39,30 @@ public class Troncon {
 		this.IntersectionArrivee = InterArrivee;
 	}
 
+	/**
+	 * @return
+	 */
 	public double getLongueur() {
 		return longueur;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getNomRue() {
 		return nomRue;
 	}
 
+	/**
+	 * @return
+	 */
 	public Intersection getIntersectionDepart() {
 		return IntersectionDepart;
 	}
 
+	/**
+	 * @return
+	 */
 	public Intersection getIntersectionArrivee() {
 		return IntersectionArrivee;
 	}

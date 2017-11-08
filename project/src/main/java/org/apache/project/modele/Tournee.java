@@ -27,18 +27,30 @@ public class Tournee extends Observable {
 		livraisonsOrdonnees = new ArrayList<Livraison>();
 	}
 
+	/**
+	 * @return
+	 */
 	public Entrepot getEntrepot() {
 		return entrepot;
 	}
 
+	/**
+	 * @param entrepot
+	 */
 	public void setEntrepot(Entrepot entrepot) {
 		this.entrepot = entrepot;
 	}
 
+	/**
+	 * @param livraison
+	 */
 	public void ajouterListeLivraison(Livraison livraison) {
 		livraisonsOrdonnees.add(livraison);
 	}
 
+	/**
+	 * @return
+	 */
 	public int getDureeTourneeSecondes() {
 		return dureeTourneeSecondes;
 	}
@@ -77,26 +89,46 @@ public class Tournee extends Observable {
 		chemins.add(index, chemin);
 	}
 
+	/**
+	 * @return
+	 */
 	public List<Chemin> getChemins() {
 		return chemins;
 	}
 
+	/**
+	 * @param index
+	 * @return
+	 */
 	public Chemin getChemin(int index) {
 		return chemins.get(index);
 	}
 
+	/**
+	 * @param index
+	 */
 	public void supprimerChemin(int index) {
 		chemins.remove(index);
 	}
 
+	/**
+	 * @param index
+	 * @return
+	 */
 	public Livraison getLivraison(int index) {
 		return livraisonsOrdonnees.get(index);
 	}
 
+	/**
+	 * @return
+	 */
 	public List<Livraison> getLivraisonsOrdonnees() {
 		return livraisonsOrdonnees;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getLivraisonsSize() {
 		return livraisonsOrdonnees.size();
 	}
@@ -119,11 +151,10 @@ public class Tournee extends Observable {
 
 		List<Chemin> graphe = Dijkstra.principalDijkstra(plan, demande);
 
-		if(graphe == null)
-		{
+		if (graphe == null) {
 			return 2;
 		}
-		
+
 		int nombreLivraison = demande.getListeLivraison().size();
 		long[] conversion = new long[nombreLivraison];
 
@@ -172,13 +203,13 @@ public class Tournee extends Observable {
 		}
 		
 		TSP5 tspSolut = new TSP5();
+
 		tspSolut.chercheSolution(tempsLimite, nombreLivraison, cout, duree, tempsMini, tempsMax);
-		//On test s il y a un resultat, sinon c est surement a cause de la prise en compte des plages horaires
-		if(tspSolut.getMeilleureSolution(0) == null)
-		{
+		// On test s il y a un resultat, sinon c est surement a cause de la prise en
+		// compte des plages horaires
+		if (tspSolut.getMeilleureSolution(0) == null) {
 			tspSolut.chercheSolution(tempsLimite, nombreLivraison, cout, duree);
-			if(tspSolut.getMeilleureSolution(0) == null)
-			{
+			if (tspSolut.getMeilleureSolution(0) == null) {
 				return 2;
 			}
 		}
@@ -226,14 +257,12 @@ public class Tournee extends Observable {
 			}
 		}
 
-    entrepot.setHeureDeFin(PlageHoraire.calculerHeureArrivee(entrepot.getHeureDepart(), dureeTourneeSecondes));
+		entrepot.setHeureDeFin(PlageHoraire.calculerHeureArrivee(entrepot.getHeureDepart(), dureeTourneeSecondes));
 		updatePositionsDansTournee();
 
-		if(tspSolut.getTempsLimiteAtteint())
-		{
+		if (tspSolut.getTempsLimiteAtteint()) {
 			return 1;
 		}
-
 
 		return 0;
 	}
@@ -296,6 +325,12 @@ public class Tournee extends Observable {
 		updatePositionsDansTournee();
 	}
 
+	/**
+	 * @param planDeVille
+	 * @param nouvelleLivraison
+	 * @param livraisonPrecedente
+	 * @return
+	 */
 	public int ajouterNouvelleLivraison(PlanDeVille planDeVille, Livraison nouvelleLivraison,
 			Livraison livraisonPrecedente) {
 
@@ -307,27 +342,30 @@ public class Tournee extends Observable {
 		Chemin chemin2 = this.calculerNouveauChemin(planDeVille, nouvelleLivraison.getLieuDeLivraison(),
 				livraisonSuiv.getLieuDeLivraison());
 
-		if(chemin1 == null || chemin2 == null)
-		{
+		if (chemin1 == null || chemin2 == null) {
 			return 2;
 		}
-		
+
 		this.ajouterListeLivraison(nouvelleLivraison, indexPre + 1);
 		this.supprimerChemin(indexPre);
 		ajouterChemin(chemin1, indexPre);
 		ajouterChemin(chemin2, indexPre + 1);
 
 		this.calculerDureeTotale();
-		
+
 		return 0;
 	}
 
+	/**
+	 * @param planDeVille
+	 * @param indexLivSuppr
+	 */
 	public void supprimerLivraison(PlanDeVille planDeVille, int indexLivSuppr) {
 		Livraison livraisonPre = this.getLivraison(indexLivSuppr - 1);
 		Livraison livraisonSuiv = this.getLivraison(indexLivSuppr + 1);
 		Chemin chemin = this.calculerNouveauChemin(planDeVille, livraisonPre.getLieuDeLivraison(),
 				livraisonSuiv.getLieuDeLivraison());
-		
+
 		this.retireListeLivraison(indexLivSuppr);
 		this.supprimerChemin(indexLivSuppr - 1);
 		this.supprimerChemin(indexLivSuppr - 1);
@@ -335,26 +373,37 @@ public class Tournee extends Observable {
 		this.ajouterChemin(chemin, indexLivSuppr - 1);
 
 		this.calculerDureeTotale();
-		
+
 	}
 
+	/**
+	 * @param planDeVille
+	 * @param livraisonADeplacer
+	 * @param nouveauIndex
+	 */
 	public void deplacerLivraison(PlanDeVille planDeVille, Livraison livraisonADeplacer, int nouveauIndex) {
 		this.supprimerLivraison(planDeVille, this.getLivraisonsOrdonnees().indexOf(livraisonADeplacer));
-		
+
 		this.ajouterNouvelleLivraison(planDeVille, livraisonADeplacer,
 				this.getLivraisonsOrdonnees().get(nouveauIndex - 1));
 	}
 
+	/**
+	 * 
+	 */
 	public void updatePositionsDansTournee() {
 		for (int i = 0; i < livraisonsOrdonnees.size(); i++) {
 			livraisonsOrdonnees.get(i).setPositionDansTournee(i);
 		}
-		if(livraisonsOrdonnees.get(livraisonsOrdonnees.size()-1)==entrepot){
+		if (livraisonsOrdonnees.get(livraisonsOrdonnees.size() - 1) == entrepot) {
 			entrepot.setPositionDansTournee(0);
 		}
 	}
-	
-	public String exporterRoute(){
+
+	/**
+	 * @return
+	 */
+	public String exporterRoute() {
 		updatePositionsDansTournee();
 		String feuille = "Durée de la tournée: "
 				+ PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(this.getDureeTourneeSecondes() * 1000) + "\n";
@@ -367,7 +416,7 @@ public class Tournee extends Observable {
 			}
 			feuille += "\n\n";
 			for (String rue : chemins.get(i).getListeRues()) {
-				feuille +=rue + "\n";
+				feuille += rue + "\n";
 			}
 			feuille += "\n";
 		}

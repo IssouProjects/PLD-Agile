@@ -14,6 +14,9 @@ import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+/**
+ *
+ */
 public class TimeSpinner extends Spinner<LocalTime> {
 
 	enum EditMode {
@@ -26,6 +29,9 @@ public class TimeSpinner extends Spinner<LocalTime> {
 
 	private SpinnerValueFactory<LocalTime> factory;
 
+	/**
+	 * @param time
+	 */
 	public TimeSpinner(final LocalTime time) {
 		setEditable(true);
 
@@ -122,10 +128,16 @@ public class TimeSpinner extends Spinner<LocalTime> {
 		});
 	}
 
+	/**
+	 * 
+	 */
 	private void updateText() {
 		getEditor().setText(this.getValue().format(formatter));
 	}
 
+	/**
+	 * 
+	 */
 	private void selectText() {
 		int hrIndex = getEditor().getText().indexOf('h');
 		// int minIndex = getEditor().getText().indexOf(':', hrIndex + 1);
@@ -142,6 +154,10 @@ public class TimeSpinner extends Spinner<LocalTime> {
 		}
 	}
 
+	/**
+	 * @param string
+	 * @return
+	 */
 	private LocalTime stringToTime(String string) {
 		String[] tokens = string.split("h");
 		int hours = secureParseInt(tokens, 0);
@@ -150,6 +166,11 @@ public class TimeSpinner extends Spinner<LocalTime> {
 		return LocalTime.of((totalSeconds / 3600) % 24, (totalSeconds / 60) % 60);
 	}
 
+	/**
+	 * @param string
+	 * @param index
+	 * @return
+	 */
 	private int secureParseInt(String[] string, int index) {
 		if (string.length <= index) {
 			return 0;
@@ -160,6 +181,9 @@ public class TimeSpinner extends Spinner<LocalTime> {
 		return Integer.parseInt(string[index]);
 	}
 
+	/**
+	 * 
+	 */
 	public TimeSpinner() {
 		this(LocalTime.now());
 	}

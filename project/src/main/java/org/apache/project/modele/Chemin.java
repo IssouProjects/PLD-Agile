@@ -33,52 +33,64 @@ public class Chemin {
 		this.listeTroncons = listeTroncons;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getDuree() {
 		return duree;
 	}
 
+	/**
+	 * @return
+	 */
 	public Intersection getDebut() {
 		return debut;
 	}
 
+	/**
+	 * @return
+	 */
 	public Intersection getFin() {
 		return fin;
 	}
 
+	/**
+	 * @return
+	 */
 	public List<Troncon> getTroncons() {
 		return listeTroncons;
 	}
-	
+
+	/**
+	 * @return
+	 */
 	public List<String> getListeRues() {
 		List<String> listeRues = new ArrayList<String>();
-		int distancePrecedente = (int)listeTroncons.get(0).getLongueur();
-		String ruePrecedente  = listeTroncons.get(0).getNomRue();
-		
-		for(int i=1; i<listeTroncons.size(); i++) {	
+		int distancePrecedente = (int) listeTroncons.get(0).getLongueur();
+		String ruePrecedente = listeTroncons.get(0).getNomRue();
+
+		for (int i = 1; i < listeTroncons.size(); i++) {
 			String rueActuelle = listeTroncons.get(i).getNomRue();
-			int distanceActuelle = (int)listeTroncons.get(i).getLongueur();
-			
-			if(rueActuelle.isEmpty()) {
+			int distanceActuelle = (int) listeTroncons.get(i).getLongueur();
+
+			if (rueActuelle.isEmpty()) {
 				rueActuelle = "Rue Inconnue";
 			}
-			
-			if(rueActuelle.equals(ruePrecedente)) {
+
+			if (rueActuelle.equals(ruePrecedente)) {
 				distancePrecedente += distanceActuelle;
-			}else {
-				listeRues.add(ruePrecedente + " sur " + distancePrecedente +"m.");
+			} else {
+				listeRues.add(ruePrecedente + " sur " + distancePrecedente + "m.");
 				distancePrecedente = distanceActuelle;
 			}
 			ruePrecedente = rueActuelle;
 		}
-		
-		listeRues.add(ruePrecedente + " sur " + distancePrecedente +"m.");
-		
-		
+
+		listeRues.add(ruePrecedente + " sur " + distancePrecedente + "m.");
+
 		return listeRues;
 	}
-	
-	
-	
+
 	@Override
 	public String toString() {
 		String chemin_s = "De " + debut.getIdNoeud() + " à " + fin.getIdNoeud();

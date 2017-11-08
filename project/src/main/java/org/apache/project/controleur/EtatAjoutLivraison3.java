@@ -9,6 +9,9 @@ import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
 import org.apache.project.vue.MapGestures.SelectionMode;
 
+/**
+ *
+ */
 public class EtatAjoutLivraison3 extends EtatDefaut {
 
 	Livraison nouvelleLivraison;
@@ -24,12 +27,14 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 			nouvelleLivraison.setPlageHoraire(new PlageHoraire(heureDeb, heureFin));
 		}
 
-		int retour = commandes.ajouteCommande(new CdeAjouterLivraison(planDeVille, tournee, nouvelleLivraison, livraisonPrecedente));
-		
-		if(retour == 2) {
-			fenetrePrincipale.afficherPopupError("Impossible de parcourir le chemin entre les deux livraisons avec le plan donné");
+		int retour = commandes
+				.ajouteCommande(new CdeAjouterLivraison(planDeVille, tournee, nouvelleLivraison, livraisonPrecedente));
+
+		if (retour == 2) {
+			fenetrePrincipale.afficherPopupError(
+					"Impossible de parcourir le chemin entre les deux livraisons avec le plan donné");
 		}
-		
+
 		fenetrePrincipale.getMapContainer().setSelectionMode(SelectionMode.Troncon);
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
@@ -38,16 +43,20 @@ public class EtatAjoutLivraison3 extends EtatDefaut {
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
 	}
 
-	protected void actionEntreeEtatAjoutLivraison3(Livraison livraisonPrecedente, Livraison nouvelleLivraison) {
-		this.nouvelleLivraison = nouvelleLivraison;
-		this.livraisonPrecedente = livraisonPrecedente;
-	}
-
 	@Override
 	public void annuler(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
 		fenetrePrincipale.afficherInfo("Ajout annulé. Action libre");
 		fenetrePrincipale.getMapContainer().setSelectionMode(SelectionMode.Troncon);
 		fenetrePrincipale.setVisibleAnnulerButton(false);
+	}
+
+	/**
+	 * @param livraisonPrecedente
+	 * @param nouvelleLivraison
+	 */
+	protected void actionEntreeEtatAjoutLivraison3(Livraison livraisonPrecedente, Livraison nouvelleLivraison) {
+		this.nouvelleLivraison = nouvelleLivraison;
+		this.livraisonPrecedente = livraisonPrecedente;
 	}
 }

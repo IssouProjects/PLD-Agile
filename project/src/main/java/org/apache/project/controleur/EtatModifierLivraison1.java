@@ -6,6 +6,9 @@ import org.apache.project.modele.Livraison;
 import org.apache.project.modele.Tournee;
 import org.apache.project.vue.FenetrePrincipale;
 
+/**
+ * 
+ */
 public class EtatModifierLivraison1 extends EtatDefaut {
 
 	Livraison livraison;
@@ -44,6 +47,9 @@ public class EtatModifierLivraison1 extends EtatDefaut {
 		fenetrePrincipale.afficherInfo("Ajout annulé. Action libre");
 	}
 
+	/**
+	 * @param livraison
+	 */
 	protected void actionEntreeEtatModifierLivraison1(Livraison livraison) {
 		this.livraison = livraison;
 	}

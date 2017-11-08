@@ -25,6 +25,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
+/**
+ *
+ */
 public class LivraisonCell extends ListCell<Livraison> {
 
 	private static HashMap<Integer, LivraisonCell> instanceMap = new HashMap<Integer, LivraisonCell>();
@@ -42,6 +45,9 @@ public class LivraisonCell extends ListCell<Livraison> {
 
 	private final LivraisonCell thisCell = this;
 
+	/**
+	 * 
+	 */
 	public LivraisonCell() {
 
 		instanceMap.put(this.hashCode(), this);
@@ -105,6 +111,10 @@ public class LivraisonCell extends ListCell<Livraison> {
 		instanceMap.remove(this.hashCode());
 	}
 
+	/**
+	 * @param classId
+	 * @return
+	 */
 	public LivraisonCell findInstance(String classId) {
 		return instanceMap.get(Integer.parseInt(classId));
 	}
@@ -121,6 +131,9 @@ public class LivraisonCell extends ListCell<Livraison> {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void clearContent() {
 		this.setText(null);
 		titleText.setText(null);
@@ -129,17 +142,24 @@ public class LivraisonCell extends ListCell<Livraison> {
 		bonusMsg.setText(null);
 		setGraphic(null);
 	}
-	
+
+	/**
+	 * @param disabled
+	 */
 	public void setEditDisabled(boolean disabled) {
-		if(!(getItem() instanceof Entrepot)) {
+		if (!(getItem() instanceof Entrepot)) {
 			editButton.setDisable(disabled);
 			deleteButton.setDisable(disabled);
 		}
 	}
 
+	/**
+	 * @param livraison
+	 */
 	@SuppressWarnings("deprecation")
 	public void addContent(Livraison livraison) {
-		clearContent();instanceMap.put(this.hashCode(), this);
+		clearContent();
+		instanceMap.put(this.hashCode(), this);
 
 		EcouteurDeBouton edb = ((ListDisplay) this.getListView().getParent()).getEcouteurDeBouton();
 		deleteButton.setOnAction(edb);
@@ -247,6 +267,9 @@ public class LivraisonCell extends ListCell<Livraison> {
 		this.setGraphic(grid);
 	}
 
+	/**
+	 * @param editMode
+	 */
 	public void setEditMode(boolean editMode) {
 		subText.setVisible(editMode);
 		editButton.setVisible(editMode);
@@ -259,6 +282,9 @@ public class LivraisonCell extends ListCell<Livraison> {
 		bonusMsg.setManaged(bonusMsg.getText() != null && editMode);
 	}
 
+	/**
+	 * 
+	 */
 	public void enableAddHint() {
 		this.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
@@ -279,18 +305,24 @@ public class LivraisonCell extends ListCell<Livraison> {
 		});
 	}
 
+	/**
+	 * 
+	 */
 	public void disableAddHint() {
 		((ListDisplay) getListView().getParent()).hideHint();
 		this.setOnMouseEntered(null);
 		this.setOnMouseExited(null);
 	}
 
+	/**
+	 * 
+	 */
 	public void enableMove() {
-		if(this.getItem() instanceof Entrepot) {
+		if (this.getItem() instanceof Entrepot) {
 			disableMove();
 			return;
 		}
-		
+
 		//////////////////////////////////
 		//// DRAG AND DROP MANAGEMENT ////
 		//////////////////////////////////
@@ -403,6 +435,9 @@ public class LivraisonCell extends ListCell<Livraison> {
 		});
 	}
 
+	/**
+	 * 
+	 */
 	public void disableMove() {
 		setOnDragDetected(null);
 		setOnDragOver(null);
@@ -412,6 +447,9 @@ public class LivraisonCell extends ListCell<Livraison> {
 		setOnDragDone(null);
 	}
 
+	/**
+	 * @return
+	 */
 	public static HashMap<Integer, LivraisonCell> getInstanceMap() {
 		return instanceMap;
 	}
