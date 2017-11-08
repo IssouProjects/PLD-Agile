@@ -43,25 +43,25 @@ public class FenetrePrincipale extends Application {
 
 	private Stage stage;
 
-	MapContainer mapContainer;
-	Controleur controleur;
-	EcouteurDeBouton edb;
-	EcouteurDeMap edm;
-	EcouteurDeListe edl;
+	private MapContainer mapContainer;
+	private Controleur controleur;
+	private EcouteurDeBouton edb;
+	private EcouteurDeMap edm;
+	private EcouteurDeListe edl;
 
-	Button loadMapButton;
-	Button fitMapButton;
-	Button calculerTourneeButton;
-	Button loadLivraisonButton;
-	Button ajouterLivraisonButton;
-	Button supprLivraisonButton;
-	Button annulerButton;
-	Button recalculerButton;
-	Button exporterButton;
+	private Button loadMapButton;
+	private Button fitMapButton;
+	private Button calculerTourneeButton;
+	private Button loadLivraisonButton;
+	private Button ajouterLivraisonButton;
+	private Button supprLivraisonButton;
+	private Button annulerButton;
+	private Button recalculerButton;
+	private Button exporterButton;
 
-	ImageView imageView;
+	private ImageView imageView;
 
-	ListDisplay listeLivraisons;
+	private ListDisplay listeLivraisons;
 
 	private UndoRedoWidget undoRedoWidget;
 
@@ -544,7 +544,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * Permet de masque la popup de timeout
+	 * Permet de masquer la popup de timeout
 	 */
 	public void masquerFenetreTimeoutPopup() {
 		stack.getChildren().remove(timeoutPopup);
@@ -565,9 +565,10 @@ public class FenetrePrincipale extends Application {
 
 
 	/**
-	 * 
+	 * Met en valeur une livraison
 	 * 
 	 * @param l
+	 *            La livraison à mettre en valeur
 	 */
 	public void highlightLivraison(Livraison l) {
 		mapContainer.getMapDisplay().resetAndHighlight(l);
@@ -576,7 +577,10 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Met en valeur une intersection
+	 * 
 	 * @param I
+	 *            l'intersection à mettre en valeur
 	 */
 	public void highlightIntersection(Intersection I) {
 		listeLivraisons.selectLivraison(null);
@@ -585,7 +589,10 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Mettre en valeur un troncon
+	 * 
 	 * @param t
+	 *            le troncon à mettre en valeur
 	 */
 	public void highlightTroncon(Troncon t) {
 		listeLivraisons.selectLivraison(null);
@@ -595,6 +602,8 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Renvoie l'objet <tt>ListDisplay</tt> de la fenêtre
+	 * 
 	 * @return
 	 */
 	public ListDisplay getListDisplay() {
@@ -602,6 +611,8 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Renvoie l'objet <tt>MapContainer</tt> de la fenêtre
+	 * 
 	 * @return
 	 */
 	public MapContainer getMapContainer() {
@@ -609,13 +620,17 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * @return
+	 * Renvoie la livraison sélectionnée
+	 * 
+	 * @return la livraison actuellement mise en valeur
 	 */
 	public Livraison getSelectedLivraison() {
 		return listeLivraisons.getSelectedLivraison();
 	}
 
 	/**
+	 * Renvoie le widget permettrant d'annuler / de refaire des actions
+	 * 
 	 * @return
 	 */
 	public UndoRedoWidget getUndoRedoWidget() {
@@ -641,7 +656,10 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Rend visible / invisible le bouton de recalcul
+	 * 
 	 * @param visible
+	 *            l'état souhaité
 	 */
 	public void setVisibleRecalculerButton(boolean visible) {
 		recalculerButton.setVisible(visible);
@@ -649,7 +667,10 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Rend visible / invisible le bouton d'annulation
+	 * 
 	 * @param visible
+	 *            l'état souhaité
 	 */
 	public void setVisibleAnnulerButton(boolean visible) {
 		annulerButton.setVisible(visible);
@@ -657,7 +678,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * 
+	 * Affiche une animation pour indiquer un chargement
 	 */
 	public void afficherLoading() {
 
@@ -670,7 +691,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * 
+	 * Masque l'animation de chargement
 	 */
 	public void removeLoading() {
 		stack.getChildren().remove(imageView);
