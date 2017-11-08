@@ -204,9 +204,7 @@ public class Tournee extends Observable {
 		
 		TSP5 tspSolut = new TSP5();
 
-		long caca = System.currentTimeMillis();
 		tspSolut.chercheSolution(tempsLimite, nombreLivraison, cout, duree, tempsMini, tempsMax);
-		System.out.println(System.currentTimeMillis() - caca);
 		// On test s il y a un resultat, sinon c est surement a cause de la prise en
 		// compte des plages horaires
 		if (tspSolut.getMeilleureSolution(0) == null) {
