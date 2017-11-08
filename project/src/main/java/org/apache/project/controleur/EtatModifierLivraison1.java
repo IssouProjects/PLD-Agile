@@ -31,7 +31,7 @@ public class EtatModifierLivraison1 extends EtatDefaut {
 			}
 		}
 
-		tournee.calculerDureeTotale();
+		tournee.calculerDureeTotale();//TODO remove this redundant line to optimize 
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);
