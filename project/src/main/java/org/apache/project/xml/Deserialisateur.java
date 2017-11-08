@@ -132,7 +132,7 @@ public class Deserialisateur {
 	 * @throws ExceptionXML
 	 */
 	private static void construireIntersection(Element element, PlanDeVille plan) throws ExceptionXML {
-		if (element.getAttribute("id") == "" || element.getAttribute("x").equals("")
+		if (element.getAttribute("id").equals("") || element.getAttribute("x").equals("")
 				|| element.getAttribute("y").equals("") || !element.getAttribute("id").matches("[0-9]+")
 				|| !element.getAttribute("x").matches("[0-9]+") || !element.getAttribute("y").matches("[0-9]+")) {
 			throw new ExceptionXML("Document mal forme");
