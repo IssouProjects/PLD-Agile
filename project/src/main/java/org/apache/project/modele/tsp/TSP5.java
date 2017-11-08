@@ -63,26 +63,25 @@ public class TSP5 extends TemplateTSP {
 				vus.toArray(meilleureSolution);
 				coutMeilleureSolution = coutVus;
 			}
-		} else if (coutVus + bound(sommetCrt, nonVus, cout, duree, tempsMax) < coutMeilleureSolution) {
-			if (plageFiniPremier > coutVus) {
-				Iterator<Integer> it = iterator(sommetCrt, nonVus, cout, duree, tempsMini, coutVus);
-				while (it.hasNext() && tempsLimiteAtteint == false) {
-					Integer prochainSommet = it.next();
-					if (coutVus + cout[sommetCrt][prochainSommet] + duree[prochainSommet] > tempsMax[prochainSommet]) {
-						// Ce point est plus possible, on a depasse la limite max, donc cette branche n
-						// est plus possible, puisqu il s agit forcemment du chemin le plus court actuel
-						// pour y parvenir
-						break;
-					} else {
-						vus.add(prochainSommet);
-						nonVus.remove(prochainSommet);
-						branchAndBound(prochainSommet, nonVus, vus,
-								Math.max(tempsMini[prochainSommet], coutVus + cout[sommetCrt][prochainSommet])
-										+ duree[prochainSommet],
-								cout, duree, tpsDebut, tpsLimite, tempsMini, tempsMax);
-						vus.remove(prochainSommet);
-						nonVus.add(prochainSommet);
-					}
+		} else if ((coutVus + bound(sommetCrt, nonVus, cout, duree, tempsMax) < coutMeilleureSolution)
+				&& (plageFiniPremier > coutVus)) {
+			Iterator<Integer> it = iterator(sommetCrt, nonVus, cout, duree, tempsMini, coutVus);
+			while (it.hasNext() && tempsLimiteAtteint == false) {
+				Integer prochainSommet = it.next();
+				if (coutVus + cout[sommetCrt][prochainSommet] + duree[prochainSommet] > tempsMax[prochainSommet]) {
+					// Ce point est plus possible, on a depasse la limite max, donc cette branche n
+					// est plus possible, puisqu il s agit forcemment du chemin le plus court actuel
+					// pour y parvenir
+					break;
+				} else {
+					vus.add(prochainSommet);
+					nonVus.remove(prochainSommet);
+					branchAndBound(prochainSommet, nonVus, vus,
+							Math.max(tempsMini[prochainSommet], coutVus + cout[sommetCrt][prochainSommet])
+									+ duree[prochainSommet],
+							cout, duree, tpsDebut, tpsLimite, tempsMini, tempsMax);
+					vus.remove(prochainSommet);
+					nonVus.add(prochainSommet);
 				}
 			}
 		}
@@ -128,7 +127,7 @@ public class TSP5 extends TemplateTSP {
 				valMini2 = cout[s][0];
 			}
 			for (Integer s2 : nonVus) {
-				if (cout[s][s2] < valMini2 && s != s2) {
+				if (cout[s][s2] < valMini2 && !s.equals(s2)) {
 					valMini2 = cout[s][s2];
 				}
 			}

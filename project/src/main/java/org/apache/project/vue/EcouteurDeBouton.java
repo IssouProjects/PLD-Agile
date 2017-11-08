@@ -62,12 +62,10 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 				break;
 			case LivraisonPopup.VALIDATE_ID:
 				LivraisonPopup popup = fenetrePrincipale.getFenetreAjouterLivraison();
-				if (popup != null) {
-					if (popup.checkTimeOk()) {
-						controleur.calculerCheminsNouvelleLivraison(popup.getNewDuree(), popup.getNewHeureDeb(),
-								popup.getNewHeureFin());
-						fenetrePrincipale.masquerFenetreAjouterLivraison();
-					}
+				if (popup != null && popup.checkTimeOk()) {
+					controleur.calculerCheminsNouvelleLivraison(popup.getNewDuree(), popup.getNewHeureDeb(),
+							popup.getNewHeureFin());
+					fenetrePrincipale.masquerFenetreAjouterLivraison();
 				}
 				break;
 			case LivraisonPopup.CANCEL_ID:

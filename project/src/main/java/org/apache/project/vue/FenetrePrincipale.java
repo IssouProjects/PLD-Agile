@@ -303,7 +303,7 @@ public class FenetrePrincipale extends Application {
 		exporterButton.setOnAction(edb);
 
 		// map listener
-		edm = new EcouteurDeMap(controleur, mapContainer);
+		edm = new EcouteurDeMap(controleur);
 		mapContainer.setEcouteurDeMap(edm);
 
 		// list listener

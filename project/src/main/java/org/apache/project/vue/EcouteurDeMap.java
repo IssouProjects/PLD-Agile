@@ -9,16 +9,14 @@ import org.apache.project.modele.Troncon;
  *
  */
 public class EcouteurDeMap {
-	Controleur controleur;
-	MapContainer mapContainer;
+	private Controleur controleur;
 
 	/**
 	 * @param c
 	 * @param mapContainer
 	 */
-	public EcouteurDeMap(Controleur c, MapContainer mapContainer) {
+	public EcouteurDeMap(Controleur c) {
 		controleur = c;
-		this.mapContainer = mapContainer;
 	}
 
 	/**
