@@ -473,8 +473,9 @@ public class MapDisplay extends Pane {
 		if (!mapLivraisons.isEmpty()) {
 			// we remove the previous livraison
 			// Might create errors
-			for (Map.Entry<Livraison, Circle> entry : mapLivraisons.entrySet())
+			for (Map.Entry<Livraison, Circle> entry : mapLivraisons.entrySet()) {
 				getChildren().remove(entry.getValue());
+			}
 			mapLivraisons.clear();
 
 			getChildren().removeAll(numerosLivraisons);

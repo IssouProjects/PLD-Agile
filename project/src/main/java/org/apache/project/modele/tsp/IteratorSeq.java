@@ -16,24 +16,8 @@ public class IteratorSeq implements Iterator<Integer> {
 	 * Crée un iterateur pour itérer sur l'ensemble des sommets de nonVus.
 	 * 
 	 * @param nonVus
-	 * @param sommetCrt
 	 */
-	public IteratorSeq(Collection<Integer> nonVus, int sommetCrt) {
-		this.candidats = new Integer[nonVus.size()];
-		nbCandidats = 0;
-		for (Integer s : nonVus) {
-			candidats[nbCandidats++] = s;
-		}
-		tailleMax = nbCandidats;
-	}
-
-	/**
-	 * Cree un iterateur pour iterer sur l'ensemble des sommets de nonVus
-	 * 
-	 * @param nonVus
-	 * @param sommetCrt
-	 */
-	public IteratorSeq(Collection<Integer> nonVus, int sommetCrt, int[][] cout) {
+	public IteratorSeq(Collection<Integer> nonVus) {
 		this.candidats = new Integer[nonVus.size()];
 		nbCandidats = 0;
 		for (Integer s : nonVus) {
@@ -80,7 +64,7 @@ public class IteratorSeq implements Iterator<Integer> {
 				candidats[nbCandidats++] = mini;
 			} else {
 				for (Integer s2 : nonVus) {
-					if (Math.max(cout[sommetCrt][s2], (tempsMini[s2] - coutVus)) == miniVal) {
+					if (Math.max(cout[sommetCrt][s2], tempsMini[s2] - coutVus) == miniVal) {
 						candidats[nbCandidats++] = s2;
 					}
 				}

@@ -23,9 +23,9 @@ public class UndoRedoWidget extends HBox implements Observer {
 	private Button redoButton;
 
 	/**
-	 * @param edb
+	 *
 	 */
-	public UndoRedoWidget(EcouteurDeBouton edb) {
+	public UndoRedoWidget() {
 		undoButton = new Button();
 		undoButton.setTooltip(new Tooltip("Rien à annuler"));
 		undoButton.setPrefSize(32d, 32d);

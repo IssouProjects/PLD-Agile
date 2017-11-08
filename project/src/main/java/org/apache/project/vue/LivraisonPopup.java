@@ -3,8 +3,6 @@ package org.apache.project.vue;
 import java.sql.Time;
 import java.time.LocalTime;
 
-import org.apache.project.modele.Livraison;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -53,7 +51,7 @@ public class LivraisonPopup extends VBox {
 	 * @param edb
 	 *            L'écouteur de bouton
 	 */
-	public LivraisonPopup(Livraison livraison, EcouteurDeBouton edb) {
+	public LivraisonPopup(EcouteurDeBouton edb) {
 		this.setMaxSize(400, 300);
 		this.setSpacing(40);
 		this.setPadding(new Insets(20, 40, 20, 40));

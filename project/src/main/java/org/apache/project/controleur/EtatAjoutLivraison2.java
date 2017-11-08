@@ -14,7 +14,6 @@ import org.apache.project.vue.MapGestures.SelectionMode;
 public class EtatAjoutLivraison2 extends EtatDefaut {
 
 	private Intersection intersectionLivraison;
-	private Livraison nouvelleLivraison;
 
 	@Override
 	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan,
@@ -23,8 +22,8 @@ public class EtatAjoutLivraison2 extends EtatDefaut {
 		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
 		fenetrePrincipale.getListDisplay().disableAddHint();
 		controleur.setEtatCourant(controleur.etatAjoutLivraison3);
-		nouvelleLivraison = new Livraison(intersectionLivraison);
-		fenetrePrincipale.afficherFenetreAjouterLivraison(nouvelleLivraison);
+		Livraison nouvelleLivraison = new Livraison(intersectionLivraison);
+		fenetrePrincipale.afficherFenetreAjouterLivraison();
 		controleur.etatAjoutLivraison3.actionEntreeEtatAjoutLivraison3(livraisonPrecedente, nouvelleLivraison);
 	}
 
