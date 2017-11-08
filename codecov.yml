@@ -4,6 +4,7 @@ ignore:
   - "project/src/main/java/org/apache/project/modele/tsp/TSP1.java"
   - "project/src/main/java/org/apache/project/modele/tsp/TSP2.java"
   - "project/src/main/java/org/apache/project/modele/tsp/TSP3.java"
+  - "project/src/main/java/org/apache/project/modele/tsp/TSP4.java"
 
 coverage:
   range: 30..75
