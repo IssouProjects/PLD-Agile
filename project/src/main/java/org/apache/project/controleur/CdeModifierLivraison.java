@@ -4,18 +4,21 @@ import java.sql.Time;
 
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlageHoraire;
+import org.apache.project.modele.Tournee;
 
 public class CdeModifierLivraison implements Commande {
 
+	private Tournee tournee;
 	private Livraison livraison;
 	private PlageHoraire nouvellePlage;
 	private PlageHoraire anciennePlage;
 	private int ancienneDuree;
 	private int nouvelleDuree;
 
-	public CdeModifierLivraison(Livraison livraison, Time heureDebut, Time heureFin, Integer duree) {
+	public CdeModifierLivraison(Livraison livraison, Tournee tournee, Time heureDebut, Time heureFin, Integer duree) {
 		this.livraison = livraison;
-
+		this.tournee = tournee;
+		
 		if (heureDebut == null || heureFin == null) {
 			this.nouvellePlage = null;
 		} else {
@@ -46,7 +49,7 @@ public class CdeModifierLivraison implements Commande {
 			}
 		}
 		livraison.setDuree(nouvelleDuree);
-		
+		tournee.calculerDureeTotale();
 		return 0;
 	}
 
@@ -63,6 +66,7 @@ public class CdeModifierLivraison implements Commande {
 			}
 		}
 		livraison.setDuree(ancienneDuree);
+		tournee.calculerDureeTotale();
 	}
 
 }

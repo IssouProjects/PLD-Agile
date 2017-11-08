@@ -65,7 +65,7 @@ public class TestCdeModifierLivraison {
 
 		// Modification de la livraison avec la commande
 		commandes.ajouteCommande(
-				new CdeModifierLivraison(tourneeModifiee.getLivraison(2), new Time(10, 30, 0), new Time(11, 0, 0), 60));
+				new CdeModifierLivraison(tourneeModifiee.getLivraison(2), tourneeModifiee, new Time(10, 30, 0), new Time(11, 0, 0), 60));
 
 		// La commande s'est bien executee
 		assertEquals("10:30:00", tourneeModifiee.getLivraison(2).getPlageHoraire().getDebut().toString());
@@ -88,7 +88,7 @@ public class TestCdeModifierLivraison {
 		// On remet cette plage horaire a null
 		tourneeApresCommande.getLivraison(2).setPlageHoraire(null);
 
-		commandes.ajouteCommande(new CdeModifierLivraison(tourneeModifiee.getLivraison(2), null, null, 60));
+		commandes.ajouteCommande(new CdeModifierLivraison(tourneeModifiee.getLivraison(2), tourneeModifiee, null, null, 60));
 
 		// On verifie que c'est bien a null
 		assertNull(tourneeApresCommande.getLivraison(2).getPlageHoraire());
@@ -110,11 +110,11 @@ public class TestCdeModifierLivraison {
 		// On change deux fois de suite de plage horaire
 		tourneeApresCommande.getLivraison(2).setPlageHoraire(new PlageHoraire(new Time(8, 0, 0), new Time(8, 30, 0)));
 		commandes.ajouteCommande(
-				new CdeModifierLivraison(tourneeModifiee.getLivraison(2), new Time(8, 0, 0), new Time(8, 30, 0), 60));
+				new CdeModifierLivraison(tourneeModifiee.getLivraison(2), tourneeModifiee, new Time(8, 0, 0), new Time(8, 30, 0), 60));
 
 		tourneeApresCommande.getLivraison(2).setPlageHoraire(new PlageHoraire(new Time(9, 0, 0), new Time(9, 30, 0)));
 		commandes.ajouteCommande(
-				new CdeModifierLivraison(tourneeModifiee.getLivraison(2), new Time(9, 0, 0), new Time(9, 30, 0), 60));
+				new CdeModifierLivraison(tourneeModifiee.getLivraison(2), tourneeModifiee, new Time(9, 0, 0), new Time(9, 30, 0), 60));
 
 		// On verifie qu'on a recupere la plage horaire
 		assertEquals("09:00:00", tourneeModifiee.getLivraison(2).getPlageHoraire().getDebut().toString());
