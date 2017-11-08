@@ -35,7 +35,7 @@ public class ListDisplay extends Pane {
 	private boolean enableMoveState = false;
 
 	private GridPane addNotifier = new GridPane();
-	Pane notifierCircle = new Pane();
+	private Pane notifierCircle = new Pane();
 
 	private List<Livraison> livraisonsTmp = null;
 
