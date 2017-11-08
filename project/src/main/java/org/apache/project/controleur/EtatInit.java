@@ -17,8 +17,10 @@ public class EtatInit extends EtatDefaut {
 	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes){
 		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.PDV_FILE_DESCRIPTION, 
 				FenetrePrincipale.PDV_FILE_EXTENSION, FenetrePrincipale.PDV_FILEDIALOG_DESCRIPTION);
-		if(file == null)
+		if(file == null) {
 			return;
+		}
+			
 		controleur.chargerPlanDeVille(file);
 	}
 	
@@ -32,8 +34,11 @@ public class EtatInit extends EtatDefaut {
 			fenetrePrincipale.afficherPlanDeVille(planDeVille);
 			fenetrePrincipale.afficherInfo("Charger une demande de livraison");
 		} catch (ParserConfigurationException e) {
+			fenetrePrincipale.afficherPopupError(e.getMessage());
 		} catch (SAXException e) {
+			fenetrePrincipale.afficherPopupError(e.getMessage());
 		} catch (IOException e) {
+			fenetrePrincipale.afficherPopupError("Format non valide.");
 		} catch (ExceptionXML e) {
 			fenetrePrincipale.afficherPopupError(e.getMessage());
 		}

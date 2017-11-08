@@ -35,8 +35,11 @@ public class EtatPlanCharge extends EtatDefaut {
 			fenetrePrincipale.afficherDemandeDeLivraison(demandeDeLivraison);
 			fenetrePrincipale.afficherInfo("Calculer une tournée");
 		} catch (ParserConfigurationException e) {
+			fenetrePrincipale.afficherPopupError(e.getMessage());
 		} catch (SAXException e) {
+			fenetrePrincipale.afficherPopupError(e.getMessage());
 		} catch (IOException e) {
+			fenetrePrincipale.afficherPopupError("Format non valide");
 		} catch (ExceptionXML e) {
 			fenetrePrincipale.afficherPlanDeVille(planDeVille);
 			fenetrePrincipale.afficherPopupError(e.getMessage()+ "\nChargement de demande de livraison annulée.");
