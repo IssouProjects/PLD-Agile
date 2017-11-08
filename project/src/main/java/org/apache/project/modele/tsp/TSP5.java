@@ -9,6 +9,7 @@ import java.util.Iterator;
 public class TSP5 extends TemplateTSP {
 
 	private int plageFiniPremier;
+	private int indicePlageFiniPremier;
 
 	/**
 	 * 
@@ -30,7 +31,9 @@ public class TSP5 extends TemplateTSP {
 		tempsLimiteAtteint = false;
 		coutMeilleureSolution = 3600 * 24;
 		meilleureSolution = new Integer[nbSommets];
-		plageFiniPremier = Integer.MAX_VALUE;
+		plageFiniPremier = 3600*24;
+		indicePlageFiniPremier = 0;
+		duree[0] = 0;
 		ArrayList<Integer> nonVus = new ArrayList<Integer>();
 		for (int i = 1; i < nbSommets; i++)
 			nonVus.add(i);
@@ -64,7 +67,7 @@ public class TSP5 extends TemplateTSP {
 				coutMeilleureSolution = coutVus;
 			}
 		} else if (coutVus + bound(sommetCrt, nonVus, cout, duree, tempsMax) < coutMeilleureSolution) {
-			if (plageFiniPremier > coutVus) {
+			if (plageFiniPremier > coutVus + cout[sommetCrt][indicePlageFiniPremier] + duree[indicePlageFiniPremier]) {
 				Iterator<Integer> it = iterator(sommetCrt, nonVus, cout, duree, tempsMini, coutVus);
 				while (it.hasNext() && tempsLimiteAtteint == false) {
 					Integer prochainSommet = it.next();
@@ -114,7 +117,8 @@ public class TSP5 extends TemplateTSP {
 
 		int bound = 0;
 
-		plageFiniPremier = Integer.MAX_VALUE;
+		plageFiniPremier = 3600*24;
+		indicePlageFiniPremier = 0;
 
 		int valMini1 = cout[sommetCourant][0];
 		int valMini2 = Integer.MAX_VALUE;
@@ -153,7 +157,8 @@ public class TSP5 extends TemplateTSP {
 
 		int bound = 0;
 
-		plageFiniPremier = Integer.MAX_VALUE;
+		plageFiniPremier = 3600*24;
+		indicePlageFiniPremier = 0;
 
 		int valMini1 = cout[sommetCourant][0];
 		int valMini2 = Integer.MAX_VALUE;
@@ -161,6 +166,7 @@ public class TSP5 extends TemplateTSP {
 		for (Integer s : nonVus) {
 			if (tempsMax[s] < plageFiniPremier) {
 				plageFiniPremier = tempsMax[s];
+				indicePlageFiniPremier = s;
 			}
 			if (cout[sommetCourant][s] < valMini1) {
 				valMini1 = cout[sommetCourant][s];
