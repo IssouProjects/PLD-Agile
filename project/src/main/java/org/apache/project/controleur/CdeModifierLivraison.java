@@ -5,6 +5,9 @@ import java.sql.Time;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlageHoraire;
 
+/**
+ *
+ */
 public class CdeModifierLivraison implements Commande {
 
 	private Livraison livraison;
@@ -13,6 +16,12 @@ public class CdeModifierLivraison implements Commande {
 	private int ancienneDuree;
 	private int nouvelleDuree;
 
+	/**
+	 * @param livraison
+	 * @param heureDebut
+	 * @param heureFin
+	 * @param duree
+	 */
 	public CdeModifierLivraison(Livraison livraison, Time heureDebut, Time heureFin, Integer duree) {
 		this.livraison = livraison;
 
@@ -46,7 +55,7 @@ public class CdeModifierLivraison implements Commande {
 			}
 		}
 		livraison.setDuree(nouvelleDuree);
-		
+
 		return 0;
 	}
 

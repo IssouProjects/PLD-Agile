@@ -19,7 +19,7 @@ public class Controleur {
 	private Tournee tournee;
 	private Etat etatCourant;
 	private int tempsLimite = 10000;
-	// Instances associees a chaque etat possible du controleur
+	// Instances associées à chaque état possible du controleur
 	protected final EtatInit etatInit = new EtatInit();
 	protected final EtatPlanCharge etatPlanCharge = new EtatPlanCharge();
 	protected final EtatDemandeLivraisonCharge etatDemandeLivraisonCharge = new EtatDemandeLivraisonCharge();
@@ -36,7 +36,7 @@ public class Controleur {
 	private static Controleur instance = null;
 
 	/**
-	 * Cree le controleur de l'application
+	 * Crée le controleur de l'application
 	 */
 	private Controleur() {
 		instance = this;
@@ -47,6 +47,11 @@ public class Controleur {
 		commandes = new ListeDeCommandes();
 	}
 
+	/**
+	 * Renvoie une instance du contrôleur.
+	 * 
+	 * @return l'instance du contrôleur s'il existe, un nouveau contrôleur sinon.
+	 */
 	public static Controleur getInstance() {
 		if (instance == null) {
 			instance = new Controleur();
@@ -54,13 +59,16 @@ public class Controleur {
 		return instance;
 	}
 
+	/**
+	 * @param fenetre
+	 */
 	public void setFenetre(FenetrePrincipale fenetre) {
 		fenetrePrincipale = fenetre;
 		commandes.addObserver(fenetrePrincipale.getUndoRedoWidget());
 	}
 
 	/**
-	 * Change l'etat courant du controleur
+	 * Change l'état courant du controleur
 	 * 
 	 * @param etat
 	 *            le nouvel etat courant
@@ -69,110 +77,189 @@ public class Controleur {
 		etatCourant = etat;
 	}
 
+	/**
+	 * 
+	 */
 	public void ouvrirPlanDeVille() {
 		etatCourant.ouvrirPlanDeVille(this, planDeVille, fenetrePrincipale, commandes);
 	}
 
+	/**
+	 * @param fichier
+	 */
 	public void chargerPlanDeVille(File fichier) {
 		etatCourant.chargerPlanDeVille(this, planDeVille, fenetrePrincipale, fichier);
 	}
 
+	/**
+	 * 
+	 */
 	public void ouvrirDemandeDeLivraison() {
 		etatCourant.ouvrirDemandeDeLivraison(this, planDeVille, demandeDeLivraison, fenetrePrincipale, commandes);
 	}
 
+	/**
+	 * @param fichier
+	 */
 	public void chargerDemandeDeLivraison(File fichier) {
 		etatCourant.chargerDemandeDeLivraison(this, planDeVille, demandeDeLivraison, fenetrePrincipale, fichier);
 	}
 
+	/**
+	 * 
+	 */
 	public void calculerTournee() {
 		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale, tempsLimite);
 	}
 
+	/**
+	 * @param nouveauTempsLimite
+	 */
 	public void calculerTournee(int nouveauTempsLimite) {
 		etatCourant.calculerTournee(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale,
 				nouveauTempsLimite);
 	}
 
+	/**
+	 * 
+	 */
 	public void ajouterLivraison() {
 		etatCourant.ajouterLivraison(this, fenetrePrincipale);
 	}
 
+	/**
+	 * 
+	 */
 	public void supprimerLivraison() {
 		etatCourant.supprimerLivraison(this, tournee, planDeVille, fenetrePrincipale, commandes);
 	}
 
+	/**
+	 * 
+	 */
 	public void editerLivraison() {
 		etatCourant.modifierLivraison(this, fenetrePrincipale);
 	}
 
+	/**
+	 * @param duree
+	 * @param heureDeb
+	 * @param heureFin
+	 */
 	public void validerModificationLivraison(Integer duree, Time heureDeb, Time heureFin) {
 		etatCourant.validerModificationLivraison(this, fenetrePrincipale, tournee, heureDeb, heureFin, duree,
 				commandes);
 	}
 
+	/**
+	 * @param nouveauIndex
+	 */
 	public void echangerLivraison(int nouveauIndex) {
 		etatCourant.echangerLivraison(this, planDeVille, fenetrePrincipale, tournee, nouveauIndex, commandes);
 	}
 
+	/**
+	 * 
+	 */
 	public void annuler() {
 		etatCourant.annuler(this, fenetrePrincipale);
 	}
 
+	/**
+	 * 
+	 */
 	public void annulerRecalcul() {
 		etatCourant.annulerRecalcul(this, fenetrePrincipale, tournee);
 	}
 
+	/**
+	 * @param intersection
+	 */
 	public void intersectionClicked(Intersection intersection) {
 		etatCourant.intersectionClicked(this, planDeVille, demandeDeLivraison, tournee, fenetrePrincipale,
 				intersection);
 	}
 
+	/**
+	 * @param livraison
+	 */
 	public void livraisonClicked(Livraison livraison) {
 		etatCourant.livraisonClicked(this, fenetrePrincipale, planDeVille, tournee, livraison, commandes);
 	}
 
+	/**
+	 * @param troncon
+	 */
 	public void tronconClicked(Troncon troncon) {
 		etatCourant.tronconClicked(this, fenetrePrincipale, planDeVille, troncon, commandes);
 	}
-	
+
+	/**
+	 * 
+	 */
 	public void fermerFeuilleDeRoute() {
 		etatCourant.fermerFeuilleDeRoute(this, fenetrePrincipale);
 	}
 
+	/**
+	 * @param duree
+	 * @param heureDeb
+	 * @param heureFin
+	 */
 	public void calculerCheminsNouvelleLivraison(Integer duree, Time heureDeb, Time heureFin) {
 		etatCourant.calculerCheminsNouvelleLivraison(this, planDeVille, tournee, fenetrePrincipale, duree, heureDeb,
 				heureFin, commandes);
 	}
 
+	/**
+	 * 
+	 */
 	public void clearPlanDeVille() {
 		planDeVille.clear();
 	}
 
+	/**
+	 * 
+	 */
 	public void clearDemandeDeLivraison() {
 		demandeDeLivraison.clear();
 	}
 
+	/**
+	 * 
+	 */
 	public void clearTournee() {
 		tournee.clear();
 	}
 
+	/**
+	 * 
+	 */
 	public void undo() {
 		etatCourant.undo(commandes);
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
 	}
 
+	/**
+	 * 
+	 */
 	public void redo() {
 		etatCourant.redo(commandes);
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
 	}
 
+	/**
+	 * 
+	 */
 	public void afficherFenetreTimeout() {
 		etatCourant.afficherFenetreTimeout(this, fenetrePrincipale);
 	}
-	
+
+	/**
+	 * 
+	 */
 	public void exporterFeuilleDeRoute() {
 		etatCourant.exporterFeuilleDeRoute(this, fenetrePrincipale, tournee);
 	}
