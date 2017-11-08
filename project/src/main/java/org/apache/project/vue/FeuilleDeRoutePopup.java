@@ -9,7 +9,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
- *
+ * Popup permettant d'afficher une feuille de route
  */
 public class FeuilleDeRoutePopup extends VBox {
 
@@ -21,8 +21,12 @@ public class FeuilleDeRoutePopup extends VBox {
 	public static final String OK_ID = "okFeuilleDeRouteButton";
 
 	/**
+	 * Crée une fenêtre permettant d'afficher une feuille de route
+	 * 
 	 * @param feuilleDeRoute
+	 *            la feuille de route à afficher
 	 * @param edb
+	 *            l'écouteur de bouton
 	 */
 	public FeuilleDeRoutePopup(String feuilleDeRoute, EcouteurDeBouton edb) {
 		this.setMaxSize(700, 500);

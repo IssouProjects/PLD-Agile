@@ -26,7 +26,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 /**
- *
+ * Afficheur permettant d'afficher une livraison de la liste
  */
 public class LivraisonCell extends ListCell<Livraison> {
 
@@ -46,7 +46,7 @@ public class LivraisonCell extends ListCell<Livraison> {
 	private final LivraisonCell thisCell = this;
 
 	/**
-	 * 
+	 * Crée une cellule permettant d'afficher une livraison
 	 */
 	public LivraisonCell() {
 
@@ -112,8 +112,12 @@ public class LivraisonCell extends ListCell<Livraison> {
 	}
 
 	/**
+	 * Permet de récupérer l'instance de LivraisonCell associée à l'ID donné en
+	 * paramètre
+	 * 
 	 * @param classId
-	 * @return
+	 *            l'ID de la livraisonCell (hashcode)
+	 * @return l'instance souhaitée ou null si l'ID ne correspond à aucune instance
 	 */
 	public LivraisonCell findInstance(String classId) {
 		return instanceMap.get(Integer.parseInt(classId));
@@ -132,7 +136,7 @@ public class LivraisonCell extends ListCell<Livraison> {
 	}
 
 	/**
-	 * 
+	 * Réinitialise le contenu de la cellule
 	 */
 	public void clearContent() {
 		this.setText(null);
@@ -144,6 +148,8 @@ public class LivraisonCell extends ListCell<Livraison> {
 	}
 
 	/**
+	 * Désactive les boutons de suppression / de modification de livraison
+	 * 
 	 * @param disabled
 	 */
 	public void setEditDisabled(boolean disabled) {
@@ -154,7 +160,10 @@ public class LivraisonCell extends ListCell<Livraison> {
 	}
 
 	/**
+	 * Affiche les informations relative à la livraison donnée en paramètre
+	 * 
 	 * @param livraison
+	 *            la livraison à afficher
 	 */
 	@SuppressWarnings("deprecation")
 	public void addContent(Livraison livraison) {
@@ -199,9 +208,6 @@ public class LivraisonCell extends ListCell<Livraison> {
 			if (plageHoraire != null) {
 				livraison_s += "Plage horaire: " + PlageHoraire.timeToString(plageHoraire.getDebut()) + " - "
 						+ PlageHoraire.timeToString(plageHoraire.getFin());
-				if (livraison.getHeureArrivee() != null) {
-
-				}
 			} else {
 				livraison_s += "Horaire libre";
 			}
@@ -268,6 +274,9 @@ public class LivraisonCell extends ListCell<Livraison> {
 	}
 
 	/**
+	 * Permet d'afficher ou de masque les informations détaillées associée à la
+	 * livraison (lorsqu'une cellule est sélectionnée)
+	 * 
 	 * @param editMode
 	 */
 	public void setEditMode(boolean editMode) {
@@ -283,7 +292,7 @@ public class LivraisonCell extends ListCell<Livraison> {
 	}
 
 	/**
-	 * 
+	 * Active l'indicateur d'ajout
 	 */
 	public void enableAddHint() {
 		this.setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -306,7 +315,7 @@ public class LivraisonCell extends ListCell<Livraison> {
 	}
 
 	/**
-	 * 
+	 * Désactive l'indicateur d'ajout
 	 */
 	public void disableAddHint() {
 		((ListDisplay) getListView().getParent()).hideHint();
@@ -315,7 +324,8 @@ public class LivraisonCell extends ListCell<Livraison> {
 	}
 
 	/**
-	 * 
+	 * Active l'indicateur de mouvement et autorise le drag/drop des livraisons pour
+	 * gérer leur déplacement dans la tournée
 	 */
 	public void enableMove() {
 		if (this.getItem() instanceof Entrepot) {
@@ -368,26 +378,23 @@ public class LivraisonCell extends ListCell<Livraison> {
 			@Override
 			public void handle(DragEvent event) {
 				if (!(thisCell.getItem() instanceof Entrepot) && event.getGestureSource() != thisCell
-						&& event.getDragboard().hasString()) {
-					if (event.getGestureSource() instanceof LivraisonCell) {
-						LivraisonCell source = (LivraisonCell) event.getGestureSource();
+						&& event.getDragboard().hasString() && event.getGestureSource() instanceof LivraisonCell) {
+					LivraisonCell source = (LivraisonCell) event.getGestureSource();
 
-						// we show a hint on hover so the user understands where the new position of his
-						// livraison will be
+					// we show a hint on hover so the user understands where the new position of his
+					// livraison will be
 
-						// if the new position of the livraison is after its current position, the hint
-						// is displayed before
-						// the hovered livraison. Otherwise, the hint is displayed before it (don't ask
-						// why, no clue but it works)
-						if (source.getItem().getPositionDansTournee() > thisCell.getItem().getPositionDansTournee()) {
-							((ListDisplay) getListView().getParent())
-									.placeAddHintAt(thisCell.getBoundsInParent().getMinY(), thisCell.getWidth());
-						} else {
-							((ListDisplay) getListView().getParent()).placeAddHintAt(
-									thisCell.getBoundsInParent().getMinY() + thisCell.getHeight(), thisCell.getWidth());
-						}
+					// if the new position of the livraison is after its current position, the hint
+					// is displayed before
+					// the hovered livraison. Otherwise, the hint is displayed before it (don't ask
+					// why, no clue but it works)
+					if (source.getItem().getPositionDansTournee() > thisCell.getItem().getPositionDansTournee()) {
+						((ListDisplay) getListView().getParent()).placeAddHintAt(thisCell.getBoundsInParent().getMinY(),
+								thisCell.getWidth());
+					} else {
+						((ListDisplay) getListView().getParent()).placeAddHintAt(
+								thisCell.getBoundsInParent().getMinY() + thisCell.getHeight(), thisCell.getWidth());
 					}
-
 				}
 			}
 		});
@@ -436,7 +443,7 @@ public class LivraisonCell extends ListCell<Livraison> {
 	}
 
 	/**
-	 * 
+	 * désactive le déplacement de la cellule
 	 */
 	public void disableMove() {
 		setOnDragDetected(null);
@@ -448,6 +455,8 @@ public class LivraisonCell extends ListCell<Livraison> {
 	}
 
 	/**
+	 * Permet de récupérer la map dans laquelle on stocke toutes les instances
+	 * 
 	 * @return
 	 */
 	public static HashMap<Integer, LivraisonCell> getInstanceMap() {

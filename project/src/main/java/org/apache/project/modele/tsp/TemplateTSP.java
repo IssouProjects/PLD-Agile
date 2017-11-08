@@ -74,8 +74,7 @@ public abstract class TemplateTSP implements TSP {
 	 *            nbSommets
 	 * @return un iterateur permettant d'iterer sur tous les sommets de nonVus
 	 */
-	protected abstract Iterator<Integer> iterator(Integer sommetCrt, ArrayList<Integer> nonVus, int[][] cout,
-			int[] duree);
+	protected abstract Iterator<Integer> iterator(ArrayList<Integer> nonVus);
 
 	/**
 	 * Methode definissant le patron (template) d'une resolution par separation et
@@ -114,7 +113,7 @@ public abstract class TemplateTSP implements TSP {
 				coutMeilleureSolution = coutVus;
 			}
 		} else if (coutVus + bound(sommetCrt, nonVus, cout, duree) < coutMeilleureSolution) {
-			Iterator<Integer> it = iterator(sommetCrt, nonVus, cout, duree);
+			Iterator<Integer> it = iterator(nonVus);
 			while (it.hasNext()) {
 				Integer prochainSommet = it.next();
 				vus.add(prochainSommet);

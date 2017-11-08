@@ -12,7 +12,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- *
+ * Fenetre permettant à l'utilisateur de choisir le temps d'éxecution maximal de
+ * l'algorithme
  */
 public class TimeoutPopup extends VBox {
 
@@ -21,8 +22,6 @@ public class TimeoutPopup extends VBox {
 
 	private Spinner<Integer> dureeSpinner;
 
-	private GridPane mainLayout;
-
 	public static final String VALIDATE = "Valider";
 	public static final String VALIDATE_ID = "validerRecalculTourneeButton";
 
@@ -30,6 +29,9 @@ public class TimeoutPopup extends VBox {
 	public static final String CANCEL_ID = "annulerRecalculTourneeButton";
 
 	/**
+	 * Crée une fenetre de timeout permettant à l'utilisateur de choisir la durée
+	 * maximale de calcul de l'algorithme
+	 * 
 	 * @param edb
 	 */
 	public TimeoutPopup(EcouteurDeBouton edb) {
@@ -43,7 +45,7 @@ public class TimeoutPopup extends VBox {
 		title.setStyle("-fx-font-weight: bold; -fx-font-size: 24;");
 		this.getChildren().add(title);
 
-		mainLayout = new GridPane();
+		GridPane mainLayout = new GridPane();
 		mainLayout.setHgap(10);
 		mainLayout.setVgap(10);
 
@@ -88,6 +90,8 @@ public class TimeoutPopup extends VBox {
 	}
 
 	/**
+	 * Permet d'obtenir la durée de calcul de l'algorithme saisie par l'utilisateur
+	 * 
 	 * @return
 	 */
 	public Integer getNewDuree() {

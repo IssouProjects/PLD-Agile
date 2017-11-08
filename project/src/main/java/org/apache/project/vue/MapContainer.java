@@ -18,8 +18,8 @@ public class MapContainer extends Pane {
 
 	private MapDisplay mapDisplay;
 
-	MapGestures mapGestures;
-	Rectangle clipRectangle;
+	private MapGestures mapGestures;
+	private Rectangle clipRectangle;
 
 	/**
 	 * Crée un objet <tt>MapContainer</tt> à partir des dimensions de la zone du

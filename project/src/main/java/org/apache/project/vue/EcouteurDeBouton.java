@@ -7,7 +7,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 /**
- *
+ * classe permettant d'écouter les clics sur les boutons et de les transmettre
+ * au controleur
  */
 public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 
@@ -16,6 +17,8 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 	private ModificationPopup modificationPopup = null;
 
 	/**
+	 * Crée un écouteur de bouton
+	 * 
 	 * @param c
 	 * @param fp
 	 */
@@ -62,12 +65,10 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 				break;
 			case LivraisonPopup.VALIDATE_ID:
 				LivraisonPopup popup = fenetrePrincipale.getFenetreAjouterLivraison();
-				if (popup != null) {
-					if (popup.checkTimeOk()) {
-						controleur.calculerCheminsNouvelleLivraison(popup.getNewDuree(), popup.getNewHeureDeb(),
-								popup.getNewHeureFin());
-						fenetrePrincipale.masquerFenetreAjouterLivraison();
-					}
+				if (popup != null && popup.checkTimeOk()) {
+					controleur.calculerCheminsNouvelleLivraison(popup.getNewDuree(), popup.getNewHeureDeb(),
+							popup.getNewHeureFin());
+					fenetrePrincipale.masquerFenetreAjouterLivraison();
 				}
 				break;
 			case LivraisonPopup.CANCEL_ID:
@@ -78,13 +79,11 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 				}
 				break;
 			case ModificationPopup.VALIDATE_ID:
-				if (modificationPopup != null) {
-					if (modificationPopup.checkTimeOk()) {
-						controleur.validerModificationLivraison(modificationPopup.getNewDuree(),
-								modificationPopup.getNewHeureDeb(), modificationPopup.getNewHeureFin());
-						modificationPopup.selfDestruct();
-						modificationPopup = null;
-					}
+				if ((modificationPopup != null) && (modificationPopup.checkTimeOk())) {
+					controleur.validerModificationLivraison(modificationPopup.getNewDuree(),
+							modificationPopup.getNewHeureDeb(), modificationPopup.getNewHeureFin());
+					modificationPopup.selfDestruct();
+					modificationPopup = null;
 				}
 				break;
 			case ModificationPopup.CANCEL_ID:
@@ -116,6 +115,7 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 				break;
 			default:
 				System.out.println("Unmapped Button");
+				break;
 			}
 			System.out.println((String) sender.getUserData());
 		}
