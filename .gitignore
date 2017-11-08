@@ -5,9 +5,6 @@ target
 src/.DS_Store
 .project
 
-# Ignore Javadoc generated files
-project/doc
-
 # file causing warnings
 project/.classpath
 
