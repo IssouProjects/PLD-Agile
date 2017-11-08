@@ -51,8 +51,8 @@ public class TSP5 extends TemplateTSP {
 	 * @param tempsMini
 	 * @param tempsMax
 	 */
-	void branchAndBound(int sommetCrt, ArrayList<Integer> nonVus, ArrayList<Integer> vus, int coutVus, int[][] cout,
-			int[] duree, long tpsDebut, int tpsLimite, int[] tempsMini, int[] tempsMax) {
+	private void branchAndBound(int sommetCrt, ArrayList<Integer> nonVus, ArrayList<Integer> vus, int coutVus,
+			int[][] cout, int[] duree, long tpsDebut, int tpsLimite, int[] tempsMini, int[] tempsMax) {
 		if (System.currentTimeMillis() - tpsDebut > tpsLimite) {
 			tempsLimiteAtteint = true;
 			return;
@@ -90,8 +90,8 @@ public class TSP5 extends TemplateTSP {
 
 	// Juste pour heritage, et appelle si retard inevitable
 	@Override
-	protected Iterator<Integer> iterator(Integer sommetCrt, ArrayList<Integer> nonVus, int[][] cout, int[] duree) {
-		return new IteratorSeq(nonVus, sommetCrt, cout);
+	protected Iterator<Integer> iterator(ArrayList<Integer> nonVus) {
+		return new IteratorSeq(nonVus);
 	}
 
 	/**
