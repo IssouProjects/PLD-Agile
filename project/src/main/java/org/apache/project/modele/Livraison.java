@@ -63,7 +63,7 @@ public class Livraison {
 	}
 
 	/**
-	 * @return
+	 * @return l'intersection où se déroule la livraison.
 	 */
 	public Intersection getLieuDeLivraison() {
 		return lieuDeLivraison;
@@ -81,13 +81,14 @@ public class Livraison {
 
 	/**
 	 * @param duree
+	 *            nouvelle durée de la livraison
 	 */
 	public void setDuree(int duree) {
 		this.duree = duree;
 	}
 
 	/**
-	 * @return
+	 * @return la plage horaire de la livraison
 	 */
 	public PlageHoraire getPlageHoraire() {
 		return plageHoraire;
@@ -95,13 +96,14 @@ public class Livraison {
 
 	/**
 	 * @param plageHoraire
+	 *            nouvelle plage horaire de la livraison
 	 */
 	public void setPlageHoraire(PlageHoraire plageHoraire) {
 		this.plageHoraire = plageHoraire;
 	}
 
 	/**
-	 * @return
+	 * @return l'heure d'arrivée de la livraison
 	 */
 	public Time getHeureArrivee() {
 		return heureArrivee;

@@ -258,7 +258,7 @@ public class MapDisplay extends Pane {
 	 * @param obj
 	 *            L'objet à mettre en valeur
 	 * @return <tt>True</tt> si un objet Livraison, Intersection, ou Troncon, a été
-	 *         mis en valeur<br/>
+	 *         mis en valeur<br>
 	 *         <tt>False</tt> dans le cas contraire
 	 */
 	public boolean highlight(Object obj) {
@@ -284,7 +284,7 @@ public class MapDisplay extends Pane {
 	 * @param obj
 	 *            L'objet dont on doit réinitialiser le format
 	 * @return True si le format d'un objet Livraison, Intersection, ou Troncon, a
-	 *         été réinitialisé<br/>
+	 *         été réinitialisé<br>
 	 *         False dans le cas contraire
 	 */
 	public boolean unHighlight(Object obj) {
@@ -743,8 +743,8 @@ public class MapDisplay extends Pane {
 	}
 
 	/**
-	 * @param coordY
-	 * @return la coordonnée y transformée et rescalée pour s'afficher correctement
+	 * @param coordX
+	 * @return la coordonnée x transformée et rescalée pour s'afficher correctement
 	 *         dans le plan
 	 */
 	public double getTransformedY(double coordX) {

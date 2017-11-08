@@ -40,11 +40,11 @@ public class IteratorSeq implements Iterator<Integer> {
 	 *            Il s'agit du sommet courant pour la classe appelante, ce paramètre
 	 *            n'est pas utilisé ici
 	 * @param cout
-	 *            : cout[i][j] = duree pour aller de i a j, avec 0 <= i < nbSommets
-	 *            et 0 <= j < nbSommets
+	 *            : cout[i][j] = duree pour aller de i a j, avec 0 inférieur ou = i
+	 *            inférieur à nbSommets et 0 inférieur ou = j inférieur à nbSommets
 	 * @param tempsMini
 	 *            : temppsMini[i] = duree minimal avant de visiter le sommet i, avec
-	 *            0 <= i <= nbSommets
+	 *            0 inférieur ou = i inférieur ou = nbSommets
 	 * @param coutVus
 	 *            duree actuel lors de l'appel à cette méthode
 	 */
