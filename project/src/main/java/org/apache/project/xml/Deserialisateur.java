@@ -172,6 +172,7 @@ public class Deserialisateur {
 	 * @param plan
 	 * @throws ExceptionXML
 	 */
+	@SuppressWarnings("deprecation")
 	private static void construireLivraison(Element element, DemandeDeLivraison demande, PlanDeVille plan)
 			throws ExceptionXML {
 
@@ -201,14 +202,14 @@ public class Deserialisateur {
 
 			Time debut = getTimeFromString(element.getAttribute("debutPlage"));
 			Time fin = getTimeFromString(element.getAttribute("finPlage"));
-			
+
 			int tempsDebut = debut.getHours() * 36000 + debut.getMinutes() * 60 + debut.getSeconds();
 			int tempsFin = fin.getHours() * 36000 + fin.getMinutes() * 60 + fin.getSeconds();
-			
-			if((tempsDebut + duree )>tempsFin) {
+
+			if ((tempsDebut + duree) > tempsFin) {
 				throw new ExceptionXML("Document mal forme");
 			}
-			
+
 			PlageHoraire ph = new PlageHoraire(debut, fin);
 			uneLivraison.setPlageHoraire(ph);
 		}
