@@ -35,26 +35,44 @@ public class Intersection {
 		this.tronconsPartants = new ArrayList<Troncon>();
 	}
 
+	/**
+	 * @return
+	 */
 	public Long getIdNoeud() {
 		return idNoeud;
 	}
 
+	/**
+	 * @param idNoeud
+	 */
 	public void setIdNoeud(Long idNoeud) {
 		this.idNoeud = idNoeud;
 	}
 
+	/**
+	 * @return
+	 */
 	public Long getCoordX() {
 		return coordX;
 	}
 
+	/**
+	 * @param coordX
+	 */
 	public void setCoordX(Long coordX) {
 		this.coordX = coordX;
 	}
 
+	/**
+	 * @return
+	 */
 	public Long getCoordY() {
 		return coordY;
 	}
 
+	/**
+	 * @param coordY
+	 */
 	public void setCoordY(Long coordY) {
 		this.coordY = coordY;
 	}
@@ -70,6 +88,9 @@ public class Intersection {
 		this.tronconsPartants.add(unTroncon);
 	}
 
+	/**
+	 * @return
+	 */
 	public List<Troncon> getTronconsPartants() {
 		return tronconsPartants;
 	}

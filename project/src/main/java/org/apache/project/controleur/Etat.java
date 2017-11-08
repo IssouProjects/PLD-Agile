@@ -24,8 +24,8 @@ public interface Etat {
 	 *            la fenêtre principale de l'application.
 	 */
 
-	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes);
-
+	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale,
+			ListeDeCommandes commandes);
 
 	/**
 	 * 
@@ -141,11 +141,13 @@ public interface Etat {
 			FenetrePrincipale fenetrePrincipale);
 
 	/**
-	 * Methode appelee par controleur apres un clic sur le bouton "Ajouter
+	 * Méthode appelée par controleur apres un clic sur le bouton "Ajouter
 	 * livraison"
 	 * 
 	 * @param controleur
+	 *            le contrôleur de l'application.
 	 * @param fenetrePrincipale
+	 *            fenêtre principale de l'application
 	 */
 	public void ajouterLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale);
 
@@ -252,20 +254,20 @@ public interface Etat {
 	 * @param fenetrePrincipale
 	 */
 	public void afficherFenetreTimeout(Controleur controleur, FenetrePrincipale fenetrePrincipale);
-	
+
 	/**
-	 * Methode appelee par controleur apres un clic sur le bouton "exporter
-	 * tournee"
+	 * Methode appelee par controleur apres un clic sur le bouton "exporter tournee"
+	 * 
 	 * @param controleur
 	 * @param fenetrePrincipale
 	 * @param tournee
 	 */
 	public void exporterFeuilleDeRoute(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee);
-	
-	
+
 	/**
-	 * Methode appelee par controleur apres un clic sur le bouton "ok" dans la fenetre d'affichage de la feuille de route
-	 * tournee"
+	 * Methode appelee par controleur apres un clic sur le bouton "ok" dans la
+	 * fenetre d'affichage de la feuille de route tournee"
+	 * 
 	 * @param controleur
 	 * @param fenetrePrincipale
 	 */

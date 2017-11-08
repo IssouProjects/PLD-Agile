@@ -10,13 +10,17 @@ import org.apache.project.modele.Troncon;
 import org.apache.project.vue.FenetrePrincipale;
 import org.apache.project.vue.MapGestures.SelectionMode;
 
-public class EtatTourneeCalculee extends EtatDefaut{
-	
+/**
+ *
+ */
+public class EtatTourneeCalculee extends EtatDefaut {
+
 	@Override
-	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes){
-		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.PDV_FILE_DESCRIPTION, 
+	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale,
+			ListeDeCommandes commandes) {
+		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.PDV_FILE_DESCRIPTION,
 				FenetrePrincipale.PDV_FILE_EXTENSION, FenetrePrincipale.PDV_FILEDIALOG_DESCRIPTION);
-		if(file == null)
+		if (file == null)
 			return;
 		commandes.clearCommandes();
 		controleur.setEtatCourant(controleur.etatInit);
@@ -30,12 +34,13 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		controleur.chargerPlanDeVille(file);
 		fenetrePrincipale.getListDisplay().disableMoveLivraison();
 	}
-	
+
 	@Override
-	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes){
+	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille,
+			DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes) {
 		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.DDL_FILE_DESCRIPTION,
 				FenetrePrincipale.DDL_FILE_EXTENSION, FenetrePrincipale.DDL_FILEDIALOG_DESCRIPTION);
-		if(file == null) {
+		if (file == null) {
 			return;
 		}
 		commandes.clearCommandes();
@@ -48,7 +53,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		controleur.chargerDemandeDeLivraison(file);
 		fenetrePrincipale.getListDisplay().disableMoveLivraison();
 	}
-	
+
 	@Override
 	public void ajouterLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		controleur.setEtatCourant(controleur.etatAjoutLivraison1);
@@ -57,84 +62,86 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		fenetrePrincipale.afficherInfo("Cliquer sur intersection de la nouvelle livraison");
 		fenetrePrincipale.setVisibleAnnulerButton(true);
 	}
-	
+
 	@Override
-	public void tronconClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, 
+	public void tronconClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan,
 			Troncon troncon, ListeDeCommandes commandes) {
 		fenetrePrincipale.highlightTroncon(troncon);
 	}
-	
-	@Override
-	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, Tournee tournee,
-			Livraison livraisonPrecedente, ListeDeCommandes commandes) {
-		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
-  	}
 
-	@Override 
-	public void supprimerLivraison( Controleur controleur, Tournee tournee,  PlanDeVille planDeVille,  FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes) {
-		
+	@Override
+	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan,
+			Tournee tournee, Livraison livraisonPrecedente, ListeDeCommandes commandes) {
+		fenetrePrincipale.highlightLivraison(livraisonPrecedente);
+	}
+
+	@Override
+	public void supprimerLivraison(Controleur controleur, Tournee tournee, PlanDeVille planDeVille,
+			FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes) {
+
 		fenetrePrincipale.setVisibleRecalculerButton(false);
-		
+
 		Livraison livraisonASupprimer = fenetrePrincipale.getSelectedLivraison();
-		
-		if(livraisonASupprimer == null) {
+
+		if (livraisonASupprimer == null) {
 			controleur.setEtatCourant(controleur.etatTourneeCalculee);
 			return;
 		}
-		
-		if(tournee.getLivraisonsOrdonnees().size() == 3) {
+
+		if (tournee.getLivraisonsOrdonnees().size() == 3) {
 			fenetrePrincipale.afficherPopupError("Vous ne pouvez pas suprimer la seule livraison");
 			controleur.setEtatCourant(controleur.etatTourneeCalculee);
 			return;
 		}
-		
+
 		commandes.ajouteCommande(new CdeSupprimerLivraison(planDeVille, tournee, livraisonASupprimer));
-		
+
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
 	}
-	
+
 	@Override
 	public void modifierLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		fenetrePrincipale.setVisibleRecalculerButton(false);
 		Livraison livraisonSelectionnee = fenetrePrincipale.getSelectedLivraison();
-		fenetrePrincipale.afficherFenetreModifierLivraison(livraisonSelectionnee);	
+		fenetrePrincipale.afficherFenetreModifierLivraison(livraisonSelectionnee);
 		controleur.etatModifierLivraison1.actionEntreeEtatModifierLivraison1(livraisonSelectionnee);
 		controleur.setEtatCourant(controleur.etatModifierLivraison1);
 	}
-	
+
 	@Override
-	public void echangerLivraison(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, Tournee tournee, int nouveauIndex, ListeDeCommandes commandes) {
+	public void echangerLivraison(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale,
+			Tournee tournee, int nouveauIndex, ListeDeCommandes commandes) {
 		Livraison livraisonSelectionnee = fenetrePrincipale.getSelectedLivraison();
-		
+
 		commandes.ajouteCommande(new CdeEchangerLivraison(planDeVille, tournee, livraisonSelectionnee, nouveauIndex));
-		
+
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.setVisibleRecalculerButton(false);
 		fenetrePrincipale.getListDisplay().enableMoveLivraison();
 		fenetrePrincipale.afficherTournee(tournee);
 	}
-	
+
 	@Override
 	public void undo(ListeDeCommandes commandes) {
 		commandes.undo();
 	}
-	
+
 	@Override
 	public void redo(ListeDeCommandes commandes) {
 		commandes.redo();
 	}
-	
+
 	@Override
 	public void afficherFenetreTimeout(Controleur controleur, FenetrePrincipale fenetrePrincipale) {
 		fenetrePrincipale.afficherFenetreTimeout();
 		controleur.setEtatCourant(controleur.etatDemandeLivraisonCharge);
 	}
-	
+
 	@Override
 	public void exporterFeuilleDeRoute(Controleur controleur, FenetrePrincipale fenetrePrincipale, Tournee tournee) {
 		String feuille = tournee.exporterRoute();
-		
+
 		fenetrePrincipale.afficherFenetreFeuilleDeRoute(feuille);
 		controleur.setEtatCourant(controleur.etatFeuilleDeRoute);
 	}

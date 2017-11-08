@@ -101,6 +101,26 @@ public class TestTournee {
 	}
 	
 	@Test
+	public void testCalculTourneeImpossible() throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
+		// Creation des objets plan et demande
+		File xml = new File("src/test/java/org/apache/modele/fichiers/DLmoyen5TW4Impossible.xml");
+		File planxml = new File("src/test/java/org/apache/modele/fichiers/planLyonMoyen.xml");
+		PlanDeVille plan = new PlanDeVille();
+		Deserialisateur.chargerPlanDeVilleFichier(plan, planxml);
+		DemandeDeLivraison demande = new DemandeDeLivraison();
+		Deserialisateur.chargerDemandeLivraisonFichier(demande, plan, xml);
+				
+		// Calcul tournee
+		Tournee tournee = new Tournee();
+				
+		tournee.setEntrepot(demande.getEntrepot());
+		
+		int retour = tournee.calculerTournee(plan, demande, 10000);
+		
+		assertEquals(0, retour);
+	}
+	
+	@Test
 	public void testNomRue()throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 		// Creation des objets plan et demande
 		File xml = new File("src/test/java/org/apache/modele/fichiers/DLpetit4.xml");

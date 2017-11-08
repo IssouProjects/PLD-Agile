@@ -62,6 +62,9 @@ public class Livraison {
 		this.plageHoraire = null;
 	}
 
+	/**
+	 * @return
+	 */
 	public Intersection getLieuDeLivraison() {
 		return lieuDeLivraison;
 	}
@@ -76,30 +79,51 @@ public class Livraison {
 		return duree;
 	}
 
+	/**
+	 * @param duree
+	 */
 	public void setDuree(int duree) {
 		this.duree = duree;
 	}
 
+	/**
+	 * @return
+	 */
 	public PlageHoraire getPlageHoraire() {
 		return plageHoraire;
 	}
 
+	/**
+	 * @param plageHoraire
+	 */
 	public void setPlageHoraire(PlageHoraire plageHoraire) {
 		this.plageHoraire = plageHoraire;
 	}
 
+	/**
+	 * @return
+	 */
 	public Time getHeureArrivee() {
 		return heureArrivee;
 	}
 
+	/**
+	 * @param heureArrivee
+	 */
 	public void setHeureArrivee(Time heureArrivee) {
 		this.heureArrivee = heureArrivee;
 	}
 
+	/**
+	 * @param positionDansTournee
+	 */
 	public void setPositionDansTournee(int positionDansTournee) {
 		this.positionDansTournee = positionDansTournee;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getPositionDansTournee() {
 		return this.positionDansTournee;
 	}

@@ -6,6 +6,9 @@ import org.apache.project.modele.Livraison;
 import org.apache.project.modele.PlageHoraire;
 import org.apache.project.modele.Tournee;
 
+/**
+ *
+ */
 public class CdeModifierLivraison implements Commande {
 
 	private Tournee tournee;
@@ -15,6 +18,13 @@ public class CdeModifierLivraison implements Commande {
 	private int ancienneDuree;
 	private int nouvelleDuree;
 
+	/**
+	 * @param livraison
+   * @param tournee
+	 * @param heureDebut
+	 * @param heureFin
+	 * @param duree
+	 */
 	public CdeModifierLivraison(Livraison livraison, Tournee tournee, Time heureDebut, Time heureFin, Integer duree) {
 		this.livraison = livraison;
 		this.tournee = tournee;

@@ -3,6 +3,9 @@ package org.apache.project.modele.tsp;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ *
+ */
 public class TSP1 extends TemplateTSP {
 
 	@Override

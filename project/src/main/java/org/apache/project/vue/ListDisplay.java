@@ -25,12 +25,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
+/**
+ *
+ */
 public class ListDisplay extends Pane implements Observer {
 
 	private EcouteurDeListe ecouteurDeListe;
 	private EcouteurDeBouton ecouteurDeBouton;
 	private ListView<Livraison> liste = new ListView<Livraison>();
-	
 	private boolean disableEditState = false;
 	private boolean enableMoveState = false;
 
@@ -41,6 +43,16 @@ public class ListDisplay extends Pane implements Observer {
 
 	private long lastAutoscrollTime = 0l;
 
+	private ChangeListener<Livraison> onSelected = new ChangeListener<Livraison>() {
+		@Override
+		public void changed(ObservableValue<? extends Livraison> observable, Livraison oldValue, Livraison newValue) {
+			ecouteurDeListe.onLivraisonClicked(newValue);
+		}
+	};
+
+	/**
+	 * 
+	 */
 	public ListDisplay() {
 
 		this.getChildren().add(liste);
@@ -95,6 +107,9 @@ public class ListDisplay extends Pane implements Observer {
 		createNotifier();
 	}
 
+	/**
+	 * @param demandeLivraison
+	 */
 	public void afficherTexteLivraisons(DemandeDeLivraison demandeLivraison) {
 		clearList();
 		List<Livraison> livraisons = demandeLivraison.getListeLivraison();
@@ -107,6 +122,9 @@ public class ListDisplay extends Pane implements Observer {
 		}
 	}
 
+	/**
+	 * @param tournee
+	 */
 	public void afficherTexteLivraisonsOrdonnees(Tournee tournee) {
 		clearList();
 		livraisonsTmp = tournee.getLivraisonsOrdonnees();
@@ -121,21 +139,34 @@ public class ListDisplay extends Pane implements Observer {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void clearList() {
 		liste.getItems().clear();
 		livraisonsTmp = null;
 	}
 
+	/**
+	 * @param yPosition
+	 * @param width
+	 */
 	public void placeAddHintAt(double yPosition, double width) {
 		addNotifier.setVisible(true);
 		this.positionInArea(addNotifier, -24, yPosition + 4 - addNotifier.getHeight() / 2, this.getWidth(),
 				addNotifier.getHeight(), 0, HPos.CENTER, VPos.CENTER);
 	}
 
+	/**
+	 * 
+	 */
 	public void hideHint() {
 		addNotifier.setVisible(false);
 	}
 
+	/**
+	 * 
+	 */
 	public void enableAddHint() {
 		HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
 		this.useAddNotifier();
@@ -144,6 +175,9 @@ public class ListDisplay extends Pane implements Observer {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void disableAddHint() {
 		HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
 		for (LivraisonCell lc : map.values()) {
@@ -151,6 +185,9 @@ public class ListDisplay extends Pane implements Observer {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void enableMoveLivraison() {
 		enableMoveState = true;
 		Platform.runLater(new Runnable() {
@@ -165,6 +202,9 @@ public class ListDisplay extends Pane implements Observer {
 		});
 	}
 
+	/**
+	 * 
+	 */
 	public void disableMoveLivraison() {
 		enableMoveState = false;
 		Platform.runLater(new Runnable() {
@@ -178,7 +218,10 @@ public class ListDisplay extends Pane implements Observer {
 			}
 		});
 	}
-	
+
+	/**
+	 * @param disable
+	 */
 	public void disableEdit(boolean disable) {
 		disableEditState = disable;
 		Platform.runLater(new Runnable() {
@@ -193,37 +236,52 @@ public class ListDisplay extends Pane implements Observer {
 		});
 	}
 
+	/**
+	 * @param livraisonMoved
+	 * @param newIndex
+	 */
 	public void livraisonMoved(Livraison livraisonMoved, int newIndex) {
 		ecouteurDeListe.onMoveLivraison(livraisonMoved, newIndex);
 	}
 
+	/**
+	 * @param edc
+	 */
 	public void setEcouteurDeListe(EcouteurDeListe edc) {
 		ecouteurDeListe = edc;
 	}
 
+	/**
+	 * @param edb
+	 */
 	public void setEcouteurDeBouton(EcouteurDeBouton edb) {
 		ecouteurDeBouton = edb;
 	}
 
+	/**
+	 * @param livraison
+	 */
 	public void selectLivraison(Livraison livraison) {
 		liste.getSelectionModel().select(livraison);
 	}
 
+	/**
+	 * @return
+	 */
 	public Livraison getSelectedLivraison() {
 		return liste.getSelectionModel().getSelectedItem();
 	}
 
-	private ChangeListener<Livraison> onSelected = new ChangeListener<Livraison>() {
-		@Override
-		public void changed(ObservableValue<? extends Livraison> observable, Livraison oldValue, Livraison newValue) {
-			ecouteurDeListe.onLivraisonClicked(newValue);
-		}
-	};
-
+	/**
+	 * @return
+	 */
 	public EcouteurDeBouton getEcouteurDeBouton() {
 		return ecouteurDeBouton;
 	}
 
+	/**
+	 * 
+	 */
 	private void createNotifier() {
 		this.getChildren().add(addNotifier);
 		addNotifier.setVisible(false);
@@ -238,11 +296,17 @@ public class ListDisplay extends Pane implements Observer {
 		addNotifier.prefWidthProperty().bind(this.widthProperty());
 	}
 
+	/**
+	 * 
+	 */
 	public void useAddNotifier() {
 		notifierCircle.getStyleClass().clear();
 		notifierCircle.getStyleClass().add("circlePlus");
 	}
 
+	/**
+	 * 
+	 */
 	public void useMoveNotifier() {
 		notifierCircle.getStyleClass().clear();
 		notifierCircle.getStyleClass().add("circleMove");
