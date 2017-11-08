@@ -22,7 +22,7 @@ public class EtatModifierLivraison1 extends EtatDefaut {
 			if ((heureDeb == null || heureFin == null) && duree == livraison.getDuree()) {
 				// do nothing
 			} else {
-				commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin, duree));
+				commandes.ajouteCommande(new CdeModifierLivraison(livraison, tournee, heureDeb, heureFin, duree));
 			}
 		} else {
 			if (heureDeb.toString().equals(livraison.getPlageHoraire().getDebut().toString())
@@ -30,12 +30,11 @@ public class EtatModifierLivraison1 extends EtatDefaut {
 					&& duree == livraison.getDuree()) {
 				// do nothing
 			} else {
-				commandes.ajouteCommande(new CdeModifierLivraison(livraison, heureDeb, heureFin, duree));
+				commandes.ajouteCommande(new CdeModifierLivraison(livraison,tournee, heureDeb, heureFin, duree));
 			}
 		}
 
-		tournee.calculerDureeTotale();
-		// TODO: Notify
+		tournee.calculerDureeTotale();//TODO remove this redundant line to optimize 
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.afficherTournee(tournee);
 		controleur.setEtatCourant(controleur.etatTourneeCalculee);

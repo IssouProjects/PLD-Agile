@@ -33,8 +33,8 @@ public class ListDisplay extends Pane implements Observer {
 	private EcouteurDeListe ecouteurDeListe;
 	private EcouteurDeBouton ecouteurDeBouton;
 	private ListView<Livraison> liste = new ListView<Livraison>();
-
-	private boolean disableEditTmp = false;
+	private boolean disableEditState = false;
+	private boolean enableMoveState = false;
 
 	private GridPane addNotifier = new GridPane();
 	Pane notifierCircle = new Pane();
@@ -114,6 +114,12 @@ public class ListDisplay extends Pane implements Observer {
 		clearList();
 		List<Livraison> livraisons = demandeLivraison.getListeLivraison();
 		liste.getItems().addAll(livraisons);
+		this.disableEdit(disableEditState);
+		if(enableMoveState) {
+			this.enableMoveLivraison();
+		} else {
+			this.disableMoveLivraison();
+		}
 	}
 
 	/**
@@ -124,6 +130,12 @@ public class ListDisplay extends Pane implements Observer {
 		livraisonsTmp = tournee.getLivraisonsOrdonnees();
 		for (int i = 0; i < livraisonsTmp.size() - 1; i++) {
 			liste.getItems().add(livraisonsTmp.get(i));
+		}
+		this.disableEdit(disableEditState);
+		if(enableMoveState) {
+			this.enableMoveLivraison();
+		} else {
+			this.disableMoveLivraison();
 		}
 	}
 
@@ -177,6 +189,7 @@ public class ListDisplay extends Pane implements Observer {
 	 * 
 	 */
 	public void enableMoveLivraison() {
+		enableMoveState = true;
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -193,6 +206,7 @@ public class ListDisplay extends Pane implements Observer {
 	 * 
 	 */
 	public void disableMoveLivraison() {
+		enableMoveState = false;
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -209,14 +223,14 @@ public class ListDisplay extends Pane implements Observer {
 	 * @param disable
 	 */
 	public void disableEdit(boolean disable) {
-		disableEditTmp = disable;
+		disableEditState = disable;
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
 				HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
 				useAddNotifier();
 				for (LivraisonCell lc : map.values()) {
-					lc.setEditDisabled(disableEditTmp);
+					lc.setEditDisabled(disableEditState);
 				}
 			}
 		});
