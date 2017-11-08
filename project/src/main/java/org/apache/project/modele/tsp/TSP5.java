@@ -45,7 +45,7 @@ public class TSP5 extends TemplateTSP {
 		tempsLimiteAtteint = false;
 		coutMeilleureSolution = 3600 * 24;
 		meilleureSolution = new Integer[nbSommets];
-		plageFiniPremier = 3600*24;
+		plageFiniPremier = 3600 * 24;
 		indicePlageFiniPremier = 0;
 		duree[0] = 0;
 		ArrayList<Integer> nonVus = new ArrayList<Integer>();
@@ -137,21 +137,8 @@ public class TSP5 extends TemplateTSP {
 	 * Methode permettant de faire un itérateur sur nonVus et allant à chaque fois
 	 * sur le sommet le plus proche possible
 	 * 
-	 * @param sommetCrt
-	 *            il s'agit du sommet actuel du bout de la branche
 	 * @param nonVus
 	 *            : tableau des sommets restant a visiter
-	 * @param cout
-	 *            : cout[i][j] = duree pour aller de i a j, avec 0 <= i < nbSommets
-	 *            et 0 <= j < nbSommets
-	 * @param duree
-	 *            : duree[i] = duree pour visiter le sommet i, avec 0 <= i <
-	 *            nbSommets
-	 * @param tempsMini
-	 *            : temppsMini[i] = duree minimal avant de visiter le sommet i, avec
-	 *            0 <= i <= nbSommets
-	 * @param coutVus
-	 *            duree actuel lors de l'appel à cette méthode
 	 * @return un iterateur permettant d'iterer sur tous les sommets de nonVus
 	 */
 	@Override
@@ -168,14 +155,14 @@ public class TSP5 extends TemplateTSP {
 	 * @param nonVus
 	 *            : tableau des sommets restant a visiter
 	 * @param cout
-	 *            : cout[i][j] = duree pour aller de i a j, avec 0 <= i < nbSommets
-	 *            et 0 <= j < nbSommets
+	 *            : cout[i][j] = duree pour aller de i a j, avec 0 inférieur ou = i
+	 *            inférieur à nbSommets et 0 inférieur = j inférieur à nbSommets
 	 * @param duree
-	 *            : duree[i] = duree pour visiter le sommet i, avec 0 <= i <
-	 *            nbSommets
+	 *            : duree[i] = duree pour visiter le sommet i, avec 0 inférieur ou =
+	 *            i inférieur à nbSommets
 	 * @param tempsMini
 	 *            : temppsMini[i] = duree minimal avant de visiter le sommet i, avec
-	 *            0 <= i <= nbSommets
+	 *            0 inférieur ou = i inférieur ou = nbSommets
 	 * @param coutVus
 	 *            duree actuel lors de l'appel à cette méthode
 	 * @return un iterateur permettant d'iterer sur tous les sommets de nonVus
@@ -195,11 +182,11 @@ public class TSP5 extends TemplateTSP {
 	 * @param nonVus
 	 *            : tableau des sommets restant a visiter
 	 * @param cout
-	 *            : cout[i][j] = duree pour aller de i a j, avec 0 <= i < nbSommets
-	 *            et 0 <= j < nbSommets
+	 *            : cout[i][j] = duree pour aller de i a j, avec 0 inférieur ou = i
+	 *            inférieur à nbSommets et 0 inférieur = j inférieur à nbSommets
 	 * @param duree
-	 *            : duree[i] = duree pour visiter le sommet i, avec 0 <= i <
-	 *            nbSommets
+	 *            : duree[i] = duree pour visiter le sommet i, avec 0 inférieur ou =
+	 *            i inférieur nbSommets
 	 * @return une borne inferieure du cout des permutations commencant par
 	 *         sommetCourant, contenant chaque sommet de nonVus exactement une fois
 	 *         et terminant par le sommet 0
@@ -209,7 +196,7 @@ public class TSP5 extends TemplateTSP {
 
 		int bound = 0;
 
-		plageFiniPremier = 3600*24;
+		plageFiniPremier = 3600 * 24;
 		indicePlageFiniPremier = 0;
 
 		int valMini1 = cout[sommetCourant][0];
@@ -247,14 +234,14 @@ public class TSP5 extends TemplateTSP {
 	 * @param nonVus
 	 *            : tableau des sommets restant a visiter
 	 * @param cout
-	 *            : cout[i][j] = duree pour aller de i a j, avec 0 <= i < nbSommets
-	 *            et 0 <= j < nbSommets
+	 *            : cout[i][j] = duree pour aller de i a j, avec 0 inférieur ou = i
+	 *            inférieur nbSommets et 0 inférieur ou= j inférieur nbSommets
 	 * @param duree
-	 *            : duree[i] = duree pour visiter le sommet i, avec 0 <= i <
-	 *            nbSommets
+	 *            : duree[i] = duree pour visiter le sommet i, avec 0 inférieur ou =
+	 *            i inférieur nbSommets
 	 * @param tempsMax
 	 *            tempsMax[i] = duree maximal avant de visiter le sommet i, avec 0
-	 *            <= i < nbSommets
+	 *            inférieur ou = i inférieur nbSommets
 	 * @return une borne inferieure du cout des permutations commencant par
 	 *         sommetCourant, contenant chaque sommet de nonVus exactement une fois
 	 *         et terminant par le sommet 0
@@ -263,7 +250,7 @@ public class TSP5 extends TemplateTSP {
 
 		int bound = 0;
 
-		plageFiniPremier = 3600*24;
+		plageFiniPremier = 3600 * 24;
 		indicePlageFiniPremier = 0;
 
 		int valMini1 = cout[sommetCourant][0];

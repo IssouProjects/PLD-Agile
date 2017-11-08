@@ -46,8 +46,6 @@ public class LivraisonPopup extends VBox {
 	 * Crée un <tt>VBox</tt> contenant tous les widgets nécessaire à la création
 	 * d'une livraison
 	 * 
-	 * @param livraison
-	 *            La livraison à créer
 	 * @param edb
 	 *            L'écouteur de bouton
 	 */

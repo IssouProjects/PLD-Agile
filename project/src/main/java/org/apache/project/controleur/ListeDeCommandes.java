@@ -21,7 +21,9 @@ public class ListeDeCommandes extends Observable {
 
 	/**
 	 * @param commande
-	 * @return
+	 *            Commande qu'on ajoute.
+	 * @return un entier correspondant au code de retour, 0 si ok, sinon autre
+	 *         chose.
 	 */
 	public int ajouteCommande(Commande commande) {
 		int temp = i + 1;

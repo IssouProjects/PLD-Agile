@@ -9,9 +9,8 @@ import javafx.scene.shape.Rectangle;
 
 /**
  * Représente l'affichage de la carte dans l'interface du logiciel Contient
- * l'objet
- * <tt>MapDisplay<tt> de visualisation de la carte, ainsi qu'un objet <tt>MapGestures</tt>
- * pour la gestion des événement de la souris liés au plan.
+ * l'objet <tt>MapDisplay</tt> de visualisation de la carte, ainsi qu'un objet
+ * <tt>MapGestures</tt> pour la gestion des événement de la souris liés au plan.
  *
  */
 public class MapContainer extends Pane {

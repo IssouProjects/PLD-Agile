@@ -453,9 +453,6 @@ public class FenetrePrincipale extends Application {
 	/**
 	 * Affiche une popup contenant tous les widgets permettant à l'utilisateur
 	 * d'ajouter une livraison
-	 * 
-	 * @param l
-	 *            la livraison à afficher
 	 */
 	public void afficherFenetreAjouterLivraison() {
 		if (livraisonPopup != null)
@@ -564,7 +561,6 @@ public class FenetrePrincipale extends Application {
 		new ModificationPopup(l, stack, edb);
 	}
 
-
 	/**
 	 * Met en valeur une livraison
 	 * 
@@ -641,7 +637,7 @@ public class FenetrePrincipale extends Application {
 	/**
 	 * Affiche une boite de dialogue pour ouvrir un fichier. Cette méthode est
 	 * bloquante : on n'en sors pas tant que l'utilisateur n'a pas choisi un fichier
-	 * ou annulé l'opération. >>>>>>> master
+	 * ou annulé l'opération.
 	 * 
 	 * @param fileDescription
 	 *            Description du fichier (exemple : fichier de plan XML)

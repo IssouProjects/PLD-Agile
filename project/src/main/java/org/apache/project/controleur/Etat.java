@@ -233,7 +233,10 @@ public interface Etat {
 	 * 
 	 * @param controleur
 	 * @param fenetrePrincipale
-	 * @param livraisonPrecedente
+	 * @param plan
+	 * @param tournee
+	 * @param livraison
+	 * @param commandes
 	 */
 	public void livraisonClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan,
 			Tournee tournee, Livraison livraison, ListeDeCommandes commandes);
