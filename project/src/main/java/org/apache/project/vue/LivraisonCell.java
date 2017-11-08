@@ -174,8 +174,8 @@ public class LivraisonCell extends ListCell<Livraison> {
 			titleText.setText("Entrepôt");
 			String titleText2String = "- départ à "
 					+ PlageHoraire.timeToString(((Entrepot) livraison).getHeureDepart());
-			if (((Entrepot) livraison).getHeureDeFin() != null) {
-				titleText2String += " - retour à " + PlageHoraire.timeToString(((Entrepot) livraison).getHeureDeFin());
+			if (((Entrepot) livraison).getHeureDeRetour() != null) {
+				titleText2String += " - retour à " + PlageHoraire.timeToString(((Entrepot) livraison).getHeureDeRetour());
 			}
 			titleText2.setText(titleText2String);
 			icon.getStyleClass().clear();

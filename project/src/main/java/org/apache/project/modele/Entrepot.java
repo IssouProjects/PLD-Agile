@@ -14,7 +14,7 @@ import java.sql.Time;
 public class Entrepot extends Livraison {
 
 	private Time heureDepart;
-	private Time heureDeFin;
+	private Time heureDeRetour;
 
 	/**
 	 * Construit un entrepôt situé à l'intersection <tt>lieuDeLivraison</tt> et avec
@@ -50,21 +50,23 @@ public class Entrepot extends Livraison {
 	}
 
 	/**
-	 * Renvoie l'heure de fin de la tournée si elle a été calculée, null si ce n'est
-	 * pas le cas.
+	 * Renvoie l'heure de retour à l'entrepôt si elle a été définie, null si ce
+	 * n'est pas le cas.
 	 * 
-	 * @return heureDeFin l'heure de fin de la tournée si elle a été calculée, null
-	 *         sinon
+	 * @return heureDeFin l'heure de retour à l'entrepôt si elle a été calculée,
+	 *         null sinon
 	 */
-	public Time getHeureDeFin() {
-		return heureDeFin;
+	public Time getHeureDeRetour() {
+		return heureDeRetour;
 	}
 
 	/**
+	 * Permet de fixer l'heure de retour à l'entrepôt, l'heure de fin de la tournée.
+	 * 
 	 * @param heure
 	 */
-	public void setHeureDeFin(Time heure) {
-		this.heureDeFin = heure;
+	public void setHeureDeRetour(Time heure) {
+		this.heureDeRetour = heure;
 	}
 
 	@Override

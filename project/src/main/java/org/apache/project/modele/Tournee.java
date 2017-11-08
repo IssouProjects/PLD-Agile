@@ -257,7 +257,7 @@ public class Tournee extends Observable {
 			}
 		}
 
-		entrepot.setHeureDeFin(PlageHoraire.calculerHeureArrivee(entrepot.getHeureDepart(), dureeTourneeSecondes));
+		entrepot.setHeureDeRetour(PlageHoraire.calculerHeureArrivee(entrepot.getHeureDepart(), dureeTourneeSecondes));
 		updatePositionsDansTournee();
 
 		if (tspSolut.getTempsLimiteAtteint()) {
@@ -321,7 +321,7 @@ public class Tournee extends Observable {
 			// Ajout de la durée du chemin
 			dureeTourneeSecondes += chemins.get(i).getDuree();
 		}
-		entrepot.setHeureDeFin(PlageHoraire.calculerHeureArrivee(entrepot.getHeureDepart(), dureeTourneeSecondes));
+		entrepot.setHeureDeRetour(PlageHoraire.calculerHeureArrivee(entrepot.getHeureDepart(), dureeTourneeSecondes));
 		updatePositionsDansTournee();
 	}
 
@@ -408,7 +408,7 @@ public class Tournee extends Observable {
 		String feuille = "Durée de la tournée: "
 				+ PlageHoraire.afficherMillisecondesEnHeuresEtMinutes(this.getDureeTourneeSecondes() * 1000) + "\n";
 		feuille += this.entrepot.toString() + "\n";
-		feuille += "Retour à l'entrepôt: " + PlageHoraire.timeToString(this.entrepot.getHeureDeFin());
+		feuille += "Retour à l'entrepôt: " + PlageHoraire.timeToString(this.entrepot.getHeureDeRetour());
 
 		for (int i = 0; i < chemins.size(); ++i) {
 			if (i != 0) {
@@ -420,7 +420,7 @@ public class Tournee extends Observable {
 			}
 			feuille += "\n";
 		}
-		feuille += "Retour à l'entrepôt: " + PlageHoraire.timeToString(this.entrepot.getHeureDeFin());
+		feuille += "Retour à l'entrepôt: " + PlageHoraire.timeToString(this.entrepot.getHeureDeRetour());
 		return feuille;
 	}
 }
