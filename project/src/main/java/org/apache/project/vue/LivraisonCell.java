@@ -199,9 +199,6 @@ public class LivraisonCell extends ListCell<Livraison> {
 			if (plageHoraire != null) {
 				livraison_s += "Plage horaire: " + PlageHoraire.timeToString(plageHoraire.getDebut()) + " - "
 						+ PlageHoraire.timeToString(plageHoraire.getFin());
-				if (livraison.getHeureArrivee() != null) {
-
-				}
 			} else {
 				livraison_s += "Horaire libre";
 			}

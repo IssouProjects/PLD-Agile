@@ -46,8 +46,9 @@ public class Deserialisateur {
 		Element racine = document.getDocumentElement();
 		if (racine.getNodeName().equals("reseau")) {
 			construirePlanVille(racine, plan);
-		} else
+		} else {
 			throw new ExceptionXML("Document non conforme");
+		}
 	}
 
 	/**
@@ -172,6 +173,7 @@ public class Deserialisateur {
 	 * @param demande
 	 * @param plan
 	 * @throws ExceptionXML
+	 *             exception lancée si le document n'est pas correctement formé.
 	 */
 	@SuppressWarnings("deprecation")
 	private static void construireLivraison(Element element, DemandeDeLivraison demande, PlanDeVille plan)

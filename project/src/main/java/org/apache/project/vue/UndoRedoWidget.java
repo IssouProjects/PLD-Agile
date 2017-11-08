@@ -23,7 +23,7 @@ public class UndoRedoWidget extends HBox implements Observer {
 	private Button redoButton;
 
 	/**
-	 * @param edb
+	 *
 	 */
 	public UndoRedoWidget() {
 		undoButton = new Button();

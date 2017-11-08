@@ -150,11 +150,19 @@ public interface Etat {
 	public void ajouterLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale);
 
 	/**
-	 * Methode appelee par controleur apres un clic sur le bouton "Supprimer
+	 * Méthode appelée par contrôleur après un clic sur le bouton "Supprimer
 	 * livraison"
 	 * 
 	 * @param controleur
+	 *            contrôleur de l'application
+	 * @param tournee
+	 *            tournée où l'on supprime une livraison
+	 * @param planDeVille
+	 *            plan de la ville où à lieu la livraison
 	 * @param fenetrePrincipale
+	 *            fenêtre principale de l'application.
+	 * @param commandes
+	 *            liste des commandes qui ont été passées.
 	 */
 	public void supprimerLivraison(Controleur controleur, Tournee tournee, PlanDeVille planDeVille,
 			FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes);

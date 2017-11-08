@@ -64,7 +64,7 @@ public class IteratorSeq implements Iterator<Integer> {
 				candidats[nbCandidats++] = mini;
 			} else {
 				for (Integer s2 : nonVus) {
-					if (Math.max(cout[sommetCrt][s2], (tempsMini[s2] - coutVus)) == miniVal) {
+					if (Math.max(cout[sommetCrt][s2], tempsMini[s2] - coutVus) == miniVal) {
 						candidats[nbCandidats++] = s2;
 					}
 				}
