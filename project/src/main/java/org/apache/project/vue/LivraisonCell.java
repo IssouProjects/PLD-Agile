@@ -365,26 +365,23 @@ public class LivraisonCell extends ListCell<Livraison> {
 			@Override
 			public void handle(DragEvent event) {
 				if (!(thisCell.getItem() instanceof Entrepot) && event.getGestureSource() != thisCell
-						&& event.getDragboard().hasString()) {
-					if (event.getGestureSource() instanceof LivraisonCell) {
-						LivraisonCell source = (LivraisonCell) event.getGestureSource();
+						&& event.getDragboard().hasString() && event.getGestureSource() instanceof LivraisonCell) {
+					LivraisonCell source = (LivraisonCell) event.getGestureSource();
 
-						// we show a hint on hover so the user understands where the new position of his
-						// livraison will be
+					// we show a hint on hover so the user understands where the new position of his
+					// livraison will be
 
-						// if the new position of the livraison is after its current position, the hint
-						// is displayed before
-						// the hovered livraison. Otherwise, the hint is displayed before it (don't ask
-						// why, no clue but it works)
-						if (source.getItem().getPositionDansTournee() > thisCell.getItem().getPositionDansTournee()) {
-							((ListDisplay) getListView().getParent())
-									.placeAddHintAt(thisCell.getBoundsInParent().getMinY(), thisCell.getWidth());
-						} else {
-							((ListDisplay) getListView().getParent()).placeAddHintAt(
-									thisCell.getBoundsInParent().getMinY() + thisCell.getHeight(), thisCell.getWidth());
-						}
+					// if the new position of the livraison is after its current position, the hint
+					// is displayed before
+					// the hovered livraison. Otherwise, the hint is displayed before it (don't ask
+					// why, no clue but it works)
+					if (source.getItem().getPositionDansTournee() > thisCell.getItem().getPositionDansTournee()) {
+						((ListDisplay) getListView().getParent()).placeAddHintAt(thisCell.getBoundsInParent().getMinY(),
+								thisCell.getWidth());
+					} else {
+						((ListDisplay) getListView().getParent()).placeAddHintAt(
+								thisCell.getBoundsInParent().getMinY() + thisCell.getHeight(), thisCell.getWidth());
 					}
-
 				}
 			}
 		});
