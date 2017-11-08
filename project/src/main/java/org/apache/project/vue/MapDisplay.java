@@ -106,7 +106,7 @@ public class MapDisplay extends Pane {
 	}
 
 	/**
-	 * @return
+	 * @return l'Échelle de la carte
 	 */
 	public double getScale() {
 		return myScale.get();
@@ -114,14 +114,20 @@ public class MapDisplay extends Pane {
 
 	/**
 	 * @param scale
+	 *            l'Échelle de la carte
 	 */
 	public void setScale(double scale) {
 		myScale.set(scale);
 	}
 
 	/**
+	 * Déplace le point de pivot de la carte. Il s'agit du point sur lequel se
+	 * centre la vue lors du zoom.
+	 * 
 	 * @param x
+	 *            La nouvelle coordonnée x du pivot
 	 * @param y
+	 *            La nouvelle coordonnée y du pivot
 	 */
 	public void setPivot(double x, double y) {
 		setTranslateX(getTranslateX() - x);
@@ -129,10 +135,11 @@ public class MapDisplay extends Pane {
 	}
 
 	/**
-	 * Affiche le plan passé en paramètre dans l'interface
+	 * Affiche le plan de ville passé en paramètre dans l'interface.
 	 * 
 	 * @param plan
-	 *            L'objet <tt>Plan</tt> contenant les données du plan à afficher
+	 *            L'objet <tt>PlanDeVille</tt> contenant les données du plan à
+	 *            afficher.
 	 */
 	public void afficherPlanDeVille(PlanDeVille plan) {
 
@@ -194,7 +201,7 @@ public class MapDisplay extends Pane {
 	}
 
 	/**
-	 * Affiche les points de livraison sur la carte selon un format spécifique
+	 * Affiche les points de livraison sur la carte
 	 * 
 	 * @param demandeDeLivraison
 	 *            La demande de livraison à afficher
@@ -222,8 +229,8 @@ public class MapDisplay extends Pane {
 	}
 
 	/**
-	 * Met en valeur (sélectionne) un objet de la carte après avoir reformaté
-	 * l'objet actuellement mis en valeur au format par défaut
+	 * Met en valeur (sélectionne) un objet de la carte et réinitialise les objets
+	 * précedemment mis en valeur
 	 * 
 	 * @param obj
 	 *            L'objet à mettre en valeur
@@ -250,9 +257,9 @@ public class MapDisplay extends Pane {
 	 * 
 	 * @param obj
 	 *            L'objet à mettre en valeur
-	 * @return True si un objet Livraison, Intersection, ou Troncon, a été mis en
-	 *         valeur<br/>
-	 *         False dans le cas contraire
+	 * @return <tt>True</tt> si un objet Livraison, Intersection, ou Troncon, a été
+	 *         mis en valeur<br/>
+	 *         <tt>False</tt> dans le cas contraire
 	 */
 	public boolean highlight(Object obj) {
 		boolean found = false;
@@ -300,7 +307,7 @@ public class MapDisplay extends Pane {
 	 * @return True si la livraison a été mise en valeur<br/>
 	 *         False dans le cas contraire
 	 */
-	public boolean highlightLivraison(Livraison livraison) {
+	private boolean highlightLivraison(Livraison livraison) {
 		Circle circle = mapLivraisons.get(livraison);
 
 		if (circle != null) {
@@ -320,7 +327,7 @@ public class MapDisplay extends Pane {
 	 * @return True si le format de la livraison a été réinitalisé<br/>
 	 *         False dans le cas contraire
 	 */
-	public boolean unHighlightLivraison(Livraison livraison) {
+	private boolean unHighlightLivraison(Livraison livraison) {
 		Circle circle = mapLivraisons.get(livraison);
 
 		if (circle != null) {
@@ -343,7 +350,7 @@ public class MapDisplay extends Pane {
 	 * @return True si l'intersection a été mise en valeur<br/>
 	 *         False dans le cas contraire
 	 */
-	public boolean highlightIntersection(Intersection intersection) {
+	private boolean highlightIntersection(Intersection intersection) {
 		Circle circle = mapIntersections.get(intersection);
 
 		if (circle != null) {
@@ -364,7 +371,7 @@ public class MapDisplay extends Pane {
 	 * @return True si le format de l'intersection a été réinitalisé<br/>
 	 *         False dans le cas contraire
 	 */
-	public boolean unHighlightIntersection(Intersection intersection) {
+	private boolean unHighlightIntersection(Intersection intersection) {
 		Circle circle = mapIntersections.get(intersection);
 
 		if (circle != null) {
@@ -389,7 +396,7 @@ public class MapDisplay extends Pane {
 	 * @return True si le troncon a été mise en valeur<br/>
 	 *         False dans le cas contraire
 	 */
-	public boolean highlightTroncon(Troncon troncon) {
+	private boolean highlightTroncon(Troncon troncon) {
 		Line line = mapTourneeTroncons.get(troncon);
 		if (line == null) {
 			line = mapTroncons.get(troncon);
@@ -415,7 +422,7 @@ public class MapDisplay extends Pane {
 	 * @return True si le format du troncon a été réinitalisé<br/>
 	 *         False dans le cas contraire
 	 */
-	public boolean unHighlightTroncon(Troncon troncon) {
+	private boolean unHighlightTroncon(Troncon troncon) {
 		Line line1 = mapTourneeTroncons.get(troncon);
 		Line line2 = null;
 		if (line1 == null) {
@@ -449,7 +456,7 @@ public class MapDisplay extends Pane {
 	}
 
 	/**
-	 * 
+	 * Affiche les livraisons par dessus des autres objets de la scène
 	 */
 	private void livraisonToFront() {
 		if (!mapLivraisons.isEmpty()) {
@@ -589,7 +596,8 @@ public class MapDisplay extends Pane {
 	}
 
 	/**
-	 * Affiche un numéro d'ordre de passage à côté d'une livraison
+	 * Crée un Label contenant le numéro d'ordre de passage correspondant à une
+	 * livraison
 	 * 
 	 * @param inter
 	 *            L'intersection correspondant à la livraison à laquelle est
@@ -603,7 +611,7 @@ public class MapDisplay extends Pane {
 	 * @return L'objt <tt>Label</tt> du numéro d'ordre de passage associé à
 	 *         l'intersection passée en paramètre
 	 */
-	public Label creerNumeroLivraison(Intersection inter, String numero, Color color, int taille) {
+	private Label creerNumeroLivraison(Intersection inter, String numero, Color color, int taille) {
 		Label label = new Label(numero);
 
 		label.setTranslateX(getTransformedX(inter.getCoordY()) + livraisonIntersectionRadius * 2);
@@ -618,16 +626,16 @@ public class MapDisplay extends Pane {
 	}
 
 	/**
-	 * Affiche une intersection sur le plan sous forme de cercle
+	 * Crée un cercle correspondant à la visualisation d'une intersection
 	 * 
 	 * @param inter
 	 *            L'intersection dont on veut créer la vue
 	 * @param color
-	 *            La couleur de l'intersection
+	 *            La couleur souhaitée pour l'intersection
 	 * @return Un objet <tt>Cercle</tt> représentant l'intersection passée en
-	 *         paramètre avec la couleur choisie
+	 *         paramètre
 	 */
-	public Circle creerVueIntersection(Intersection inter, Color color) {
+	private Circle creerVueIntersection(Intersection inter, Color color) {
 		Circle circle = new Circle();
 
 		circle.setUserData(inter);
@@ -643,12 +651,18 @@ public class MapDisplay extends Pane {
 	}
 
 	/**
+	 * Crée un cercle correspondant à la visualisation d'une intersection
+	 * 
 	 * @param inter
+	 *            L'intersection dont on veut créer la vue
 	 * @param color
+	 *            La couleur souhaitée pour l'intersection
 	 * @param radius
-	 * @return
+	 *            Le rayon souhaité pour le cercle
+	 * @returnUn objet <tt>Cercle</tt> représentant l'intersection passée en
+	 *           paramètre
 	 */
-	public Circle creerVueIntersection(Intersection inter, Color color, int radius) {
+	private Circle creerVueIntersection(Intersection inter, Color color, int radius) {
 		Circle circle = creerVueIntersection(inter, color);
 		circle.setRadius(radius);
 
@@ -656,11 +670,15 @@ public class MapDisplay extends Pane {
 	}
 
 	/**
+	 * Crée une ligne correspondant à la visualisation d'un troncon
+	 * 
 	 * @param tronc
+	 *            Le tronçon dont on veut créer la vue
 	 * @param color
-	 * @return
+	 *            Le couleur souhaitée pour le troncon
+	 * @return objet <tt>Line</tt> représentant un troncon passé en paramètre
 	 */
-	public Line creerVueTroncon(Troncon tronc, Paint color) {
+	private Line creerVueTroncon(Troncon tronc, Paint color) {
 		Line line = new Line();
 
 		line.setUserData(tronc);
@@ -678,12 +696,17 @@ public class MapDisplay extends Pane {
 	}
 
 	/**
+	 * Crée une ligne correspondant à la visualisation d'un troncon
+	 * 
 	 * @param tronc
+	 *            Le tronçon dont on veut créer la vue
 	 * @param color
+	 *            Le couleur souhaitée pour le troncon
 	 * @param width
-	 * @return
+	 *            La largeur du troncon
+	 * @return objet <tt>Line</tt> représentant le troncon passé en paramètre
 	 */
-	public Line creerVueTroncon(Troncon tronc, Paint color, int width) {
+	private Line creerVueTroncon(Troncon tronc, Paint color, int width) {
 		Line line = creerVueTroncon(tronc, color);
 		line.setStrokeWidth(width);
 		line.setStrokeLineCap(StrokeLineCap.ROUND);
@@ -692,38 +715,50 @@ public class MapDisplay extends Pane {
 	}
 
 	/**
+	 * Crée un cercle correspondant à la visualisation d'une livraison
+	 * 
 	 * @param livraison
+	 *            La livraison dont on veut créer la vue
 	 * @param color
-	 * @param width
-	 * @return
+	 *            Le couleur souhaitée pour la livraison
+	 * @param radius
+	 *            Le rayon souhaitée pour le cercle
+	 * @return objet <tt>Circle</tt> représentant un troncon passé en paramètre
 	 */
-	public Circle creerVueLivraison(Livraison livraison, Color color, int width) {
-		Circle circle = creerVueIntersection(livraison.getLieuDeLivraison(), color, width);
+	private Circle creerVueLivraison(Livraison livraison, Color color, int radius) {
+		Circle circle = creerVueIntersection(livraison.getLieuDeLivraison(), color, radius);
 		circle.setUserData(livraison);
 
 		return circle;
 	}
 
 	/**
-	 * @param coordY
-	 * @return
+	 * @param coordX
+	 * @return la coordonnée x transformée et rescalée pour s'afficher correctement
+	 *         dans le plan
 	 */
-	public double getTransformedX(double coordY) {
+	private double getTransformedX(double coordY) {
 		return (coordY - minimalY) * (maximalX - minimalX) / (maximalY - minimalY);
 	}
 
 	/**
-	 * @param coordX
-	 * @return
+	 * @param coordY
+	 * @return la coordonnée y transformée et rescalée pour s'afficher correctement
+	 *         dans le plan
 	 */
 	public double getTransformedY(double coordX) {
 		return getPrefHeight() - (coordX - minimalX);
 	}
 
 	/**
+	 * Donne la couleur d'un Troncon par rapport à sa position dans la tournée, pour
+	 * créer un dégradé de couleur le long de la tournée
+	 * 
 	 * @param positionTroncon
+	 *            La position du Troncon dans la tournée
 	 * @param nombreTroncons
-	 * @return
+	 *            Le nombre de Troncon total de la tournée
+	 * @return La couleur du Troncon
 	 */
 	private Color getColorGradientPoint(int positionTroncon, int nombreTroncons) {
 		double percentage = (double) positionTroncon / (double) nombreTroncons;
@@ -733,9 +768,16 @@ public class MapDisplay extends Pane {
 	}
 
 	/**
+	 * Donne le gradient de couleur nécessaire pour afficher quand la livraison
+	 * passe plusieurs fois dans le même Troncon, avec des couleurs différentes
+	 * liées à l'avancement.
+	 * 
 	 * @param colors
+	 *            La liste de couleurs à répartir dans le Troncon
 	 * @param line
-	 * @return
+	 *            La ligne dans laquelle les couleurs doivent être ajoutées
+	 * @return la chaine de caractère correspondant à la feuille de style CSS
+	 *         nécessaire pour créer le gradient
 	 */
 	private String getColorGradientPoint(List<Color> colors, Line line) {
 		if (!colors.isEmpty() && line != null) {
