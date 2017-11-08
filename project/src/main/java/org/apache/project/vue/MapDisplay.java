@@ -69,7 +69,7 @@ public class MapDisplay extends Pane {
 	// default tournee display
 	final int tourneeIntersectionRadius = 50;
 	final int tourneeTronconWidth = 300;
-	final Color defaultTourneeTronconColors[] = {Color.web("#003300"), Color.web("#33cc33")};
+	final Color defaultTourneeTronconColors[] = {Color.web("#33cc33"), Color.web("#003300")};
 	final Color defaultTourneeIntersectionColor = Color.web("#3399ff");
 	final Color defaultTourneeLivraisonColor = Color.web("#425087");
 

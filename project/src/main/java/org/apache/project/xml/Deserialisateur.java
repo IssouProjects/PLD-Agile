@@ -52,7 +52,7 @@ public class Deserialisateur {
 		if (racine.getNodeName().equals("demandeDeLivraisons")) {
 			construireDemandeLivraison(racine, demande, plan);
 		} else {
-			throw new ExceptionXML("Document non conforme");
+			throw new ExceptionXML("Document non conforme.");
 		}
 	}
 
