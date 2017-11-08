@@ -34,35 +34,46 @@ public class Chemin {
 	}
 
 	/**
-	 * @return
+	 * Renvoie la durée nécessaire pour parcourir le chemin
+	 * 
+	 * @return temps pour aller d'un bout à l'autre du chemin
 	 */
 	public int getDuree() {
 		return duree;
 	}
 
 	/**
-	 * @return
+	 * Renvoie le point de départ du chemin
+	 * 
+	 * @return l'<tt>Intersection</tt> qui matérialise le début du chemin.
 	 */
 	public Intersection getDebut() {
 		return debut;
 	}
 
 	/**
-	 * @return
+	 * Renvoie le point d'arrivée du chemin
+	 * 
+	 * @return l'<tt>Intersection</tt> qui matérialise la fin du chemin.
 	 */
 	public Intersection getFin() {
 		return fin;
 	}
 
 	/**
-	 * @return
+	 * La méthode renvoie la liste ordonnée des tronçons qui composent le chemin.
+	 * 
+	 * @return une liste ordonnée des <tt>Troncon</tt> composant le chemin.
 	 */
 	public List<Troncon> getTroncons() {
 		return listeTroncons;
 	}
 
 	/**
-	 * @return
+	 * La méthode renvoie la liste des rues qu'emprunte le chemin.
+	 * 
+	 * @return une liste ordonnées des rues qui sont successivement empruntées dans
+	 *         ce chemin.
 	 */
 	public List<String> getListeRues() {
 		List<String> listeRues = new ArrayList<String>();
