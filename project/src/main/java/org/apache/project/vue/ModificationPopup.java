@@ -22,7 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
- *
+ * Fenêtre permettant à l'utilisateur de modifier une livraison
  */
 public class ModificationPopup extends VBox {
 

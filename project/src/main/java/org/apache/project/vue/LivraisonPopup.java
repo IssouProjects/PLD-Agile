@@ -18,7 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- *
+ * Popup permettant à l'utilisateur d'ajouter une livraison
  */
 public class LivraisonPopup extends VBox {
 

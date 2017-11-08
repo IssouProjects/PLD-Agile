@@ -37,7 +37,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- *
+ * Fenetre principale de l'application, contenant les méthodes permettant au
+ * controleur de piloter l'affichage graphique
  */
 public class FenetrePrincipale extends Application {
 

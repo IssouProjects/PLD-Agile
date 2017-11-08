@@ -15,7 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**
- *
+ * Widget permettant de sélectionner un horaire
  */
 public class TimeSpinner extends Spinner<LocalTime> {
 
@@ -30,6 +30,9 @@ public class TimeSpinner extends Spinner<LocalTime> {
 	private SpinnerValueFactory<LocalTime> factory;
 
 	/**
+	 * Permet de créer un sélecteur d'horaire, initialisé à l'horaire donné en
+	 * paramètre
+	 * 
 	 * @param time
 	 */
 	public TimeSpinner(final LocalTime time) {

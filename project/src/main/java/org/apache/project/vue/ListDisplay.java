@@ -24,7 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
 /**
- * 
+ * Afficheur de liste de livraisons
  */
 public class ListDisplay extends Pane {
 
@@ -168,7 +168,7 @@ public class ListDisplay extends Pane {
 	}
 
 	/**
-	 * Masque l'indicateur
+	 * Masque l'indicateur d'ajout / de déplacement
 	 */
 	public void hideHint() {
 		addNotifier.setVisible(false);

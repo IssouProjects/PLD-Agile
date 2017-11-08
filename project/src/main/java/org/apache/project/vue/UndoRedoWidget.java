@@ -15,7 +15,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 
 /**
- *
+ * Widget gérant l'undo / redo
  */
 public class UndoRedoWidget extends HBox implements Observer {
 

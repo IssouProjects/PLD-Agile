@@ -15,7 +15,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 /**
- *
+ * Permet de gérer les gestes de l'utilisateur avec la map (clic, drag, zoom,
+ * etc..)
  */
 public class MapGestures {
 	private static final double MAX_SCALE = 10.0d;

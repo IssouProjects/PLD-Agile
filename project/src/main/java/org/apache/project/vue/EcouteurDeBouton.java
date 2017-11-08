@@ -7,7 +7,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 /**
- *
+ * classe permettant d'écouter les clics sur les boutons et de les transmettre
+ * au controleur
  */
 public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 
@@ -16,6 +17,8 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 	private ModificationPopup modificationPopup = null;
 
 	/**
+	 * Crée un écouteur de bouton
+	 * 
 	 * @param c
 	 * @param fp
 	 */
