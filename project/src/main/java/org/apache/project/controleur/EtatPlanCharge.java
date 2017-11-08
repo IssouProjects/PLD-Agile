@@ -35,14 +35,14 @@ public class EtatPlanCharge extends EtatDefaut {
 			fenetrePrincipale.afficherDemandeDeLivraison(demandeDeLivraison);
 			fenetrePrincipale.afficherInfo("Calculer une tournée");
 		} catch (ParserConfigurationException e) {
-			fenetrePrincipale.afficherPopupError(e.getMessage());
+			fenetrePrincipale.afficherPopupError("Format non valide.\n" + e.getMessage());
 		} catch (SAXException e) {
-			fenetrePrincipale.afficherPopupError(e.getMessage());
+			fenetrePrincipale.afficherPopupError("Format non valide.\n" + e.getMessage());
 		} catch (IOException e) {
-			fenetrePrincipale.afficherPopupError("Format non valide");
+			fenetrePrincipale.afficherPopupError("Format non valide.\n" + e.getMessage());
 		} catch (ExceptionXML e) {
 			fenetrePrincipale.afficherPlanDeVille(planDeVille);
-			fenetrePrincipale.afficherPopupError(e.getMessage()+ "\nChargement de demande de livraison annulée.");
+			fenetrePrincipale.afficherPopupError("Format non valide.\n" + e.getMessage());
 		}
 	}
 	

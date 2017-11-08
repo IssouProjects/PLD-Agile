@@ -34,13 +34,13 @@ public class EtatInit extends EtatDefaut {
 			fenetrePrincipale.afficherPlanDeVille(planDeVille);
 			fenetrePrincipale.afficherInfo("Charger une demande de livraison");
 		} catch (ParserConfigurationException e) {
-			fenetrePrincipale.afficherPopupError(e.getMessage());
+			fenetrePrincipale.afficherPopupError("Format non valide.\n" + e.getMessage());
 		} catch (SAXException e) {
-			fenetrePrincipale.afficherPopupError(e.getMessage());
+			fenetrePrincipale.afficherPopupError("Format non valide.\n" + e.getMessage());
 		} catch (IOException e) {
-			fenetrePrincipale.afficherPopupError("Format non valide.");
+			fenetrePrincipale.afficherPopupError("Format non valide.\n" + e.getMessage());
 		} catch (ExceptionXML e) {
-			fenetrePrincipale.afficherPopupError(e.getMessage());
+			fenetrePrincipale.afficherPopupError("Format non valide.\n" + e.getMessage());
 		}
 	}
 }
