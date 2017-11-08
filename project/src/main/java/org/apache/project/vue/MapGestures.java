@@ -15,7 +15,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 /**
- *
+ * Permet de gérer les gestes de l'utilisateur avec la map (clic, drag, zoom,
+ * etc..)
  */
 public class MapGestures {
 	private static final double MAX_SCALE = 10.0d;
@@ -30,8 +31,8 @@ public class MapGestures {
 
 	private DragContext sceneDragContext = new DragContext();
 
-	MapDisplay map;
-	EcouteurDeMap edm = null;
+	private MapDisplay map;
+	private EcouteurDeMap edm = null;
 
 	private EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<MouseEvent>() {
 
@@ -184,9 +185,14 @@ public class MapGestures {
 	}
 
 	/**
+	 * Vérifie si le chiffre est bien dans l'intervalle min, max
+	 * 
 	 * @param value
+	 *            la valeur à tester
 	 * @param min
+	 *            la valeur minimale de l'intervalle
 	 * @param max
+	 *            la valeur maximale de l'intervalle
 	 * @return
 	 */
 	public static double clamp(double value, double min, double max) {
@@ -208,7 +214,10 @@ public class MapGestures {
 	}
 
 	/**
+	 * Envoie l'information sur l'objet cliqué à l'écouteur de map
+	 * 
 	 * @param target
+	 *            l'objet cliqué
 	 * @return
 	 */
 	private boolean handleClickedNode(Node target) {
@@ -227,6 +236,10 @@ public class MapGestures {
 	}
 
 	/**
+	 * Permet de récupérer le cercle le plus proche du clic de la souris dans la
+	 * map. Si plusieurs cercles sont à égalité (par exemple, s'ils ont les mêmes
+	 * coordonnées), alors on retourne la liste de ces cercles.
+	 * 
 	 * @param event
 	 * @return
 	 */
@@ -290,6 +303,10 @@ public class MapGestures {
 	}
 
 	/**
+	 * Permet de récupérer la ligne le plus proche du clic de la souris dans la map.
+	 * Si plusieurs lignes sont à égalité (par exemple, si elles ont les mêmes
+	 * coordonnées), alors on retourne la liste de ces lignes.
+	 * 
 	 * @param event
 	 * @return
 	 */
@@ -368,6 +385,9 @@ public class MapGestures {
 	}
 
 	/**
+	 * Permet de changer le mode de sélection lors du clic de la souris sur la map
+	 * (intersection ou troncons)
+	 * 
 	 * @param mode
 	 */
 	public void setSelectionMode(SelectionMode mode) {

@@ -22,7 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
- *
+ * Fenêtre permettant à l'utilisateur de modifier une livraison
  */
 public class ModificationPopup extends VBox {
 
@@ -51,9 +51,15 @@ public class ModificationPopup extends VBox {
 	public static final String CANCEL_ID = "annulerModificationLivraisonButton";
 
 	/**
+	 * Crée un <tt>VBox</tt> contenant tous les widgets nécessaire à la modification
+	 * d'une livraison
+	 * 
 	 * @param livraison
+	 *            La livraison à modifier
 	 * @param parent
+	 *            Le layout parent
 	 * @param edb
+	 *            L'écouteur de bouton
 	 */
 	public ModificationPopup(Livraison livraison, Pane parent, EcouteurDeBouton edb) {
 		parentPane = parent;
@@ -156,6 +162,8 @@ public class ModificationPopup extends VBox {
 	}
 
 	/**
+	 * Permet d'activer ou de désactiver les widgets de la plage horaire
+	 * 
 	 * @param disable
 	 */
 	public void disablePlageHoraire(boolean disable) {
@@ -166,7 +174,10 @@ public class ModificationPopup extends VBox {
 	}
 
 	/**
-	 * @return
+	 * Permet de récupérer l'objet <tt>Time</tt> correspondant à l'heure de début
+	 * sélectionnée par l'utilisateur
+	 * 
+	 * @return l'objet Time ou null si la plage horaire est désactivée
 	 */
 	@SuppressWarnings("deprecation")
 	public Time getNewHeureDeb() {
@@ -178,7 +189,10 @@ public class ModificationPopup extends VBox {
 	}
 
 	/**
-	 * @return
+	 * Permet de récupérer l'objet <tt>Time</tt> correspondant à l'heure de fin
+	 * sélectionnée par l'utilisateur
+	 * 
+	 * @return l'objet Time ou null si la plage horaire est désactivée
 	 */
 	@SuppressWarnings("deprecation")
 	public Time getNewHeureFin() {
@@ -190,6 +204,8 @@ public class ModificationPopup extends VBox {
 	}
 
 	/**
+	 * Permet de récupérer la durée (en secondes) sélectionnée par l'utilisateur
+	 * 
 	 * @return
 	 */
 	public Integer getNewDuree() {
@@ -197,7 +213,10 @@ public class ModificationPopup extends VBox {
 	}
 
 	/**
-	 * @return
+	 * Permet de vérifier que les paramètres entrés par l'utilisateur ne sont pas
+	 * érronés.
+	 * 
+	 * @return <tt>true</tt> si les paramètres sont ok, <tt>false</tt> sinon
 	 */
 	public boolean checkTimeOk() {
 		if (!checkBox.isSelected())
@@ -230,6 +249,8 @@ public class ModificationPopup extends VBox {
 	}
 
 	/**
+	 * Affiche un message d'erreur "plage horaire invalide"
+	 * 
 	 * @param invalid
 	 */
 	public void setInvalid(boolean invalid) {
@@ -245,11 +266,9 @@ public class ModificationPopup extends VBox {
 	}
 
 	/**
-	 * Affiche un message d'erreur si la durée de déchargement est supérieure à la
-	 * longueur de la plage horaire
+	 * Affiche un message d'erreur "durée invalide"
 	 * 
 	 * @param invalid
-	 *            validité de la durée de déchargement
 	 */
 	public void setDureeInvalide(boolean invalid) {
 		dureeInvalideLabel.setVisible(invalid);
@@ -263,7 +282,7 @@ public class ModificationPopup extends VBox {
 	}
 
 	/**
-	 * 
+	 * supprime la popup
 	 */
 	public void selfDestruct() {
 		parentPane.getChildren().remove(this);

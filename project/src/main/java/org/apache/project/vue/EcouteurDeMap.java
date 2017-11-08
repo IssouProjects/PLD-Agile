@@ -6,7 +6,8 @@ import org.apache.project.modele.Livraison;
 import org.apache.project.modele.Troncon;
 
 /**
- * Ecouteur des interactions sur la carte (map).
+ * classe permettant de transmettre les interaction de l'utilisateur avec la map
+ * au controleur
  */
 public class EcouteurDeMap {
 	private Controleur controleur;
@@ -22,30 +23,30 @@ public class EcouteurDeMap {
 	}
 
 	/**
-	 * Gère le clic sur une intersection.
+	 * Méthode appelée quand un utilisateur clique sur une intersection
 	 * 
 	 * @param intersection
-	 *            <tt>Intersection</tt> cliquée
+	 *            l'intersection sur laquelle l'utilisateur a cliqué
 	 */
 	public void onIntersectionClicked(Intersection intersection) {
 		controleur.intersectionClicked(intersection);
 	}
 
 	/**
-	 * Gère le clic sur un tronçon.
+	 * Méthode appelée quand un utilisateur clique sur un tronçon
 	 * 
 	 * @param troncon
-	 *            <tt>Troncon</tt> cliqué
+	 *            le tronçon sur lequel l'utilisateur a cliqué
 	 */
 	public void onTronconClicked(Troncon troncon) {
 		controleur.tronconClicked(troncon);
 	}
 
 	/**
-	 * Gère le clic sur une livraison.
+	 * Méthode appelée quand un utilisateur clique sur une livraison
 	 * 
 	 * @param livraison
-	 *            <tt>Livraison</tt> cliquée
+	 *            la livraison sur laquelle l'utilisateur a cliqué
 	 */
 	public void onLivraisonClicked(Livraison livraison) {
 		controleur.livraisonClicked(livraison);

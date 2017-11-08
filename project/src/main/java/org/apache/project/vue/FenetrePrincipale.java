@@ -19,9 +19,13 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -31,37 +35,34 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 
 /**
- *
+ * Fenetre principale de l'application, contenant les méthodes permettant au
+ * controleur de piloter l'affichage graphique
  */
 public class FenetrePrincipale extends Application {
 
 	private Stage stage;
 
-	MapContainer mapContainer;
-	Controleur controleur;
-	EcouteurDeBouton edb;
-	EcouteurDeMap edm;
-	EcouteurDeListe edl;
+	private MapContainer mapContainer;
+	private Controleur controleur;
+	private EcouteurDeBouton edb;
+	private EcouteurDeMap edm;
+	private EcouteurDeListe edl;
 
-	Button loadMapButton;
-	Button fitMapButton;
-	Button calculerTourneeButton;
-	Button loadLivraisonButton;
-	Button ajouterLivraisonButton;
-	Button supprLivraisonButton;
-	Button annulerButton;
-	Button recalculerButton;
-	Button exporterButton;
+	private Button loadMapButton;
+	private Button fitMapButton;
+	private Button calculerTourneeButton;
+	private Button loadLivraisonButton;
+	private Button ajouterLivraisonButton;
+	private Button supprLivraisonButton;
+	private Button annulerButton;
+	private Button recalculerButton;
+	private Button exporterButton;
 
-	ImageView imageView;
+	private ImageView imageView;
 
-	ListDisplay listeLivraisons;
+	private ListDisplay listeLivraisons;
 
 	private UndoRedoWidget undoRedoWidget;
 
@@ -317,7 +318,10 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Affiche une popup d'erreur contenant le message donné en paramètre
+	 * 
 	 * @param message
+	 *            le message à afficher
 	 */
 	public void afficherPopupError(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
@@ -328,7 +332,10 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Affiche une popup d'information contenant le message donné en paramètre
+	 * 
 	 * @param message
+	 *            le message à afficher
 	 */
 	public void afficherPopupInfo(String message) {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -339,14 +346,20 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Affiche un indice pour indiquer à l'utilisateur quel action effectuer
+	 * 
 	 * @param message
+	 *            le message à afficher
 	 */
 	public void afficherInfo(String message) {
 		mapLabel.setText("Action à réaliser : " + message);
 	}
 
 	/**
+	 * Affiche un plan de ville dans l'interface
+	 * 
 	 * @param plan
+	 *            le <tt>PlanDeVille</tt> à afficher
 	 */
 	public void afficherPlanDeVille(PlanDeVille plan) {
 		mapContainer.getMapDisplay().unhighlight();
@@ -368,7 +381,10 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Affiche une demande de livraison dans l'interface
+	 * 
 	 * @param livraison
+	 *            la <tt>DemandeDeLivraison</tt> à afficher
 	 */
 	public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
 		mapContainer.getMapDisplay().unhighlight();
@@ -388,7 +404,10 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Affiche une tournée dans l'interface
+	 * 
 	 * @param tournee
+	 *            la <tt>Tournee</tt> à afficher
 	 */
 	public void afficherTournee(Tournee tournee) {
 		mapContainer.getMapDisplay().unhighlight();
@@ -405,7 +424,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * 
+	 * Réinitialise l'affichage du plan de ville
 	 */
 	public void clearPlanDeVille() {
 		clearLivraison();
@@ -414,7 +433,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * 
+	 * Réinitialise l'affichage de la demande de livraison
 	 */
 	public void clearLivraison() {
 		mapContainer.getMapDisplay().clearDemandeDeLivraison();
@@ -423,7 +442,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * 
+	 * Réinitialise l'affichage de la tournée
 	 */
 	public void clearTournee() {
 		mapContainer.getMapDisplay().clearTournee();
@@ -432,7 +451,11 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Affiche une popup contenant tous les widgets permettant à l'utilisateur
+	 * d'ajouter une livraison
+	 * 
 	 * @param l
+	 *            la livraison à afficher
 	 */
 	public void afficherFenetreAjouterLivraison() {
 		if (livraisonPopup != null)
@@ -447,6 +470,8 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Permet de récupérer la popup d'ajout de livraison
+	 * 
 	 * @return
 	 */
 	public LivraisonPopup getFenetreAjouterLivraison() {
@@ -454,7 +479,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * 
+	 * Permet de masquer la fenetre d'ajout de livraison
 	 */
 	public void masquerFenetreAjouterLivraison() {
 		stack.getChildren().remove(livraisonPopup);
@@ -465,7 +490,11 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Permet d'afficher une popup contenant toutes les information de la feuille de
+	 * route
+	 * 
 	 * @param feuilleDeRoute
+	 *            la feuille de route à afficher
 	 */
 	public void afficherFenetreFeuilleDeRoute(String feuilleDeRoute) {
 		if (livraisonPopup != null)
@@ -480,7 +509,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * 
+	 * masque la fenêtre de feuille de route
 	 */
 	public void masquerFenetreFeuilleDeRoute() {
 		stack.getChildren().remove(feuilleDeRoutePopup);
@@ -491,7 +520,8 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * 
+	 * affiche une fenêtre permettant à l'utilisateur de choisir la durée maximale
+	 * d'exécution de l'algorithme
 	 */
 	public void afficherFenetreTimeout() {
 		if (timeoutPopup != null)
@@ -506,6 +536,8 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Permet de récupérer la popup de timeout
+	 * 
 	 * @return
 	 */
 	public TimeoutPopup getFenetreTimeoutPopup() {
@@ -513,7 +545,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * 
+	 * Permet de masquer la popup de timeout
 	 */
 	public void masquerFenetreTimeoutPopup() {
 		stack.getChildren().remove(timeoutPopup);
@@ -523,18 +555,22 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * affiche une fenêtre permettant à l'utilisateur de modifier une livraison
+	 * 
 	 * @param l
+	 *            la livraison à modifier
 	 */
 	public void afficherFenetreModifierLivraison(Livraison l) {
 		new ModificationPopup(l, stack, edb);
 	}
 
-	/**
-	 * Affiche une boite de dialogue pour ouvrir un fichier. Cette méthode est
-	 * bloquante : on n'en sors pas tant que l'utilisateur n'a pas choisi un fichier
-	 * ou annulé l'opération.
-	 */
 
+	/**
+	 * Met en valeur une livraison
+	 * 
+	 * @param l
+	 *            La livraison à mettre en valeur
+	 */
 	public void highlightLivraison(Livraison l) {
 		mapContainer.getMapDisplay().resetAndHighlight(l);
 		streetDisplay.setVisible(false);
@@ -542,7 +578,10 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Met en valeur une intersection
+	 * 
 	 * @param I
+	 *            l'intersection à mettre en valeur
 	 */
 	public void highlightIntersection(Intersection I) {
 		listeLivraisons.selectLivraison(null);
@@ -551,7 +590,10 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Mettre en valeur un troncon
+	 * 
 	 * @param t
+	 *            le troncon à mettre en valeur
 	 */
 	public void highlightTroncon(Troncon t) {
 		listeLivraisons.selectLivraison(null);
@@ -561,6 +603,8 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Renvoie l'objet <tt>ListDisplay</tt> de la fenêtre
+	 * 
 	 * @return
 	 */
 	public ListDisplay getListDisplay() {
@@ -568,6 +612,8 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Renvoie l'objet <tt>MapContainer</tt> de la fenêtre
+	 * 
 	 * @return
 	 */
 	public MapContainer getMapContainer() {
@@ -575,13 +621,17 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * @return
+	 * Renvoie la livraison sélectionnée
+	 * 
+	 * @return la livraison actuellement mise en valeur
 	 */
 	public Livraison getSelectedLivraison() {
 		return listeLivraisons.getSelectedLivraison();
 	}
 
 	/**
+	 * Renvoie le widget permettrant d'annuler / de refaire des actions
+	 * 
 	 * @return
 	 */
 	public UndoRedoWidget getUndoRedoWidget() {
@@ -607,7 +657,10 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Rend visible / invisible le bouton de recalcul
+	 * 
 	 * @param visible
+	 *            l'état souhaité
 	 */
 	public void setVisibleRecalculerButton(boolean visible) {
 		recalculerButton.setVisible(visible);
@@ -615,7 +668,10 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
+	 * Rend visible / invisible le bouton d'annulation
+	 * 
 	 * @param visible
+	 *            l'état souhaité
 	 */
 	public void setVisibleAnnulerButton(boolean visible) {
 		annulerButton.setVisible(visible);
@@ -623,7 +679,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * 
+	 * Affiche une animation pour indiquer un chargement
 	 */
 	public void afficherLoading() {
 
@@ -636,7 +692,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * 
+	 * Masque l'animation de chargement
 	 */
 	public void removeLoading() {
 		stack.getChildren().remove(imageView);
