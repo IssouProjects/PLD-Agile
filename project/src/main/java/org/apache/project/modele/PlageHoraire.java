@@ -95,8 +95,11 @@ public class PlageHoraire {
 		String result = "";
 		if (heures > 0) {
 			result += heures + "h ";
+		} else if(minutes == 0) {
+			return "<1min";
 		}
 		result += minutes + "min";
+		
 		return result;
 	}
 
