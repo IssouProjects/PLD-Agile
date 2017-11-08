@@ -36,6 +36,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 
+/**
+ *
+ */
 public class FenetrePrincipale extends Application {
 
 	private Stage stage;
@@ -55,7 +58,7 @@ public class FenetrePrincipale extends Application {
 	Button annulerButton;
 	Button recalculerButton;
 	Button exporterButton;
-	
+
 	ImageView imageView;
 
 	ListDisplay listeLivraisons;
@@ -104,6 +107,22 @@ public class FenetrePrincipale extends Application {
 	public static final String DDL_FILEDIALOG_DESCRIPTION = "Ouvrir une demande de livraison";
 	public static final String DDL_FILE_EXTENSION = "*.xml";
 
+	private EventHandler<KeyEvent> keyPressedEventHandler = new EventHandler<KeyEvent>() {
+		@Override
+		public void handle(KeyEvent event) {
+
+			if (event.isControlDown() && event.getText().equals("z") && !undoRedoWidget.isUndoDisable()) {
+				controleur.undo();
+			}
+			if (event.isControlDown() && event.getText().equals("y") && !undoRedoWidget.isRedoDisable()) {
+				controleur.redo();
+			}
+		}
+	};
+
+	/**
+	 * @param args
+	 */
 	public static void launchApp(String[] args) {
 		Application.launch(FenetrePrincipale.class, args);
 	}
@@ -165,7 +184,7 @@ public class FenetrePrincipale extends Application {
 
 		layout.add(mapContainer, 0, 1);
 		layout.add(mapButtonsLayout, 0, 2);
-		
+
 		imageView = new ImageView();
 		imageView.setImage(new Image(getClass().getResource("loading.gif").toExternalForm()));
 
@@ -191,8 +210,7 @@ public class FenetrePrincipale extends Application {
 		exporterButton = new Button(EXPORTER);
 		exporterButton.setUserData(EXPORTER_ID);
 		exporterButton.setDisable(true);
-    
-		
+
 		//////////////////////////////////////
 		///// CREATING THE DELIVERY LIST /////
 		//////////////////////////////////////
@@ -261,7 +279,7 @@ public class FenetrePrincipale extends Application {
 
 		controleur = Controleur.getInstance();
 		controleur.setFenetre(this);
-		
+
 		scene.addEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
 
 		// button listener
@@ -297,23 +315,10 @@ public class FenetrePrincipale extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
-	/**
-     * "Key Pressed" handler for Ctrl+Z, to undo changes
-     */
-    private EventHandler<KeyEvent> keyPressedEventHandler = new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(KeyEvent event) {
-        	
-        	if(event.isControlDown()&&event.getText().equals("z")&& !undoRedoWidget.isUndoDisable()) {
-        		controleur.undo();
-        	}
-        	if(event.isControlDown()&&event.getText().equals("y")&& !undoRedoWidget.isRedoDisable()) {
-        		controleur.redo();
-        	}
-        }
-    };
 
+	/**
+	 * @param message
+	 */
 	public void afficherPopupError(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Erreur");
@@ -322,6 +327,9 @@ public class FenetrePrincipale extends Application {
 		alert.showAndWait();
 	}
 
+	/**
+	 * @param message
+	 */
 	public void afficherPopupInfo(String message) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Information");
@@ -329,11 +337,17 @@ public class FenetrePrincipale extends Application {
 		alert.setContentText(message);
 		alert.showAndWait();
 	}
-	
+
+	/**
+	 * @param message
+	 */
 	public void afficherInfo(String message) {
 		mapLabel.setText("Action à réaliser : " + message);
 	}
 
+	/**
+	 * @param plan
+	 */
 	public void afficherPlanDeVille(PlanDeVille plan) {
 		mapContainer.getMapDisplay().unhighlight();
 		mapContainer.getMapDisplay().afficherPlanDeVille(plan);
@@ -353,6 +367,9 @@ public class FenetrePrincipale extends Application {
 		exporterButton.setDisable(true);
 	}
 
+	/**
+	 * @param livraison
+	 */
 	public void afficherDemandeDeLivraison(DemandeDeLivraison livraison) {
 		mapContainer.getMapDisplay().unhighlight();
 		mapContainer.getMapDisplay().afficherDemandeDeLivraison(livraison);
@@ -370,6 +387,9 @@ public class FenetrePrincipale extends Application {
 		exporterButton.setDisable(true);
 	}
 
+	/**
+	 * @param tournee
+	 */
 	public void afficherTournee(Tournee tournee) {
 		mapContainer.getMapDisplay().unhighlight();
 		mapContainer.getMapDisplay().afficherTournee(tournee);
@@ -384,24 +404,36 @@ public class FenetrePrincipale extends Application {
 		exporterButton.setDisable(false);
 	}
 
+	/**
+	 * 
+	 */
 	public void clearPlanDeVille() {
 		clearLivraison();
 		clearTournee();
 		mapContainer.getMapDisplay().clearPlanDeVille();
 	}
 
+	/**
+	 * 
+	 */
 	public void clearLivraison() {
 		mapContainer.getMapDisplay().clearDemandeDeLivraison();
 		listeLivraisons.clearList();
 		listLabel.setText("Livraisons:");
 	}
 
+	/**
+	 * 
+	 */
 	public void clearTournee() {
 		mapContainer.getMapDisplay().clearTournee();
 		listeLivraisons.clearList();
 		listLabel.setText("Livraisons:");
 	}
 
+	/**
+	 * @param l
+	 */
 	public void afficherFenetreAjouterLivraison(Livraison l) {
 		if (livraisonPopup != null)
 			return;
@@ -414,10 +446,16 @@ public class FenetrePrincipale extends Application {
 		stack.getChildren().add(livraisonPopup);
 	}
 
+	/**
+	 * @return
+	 */
 	public LivraisonPopup getFenetreAjouterLivraison() {
 		return livraisonPopup;
 	}
 
+	/**
+	 * 
+	 */
 	public void masquerFenetreAjouterLivraison() {
 		stack.getChildren().remove(livraisonPopup);
 		stack.getChildren().remove(opaqueLayer);
@@ -425,7 +463,10 @@ public class FenetrePrincipale extends Application {
 		livraisonPopup = null;
 		opaqueLayer = null;
 	}
-	
+
+	/**
+	 * @param feuilleDeRoute
+	 */
 	public void afficherFenetreFeuilleDeRoute(String feuilleDeRoute) {
 		if (livraisonPopup != null)
 			return;
@@ -437,15 +478,21 @@ public class FenetrePrincipale extends Application {
 		stack.getChildren().add(opaqueLayer);
 		stack.getChildren().add(feuilleDeRoutePopup);
 	}
-	
+
+	/**
+	 * 
+	 */
 	public void masquerFenetreFeuilleDeRoute() {
 		stack.getChildren().remove(feuilleDeRoutePopup);
 		stack.getChildren().remove(opaqueLayer);
-		
+
 		feuilleDeRoutePopup = null;
 		opaqueLayer = null;
 	}
-	
+
+	/**
+	 * 
+	 */
 	public void afficherFenetreTimeout() {
 		if (timeoutPopup != null)
 			return;
@@ -458,10 +505,16 @@ public class FenetrePrincipale extends Application {
 		stack.getChildren().add(timeoutPopup);
 	}
 
+	/**
+	 * @return
+	 */
 	public TimeoutPopup getFenetreTimeoutPopup() {
 		return timeoutPopup;
 	}
 
+	/**
+	 * 
+	 */
 	public void masquerFenetreTimeoutPopup() {
 		stack.getChildren().remove(timeoutPopup);
 		stack.getChildren().remove(opaqueLayer);
@@ -469,6 +522,9 @@ public class FenetrePrincipale extends Application {
 		opaqueLayer = null;
 	}
 
+	/**
+	 * @param l
+	 */
 	public void afficherFenetreModifierLivraison(Livraison l) {
 		new ModificationPopup(l, stack, edb);
 	}
@@ -485,12 +541,18 @@ public class FenetrePrincipale extends Application {
 		listeLivraisons.selectLivraison(l);
 	}
 
+	/**
+	 * @param I
+	 */
 	public void highlightIntersection(Intersection I) {
 		listeLivraisons.selectLivraison(null);
 		mapContainer.getMapDisplay().resetAndHighlight(I);
 		streetDisplay.setVisible(false);
 	}
 
+	/**
+	 * @param t
+	 */
 	public void highlightTroncon(Troncon t) {
 		listeLivraisons.selectLivraison(null);
 		mapContainer.getMapDisplay().resetAndHighlight(t);
@@ -498,18 +560,30 @@ public class FenetrePrincipale extends Application {
 		streetLabel.setText(t.getNomRue());
 	}
 
+	/**
+	 * @return
+	 */
 	public ListDisplay getListDisplay() {
 		return listeLivraisons;
 	}
 
+	/**
+	 * @return
+	 */
 	public MapContainer getMapContainer() {
 		return mapContainer;
 	}
 
+	/**
+	 * @return
+	 */
 	public Livraison getSelectedLivraison() {
 		return listeLivraisons.getSelectedLivraison();
 	}
 
+	/**
+	 * @return
+	 */
 	public UndoRedoWidget getUndoRedoWidget() {
 		return undoRedoWidget;
 	}
@@ -528,34 +602,46 @@ public class FenetrePrincipale extends Application {
 	 * 
 	 * @return Le fichier, ou null si l'utilisateur à annulé l'opération
 	 */
-    public File ouvrirFichierXml(String fileDescription, String fileExtension, String windowTitle) {
-    	return FileOpener.ouvrirFichier(stage, fileDescription, fileExtension, windowTitle);
-    }
-    
-    public void setVisibleRecalculerButton(boolean visible) {
-    	recalculerButton.setVisible(visible);
-    	recalculerButton.setManaged(visible);
-    }
-    
-    public void setVisibleAnnulerButton(boolean visible) {
-    	annulerButton.setVisible(visible);
-    	annulerButton.setManaged(visible);
-    }
-    
-    public void afficherLoading() {
-    	
-    	opaqueLayer = new Region();
- 		opaqueLayer.setStyle("-fx-background-color: #00000088;");
- 		opaqueLayer.setVisible(true);
- 		
- 		stack.getChildren().add(opaqueLayer);
-    	stack.getChildren().add(imageView);
-    }
-    
-    public void removeLoading() {
-    	stack.getChildren().remove(imageView);
+	public File ouvrirFichierXml(String fileDescription, String fileExtension, String windowTitle) {
+		return FileOpener.ouvrirFichier(stage, fileDescription, fileExtension, windowTitle);
+	}
+
+	/**
+	 * @param visible
+	 */
+	public void setVisibleRecalculerButton(boolean visible) {
+		recalculerButton.setVisible(visible);
+		recalculerButton.setManaged(visible);
+	}
+
+	/**
+	 * @param visible
+	 */
+	public void setVisibleAnnulerButton(boolean visible) {
+		annulerButton.setVisible(visible);
+		annulerButton.setManaged(visible);
+	}
+
+	/**
+	 * 
+	 */
+	public void afficherLoading() {
+
+		opaqueLayer = new Region();
+		opaqueLayer.setStyle("-fx-background-color: #00000088;");
+		opaqueLayer.setVisible(true);
+
+		stack.getChildren().add(opaqueLayer);
+		stack.getChildren().add(imageView);
+	}
+
+	/**
+	 * 
+	 */
+	public void removeLoading() {
+		stack.getChildren().remove(imageView);
 		stack.getChildren().remove(opaqueLayer);
-		
+
 		opaqueLayer = null;
-    }
+	}
 }

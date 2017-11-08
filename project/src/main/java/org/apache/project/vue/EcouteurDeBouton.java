@@ -6,12 +6,19 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
+/**
+ *
+ */
 public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 
 	private Controleur controleur;
 	private FenetrePrincipale fenetrePrincipale;
 	private ModificationPopup modificationPopup = null;
 
+	/**
+	 * @param c
+	 * @param fp
+	 */
 	public EcouteurDeBouton(Controleur c, FenetrePrincipale fp) {
 		super();
 		fenetrePrincipale = fp;
@@ -89,15 +96,15 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 				break;
 			case TimeoutPopup.VALIDATE_ID:
 				TimeoutPopup timeoutPopup = fenetrePrincipale.getFenetreTimeoutPopup();
-				if(timeoutPopup != null) {
+				if (timeoutPopup != null) {
 					fenetrePrincipale.masquerFenetreTimeoutPopup();
-					controleur.calculerTournee(timeoutPopup.getNewDuree()*1000);
+					controleur.calculerTournee(timeoutPopup.getNewDuree() * 1000);
 				}
 				break;
 			case TimeoutPopup.CANCEL_ID:
 				TimeoutPopup timeoutPopup2 = fenetrePrincipale.getFenetreTimeoutPopup();
-				if(timeoutPopup2 != null) {
-					controleur.annulerRecalcul();	
+				if (timeoutPopup2 != null) {
+					controleur.annulerRecalcul();
 					fenetrePrincipale.masquerFenetreTimeoutPopup();
 				}
 				break;
@@ -114,7 +121,10 @@ public class EcouteurDeBouton implements EventHandler<ActionEvent> {
 		}
 	}
 
-	void setModificationPopup(ModificationPopup popup) {
+	/**
+	 * @param popup
+	 */
+	public void setModificationPopup(ModificationPopup popup) {
 		this.modificationPopup = popup;
 	}
 }
