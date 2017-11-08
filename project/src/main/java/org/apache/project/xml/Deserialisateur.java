@@ -46,8 +46,9 @@ public class Deserialisateur {
 		Element racine = document.getDocumentElement();
 		if (racine.getNodeName().equals("reseau")) {
 			construirePlanVille(racine, plan);
-		} else
+		} else {
 			throw new ExceptionXML("Document non conforme");
+		}
 	}
 
 	/**
@@ -107,10 +108,10 @@ public class Deserialisateur {
 
 		Element entrepot = (Element) noeudDOMRacine.getElementsByTagName("entrepot").item(0);
 
-		if (entrepot.getAttribute("heureDepart") == ""
+		if (entrepot.getAttribute("heureDepart").equals("")
 				|| !entrepot.getAttribute("heureDepart")
 						.matches("^(?:(?:([01]?\\d|2[0-3]):)?([0-5]?\\d):)?([0-5]?\\d)$")
-				|| entrepot.getAttribute("adresse") == "") {
+				|| entrepot.getAttribute("adresse").equals("")) {
 			throw new ExceptionXML("Document mal forme");
 		}
 
@@ -131,9 +132,9 @@ public class Deserialisateur {
 	 * @throws ExceptionXML
 	 */
 	private static void construireIntersection(Element element, PlanDeVille plan) throws ExceptionXML {
-		if (element.getAttribute("id") == "" || element.getAttribute("x") == "" || element.getAttribute("y") == ""
-				|| !element.getAttribute("id").matches("[0-9]+") || !element.getAttribute("x").matches("[0-9]+")
-				|| !element.getAttribute("y").matches("[0-9]+")) {
+		if (element.getAttribute("id").equals("") || element.getAttribute("x").equals("")
+				|| element.getAttribute("y").equals("") || !element.getAttribute("id").matches("[0-9]+")
+				|| !element.getAttribute("x").matches("[0-9]+") || !element.getAttribute("y").matches("[0-9]+")) {
 			throw new ExceptionXML("Document mal forme");
 		}
 
@@ -151,8 +152,9 @@ public class Deserialisateur {
 	 */
 	private static void construireTroncon(Element element, PlanDeVille plan) throws ExceptionXML {
 
-		if (element.getAttribute("destination") == "" || element.getAttribute("longueur") == ""
-				|| element.getAttribute("origine") == "" || !element.getAttribute("destination").matches("^[0-9]+$")
+		if (element.getAttribute("destination").equals("") || element.getAttribute("longueur").equals("")
+				|| element.getAttribute("origine").equals("")
+				|| !element.getAttribute("destination").matches("^[0-9]+$")
 				|| !element.getAttribute("origine").matches("^[0-9]+$")
 				|| !element.getAttribute("longueur").matches("^[+-]?([0-9]*[.])?[0-9]+$")) {
 			throw new ExceptionXML("Document mal forme");
@@ -162,8 +164,9 @@ public class Deserialisateur {
 		double longueur = Double.parseDouble(element.getAttribute("longueur"));
 		String nomRue = element.getAttribute("nomRue");
 		Long origine = Long.parseLong(element.getAttribute("origine"));
-		if (plan.ajouterTroncon(longueur, origine, destination, nomRue) == false)
+		if (!plan.ajouterTroncon(longueur, origine, destination, nomRue)){
 			throw new ExceptionXML("Document mal forme");
+		}
 	}
 
 	/**
@@ -171,12 +174,13 @@ public class Deserialisateur {
 	 * @param demande
 	 * @param plan
 	 * @throws ExceptionXML
+	 *             exception lancée si le document n'est pas correctement formé.
 	 */
 	@SuppressWarnings("deprecation")
 	private static void construireLivraison(Element element, DemandeDeLivraison demande, PlanDeVille plan)
 			throws ExceptionXML {
 
-		if (element.getAttribute("adresse") == "" || element.getAttribute("duree") == ""
+		if (element.getAttribute("adresse").equals("") || element.getAttribute("duree").equals("")
 				|| !element.getAttribute("duree").matches("[0-9]+")) {
 			throw new ExceptionXML("Document mal forme");
 		}
@@ -192,7 +196,7 @@ public class Deserialisateur {
 
 		if (debutPlage != null && !debutPlage.isEmpty()) {
 
-			if (element.getAttribute("debutPlage") == "" || element.getAttribute("finPlage") == ""
+			if (element.getAttribute("debutPlage").equals("") || element.getAttribute("finPlage").equals("")
 					|| !element.getAttribute("debutPlage")
 							.matches("^(?:(?:([01]?\\d|2[0-3]):)?([0-5]?\\d):)?([0-5]?\\d)$")
 					|| !element.getAttribute("finPlage")

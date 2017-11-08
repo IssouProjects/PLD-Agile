@@ -21,8 +21,6 @@ public class TimeoutPopup extends VBox {
 
 	private Spinner<Integer> dureeSpinner;
 
-	private GridPane mainLayout;
-
 	public static final String VALIDATE = "Valider";
 	public static final String VALIDATE_ID = "validerRecalculTourneeButton";
 
@@ -43,7 +41,7 @@ public class TimeoutPopup extends VBox {
 		title.setStyle("-fx-font-weight: bold; -fx-font-size: 24;");
 		this.getChildren().add(title);
 
-		mainLayout = new GridPane();
+		GridPane mainLayout = new GridPane();
 		mainLayout.setHgap(10);
 		mainLayout.setVgap(10);
 

@@ -15,15 +15,23 @@ public interface Etat {
 
 	/**
 	 * Methode appelee par controleur apres un clic sur le bouton "Ouvrir un plan de
-	 * ville"
+	 * ville". Elle ouvre la fenêtre de choix de fichier.
 	 * 
+	 * @param controleur
+	 *            contrôleur de l'application.
 	 * @param planDeVille
 	 *            l'objet <tt>PlanDeVille</tt> qu'on va compléter en désérialisant
 	 *            un fichier XML.
 	 * @param fenetrePrincipale
 	 *            la fenêtre principale de l'application.
+	 * @param planDeVille
+	 *            l'objet <tt>PlanDeVille</tt> qu'on va compléter en désérialisant
+	 *            un fichier XML.
+	 * @param fenetrePrincipale
+	 *            la fenêtre principale de l'application.
+	 * @param commandes
+	 *            liste des commandes passées
 	 */
-
 	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale,
 			ListeDeCommandes commandes);
 
@@ -58,6 +66,8 @@ public interface Etat {
 	 *            désérialisant un fichier XML.
 	 * @param fenetrePrincipale
 	 *            la fenêtre principale de l'application.
+	 * @param commandes
+	 *            liste des commandes passées
 	 */
 	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille,
 			DemandeDeLivraison demandeDelivraison, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes);
@@ -152,11 +162,19 @@ public interface Etat {
 	public void ajouterLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale);
 
 	/**
-	 * Methode appelee par controleur apres un clic sur le bouton "Supprimer
+	 * Méthode appelée par contrôleur après un clic sur le bouton "Supprimer
 	 * livraison"
 	 * 
 	 * @param controleur
+	 *            contrôleur de l'application
+	 * @param tournee
+	 *            tournée où l'on supprime une livraison
+	 * @param planDeVille
+	 *            plan de la ville où à lieu la livraison
 	 * @param fenetrePrincipale
+	 *            fenêtre principale de l'application.
+	 * @param commandes
+	 *            liste des commandes qui ont été passées.
 	 */
 	public void supprimerLivraison(Controleur controleur, Tournee tournee, PlanDeVille planDeVille,
 			FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes);

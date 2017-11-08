@@ -66,8 +66,8 @@ public class TSP5 extends TemplateTSP {
 	 * @param tempsMini
 	 * @param tempsMax
 	 */
-	void branchAndBound(int sommetCrt, ArrayList<Integer> nonVus, ArrayList<Integer> vus, int coutVus, int[][] cout,
-			int[] duree, long tpsDebut, int tpsLimite, int[] tempsMini, int[] tempsMax) {
+	private void branchAndBound(int sommetCrt, ArrayList<Integer> nonVus, ArrayList<Integer> vus, int coutVus,
+			int[][] cout, int[] duree, long tpsDebut, int tpsLimite, int[] tempsMini, int[] tempsMax) {
 		if (System.currentTimeMillis() - tpsDebut > tpsLimite) {
 			tempsLimiteAtteint = true;
 			return;
@@ -78,6 +78,7 @@ public class TSP5 extends TemplateTSP {
 				vus.toArray(meilleureSolution);
 				coutMeilleureSolution = coutVus;
 			}
+
 		} else if (coutVus + bound(sommetCrt, nonVus, cout, duree, tempsMax) < coutMeilleureSolution) {
 			if (plageFiniPremier > coutVus + cout[sommetCrt][indicePlageFiniPremier] + duree[indicePlageFiniPremier]) {
 				Iterator<Integer> it = iterator(sommetCrt, nonVus, cout, duree, tempsMini, coutVus);
@@ -105,8 +106,8 @@ public class TSP5 extends TemplateTSP {
 
 	// Juste pour heritage, et appelle si retard inevitable
 	@Override
-	protected Iterator<Integer> iterator(Integer sommetCrt, ArrayList<Integer> nonVus, int[][] cout, int[] duree) {
-		return new IteratorSeq(nonVus, sommetCrt, cout);
+	protected Iterator<Integer> iterator(ArrayList<Integer> nonVus) {
+		return new IteratorSeq(nonVus);
 	}
 
 	/**
@@ -144,7 +145,7 @@ public class TSP5 extends TemplateTSP {
 				valMini2 = cout[s][0];
 			}
 			for (Integer s2 : nonVus) {
-				if (cout[s][s2] < valMini2 && s != s2) {
+				if (cout[s][s2] < valMini2 && !s.equals(s2)) {
 					valMini2 = cout[s][s2];
 				}
 			}
