@@ -177,6 +177,10 @@ public class Tournee extends Observable {
 		if(tspSolut.getMeilleureSolution(0) == null)
 		{
 			tspSolut.chercheSolution(tempsLimite, nombreLivraison, cout, duree);
+			if(tspSolut.getMeilleureSolution(0) == null)
+			{
+				return 2;
+			}
 		}
 
 		// Definit les parametres entrepots et la liste des intersections ordonnées
