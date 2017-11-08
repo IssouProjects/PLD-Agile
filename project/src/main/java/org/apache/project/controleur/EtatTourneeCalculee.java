@@ -111,6 +111,7 @@ public class EtatTourneeCalculee extends EtatDefaut{
 		
 		fenetrePrincipale.clearTournee();
 		fenetrePrincipale.setVisibleRecalculerButton(false);
+		fenetrePrincipale.getListDisplay().enableMoveLivraison();
 		fenetrePrincipale.afficherTournee(tournee);
 	}
 	

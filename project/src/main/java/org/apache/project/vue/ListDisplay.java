@@ -9,6 +9,7 @@ import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Livraison;
 import org.apache.project.modele.Tournee;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -136,27 +137,42 @@ public class ListDisplay extends Pane implements Observer {
 	}
 
 	public void enableMoveLivraison() {
-		HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
-		this.useAddNotifier();
-		for (LivraisonCell lc : map.values()) {
-			lc.enableMove();
-		}
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
+				useAddNotifier();
+				for (LivraisonCell lc : map.values()) {
+					lc.enableMove();
+				}
+			}
+		});
 	}
 
 	public void disableMoveLivraison() {
-		HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
-		this.useAddNotifier();
-		for (LivraisonCell lc : map.values()) {
-			lc.disableMove();
-		}
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
+				useAddNotifier();
+				for (LivraisonCell lc : map.values()) {
+					lc.disableMove();
+				}
+			}
+		});
 	}
 	
 	public void disableEdit(boolean disable) {
-		HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
-		this.useAddNotifier();
-		for (LivraisonCell lc : map.values()) {
-			lc.setEditDisabled(disable);
-		}
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
+				useAddNotifier();
+				for (LivraisonCell lc : map.values()) {
+					lc.setEditDisabled(disable);
+				}
+			}
+		});
 	}
 
 	public void livraisonMoved(Livraison livraisonMoved, int newIndex) {
