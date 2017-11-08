@@ -2,8 +2,6 @@ package org.apache.project.vue;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import org.apache.project.modele.DemandeDeLivraison;
 import org.apache.project.modele.Livraison;
@@ -26,9 +24,9 @@ import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
 /**
- *
+ * 
  */
-public class ListDisplay extends Pane implements Observer {
+public class ListDisplay extends Pane {
 
 	private EcouteurDeListe ecouteurDeListe;
 	private EcouteurDeBouton ecouteurDeBouton;
@@ -51,7 +49,7 @@ public class ListDisplay extends Pane implements Observer {
 	};
 
 	/**
-	 * 
+	 * Crée une liste d'affichage de livraison vide
 	 */
 	public ListDisplay() {
 
@@ -108,7 +106,10 @@ public class ListDisplay extends Pane implements Observer {
 	}
 
 	/**
+	 * Affiche dans la liste une demande de livraison
+	 * 
 	 * @param demandeLivraison
+	 *            la demande de livraison à afficher
 	 */
 	public void afficherTexteLivraisons(DemandeDeLivraison demandeLivraison) {
 		clearList();
@@ -123,7 +124,10 @@ public class ListDisplay extends Pane implements Observer {
 	}
 
 	/**
+	 * Affiche dans la liste une liste de livraison composant une tournée
+	 * 
 	 * @param tournee
+	 *            la tournée à afficher
 	 */
 	public void afficherTexteLivraisonsOrdonnees(Tournee tournee) {
 		clearList();
@@ -140,7 +144,7 @@ public class ListDisplay extends Pane implements Observer {
 	}
 
 	/**
-	 * 
+	 * Réinitialise l'affichage
 	 */
 	public void clearList() {
 		liste.getItems().clear();
@@ -148,8 +152,14 @@ public class ListDisplay extends Pane implements Observer {
 	}
 
 	/**
+	 * Permet d'afficher une aide graphique indiquant à l'utilisateur où ajouter /
+	 * déplacer une livraison
+	 * 
 	 * @param yPosition
+	 *            position Y de l'indicateur souhaitée
 	 * @param width
+	 *            la largeur de l'indicateur souhaitée
+	 * 
 	 */
 	public void placeAddHintAt(double yPosition, double width) {
 		addNotifier.setVisible(true);
@@ -158,14 +168,14 @@ public class ListDisplay extends Pane implements Observer {
 	}
 
 	/**
-	 * 
+	 * Masque l'indicateur
 	 */
 	public void hideHint() {
 		addNotifier.setVisible(false);
 	}
 
 	/**
-	 * 
+	 * Permet d'activer l'indicateur graphique d'ajout
 	 */
 	public void enableAddHint() {
 		HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
@@ -176,7 +186,7 @@ public class ListDisplay extends Pane implements Observer {
 	}
 
 	/**
-	 * 
+	 * Permet de désactiver l'indicateur graphique d'ajout
 	 */
 	public void disableAddHint() {
 		HashMap<Integer, LivraisonCell> map = LivraisonCell.getInstanceMap();
@@ -186,7 +196,7 @@ public class ListDisplay extends Pane implements Observer {
 	}
 
 	/**
-	 * 
+	 * Permet d'activer le déplacement de livraison par drag and drop
 	 */
 	public void enableMoveLivraison() {
 		enableMoveState = true;
@@ -203,7 +213,7 @@ public class ListDisplay extends Pane implements Observer {
 	}
 
 	/**
-	 * 
+	 * Permet de désactiver le déplacement de livraison par drag and drop
 	 */
 	public void disableMoveLivraison() {
 		enableMoveState = false;
@@ -220,7 +230,10 @@ public class ListDisplay extends Pane implements Observer {
 	}
 
 	/**
+	 * Permet d'activer les boutons de modification des livraisons
+	 * 
 	 * @param disable
+	 *            l'état souhaité
 	 */
 	public void disableEdit(boolean disable) {
 		disableEditState = disable;
@@ -237,8 +250,13 @@ public class ListDisplay extends Pane implements Observer {
 	}
 
 	/**
+	 * méthode qui permet de transmettre à l'écouteur de liste l'information de
+	 * déplacement de livraison
+	 * 
 	 * @param livraisonMoved
+	 *            la livraison ayant été déplacée
 	 * @param newIndex
+	 *            la nouvelle position de la livraison
 	 */
 	public void livraisonMoved(Livraison livraisonMoved, int newIndex) {
 		ecouteurDeListe.onMoveLivraison(livraisonMoved, newIndex);
@@ -259,6 +277,8 @@ public class ListDisplay extends Pane implements Observer {
 	}
 
 	/**
+	 * permet de sélectionner (de mettre en valeur) la livraison donnée en paramètre
+	 * 
 	 * @param livraison
 	 */
 	public void selectLivraison(Livraison livraison) {
@@ -266,6 +286,8 @@ public class ListDisplay extends Pane implements Observer {
 	}
 
 	/**
+	 * permet d'obtenir la livraison actuellement sélectionnée
+	 * 
 	 * @return
 	 */
 	public Livraison getSelectedLivraison() {
@@ -280,7 +302,7 @@ public class ListDisplay extends Pane implements Observer {
 	}
 
 	/**
-	 * 
+	 * permet de créer l'indicateur graphique d'ajout / de déplacement de livraison
 	 */
 	private void createNotifier() {
 		this.getChildren().add(addNotifier);
@@ -297,7 +319,8 @@ public class ListDisplay extends Pane implements Observer {
 	}
 
 	/**
-	 * 
+	 * Permet de changer l'apparence de l'indicateur pour indiquer un ajout de
+	 * livraison
 	 */
 	public void useAddNotifier() {
 		notifierCircle.getStyleClass().clear();
@@ -305,19 +328,11 @@ public class ListDisplay extends Pane implements Observer {
 	}
 
 	/**
-	 * 
+	 * Permet de changer l'apparence de l'indicateur pour indiquer un déplacement de
+	 * livraison
 	 */
 	public void useMoveNotifier() {
 		notifierCircle.getStyleClass().clear();
 		notifierCircle.getStyleClass().add("circleMove");
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		if (o instanceof DemandeDeLivraison) {
-			afficherTexteLivraisons((DemandeDeLivraison) o);
-		} else if (o instanceof Tournee) {
-			afficherTexteLivraisonsOrdonnees((Tournee) o);
-		}
 	}
 }
