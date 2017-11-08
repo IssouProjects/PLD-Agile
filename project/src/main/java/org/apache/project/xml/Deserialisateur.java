@@ -21,8 +21,19 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+/**
+ *
+ */
 public class Deserialisateur {
 
+	/**
+	 * @param plan
+	 * @param xml
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws ExceptionXML
+	 */
 	public static void chargerPlanDeVilleFichier(PlanDeVille plan, File xml)
 			throws ParserConfigurationException, SAXException, IOException, ExceptionXML {
 
@@ -39,6 +50,16 @@ public class Deserialisateur {
 			throw new ExceptionXML("Document non conforme");
 	}
 
+	/**
+	 * @param demande
+	 * @param plan
+	 * @param xml
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws NumberFormatException
+	 * @throws ExceptionXML
+	 */
 	public static void chargerDemandeLivraisonFichier(DemandeDeLivraison demande, PlanDeVille plan, File xml)
 			throws ParserConfigurationException, SAXException, IOException, NumberFormatException, ExceptionXML {
 
@@ -56,6 +77,12 @@ public class Deserialisateur {
 		}
 	}
 
+	/**
+	 * @param noeudDOMRacine
+	 * @param plan
+	 * @throws ExceptionXML
+	 * @throws NumberFormatException
+	 */
 	private static void construirePlanVille(Element noeudDOMRacine, PlanDeVille plan)
 			throws ExceptionXML, NumberFormatException {
 		NodeList listeIntersections = noeudDOMRacine.getElementsByTagName("noeud");
@@ -68,6 +95,13 @@ public class Deserialisateur {
 		}
 	}
 
+	/**
+	 * @param noeudDOMRacine
+	 * @param demande
+	 * @param plan
+	 * @throws ExceptionXML
+	 * @throws NumberFormatException
+	 */
 	private static void construireDemandeLivraison(Element noeudDOMRacine, DemandeDeLivraison demande, PlanDeVille plan)
 			throws ExceptionXML, NumberFormatException {
 
@@ -91,6 +125,11 @@ public class Deserialisateur {
 		}
 	}
 
+	/**
+	 * @param element
+	 * @param plan
+	 * @throws ExceptionXML
+	 */
 	private static void construireIntersection(Element element, PlanDeVille plan) throws ExceptionXML {
 		if (element.getAttribute("id") == "" || element.getAttribute("x") == "" || element.getAttribute("y") == ""
 				|| !element.getAttribute("id").matches("[0-9]+") || !element.getAttribute("x").matches("[0-9]+")
@@ -105,6 +144,11 @@ public class Deserialisateur {
 	}
 
 	// TODO : les troncons doubles n'existent pas
+	/**
+	 * @param element
+	 * @param plan
+	 * @throws ExceptionXML
+	 */
 	private static void construireTroncon(Element element, PlanDeVille plan) throws ExceptionXML {
 
 		if (element.getAttribute("destination") == "" || element.getAttribute("longueur") == ""
@@ -122,6 +166,12 @@ public class Deserialisateur {
 			throw new ExceptionXML("Document mal forme");
 	}
 
+	/**
+	 * @param element
+	 * @param demande
+	 * @param plan
+	 * @throws ExceptionXML
+	 */
 	private static void construireLivraison(Element element, DemandeDeLivraison demande, PlanDeVille plan)
 			throws ExceptionXML {
 
@@ -157,6 +207,10 @@ public class Deserialisateur {
 		demande.ajouterLivraison(uneLivraison);
 	}
 
+	/**
+	 * @param xml
+	 * @return
+	 */
 	private static boolean estUnFichierXML(File xml) {
 		String fileName = xml.getName();
 		String extension = "";
@@ -171,6 +225,7 @@ public class Deserialisateur {
 		return "xml".equals(extension);
 	}
 
+	// TODO put in Util.java class?
 	/**
 	 * Transforme une heure au format "hour:min:sec" en un objet Time
 	 * 
