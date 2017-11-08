@@ -141,11 +141,13 @@ public interface Etat {
 			FenetrePrincipale fenetrePrincipale);
 
 	/**
-	 * Methode appelee par controleur apres un clic sur le bouton "Ajouter
+	 * Méthode appelée par controleur apres un clic sur le bouton "Ajouter
 	 * livraison"
 	 * 
 	 * @param controleur
+	 *            le contrôleur de l'application.
 	 * @param fenetrePrincipale
+	 *            fenêtre principale de l'application
 	 */
 	public void ajouterLivraison(Controleur controleur, FenetrePrincipale fenetrePrincipale);
 
