@@ -13,22 +13,27 @@ import org.apache.project.xml.Deserialisateur;
 import org.apache.project.xml.ExceptionXML;
 import org.xml.sax.SAXException;
 
+/**
+ *
+ */
 public class EtatPlanCharge extends EtatDefaut {
 
 	@Override
-	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes){
+	public void ouvrirDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille,
+			DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes) {
 		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.DDL_FILE_DESCRIPTION,
 				FenetrePrincipale.DDL_FILE_EXTENSION, FenetrePrincipale.DDL_FILEDIALOG_DESCRIPTION);
-		if(file == null) {
+		if (file == null) {
 			fenetrePrincipale.afficherPlanDeVille(planDeVille);
 			return;
 		}
 		controleur.clearDemandeDeLivraison();
 		controleur.chargerDemandeDeLivraison(file);
 	}
-	
+
 	@Override
-	public void chargerDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille, DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale, File fichier){
+	public void chargerDemandeDeLivraison(Controleur controleur, PlanDeVille planDeVille,
+			DemandeDeLivraison demandeDeLivraison, FenetrePrincipale fenetrePrincipale, File fichier) {
 		try {
 			Deserialisateur.chargerDemandeLivraisonFichier(demandeDeLivraison, planDeVille, fichier);
 			controleur.setEtatCourant(controleur.etatDemandeLivraisonCharge);
@@ -45,21 +50,22 @@ public class EtatPlanCharge extends EtatDefaut {
 			fenetrePrincipale.afficherPopupError("Format non valide.\n" + e.getMessage());
 		}
 	}
-	
+
 	@Override
-	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes){
-		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.PDV_FILE_DESCRIPTION, 
+	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale,
+			ListeDeCommandes commandes) {
+		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.PDV_FILE_DESCRIPTION,
 				FenetrePrincipale.PDV_FILE_EXTENSION, FenetrePrincipale.PDV_FILEDIALOG_DESCRIPTION);
-		if(file == null)
+		if (file == null)
 			return;
 		controleur.setEtatCourant(controleur.etatInit);
 		fenetrePrincipale.clearPlanDeVille();
 		controleur.clearPlanDeVille();
 		controleur.chargerPlanDeVille(file);
 	}
-	
+
 	@Override
-	public void tronconClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan, 
+	public void tronconClicked(Controleur controleur, FenetrePrincipale fenetrePrincipale, PlanDeVille plan,
 			Troncon troncon, ListeDeCommandes commandes) {
 		fenetrePrincipale.highlightTroncon(troncon);
 	}

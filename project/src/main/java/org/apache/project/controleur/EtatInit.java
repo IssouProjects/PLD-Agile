@@ -11,22 +11,27 @@ import org.apache.project.xml.Deserialisateur;
 import org.apache.project.xml.ExceptionXML;
 import org.xml.sax.SAXException;
 
+/**
+ *
+ */
 public class EtatInit extends EtatDefaut {
 
 	@Override
-	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, ListeDeCommandes commandes){
-		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.PDV_FILE_DESCRIPTION, 
+	public void ouvrirPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale,
+			ListeDeCommandes commandes) {
+		File file = fenetrePrincipale.ouvrirFichierXml(FenetrePrincipale.PDV_FILE_DESCRIPTION,
 				FenetrePrincipale.PDV_FILE_EXTENSION, FenetrePrincipale.PDV_FILEDIALOG_DESCRIPTION);
-		if(file == null) {
+		if (file == null) {
 			return;
 		}
-			
+
 		controleur.chargerPlanDeVille(file);
 	}
-	
+
 	@Override
-	public void chargerPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale, File fichier) {
-		if(fichier == null)
+	public void chargerPlanDeVille(Controleur controleur, PlanDeVille planDeVille, FenetrePrincipale fenetrePrincipale,
+			File fichier) {
+		if (fichier == null)
 			return;
 		try {
 			Deserialisateur.chargerPlanDeVilleFichier(planDeVille, fichier);
