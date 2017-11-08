@@ -26,6 +26,18 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+/**
+ * Contient toutes les données de visualisation du plan (représentations des Troncons, des Intersections, couleurs, etc.)
+ *
+ */
+/**
+ * @author Martin
+ *
+ */
+/**
+ * @author Martin
+ *
+ */
 public class MapDisplay extends Pane {
 
 	DoubleProperty myScale = new SimpleDoubleProperty(1.0);
@@ -78,6 +90,12 @@ public class MapDisplay extends Pane {
 	Long minimalY = Long.MAX_VALUE;
 	Long maximalY = 0l;	
 	
+    /**
+     * Crée un objet <tt>MapDisplay</tt> à partir des dimensions de la zone du plan dans l'interface
+     * 
+     * @param height Hauteur de la zone de visualisation de la carte
+	 * @param width Largeur de la zone de visualisation de la carte
+     */
     public MapDisplay(int height, int width) {
         setPrefSize(height, width);
         setStyle("-fx-background-color: #b2b2b2;");        
@@ -93,19 +111,27 @@ public class MapDisplay extends Pane {
         numerosLivraisons = new ArrayList<Label>();
     }
     
+    // TODO : JSP
     public double getScale() {
         return myScale.get();
     }
 
+    // TODO : JSP
     public void setScale( double scale) {
         myScale.set(scale);
     }
 
+    // TODO : JSP
     public void setPivot( double x, double y) {
         setTranslateX(getTranslateX()-x);
         setTranslateY(getTranslateY()-y);
     }
     
+    /**
+     * Affiche le plan passé en paramètre dans l'interface
+     * 
+     * @param plan L'objet <tt>Plan</tt> contenant les données du plan à afficher
+     */
     public void afficherPlanDeVille(PlanDeVille plan){
     	
     	clearPlanDeVille();
@@ -153,11 +179,19 @@ public class MapDisplay extends Pane {
     	
     }
     
+    /**
+     * Efface le plan de l'interface
+     */
     public void clearPlanDeVille() {
     	this.getChildren().clear();
     	mapIntersections.clear();
     }
     
+    /**
+     * Affiche les points de livraison sur la carte selon un format spécifique
+     * 
+     * @param demandeDeLivraison La demande de livraison à afficher
+     */
     public void afficherDemandeDeLivraison(DemandeDeLivraison demandeDeLivraison) {
     	
     	clearDemandeDeLivraison();
@@ -180,6 +214,11 @@ public class MapDisplay extends Pane {
     	}    	
     }
     
+    /**
+     * Met en valeur (sélectionne) un objet de la carte après avoir reformaté l'objet actuellement mis en valeur au format par défaut
+     * 
+     * @param obj L'objet à mettre en valeur
+     */
     public void resetAndHighlight(Object obj) {
     	unhighlight();
 		
@@ -188,11 +227,21 @@ public class MapDisplay extends Pane {
 		}
     }
     
+    /**
+     * Si un objet de la carte a été mis en valeur (sélectionné) par la méthode highlight, cette méthode réinitialise son format dans l'interface
+     */
     public void unhighlight() {
     	if(highlightedObject != null)
 			unHighlight(highlightedObject);
     }
     
+    /**
+     * Met en valeur (sélectionne) un objet de la carte
+     * 
+     * @param obj L'objet à mettre en valeur
+     * @return True si un objet Livraison, Intersection, ou Troncon, a été mis en valeur<br/>
+     * False dans le cas contraire
+     */
     public boolean highlight(Object obj) {
     	boolean found = false;
     	if(obj instanceof Livraison) {
@@ -210,6 +259,13 @@ public class MapDisplay extends Pane {
     	return false;
     }
     
+    /**
+     * Réinitialise le format d'un objet mis en valeur (sélectionné)
+     * 
+     * @param obj L'objet dont on doit réinitialiser le format
+     * @return True si le format d'un objet Livraison, Intersection, ou Troncon, a été réinitialisé<br/>
+     * False dans le cas contraire
+     */
     public boolean unHighlight(Object obj) {
     	if(obj instanceof Livraison) {
     		return unHighlightLivraison((Livraison)obj);
@@ -222,6 +278,13 @@ public class MapDisplay extends Pane {
     	return false;
     }
     
+    /**
+     * Met en valeur (sélectionne) une livraison
+     * 
+     * @param livraison Livraison à mettre en valeur
+     * @return True si la livraison a été mise en valeur<br/>
+     * False dans le cas contraire
+     */
     public boolean highlightLivraison(Livraison livraison) {
     	Circle circle = mapLivraisons.get(livraison);
     	
@@ -234,6 +297,13 @@ public class MapDisplay extends Pane {
     	return false;
     }
     
+    /**
+     * Réinitialise le format d'une livraison (désélectionne)
+     * 
+     * @param livraison Livraison dont on veut réinitialiser le format
+     * @return True si le format de la livraison a été réinitalisé<br/>
+     * False dans le cas contraire
+     */
     public boolean unHighlightLivraison(Livraison livraison) {
     	Circle circle = mapLivraisons.get(livraison);
     	
@@ -249,6 +319,13 @@ public class MapDisplay extends Pane {
     	return false;
     }
     
+    /**
+     * Met en valeur (sélectionne) une intersection
+     * 
+     * @param intersection Intersection à mettre en valeur
+     * @return True si l'intersection a été mise en valeur<br/>
+     * False dans le cas contraire
+     */
     public boolean highlightIntersection(Intersection intersection) {
     	Circle circle = mapIntersections.get(intersection);
     	
@@ -262,6 +339,13 @@ public class MapDisplay extends Pane {
     	return false;
     }
     
+    /**
+     * Réinitialise le format d'une intersection (désélectionne)
+     * 
+     * @param intersection Intersection dont on veut réinitialiser le format
+     * @return True si le format de l'intersection a été réinitalisé<br/>
+     * False dans le cas contraire
+     */
     public boolean unHighlightIntersection(Intersection intersection) {
     	Circle circle = mapIntersections.get(intersection);
     	
@@ -279,6 +363,13 @@ public class MapDisplay extends Pane {
     	return false;
     }
     
+    /**
+     * Met en valeur (sélectionne) un troncon
+     * 
+     * @param troncon Troncon à mettre en valeur
+     * @return True si le troncon a été mise en valeur<br/>
+     * False dans le cas contraire
+     */
     public boolean highlightTroncon(Troncon troncon) {
     	Line line = mapTourneeTroncons.get(troncon);
     	if(line == null) {
@@ -297,6 +388,13 @@ public class MapDisplay extends Pane {
     	return false;
     }
     
+    /**
+     * Réinitialise le format d'un troncon (désélectionne)
+     * 
+     * @param troncon Troncon dont on veut réinitialiser le format
+     * @return True si le format du troncon a été réinitalisé<br/>
+     * False dans le cas contraire
+     */
     public boolean unHighlightTroncon(Troncon troncon) {
     	Line line1 = mapTourneeTroncons.get(troncon);
     	Line line2 = null;
@@ -330,6 +428,7 @@ public class MapDisplay extends Pane {
     	return false;
     }
     
+    // TODO : JSP
     private void livraisonToFront() {
     	if(!mapLivraisons.isEmpty()) {
     		for(Circle c : mapLivraisons.values()) {
@@ -338,6 +437,10 @@ public class MapDisplay extends Pane {
     	}
     }
     
+    
+    /**
+     * Efface l'affichage de la demande de livraison
+     */
     public void clearDemandeDeLivraison() {
     	if(!mapLivraisons.isEmpty()) {
     		// we remove the previous livraison
@@ -357,6 +460,11 @@ public class MapDisplay extends Pane {
     	}
     }
     
+    /**
+     * Affiche la tournée passée en paramètre dans l'interface
+     * 
+     * @param tournee L'objet <tt>Tournee</tt> contenant les données de la tournée que l'on veut afficher
+     */
     public void afficherTournee(Tournee tournee) {
     	clearDemandeDeLivraison();
     	clearTournee();
@@ -434,6 +542,9 @@ public class MapDisplay extends Pane {
     	
     }
     
+    /**
+     * Efface l'affichage de la tournée
+     */
     public void clearTournee() {
     	if(!mapTourneeTroncons.isEmpty()) {
     		for(Entry<Troncon, Line> entry : mapTourneeTroncons.entrySet())
@@ -454,6 +565,15 @@ public class MapDisplay extends Pane {
     	}
     }
     
+    /**
+     * Affiche un numéro d'ordre de passage à côté d'une livraison
+     * 
+     * @param inter L'intersection correspondant à la livraison à laquelle est associée le numéro à afficher
+     * @param numero La valeur à afficher
+     * @param color La couleur du numéro à afficher
+     * @param taille La taille de police du numéro à afficher
+     * @return L'objt <tt>Label</tt> du numéro d'ordre de passage associé à l'intersection passée en paramètre
+     */
     public Label creerNumeroLivraison(Intersection inter, String numero, Color color, int taille) {
     	Label label = new Label(numero);
     	
@@ -468,6 +588,13 @@ public class MapDisplay extends Pane {
         return label;
     }
     
+    /**
+     * Affiche une intersection sur le plan sous forme de cercle
+     * 
+     * @param inter L'intersection dont on veut créer la vue
+     * @param color La couleur de l'intersection
+     * @return Un objet <tt>Cercle</tt> représentant l'intersection passée en paramètre avec la couleur choisie
+     */
     public Circle creerVueIntersection(Intersection inter,  Color color) {
     	Circle circle = new Circle();
     	

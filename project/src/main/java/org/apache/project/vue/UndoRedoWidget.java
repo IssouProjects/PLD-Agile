@@ -14,6 +14,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 
+/**
+ * @author Martin
+ *
+ */
 public class UndoRedoWidget extends HBox implements Observer{
 	
 	private Button undoButton;
