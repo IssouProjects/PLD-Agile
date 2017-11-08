@@ -8,23 +8,27 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
 /**
- * Représente l'affichage de la carte dans l'interface du logiciel
- * Contient l'objet <tt>MapDisplay<tt> de visualisation de la carte, ainsi qu'un objet <tt>MapGestures</tt> pour la
- * gestion des événement de la souris liés au plan.
+ * Représente l'affichage de la carte dans l'interface du logiciel Contient
+ * l'objet
+ * <tt>MapDisplay<tt> de visualisation de la carte, ainsi qu'un objet <tt>MapGestures</tt>
+ * pour la gestion des événement de la souris liés au plan.
  *
  */
 public class MapContainer extends Pane {
 
 	private MapDisplay mapDisplay;
-	
+
 	MapGestures mapGestures;
 	Rectangle clipRectangle;
 
 	/**
-	 * Crée un objet <tt>MapContainer</tt> à partir des dimensions de la zone du plan dans l'interface
+	 * Crée un objet <tt>MapContainer</tt> à partir des dimensions de la zone du
+	 * plan dans l'interface
 	 * 
-	 * @param height Hauteur de la zone de visualisation de la carte
-	 * @param width Largeur de la zone de visualisation de la carte
+	 * @param height
+	 *            Hauteur de la zone de visualisation de la carte
+	 * @param width
+	 *            Largeur de la zone de visualisation de la carte
 	 */
 	public MapContainer(int height, int width) {
 		setPrefSize(height, width);
@@ -48,7 +52,7 @@ public class MapContainer extends Pane {
 		this.addEventFilter(MouseEvent.MOUSE_PRESSED, mapGestures.getOnMousePressedEventHandler());
 		this.addEventFilter(MouseEvent.MOUSE_DRAGGED, mapGestures.getOnMouseDraggedEventHandler());
 		this.addEventFilter(ScrollEvent.ANY, mapGestures.getOnScrollEventHandler());
-		
+
 		mapGestures.setSelectionMode(SelectionMode.Troncon);
 
 	}
@@ -87,23 +91,25 @@ public class MapContainer extends Pane {
 		mapDisplay.setTranslateX(-mapDisplay.getBoundsInParent().getMinX() + deltaX);
 		mapDisplay.setTranslateY(-mapDisplay.getBoundsInParent().getMinY() + deltaY);
 	}
-	
+
 	/**
 	 * Modifie l'objet <tt>EcouteurDeMap</tt> associé au plan
 	 * 
-	 * @param edm Nouvelle instance de <tt>EcouteurDeMap</tt> 
+	 * @param edm
+	 *            Nouvelle instance de <tt>EcouteurDeMap</tt>
 	 */
 	public void setEcouteurDeMap(EcouteurDeMap edm) {
 		mapGestures.setEcouteurDeMap(edm);
 	}
-	
+
 	/**
 	 * Modifie le mode de sélection des éléments du plan (Intersection ou Troncon)
 	 * 
-	 * @param mode Nouveau mode de sélection (Intersection ou Troncon)
+	 * @param mode
+	 *            Nouveau mode de sélection (Intersection ou Troncon)
 	 */
 	public void setSelectionMode(SelectionMode mode) {
-		switch(mode) {
+		switch (mode) {
 		case Intersection:
 			mapGestures.setSelectionMode(mode);
 			break;

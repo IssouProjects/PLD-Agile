@@ -21,6 +21,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+/**
+ *
+ */
 public class ModificationPopup extends VBox {
 
 	private Button boutonAnnuler;
@@ -47,6 +50,11 @@ public class ModificationPopup extends VBox {
 	public static final String CANCEL = "Annuler";
 	public static final String CANCEL_ID = "annulerModificationLivraisonButton";
 
+	/**
+	 * @param livraison
+	 * @param parent
+	 * @param edb
+	 */
 	public ModificationPopup(Livraison livraison, Pane parent, EcouteurDeBouton edb) {
 		parentPane = parent;
 		edb.setModificationPopup(this);
@@ -147,6 +155,9 @@ public class ModificationPopup extends VBox {
 		boutonAnnuler.setOnAction(edb);
 	}
 
+	/**
+	 * @param disable
+	 */
 	public void disablePlageHoraire(boolean disable) {
 		heureDebLabel.setDisable(disable);
 		heureDebSpinner.setDisable(disable);
@@ -154,6 +165,9 @@ public class ModificationPopup extends VBox {
 		heureFinSpinner.setDisable(disable);
 	}
 
+	/**
+	 * @return
+	 */
 	@SuppressWarnings("deprecation")
 	public Time getNewHeureDeb() {
 		if (checkBox.isSelected()) {
@@ -163,6 +177,9 @@ public class ModificationPopup extends VBox {
 		return null;
 	}
 
+	/**
+	 * @return
+	 */
 	@SuppressWarnings("deprecation")
 	public Time getNewHeureFin() {
 		if (checkBox.isSelected()) {
@@ -172,10 +189,16 @@ public class ModificationPopup extends VBox {
 		return null;
 	}
 
+	/**
+	 * @return
+	 */
 	public Integer getNewDuree() {
 		return dureeSpinner.getValue().toSecondOfDay();
 	}
 
+	/**
+	 * @return
+	 */
 	public boolean checkTimeOk() {
 		if (!checkBox.isSelected())
 			return true;
@@ -206,6 +229,9 @@ public class ModificationPopup extends VBox {
 		return true;
 	}
 
+	/**
+	 * @param invalid
+	 */
 	public void setInvalid(boolean invalid) {
 		invalidLabel.setVisible(invalid);
 
@@ -236,6 +262,9 @@ public class ModificationPopup extends VBox {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void selfDestruct() {
 		parentPane.getChildren().remove(this);
 		parentPane.getChildren().remove(opaqueLayer);
