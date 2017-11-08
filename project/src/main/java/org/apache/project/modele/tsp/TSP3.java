@@ -61,7 +61,7 @@ public class TSP3 extends TemplateTSP {
 				coutMeilleureSolution = coutVus;
 			}
 		} else if (coutVus + bound(sommetCrt, nonVus, cout, duree) < coutMeilleureSolution) {
-			Iterator<Integer> it = iterator(sommetCrt, nonVus, cout, duree);
+			Iterator<Integer> it = iterator(nonVus);
 			while (it.hasNext()) {
 				Integer prochainSommet = it.next();
 				if (coutVus + cout[sommetCrt][prochainSommet] + duree[prochainSommet] > tempsMax[prochainSommet]) {
@@ -91,8 +91,8 @@ public class TSP3 extends TemplateTSP {
 	}
 
 	@Override
-	protected Iterator<Integer> iterator(Integer sommetCrt, ArrayList<Integer> nonVus, int[][] cout, int[] duree) {
-		return new IteratorSeq(nonVus, sommetCrt);
+	protected Iterator<Integer> iterator(ArrayList<Integer> nonVus) {
+		return new IteratorSeq(nonVus);
 	}
 
 	@Override

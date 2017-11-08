@@ -17,8 +17,6 @@ import javafx.concurrent.Task;
  */
 public class EtatDemandeLivraisonCharge extends EtatDefaut {
 
-	private Thread thread;
-
 	@Override
 	public void calculerTournee(final Controleur controleur, final PlanDeVille planDeVille,
 			final DemandeDeLivraison demandeDeLivraison, final Tournee tournee,
@@ -46,7 +44,7 @@ public class EtatDemandeLivraisonCharge extends EtatDefaut {
 			}
 		};
 
-		thread = new Thread(t);
+		Thread thread = new Thread(t);
 		thread.start();
 
 		fenetrePrincipale.afficherLoading();

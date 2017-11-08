@@ -84,10 +84,8 @@ public class TSP4 extends TemplateTSP {
 		}
 	}
 
-	// TODO Juste pour heritage, a suppr
-	@Override
-	protected Iterator<Integer> iterator(Integer sommetCrt, ArrayList<Integer> nonVus, int[][] cout, int[] duree) {
-		return new IteratorSeq(nonVus, sommetCrt, cout);
+	protected Iterator<Integer> iterator(ArrayList<Integer> nonVus) {
+		return new IteratorSeq(nonVus);
 	}
 
 	protected Iterator<Integer> iterator(Integer sommetCrt, ArrayList<Integer> nonVus, int[][] cout, int[] duree,

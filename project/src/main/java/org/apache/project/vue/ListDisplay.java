@@ -87,14 +87,10 @@ public class ListDisplay extends Pane implements Observer {
 				if (currentTime - lastAutoscrollTime > 50) {
 
 					lastAutoscrollTime = currentTime;
-
-					if (dragY < topYProximity) {
-						if (verticalScrollBar != null) {
+					if (verticalScrollBar != null) {
+						if (dragY < topYProximity) {
 							verticalScrollBar.decrement();
-						}
-
-					} else if (dragY > bottomYProximity) {
-						if (verticalScrollBar != null) {
+						} else if (dragY > bottomYProximity) {
 							verticalScrollBar.increment();
 						}
 					}
@@ -115,7 +111,7 @@ public class ListDisplay extends Pane implements Observer {
 		List<Livraison> livraisons = demandeLivraison.getListeLivraison();
 		liste.getItems().addAll(livraisons);
 		this.disableEdit(disableEditState);
-		if(enableMoveState) {
+		if (enableMoveState) {
 			this.enableMoveLivraison();
 		} else {
 			this.disableMoveLivraison();
@@ -132,7 +128,7 @@ public class ListDisplay extends Pane implements Observer {
 			liste.getItems().add(livraisonsTmp.get(i));
 		}
 		this.disableEdit(disableEditState);
-		if(enableMoveState) {
+		if (enableMoveState) {
 			this.enableMoveLivraison();
 		} else {
 			this.disableMoveLivraison();

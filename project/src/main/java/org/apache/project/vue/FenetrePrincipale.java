@@ -219,7 +219,7 @@ public class FenetrePrincipale extends Application {
 		listLabel = new Label("Livraisons :");
 		GridPane.setValignment(listLabel, VPos.BOTTOM);
 
-		undoRedoWidget = new UndoRedoWidget(edb);
+		undoRedoWidget = new UndoRedoWidget();
 
 		undoRedoLayout.setAlignment(Pos.CENTER_LEFT);
 		undoRedoLayout.setHgap(5);
@@ -303,7 +303,7 @@ public class FenetrePrincipale extends Application {
 		exporterButton.setOnAction(edb);
 
 		// map listener
-		edm = new EcouteurDeMap(controleur, mapContainer);
+		edm = new EcouteurDeMap(controleur);
 		mapContainer.setEcouteurDeMap(edm);
 
 		// list listener
@@ -434,10 +434,10 @@ public class FenetrePrincipale extends Application {
 	/**
 	 * @param l
 	 */
-	public void afficherFenetreAjouterLivraison(Livraison l) {
+	public void afficherFenetreAjouterLivraison() {
 		if (livraisonPopup != null)
 			return;
-		livraisonPopup = new LivraisonPopup(l, edb);
+		livraisonPopup = new LivraisonPopup(edb);
 		opaqueLayer = new Region();
 		opaqueLayer.setStyle("-fx-background-color: #00000088;");
 		opaqueLayer.setVisible(true);
